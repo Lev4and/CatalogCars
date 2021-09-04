@@ -15,9 +15,9 @@ namespace CatalogCars.Model.Parsers.AutoRu.JsonWorkers
             _jsonLoader = new CarsJsonLoader();
         }
 
-        public async Task<string> GetCars(HeadersAjaxRequestForCars headers, RangeMileage rangeMileage, RangePrice rangePrice, int numberPage)
+        public async Task<string> GetCars(HeadersAjaxRequestForCars headers, RangeMileage rangeMileage, RangePrice rangePrice,  int topDays, int numberPage)
         {
-            return await _jsonLoader.GetCars(headers, rangeMileage, rangePrice, numberPage);
+            return await _jsonLoader.GetCars(headers, rangeMileage, rangePrice, topDays, numberPage);
         }
     }
 }

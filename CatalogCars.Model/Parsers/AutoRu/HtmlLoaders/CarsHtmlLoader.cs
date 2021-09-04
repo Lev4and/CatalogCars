@@ -15,9 +15,9 @@ namespace CatalogCars.Model.Parsers.AutoRu.HtmlLoaders
             _httpClient = new CarsHttpClient();
         }
 
-        public async Task<string> GetCars(RangeMileage rangeMileage, RangePrice rangePrice, int numberPage)
+        public async Task<string> GetCars(RangeMileage rangeMileage, RangePrice rangePrice,  int topDays, int numberPage)
         {
-            var response = await _httpClient.GetCars(rangeMileage, rangePrice, numberPage);
+            var response = await _httpClient.GetCars(rangeMileage, rangePrice, topDays, numberPage);
 
             if(response != null)
             {

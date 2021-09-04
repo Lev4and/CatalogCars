@@ -27,8 +27,8 @@ namespace CatalogCars.Model.Tests.Parsers.AutoRu.JsonWorkers
         [Fact]
         public async Task GetCars_WithParams_ReturnNotNullResult()
         {
-            var headers = await _cookieWorker.GetHeadersAjaxRequestForCars(new RangeMileage(30000, 0), new RangePrice(300000, 0), 1);
-            var cars = await _jsonWorker.GetCars(headers, new RangeMileage(30000, 0), new RangePrice(300000, 0), 1);
+            var headers = await _cookieWorker.GetHeadersAjaxRequestForCars(new RangeMileage(30000, 0), new RangePrice(300000, 0), 1, 1);
+            var cars = await _jsonWorker.GetCars(headers, new RangeMileage(30000, 0), new RangePrice(300000, 0), 1, 1);
 
             cars.Should().NotBeNull();
         }
@@ -37,22 +37,22 @@ namespace CatalogCars.Model.Tests.Parsers.AutoRu.JsonWorkers
         public async Task GetAllCars_WithParams_ReturnNotNullResult()
         {
             var priceIncrement = 10000000;
-            var mileageIncrement = 250000;
+            var mileageIncrement = 5000000;
 
-            for (int i = 10000000; i <= 300000000; i += priceIncrement)
+            for (int i = 3000000; i <= 300000000; i += priceIncrement)
             {
                 for(int j = 0; j < 1100000; j += mileageIncrement)
                 {
                     var rangePrice = new RangePrice(i + priceIncrement - 1, i);
                     var rangeMileage = new RangeMileage(j + mileageIncrement - 1, j);
 
-                    var pagination = await _paginationParseWorker.GetCarsPagination(rangeMileage, rangePrice, 1);
-                    var headers = await _cookieWorker.GetHeadersAjaxRequestForCars(rangeMileage, rangePrice, 1);
+                    var pagination = await _paginationParseWorker.GetCarsPagination(rangeMileage, rangePrice, 1, 1);
+                    var headers = await _cookieWorker.GetHeadersAjaxRequestForCars(rangeMileage, rangePrice, 1, 1);
 
                     for (int z = 1; z <= pagination.MaxNumberPage; z++)
                     {
-                        File.WriteAllText($"Cars/Price from {i} to {i + priceIncrement - 1} Mileage from {j} to {j + mileageIncrement - 1} Page {z}.json", 
-                            await _jsonWorker.GetCars(headers, rangeMileage, rangePrice, z));
+                        File.WriteAllText($"Cars/from 2021-08-29 to 2021-08-31/Price from {i} to {i + priceIncrement - 1} Mileage from {j} to {j + mileageIncrement - 1} Page {z}.json", 
+                            await _jsonWorker.GetCars(headers, rangeMileage, rangePrice, 1, z));
                     }
                 }
             }

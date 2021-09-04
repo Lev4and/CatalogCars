@@ -15,10 +15,10 @@ namespace CatalogCars.Model.Parsers.AutoRu.CookieWorkers
             _cookieLoader = new CarsCookieLoader();
         }
 
-        public async Task<HeadersAjaxRequestForCars> GetHeadersAjaxRequestForCars(RangeMileage rangeMileage, RangePrice rangePrice, int numberPage)
+        public async Task<HeadersAjaxRequestForCars> GetHeadersAjaxRequestForCars(RangeMileage rangeMileage, RangePrice rangePrice,  int topDays, int numberPage)
         {
             var result = new HeadersAjaxRequestForCars();
-            var cookies = await _cookieLoader.GetCookies(rangeMileage, rangePrice, numberPage);
+            var cookies = await _cookieLoader.GetCookies(rangeMileage, rangePrice, topDays, numberPage);
 
             result.CsrfToken = cookies.FirstOrDefault(cookie => cookie.Name == "_csrf_token").Value;
 

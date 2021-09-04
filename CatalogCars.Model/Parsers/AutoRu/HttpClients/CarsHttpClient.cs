@@ -14,22 +14,22 @@ namespace CatalogCars.Model.Parsers.AutoRu.HttpClients
 
         }
 
-        public string GetUrl(RangeMileage rangeMileage, RangePrice rangePrice, int numberPage)
+        public string GetUrl(RangeMileage rangeMileage, RangePrice rangePrice, int topDays, int numberPage)
         {
-            return $"cars/all/do-{rangePrice.To}/?has_image=false&top_days=1&price_from={rangePrice.From}&" +
+            return $"cars/all/do-{rangePrice.To}/?has_image=false&top_days={topDays}&price_from={rangePrice.From}&" +
                 $"km_age_from={rangeMileage.From}&km_age_to={rangeMileage.To}&damage_group=ANY&" +
-                    $"customs_state_group=DOESNT_MATTER&sort=cr_date-desc&p={numberPage}";
+                    $"customs_state_group=DOESNT_MATTER&sort=cr_date-asc&p={numberPage}";
         }
 
-        public async Task<HttpResponseMessage> GetCars(RangeMileage rangeMileage, RangePrice rangePrice, int numberPage)
+        public async Task<HttpResponseMessage> GetCars(RangeMileage rangeMileage, RangePrice rangePrice,  int topDays, int numberPage)
         {
             _client.DefaultRequestHeaders.Clear();
             _client.DefaultRequestHeaders.Add("Cookie", "gradius=1000;gids=");
 
-            return await _client.GetAsync(GetUrl(rangeMileage, rangePrice, numberPage));
+            return await _client.GetAsync(GetUrl(rangeMileage, rangePrice, topDays, numberPage));
         }
 
-        public async Task<HttpResponseMessage> GetCars(HeadersAjaxRequestForCars headers, RangeMileage rangeMileage, RangePrice rangePrice, int numberPage)
+        public async Task<HttpResponseMessage> GetCars(HeadersAjaxRequestForCars headers, RangeMileage rangeMileage, RangePrice rangePrice, int topDays, int numberPage)
         {
             if(headers != null)
             {
@@ -53,7 +53,7 @@ namespace CatalogCars.Model.Parsers.AutoRu.HttpClients
             }
 
             return await _ajaxClient.PostAsync("", new StringContent(JsonConvert.SerializeObject(
-                new ParamsAjaxRequestForCars(rangeMileage, rangePrice, numberPage)), Encoding.UTF8, "application/json"));
+                new ParamsAjaxRequestForCars(rangeMileage, rangePrice, topDays, numberPage)), Encoding.UTF8, "application/json"));
         }
     }
 }

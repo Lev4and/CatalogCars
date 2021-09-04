@@ -22,7 +22,7 @@ namespace CatalogCars.Model.Tests.Parsers.AutoRu.ParseWorkers
         [Fact]
         public async Task GetCarsPagination_WithParams_NotBeNullResult()
         {
-            var result = await _paginationParseWorker.GetCarsPagination(new RangeMileage(30000, 0), new RangePrice(300000, 0), 1);
+            var result = await _paginationParseWorker.GetCarsPagination(new RangeMileage(30000, 0), new RangePrice(300000, 0), 1, 1);
 
             result.Should().NotBeNull();
         }

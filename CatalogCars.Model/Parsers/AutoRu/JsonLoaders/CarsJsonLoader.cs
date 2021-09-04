@@ -14,9 +14,9 @@ namespace CatalogCars.Model.Parsers.AutoRu.JsonLoaders
             _httpClient = new CarsHttpClient();
         }
 
-        public async Task<string> GetCars(HeadersAjaxRequestForCars headers, RangeMileage rangeMileage, RangePrice rangePrice, int numberPage)
+        public async Task<string> GetCars(HeadersAjaxRequestForCars headers, RangeMileage rangeMileage, RangePrice rangePrice, int topDays, int numberPage)
         {
-            var response = await _httpClient.GetCars(headers, rangeMileage, rangePrice, numberPage);
+            var response = await _httpClient.GetCars(headers, rangeMileage, rangePrice, topDays, numberPage);
 
             if (response != null)
             {

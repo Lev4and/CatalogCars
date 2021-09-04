@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.12.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CatalogCars.Authorization.Common\CatalogCars.Authorization.Common.csproj" />
+    <ProjectReference Include="..\CatalogCars.Authorization.Models\CatalogCars.Authorization.Models.csproj" />
+    <ProjectReference Include="..\CatalogCars.Model.Common\CatalogCars.Model.Common.csproj" />
+    <ProjectReference Include="..\CatalogCars.Model\CatalogCars.Model.csproj" />
+  </ItemGroup>
+
+</Project>

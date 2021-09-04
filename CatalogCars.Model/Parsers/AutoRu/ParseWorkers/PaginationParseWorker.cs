@@ -17,9 +17,9 @@ namespace CatalogCars.Model.Parsers.AutoRu.ParseWorkers
             _htmlLoader = new CarsHtmlLoader();
         }
 
-        public async Task<CarsPagination> GetCarsPagination(RangeMileage rangeMileage, RangePrice rangePrice, int numberPage)
+        public async Task<CarsPagination> GetCarsPagination(RangeMileage rangeMileage, RangePrice rangePrice,  int topDays, int numberPage)
         {
-            var resultHtml = await _htmlLoader.GetCars(rangeMileage, rangePrice, numberPage);
+            var resultHtml = await _htmlLoader.GetCars(rangeMileage, rangePrice, topDays, numberPage);
             var document = await _htmlParser.ParseDocumentAsync(resultHtml, new CancellationTokenSource().Token);
 
             return _parser.Parse(document);

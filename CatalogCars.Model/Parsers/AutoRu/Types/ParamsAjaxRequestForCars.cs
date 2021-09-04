@@ -44,7 +44,7 @@ namespace CatalogCars.Model.Parsers.AutoRu.Types
         [JsonProperty("customs_state_group")]
         public string CustomsStateGroup { get; set; }
 
-        public ParamsAjaxRequestForCars(RangeMileage rangeMileage, RangePrice rangePrice, int numberPage)
+        public ParamsAjaxRequestForCars(RangeMileage rangeMileage, RangePrice rangePrice,  int topDays, int numberPage)
         {
             HasImage = false;
 
@@ -56,13 +56,13 @@ namespace CatalogCars.Model.Parsers.AutoRu.Types
             PriceTo = rangePrice.To;
             PriceFrom = rangePrice.From;
 
-            Sort = "cr_date-desc";
+            Sort = "cr_date-asc";
 
-            TopDays = "1";
             Section = "all";
             Category = "cars";
             DamageGroup = "ANY";
             OutputType = "table";
+            TopDays = $"{topDays}";
             CustomsStateGroup = "DOESNT_MATTER";
         }
     }
