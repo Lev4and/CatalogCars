@@ -5,12 +5,12 @@ namespace CatalogCars.Model.Converters.AutoRu
     public class Configuration
     {
         [JsonProperty("doors_count")]
-        public int DoorsCount { get; set; }
+        public int? DoorsCount { get; set; }
 
         [JsonProperty("trunk_volume_min")]
         public int? TrunkVolumeMin { get; set; }
 
-        [JsonProperty("trunk_volume_min")]
+        [JsonProperty("trunk_volume_max")]
         public int? TrunkVolumeMax { get; set; }
 
         [JsonProperty("id")]

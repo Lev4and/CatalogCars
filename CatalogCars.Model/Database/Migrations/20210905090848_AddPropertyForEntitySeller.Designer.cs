@@ -4,14 +4,16 @@ using CatalogCars.Model.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CatalogCars.Model.Database.Migrations
 {
     [DbContext(typeof(CatalogCarsDbContext))]
-    partial class CatalogCarsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210905090848_AddPropertyForEntitySeller")]
+    partial class AddPropertyForEntitySeller
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

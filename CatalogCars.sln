@@ -7,19 +7,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogCars.Model", "Catalo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogCars.Model.Tests", "CatalogCars.Model.Tests\CatalogCars.Model.Tests.csproj", "{A5CC919E-318E-42F0-A3D3-3D57F18CD17F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogCars.Resource.Api", "CatalogCars.Resource.Api\CatalogCars.Resource.Api.csproj", "{2CB5A320-465C-450F-A800-8841B01326F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogCars.Resource.Api", "CatalogCars.Resource.Api\CatalogCars.Resource.Api.csproj", "{2CB5A320-465C-450F-A800-8841B01326F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogCars.Authorization.Api", "CatalogCars.Authorization.Api\CatalogCars.Authorization.Api.csproj", "{9EFC1D0A-8E9A-4187-A213-8CE7F6632D18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogCars.Authorization.Api", "CatalogCars.Authorization.Api\CatalogCars.Authorization.Api.csproj", "{9EFC1D0A-8E9A-4187-A213-8CE7F6632D18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogCars.Authorization.Common", "CatalogCars.Authorization.Common\CatalogCars.Authorization.Common.csproj", "{556C1D2C-4405-4972-8D98-4DC0905B0040}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogCars.Authorization.Common", "CatalogCars.Authorization.Common\CatalogCars.Authorization.Common.csproj", "{556C1D2C-4405-4972-8D98-4DC0905B0040}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogCars.Authorization.Models", "CatalogCars.Authorization.Models\CatalogCars.Authorization.Models.csproj", "{87AA9F33-9692-4222-9A4B-9D5973720B3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogCars.Authorization.Models", "CatalogCars.Authorization.Models\CatalogCars.Authorization.Models.csproj", "{87AA9F33-9692-4222-9A4B-9D5973720B3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogCars.Authorization.Requests", "CatalogCars.Authorization.Requests\CatalogCars.Authorization.Requests.csproj", "{91D45D73-5854-4DE9-B8D2-AEF3F2148EC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogCars.Authorization.Requests", "CatalogCars.Authorization.Requests\CatalogCars.Authorization.Requests.csproj", "{91D45D73-5854-4DE9-B8D2-AEF3F2148EC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogCars.Model.Common", "CatalogCars.Model.Common\CatalogCars.Model.Common.csproj", "{5DE818E0-97A7-4E02-A459-2C804D920847}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogCars.Model.Common", "CatalogCars.Model.Common\CatalogCars.Model.Common.csproj", "{5DE818E0-97A7-4E02-A459-2C804D920847}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogCars.Resource.Requests", "CatalogCars.Resource.Requests\CatalogCars.Resource.Requests.csproj", "{40A89691-1E3E-4307-BFF7-7AD3D44C4222}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogCars.Resource.Requests", "CatalogCars.Resource.Requests\CatalogCars.Resource.Requests.csproj", "{40A89691-1E3E-4307-BFF7-7AD3D44C4222}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogCars.DesktopApplication", "CatalogCars.DesktopApplication\CatalogCars.DesktopApplication.csproj", "{9BF3C9CA-0B02-4797-BC06-0B7C16344DF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{40A89691-1E3E-4307-BFF7-7AD3D44C4222}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40A89691-1E3E-4307-BFF7-7AD3D44C4222}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40A89691-1E3E-4307-BFF7-7AD3D44C4222}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BF3C9CA-0B02-4797-BC06-0B7C16344DF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BF3C9CA-0B02-4797-BC06-0B7C16344DF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BF3C9CA-0B02-4797-BC06-0B7C16344DF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BF3C9CA-0B02-4797-BC06-0B7C16344DF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

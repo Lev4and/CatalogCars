@@ -1,0 +1,14 @@
+﻿<Window
+    x:Class="CatalogCars.DesktopApplication.Views.Windows.Main.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:CatalogCars.DesktopApplication.Views.Windows.Main"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="CatalogCars"
+    Width="800"
+    Height="450"
+    Content="{Binding PageSource}"
+    DataContext="{Binding MainWindowViewModel, Source={StaticResource ViewModelLocator}}"
+    mc:Ignorable="d">
+</Window>

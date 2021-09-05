@@ -21,10 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\CatalogCars.Authorization.Common\CatalogCars.Authorization.Common.csproj" />
     <ProjectReference Include="..\CatalogCars.Model.Common\CatalogCars.Model.Common.csproj" />
     <ProjectReference Include="..\CatalogCars.Model\CatalogCars.Model.csproj" />

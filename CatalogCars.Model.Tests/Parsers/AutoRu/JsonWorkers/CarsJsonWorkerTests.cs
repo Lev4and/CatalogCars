@@ -37,22 +37,22 @@ namespace CatalogCars.Model.Tests.Parsers.AutoRu.JsonWorkers
         public async Task GetAllCars_WithParams_ReturnNotNullResult()
         {
             var priceIncrement = 10000000;
-            var mileageIncrement = 5000000;
+            var mileageIncrement = 250000;
 
-            for (int i = 3000000; i <= 300000000; i += priceIncrement)
+            for (int i = 19000000; i <= 300000000; i += priceIncrement)
             {
                 for(int j = 0; j < 1100000; j += mileageIncrement)
                 {
                     var rangePrice = new RangePrice(i + priceIncrement - 1, i);
                     var rangeMileage = new RangeMileage(j + mileageIncrement - 1, j);
 
-                    var pagination = await _paginationParseWorker.GetCarsPagination(rangeMileage, rangePrice, 1, 1);
-                    var headers = await _cookieWorker.GetHeadersAjaxRequestForCars(rangeMileage, rangePrice, 1, 1);
+                    var pagination = await _paginationParseWorker.GetCarsPagination(rangeMileage, rangePrice, 5, 1);
+                    var headers = await _cookieWorker.GetHeadersAjaxRequestForCars(rangeMileage, rangePrice, 5, 1);
 
                     for (int z = 1; z <= pagination.MaxNumberPage; z++)
                     {
-                        File.WriteAllText($"Cars/from 2021-08-29 to 2021-08-31/Price from {i} to {i + priceIncrement - 1} Mileage from {j} to {j + mileageIncrement - 1} Page {z}.json", 
-                            await _jsonWorker.GetCars(headers, rangeMileage, rangePrice, 1, z));
+                        File.WriteAllText($"Cars/from 2021-09-01 to 2021-09-05/Price from {i} to {i + priceIncrement - 1} Mileage from {j} to {j + mileageIncrement - 1} Page {z}.json", 
+                            await _jsonWorker.GetCars(headers, rangeMileage, rangePrice, 5, z));
                     }
                 }
             }
