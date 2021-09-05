@@ -1,0 +1,71 @@
+﻿using CatalogCars.Model.Database.Entities;
+using CatalogCars.Model.Database.Repositories.HighPerformance.Abstract;
+using Microsoft.Data.SqlClient;
+using System;
+using System.Collections.Generic;
+using System.Data;
+
+namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
+{
+    public class AdoNetOptionsRepository : IOptionsRepository
+    {
+        private readonly CatalogCarsDbContext _context;
+
+        public AdoNetOptionsRepository(CatalogCarsDbContext context)
+        {
+            _context = context;
+        }
+
+        public bool Contains(string name)
+        {
+            var query = $"SELECT TOP(1) * " +
+                $"FROM Options " +
+                $"WHERE Options.Name = @Name";
+
+            var parameters = new List<SqlParameter>()
+            {
+                new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = name }
+            };
+
+            return _context.ExecuteQuery(query, parameters).Rows.Count > 0;
+        }
+
+        public Guid GetOptionId(string name)
+        {
+            var query = $"SELECT TOP(1) Options.Id " +
+                $"FROM Options " +
+                $"WHERE Options.Name = @Name";
+
+            var parameters = new List<SqlParameter>()
+            {
+                new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = name }
+            };
+
+            return _context.ExecuteQuery(query, parameters).Rows[0].Field<Guid>("Id");
+        }
+
+        public bool Save(ref Option entity)
+        {
+            if (!Contains(entity.Name))
+            {
+                entity.Id = Guid.NewGuid();
+
+                var query = $"INSERT INTO [Options] (Id, Name, RuName) VALUES ('{entity.Id}', @Name, @RuName)";
+
+                var parameters = new List<SqlParameter>()
+                {
+                    new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = entity.Name },
+                    new SqlParameter() { ParameterName = "@RuName", SqlDbType = SqlDbType.NVarChar, Value = entity.RuName },
+                };
+
+                _context.ExecuteQuery(query, parameters);
+            }
+            else
+            {
+                entity.Id = GetOptionId(entity.Name);
+            }
+
+            return true;
+        }
+    }
+}

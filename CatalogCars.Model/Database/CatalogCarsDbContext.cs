@@ -1,13 +1,19 @@
 ﻿using CatalogCars.Model.Database.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Data;
 
 namespace CatalogCars.Model.Database
 {
     public class CatalogCarsDbContext : IdentityDbContext<ApplicationUser, ApplicatonRole, Guid>
     {
+        private readonly SqlConnection _connection;
+        private SqlDataAdapter _dataAdapter;
+
         public DbSet<Announcement> Announcements { get; set; }
 
         public DbSet<AnnouncementAdditionalInformation> AnnouncementAdditionalInformation { get; set; }
@@ -136,7 +142,8 @@ namespace CatalogCars.Model.Database
 
         public CatalogCarsDbContext(DbContextOptions<CatalogCarsDbContext> options) : base(options)
         {
-
+            _connection = new SqlConnection(Database.GetConnectionString());
+            _dataAdapter = new SqlDataAdapter();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -503,6 +510,61 @@ namespace CatalogCars.Model.Database
                 .HasMany(vinResolution => vinResolution.Vins)
                 .WithOne(vin => vin.Resolution)
                 .HasForeignKey(vin => vin.ResolutionId);
+        }
+
+        public object ExecuteScalar(string query)
+        {
+            var id = new object();
+            var sqlCommand = new SqlCommand();
+
+            _connection.Open();
+
+            sqlCommand.Connection = _connection;
+            sqlCommand.CommandType = CommandType.Text;
+            sqlCommand.CommandText = query;
+
+            id = sqlCommand.ExecuteScalar();
+
+            _connection.Close();
+
+            return id;
+        }
+
+        public DataTable ExecuteQuery(string query, List<SqlParameter> sqlParameters)
+        {
+            var dataTable = new DataTable();
+            var sqlCommand = new SqlCommand();
+
+            _connection.Open();
+
+            sqlCommand.Connection = _connection;
+            sqlCommand.CommandType = CommandType.Text;
+            sqlCommand.CommandText = query;
+
+            foreach (var sqlParameter in sqlParameters)
+            {
+                sqlCommand.Parameters.Add(sqlParameter);
+            }
+
+            dataTable.Load(sqlCommand.ExecuteReader());
+
+            _connection.Close();
+
+            return dataTable;
+        }
+
+        public DataTable ExecuteQuery(string query)
+        {
+            var result = new DataTable();
+
+            _connection.Open();
+
+            _dataAdapter = new SqlDataAdapter(query, _connection);
+            _dataAdapter.Fill(result);
+
+            _connection.Close();
+
+            return result;
         }
     }
 }
