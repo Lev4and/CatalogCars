@@ -9,6 +9,8 @@ namespace CatalogCars.Model.Database.Entities
 
         public Guid LocationId { get; set; }
 
+        public string Name { get; set; }
+
         public virtual Location Location { get; set; }
 
         public virtual ICollection<SellerPhone> Phones { get; set; }
