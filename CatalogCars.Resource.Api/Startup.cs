@@ -6,6 +6,7 @@ using CatalogCars.Model.Database.Repositories.Default.Abstract;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework;
 using CatalogCars.Model.Database.Repositories.HighPerformance.Abstract;
 using CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet;
+using CatalogCars.Model.Importers.HighPerformance;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +31,7 @@ namespace CatalogCars.Resource.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<AnnouncementImporter>();
 
             services.AddTransient<RoleManager<ApplicatonRole>>();
             services.AddTransient<UserManager<ApplicationUser>>();
@@ -82,6 +84,7 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<ISectionsRepository, AdoNetSectionsRepository>();
             services.AddTransient<ISellersRepository, AdoNetSellersRepository>();
             services.AddTransient<ISellerTypesRepository, AdoNetSellerTypesRepository>();
+            services.AddTransient<IStatePhotosRepository, AdoNetStatePhotosRepository>();
             services.AddTransient<IStatesRepository, AdoNetStatesRepository>();
             services.AddTransient<IStatusesRepository, AdoNetStatusesRepository>();
             services.AddTransient<ISteeringWheelsRepository, AdoNetSteeringWheelsRepository>();

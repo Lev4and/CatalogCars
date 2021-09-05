@@ -51,11 +51,12 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
             {
                 entity.Id = Guid.NewGuid();
 
-                var query = $"INSERT INTO [VendorColors] (Id, ComplectationId, ColorTypeId, Name, RuName, HexCode, HexCodes) VALUES " +
-                    $"('{entity.Id}', '{entity.ComplectationId}', '{entity.ColorTypeId}', @Name, @RuName, @HexCode, @HexCodes)";
+                var query = $"INSERT INTO [VendorColors] (Id, ComplectationId, ColorTypeId, IsMainColor, Name, RuName, HexCode, HexCodes) VALUES " +
+                    $"('{entity.Id}', '{entity.ComplectationId}', '{entity.ColorTypeId}', @IsMainColor, @Name, @RuName, @HexCode, @HexCodes)";
 
                 var parameters = new List<SqlParameter>()
                 {
+                    new SqlParameter() { ParameterName = "@IsMainColor", SqlDbType = SqlDbType.Bit, Value = entity.IsMainColor },
                     new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = entity.Name },
                     new SqlParameter() { ParameterName = "@RuName", SqlDbType = SqlDbType.NVarChar, Value = entity.RuName },
                     new SqlParameter() { ParameterName = "@HexCode", SqlDbType = SqlDbType.NVarChar, Value = entity.HexCode },

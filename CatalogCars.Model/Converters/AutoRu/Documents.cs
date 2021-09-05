@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace CatalogCars.Model.Converters.AutoRu
 {
@@ -39,5 +40,45 @@ namespace CatalogCars.Model.Converters.AutoRu
 
         [JsonProperty("warranty_expire")]
         public WarrantyExpire WarrantyExpire { get; set; }
+
+        public DateTime? GetFormattedPurchaseDate()
+        {
+            if(PurchaseDate != null)
+            {
+                if(PurchaseDate.Month != null)
+                {
+                    if(PurchaseDate.Day != null)
+                    {
+                        return new DateTime((int)PurchaseDate.Year, (int)PurchaseDate.Month, (int)PurchaseDate.Day);
+                    }
+
+                    return new DateTime((int)PurchaseDate.Year, (int)PurchaseDate.Month, 1);
+                }
+
+                return new DateTime((int)PurchaseDate.Year, 1, 1);
+            }
+
+            return null;
+        }
+
+        public DateTime? GetFormattedWarrantyExpire()
+        {
+            if (WarrantyExpire != null)
+            {
+                if (WarrantyExpire.Month != null)
+                {
+                    if (WarrantyExpire.Day != null)
+                    {
+                        return new DateTime((int)WarrantyExpire.Year, (int)WarrantyExpire.Month, (int)WarrantyExpire.Day);
+                    }
+
+                    return new DateTime((int)WarrantyExpire.Year, (int)WarrantyExpire.Month, 1);
+                }
+
+                return new DateTime((int)WarrantyExpire.Year, 1, 1);
+            }
+
+            return null;
+        }
     }
 }

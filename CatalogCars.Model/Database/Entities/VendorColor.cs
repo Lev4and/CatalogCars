@@ -12,6 +12,8 @@ namespace CatalogCars.Model.Database.Entities
 
         public Guid ColorTypeId { get; set; }
 
+        public bool IsMainColor { get; set; }
+
         [Required]
         public string Name { get; set; }
 

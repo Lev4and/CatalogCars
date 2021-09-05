@@ -92,6 +92,8 @@ namespace CatalogCars.Model.Database
 
         public ISellerTypesRepository SellerTypes { get; set; }
 
+        public IStatePhotosRepository StatePhotos { get; set; }
+
         public IStatesRepository States { get; set; }
 
         public IStatusesRepository Statuses { get; set; }
@@ -141,7 +143,7 @@ namespace CatalogCars.Model.Database
             IPicturesWebpR16X9Repository picturesWebpR16X9, IPicturesWebpRepository picturesWebp, 
             IPriceSegmentsRepository priceSegments, IPricesRepository prices, IPtsRepository pts, IPtsTypesRepository ptsTypes, 
             IRegionsRepository regions, ISalonPhonesRepository salonPhones, ISalonsRepository salons, ISectionsRepository sections, 
-            ISellersRepository sellers, ISellerTypesRepository sellerTypes, IStatesRepository states, IStatusesRepository statuses, 
+            ISellersRepository sellers, ISellerTypesRepository sellerTypes, IStatePhotosRepository statePhotos, IStatesRepository states, IStatusesRepository statuses, 
             ISteeringWheelsRepository steeringWheels, ITagsRepository tags, ITechnicalParametersRepository technicalParameters, 
             ITransmissionsRepository transmissions, IVehicleInformationRepository vehicleInformation, 
             IVehicleMainPhotosRepository vehicleMainPhotos, IVendorColorPhotosRepository vendorColorPhotos, 
@@ -193,6 +195,7 @@ namespace CatalogCars.Model.Database
             Sections = sections;
             Sellers = sellers;
             SellerTypes = sellerTypes;
+            StatePhotos = statePhotos;
             States = states;
             Statuses = statuses;
             SteeringWheels = steeringWheels;

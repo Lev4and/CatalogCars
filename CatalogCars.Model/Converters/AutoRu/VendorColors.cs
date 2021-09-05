@@ -13,6 +13,9 @@ namespace CatalogCars.Model.Converters.AutoRu
         [JsonProperty("mark_color_id")]
         public int MarkColorId { get; set; }
 
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
         [JsonProperty("name_ru")]
         public string NameRu { get; set; }
 
