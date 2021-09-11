@@ -14,10 +14,8 @@ namespace CatalogCars.Model.Database.Entities
 
         public bool IsMainColor { get; set; }
 
-        [Required]
         public string Name { get; set; }
 
-        [Required]
         public string RuName { get; set; }
 
         [Required]

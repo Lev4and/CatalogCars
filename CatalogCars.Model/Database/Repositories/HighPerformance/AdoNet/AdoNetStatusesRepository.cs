@@ -32,7 +32,7 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
 
         public Guid GetStatusId(string name)
         {
-            var query = $"SELECT TOP(1) Options.Id " +
+            var query = $"SELECT TOP(1) Statuses.Id " +
                 $"FROM Statuses " +
                 $"WHERE Statuses.Name = @Name";
 

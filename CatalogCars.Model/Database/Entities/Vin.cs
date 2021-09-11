@@ -11,7 +11,6 @@ namespace CatalogCars.Model.Database.Entities
 
         public Guid? ResolutionId { get; set; }
 
-        [Required]
         public string Value { get; set; }
 
         public virtual Pts Pts { get; set; }

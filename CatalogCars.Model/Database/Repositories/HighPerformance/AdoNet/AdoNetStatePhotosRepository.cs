@@ -23,11 +23,12 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
 
             var query = $"INSERT INTO [StatePhotos] (Id, StateId, ClassId, Small, ThumbM, Preview, Resolution320x240, " +
                 $"Resolution456x342, Resolution456x342n, Resolution1200x900, Resolution1200x900n) VALUES ('{entity.Id}', " +
-                $"'{entity.StateId}', '{entity.ClassId}', @Small, @ThumbM, @Preview, @Resolution320x240, @Resolution456x342, " +
+                $"'{entity.StateId}', @ClassId, @Small, @ThumbM, @Preview, @Resolution320x240, @Resolution456x342, " +
                 $"@Resolution456x342n, @Resolution1200x900, @Resolution1200x900n)";
 
             var parameters = new List<SqlParameter>()
             {
+                new SqlParameter() { ParameterName = "@ClassId", SqlDbType = SqlDbType.UniqueIdentifier, Value = entity.ClassId.GetDbValue() },
                 new SqlParameter() { ParameterName = "@Small", SqlDbType = SqlDbType.NVarChar, Value = entity.Small.GetDbValue() },
                 new SqlParameter() { ParameterName = "@ThumbM", SqlDbType = SqlDbType.NVarChar, Value = entity.ThumbM.GetDbValue() },
                 new SqlParameter() { ParameterName = "@Preview", SqlDbType = SqlDbType.NVarChar, Value = entity.Preview.GetDbValue() },

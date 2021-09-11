@@ -5,7 +5,7 @@ namespace CatalogCars.Model.Converters.AutoRu
     public class Generation
     {
         [JsonProperty("year_from")]
-        public int YearFrom { get; set; }
+        public int? YearFrom { get; set; }
 
         [JsonProperty("id")]
         public string Id { get; set; }

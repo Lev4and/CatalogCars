@@ -1,4 +1,5 @@
 ﻿using CatalogCars.Model.Database.Entities;
+using CatalogCars.Model.Database.Extensions;
 using CatalogCars.Model.Database.Repositories.HighPerformance.Abstract;
 using Microsoft.Data.SqlClient;
 using System;
@@ -24,7 +25,7 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
 
             var parameters = new List<SqlParameter>()
             {
-                new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = name }
+                new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = name.GetDbValue() }
             };
 
             return _context.ExecuteQuery(query, parameters).Rows.Count > 0;
@@ -38,7 +39,7 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
 
             var parameters = new List<SqlParameter>()
             {
-                new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = name }
+                new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = name.GetDbValue() }
             };
 
             return _context.ExecuteQuery(query, parameters).Rows[0].Field<Guid>("Id");
@@ -55,9 +56,9 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
 
                 var parameters = new List<SqlParameter>()
                 {
-                    new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = entity.Name },
-                    new SqlParameter() { ParameterName = "@RuName", SqlDbType = SqlDbType.NVarChar, Value = entity.RuName },
-                    new SqlParameter() { ParameterName = "@AutoClass", SqlDbType = SqlDbType.NVarChar, Value = entity.AutoClass }
+                    new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = entity.Name.GetDbValue() },
+                    new SqlParameter() { ParameterName = "@RuName", SqlDbType = SqlDbType.NVarChar, Value = entity.RuName.GetDbValue() },
+                    new SqlParameter() { ParameterName = "@AutoClass", SqlDbType = SqlDbType.NVarChar, Value = entity.AutoClass.GetDbValue() }
                 };
 
                 _context.ExecuteQuery(query, parameters);

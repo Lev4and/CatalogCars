@@ -27,7 +27,7 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
             var parameters = new List<SqlParameter>()
             {
                 new SqlParameter() { ParameterName = "@ResolutionId", SqlDbType = SqlDbType.UniqueIdentifier, Value = entity.ResolutionId.GetDbValue() },
-                new SqlParameter() { ParameterName = "@Value", SqlDbType = SqlDbType.NVarChar, Value = entity.Value }
+                new SqlParameter() { ParameterName = "@Value", SqlDbType = SqlDbType.NVarChar, Value = entity.Value.GetDbValue() }
             };
 
             _context.ExecuteQuery(query, parameters);

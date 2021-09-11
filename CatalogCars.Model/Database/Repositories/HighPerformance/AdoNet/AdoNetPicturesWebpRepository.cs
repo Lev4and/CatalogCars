@@ -22,7 +22,7 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
             entity.Id = Guid.NewGuid();
 
             var query = $"INSERT INTO [PicturesWebp] (Id, ExternalPanoramaId, FullFirstFrame, HighResFirstFrame, " +
-                $"PreviewFirstFrame) VALUES ('{entity.Id}', '{entity.ExternalPanoramaId}' @FullFirstFrame, " +
+                $"PreviewFirstFrame) VALUES ('{entity.Id}', '{entity.ExternalPanoramaId}', @FullFirstFrame, " +
                 $"@HighResFirstFrame, @PreviewFirstFrame)";
 
             var parameters = new List<SqlParameter>()

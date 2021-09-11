@@ -25,12 +25,12 @@ namespace CatalogCars.DesktopApplication.Services
 
         public void OnCompletedImport()
         {
-            Log.Add($"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")}][Импорт товаров] Импорт завершен");
+            Log.Add($"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")}][Импорт объявлений] Импорт завершен");
         }
 
         public void OnCompletedImportItem(double countImportedItems, double countTotalItems)
         {
-            Log.Add($"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")}][Импорт товаров] Сохранен элемент. Текущий прогресс: {countImportedItems}/{countTotalItems}");
+            Log.Add($"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")}][Импорт объявлений] Сохранен элемент. Текущий прогресс: {countImportedItems}/{countTotalItems}");
         }
     }
 }

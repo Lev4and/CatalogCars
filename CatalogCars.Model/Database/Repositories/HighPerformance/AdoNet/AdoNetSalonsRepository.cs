@@ -57,9 +57,9 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
 
                 var parameters = new List<SqlParameter>()
                 {
-                    new SqlParameter() { ParameterName = "@IsOficial", SqlDbType = SqlDbType.Bit, Value = entity.IsOficial },
-                    new SqlParameter() { ParameterName = "@ActualStock", SqlDbType = SqlDbType.Bit, Value = entity.ActualStock },
-                    new SqlParameter() { ParameterName = "@LoyaltyProgram", SqlDbType = SqlDbType.Bit, Value = entity.LoyaltyProgram },
+                    new SqlParameter() { ParameterName = "@IsOficial", SqlDbType = SqlDbType.Bit, Value = entity.IsOficial.GetDbValue() },
+                    new SqlParameter() { ParameterName = "@ActualStock", SqlDbType = SqlDbType.Bit, Value = entity.ActualStock.GetDbValue() },
+                    new SqlParameter() { ParameterName = "@LoyaltyProgram", SqlDbType = SqlDbType.Bit, Value = entity.LoyaltyProgram.GetDbValue() },
                     new SqlParameter() { ParameterName = "@Code", SqlDbType = SqlDbType.NVarChar, Value = entity.Code.GetDbValue() },
                     new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = entity.Name },
                     new SqlParameter() { ParameterName = "@RegistrationDate", SqlDbType = SqlDbType.DateTime2, Value = entity.RegistrationDate }

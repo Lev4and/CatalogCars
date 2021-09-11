@@ -28,7 +28,7 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
             var parameters = new List<SqlParameter>()
             {
                 new SqlParameter() { ParameterName = "@PtsTypeId", SqlDbType = SqlDbType.UniqueIdentifier, Value = entity.PtsTypeId.GetDbValue() },
-                new SqlParameter() { ParameterName = "@IsOriginal", SqlDbType = SqlDbType.Bit, Value = entity.IsOriginal },
+                new SqlParameter() { ParameterName = "@IsOriginal", SqlDbType = SqlDbType.Bit, Value = entity.IsOriginal.GetDbValue() },
                 new SqlParameter() { ParameterName = "@CustomCleared", SqlDbType = SqlDbType.Bit, Value = entity.CustomCleared.GetDbValue() },
                 new SqlParameter() { ParameterName = "@NotRegisteredInRussia", SqlDbType = SqlDbType.Bit, Value = entity.NotRegisteredInRussia.GetDbValue() },
                 new SqlParameter() { ParameterName = "@Year", SqlDbType = SqlDbType.Int, Value = entity.Year.GetDbValue() },

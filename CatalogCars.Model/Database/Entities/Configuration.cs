@@ -13,7 +13,7 @@ namespace CatalogCars.Model.Database.Entities
 
         public int DoorsCount { get; set; }
 
-        public double TrunkVolumeMin { get; set; }
+        public double? TrunkVolumeMin { get; set; }
 
         public double? TrunkVolumeMax { get; set; }
 

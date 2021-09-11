@@ -28,7 +28,7 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
             var parameters = new List<SqlParameter>()
             {
                 new SqlParameter() { ParameterName = "@DoorsCount", SqlDbType = SqlDbType.Int, Value = entity.DoorsCount },
-                new SqlParameter() { ParameterName = "@TrunkVolumeMin", SqlDbType = SqlDbType.Float, Value = entity.TrunkVolumeMin },
+                new SqlParameter() { ParameterName = "@TrunkVolumeMin", SqlDbType = SqlDbType.Float, Value = entity.TrunkVolumeMin.GetDbValue() },
                 new SqlParameter() { ParameterName = "@TrunkVolumeMax", SqlDbType = SqlDbType.Float, Value = entity.TrunkVolumeMax.GetDbValue() }
             };
 

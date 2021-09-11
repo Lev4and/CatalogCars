@@ -113,9 +113,11 @@ namespace CatalogCars.DesktopApplication.Services
                         {
                             if (await _importRequester.SaveAnnouncementAsync(announcement))
                             {
-                                OnCompletedImportItem?.Invoke();
+
                             }
                         }
+
+                        OnCompletedImportItem?.Invoke();
                     }
                 }
                 else

@@ -25,7 +25,7 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
 
             var parameters = new List<SqlParameter>()
             {
-                new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = name }
+                new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = name.GetDbValue() }
             };
 
             return _context.ExecuteQuery(query, parameters).Rows.Count > 0;
@@ -39,7 +39,7 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
 
             var parameters = new List<SqlParameter>()
             {
-                new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = name }
+                new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = name.GetDbValue() }
             };
 
             return _context.ExecuteQuery(query, parameters).Rows[0].Field<Guid>("Id");
@@ -57,8 +57,8 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
                 var parameters = new List<SqlParameter>()
                 {
                     new SqlParameter() { ParameterName = "@IsMainColor", SqlDbType = SqlDbType.Bit, Value = entity.IsMainColor },
-                    new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = entity.Name },
-                    new SqlParameter() { ParameterName = "@RuName", SqlDbType = SqlDbType.NVarChar, Value = entity.RuName },
+                    new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = entity.Name.GetDbValue() },
+                    new SqlParameter() { ParameterName = "@RuName", SqlDbType = SqlDbType.NVarChar, Value = entity.RuName.GetDbValue() },
                     new SqlParameter() { ParameterName = "@HexCode", SqlDbType = SqlDbType.NVarChar, Value = entity.HexCode },
                     new SqlParameter() { ParameterName = "@HexCodes", SqlDbType = SqlDbType.NVarChar, Value = entity.HexCodes.GetDbValue() },
                 };

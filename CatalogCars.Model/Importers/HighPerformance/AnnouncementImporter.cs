@@ -26,24 +26,29 @@ namespace CatalogCars.Model.Importers.HighPerformance
             return color.Id;
         }
 
-        private Guid SaveOrGetSalon(AutoRu.Salon salonAutoRu)
+        private Guid? SaveOrGetSalon(AutoRu.Salon salonAutoRu)
         {
-            var salon = new Entities.Salon()
+            if (!string.IsNullOrEmpty(salonAutoRu.Name))
             {
-                LocationId = SaveOrGetLocation(salonAutoRu.Place),
-                IsOficial = (bool)salonAutoRu.IsOficial,
-                ActualStock = (bool)salonAutoRu.ActualStock,
-                LoyaltyProgram = (bool)salonAutoRu.LoyaltyProgram,
-                Code = salonAutoRu.Code,
-                Name = salonAutoRu.Name,
-                RegistrationDate = salonAutoRu.RegistrationDate
-            };
+                var salon = new Entities.Salon()
+                {
+                    LocationId = SaveOrGetLocation(salonAutoRu.Place),
+                    IsOficial = salonAutoRu.IsOficial,
+                    ActualStock = salonAutoRu.ActualStock,
+                    LoyaltyProgram = salonAutoRu.LoyaltyProgram,
+                    Code = salonAutoRu.Code,
+                    Name = salonAutoRu.Name,
+                    RegistrationDate = salonAutoRu.RegistrationDate
+                };
 
-            _dataManager.Salons.Save(ref salon);
+                _dataManager.Salons.Save(ref salon);
 
-            SaveSalonPhones(salonAutoRu.Phones, salon.Id);
+                SaveSalonPhones(salonAutoRu.Phones, salon.Id);
 
-            return salon.Id;
+                return salon.Id;
+            }
+
+            return null;
         }
 
         private Guid SaveOrGetLocation(AutoRu.Place locationAutoRu)
@@ -55,6 +60,15 @@ namespace CatalogCars.Model.Importers.HighPerformance
                 GeobaseId = locationAutoRu.GeobaseId
             };
 
+            if(locationAutoRu.Coordinate != null)
+            {
+                location.Coordinate = new Entities.Coordinate()
+                {
+                    Latitude = locationAutoRu.Coordinate.Latitude,
+                    Longitude = locationAutoRu.Coordinate.Longitude
+                };
+            }
+
             _dataManager.Locations.Save(ref location);
 
             SaveCoordinate(locationAutoRu.Coordinate, location.Id);
@@ -62,25 +76,30 @@ namespace CatalogCars.Model.Importers.HighPerformance
             return location.Id;
         }
 
-        private Guid SaveOrGetRegion(AutoRu.Region regionAutoRu)
+        private Guid? SaveOrGetRegion(AutoRu.Region regionAutoRu)
         {
-            var region = new Entities.RegionInformation()
+            if(regionAutoRu != null)
             {
-                Name = regionAutoRu.Name,
-                Dative = regionAutoRu.Dative,
-                Genitive = regionAutoRu.Genitive,
-                StringId = regionAutoRu.StringId,
-                ParentIds = string.Join(", ", regionAutoRu.ParentIds),
-                Accusative = regionAutoRu.Accusative,
-                Preposition = regionAutoRu.Preposition,
-                Prepositional = regionAutoRu.Prepositional,
-                Latitude = regionAutoRu.Latitude,
-                Longitude = regionAutoRu.Longitude
-            };
+                var region = new Entities.RegionInformation()
+                {
+                    Name = regionAutoRu.Name,
+                    Dative = regionAutoRu.Dative,
+                    Genitive = regionAutoRu.Genitive,
+                    StringId = regionAutoRu.StringId,
+                    ParentIds = string.Join(", ", regionAutoRu.ParentIds),
+                    Accusative = regionAutoRu.Accusative,
+                    Preposition = regionAutoRu.Preposition,
+                    Prepositional = regionAutoRu.Prepositional,
+                    Latitude = regionAutoRu.Latitude,
+                    Longitude = regionAutoRu.Longitude
+                };
 
-            _dataManager.Regions.Save(ref region);
+                _dataManager.Regions.Save(ref region);
 
-            return region.Id;
+                return region.Id;
+            }
+
+            return null;
         }
 
         private Guid SaveOrGetPhone(AutoRu.Phone phoneAutoRu)
@@ -185,30 +204,40 @@ namespace CatalogCars.Model.Importers.HighPerformance
             return currency.Id;
         }
 
-        private Guid SaveOrGetPtsType(string ptsTypeAutoRu)
+        private Guid? SaveOrGetPtsType(string ptsTypeAutoRu)
         {
-            var ptsType = new Entities.PtsType()
+            if (!string.IsNullOrEmpty(ptsTypeAutoRu))
             {
-                Name = ptsTypeAutoRu,
-                RuName = ptsTypeAutoRu
-            };
+                var ptsType = new Entities.PtsType()
+                {
+                    Name = ptsTypeAutoRu,
+                    RuName = ptsTypeAutoRu
+                };
 
-            _dataManager.PtsTypes.Save(ref ptsType);
+                _dataManager.PtsTypes.Save(ref ptsType);
 
-            return ptsType.Id;
+                return ptsType.Id;
+            }
+
+            return null;
         }
 
-        private Guid SaveOrGetVinResolution(string vinResolutionAutoRu)
+        private Guid? SaveOrGetVinResolution(string vinResolutionAutoRu)
         {
-            var vinResolution = new Entities.VinResolution()
+            if (!string.IsNullOrEmpty(vinResolutionAutoRu))
             {
-                Name = vinResolutionAutoRu,
-                RuName = vinResolutionAutoRu
-            };
+                var vinResolution = new Entities.VinResolution()
+                {
+                    Name = vinResolutionAutoRu,
+                    RuName = vinResolutionAutoRu
+                };
 
-            _dataManager.VinResolutions.Save(ref vinResolution);
+                _dataManager.VinResolutions.Save(ref vinResolution);
 
-            return vinResolution.Id;
+                return vinResolution.Id;
+            }
+
+            return null;
         }
 
         private Guid SaveOrGetSteeringWheel(string steeringWheelAutoRu)
@@ -229,10 +258,10 @@ namespace CatalogCars.Model.Importers.HighPerformance
             var generation = new Entities.Generation()
             {
                 ModelId = SaveOrGetModel(markAutoRu, modelAutoRu),
-                PriceSegmentId = SaveOrGetPriceSegment(generationAutoRu.PriceSegment),
-                YearFrom = generationAutoRu.YearFrom,
-                Name = generationAutoRu.Name,
-                RuName = generationAutoRu.RuName
+                PriceSegmentId = SaveOrGetPriceSegment(generationAutoRu?.PriceSegment),
+                YearFrom = generationAutoRu?.YearFrom,
+                Name = generationAutoRu?.Name,
+                RuName = generationAutoRu?.RuName
             };
 
             _dataManager.Generations.Save(ref generation);
@@ -276,17 +305,22 @@ namespace CatalogCars.Model.Importers.HighPerformance
             return model.Id;
         }
 
-        private Guid SaveOrGetPriceSegment(string priceSegmentAutoRu)
+        private Guid? SaveOrGetPriceSegment(string priceSegmentAutoRu)
         {
-            var priceSegment = new Entities.PriceSegment()
+            if (!string.IsNullOrEmpty(priceSegmentAutoRu))
             {
-                Name = priceSegmentAutoRu,
-                RuName = priceSegmentAutoRu
-            };
+                var priceSegment = new Entities.PriceSegment()
+                {
+                    Name = priceSegmentAutoRu,
+                    RuName = priceSegmentAutoRu
+                };
 
-            _dataManager.PriceSegments.Save(ref priceSegment);
+                _dataManager.PriceSegments.Save(ref priceSegment);
 
-            return priceSegment.Id;
+                return priceSegment.Id;
+            }
+
+            return null;
         }
 
         private Guid SaveOrGetVendor(string vendorAutoRu)
@@ -408,17 +442,22 @@ namespace CatalogCars.Model.Importers.HighPerformance
             return option.Id;
         }
 
-        private Guid SaveOrGetPhotoClass(string photoClassAutoRu)
+        private Guid? SaveOrGetPhotoClass(string photoClassAutoRu)
         {
-            var photoClass = new Entities.PhotoClass()
+            if (!string.IsNullOrEmpty(photoClassAutoRu))
             {
-                Name = photoClassAutoRu,
-                RuName = photoClassAutoRu
-            };
+                var photoClass = new Entities.PhotoClass()
+                {
+                    Name = photoClassAutoRu,
+                    RuName = photoClassAutoRu
+                };
 
-            _dataManager.PhotoClasses.Save(ref photoClass);
+                _dataManager.PhotoClasses.Save(ref photoClass);
 
-            return photoClass.Id;
+                return photoClass.Id;
+            }
+
+            return null;
         }
 
         private void SaveCoordinate(AutoRu.Coordinate coordinateAutoRu, Guid locationId)
@@ -430,79 +469,98 @@ namespace CatalogCars.Model.Importers.HighPerformance
                 Longitude = coordinateAutoRu.Longitude
             };
 
-            _dataManager.Coordinates.Save(ref coordinate);
+            if(!_dataManager.Locations.Contains(coordinate.Latitude, coordinate.Longitude))
+            {
+                _dataManager.Coordinates.Save(ref coordinate);
+            }
         }
 
         private void SaveSalonPhones(AutoRu.Phone[] phonesAutoRu, Guid salonId)
         {
-            foreach(var phoneAutoRu in phonesAutoRu)
+            if(phonesAutoRu != null)
             {
-                var salonPhone = new Entities.SalonPhone()
+                foreach (var phoneAutoRu in phonesAutoRu)
                 {
-                    SalonId = salonId,
-                    PhoneId = SaveOrGetPhone(phoneAutoRu)
-                };
+                    var salonPhone = new Entities.SalonPhone()
+                    {
+                        SalonId = salonId,
+                        PhoneId = SaveOrGetPhone(phoneAutoRu)
+                    };
 
-                _dataManager.SalonPhones.Save(ref salonPhone);
+                    _dataManager.SalonPhones.Save(ref salonPhone);
+                }
             }
         }
 
         private void SavePrice(AutoRu.Price priceAutoRu, Guid announcementId)
         {
-            var price = new Entities.Price()
+            if(priceAutoRu != null)
             {
-                CurrencyId = SaveOrGetCurrency(priceAutoRu.Currency),
-                WithNds = priceAutoRu.WithNds,
-                Value = priceAutoRu.Value
-            };
+                var price = new Entities.Price()
+                {
+                    AnnouncementId = announcementId,
+                    CurrencyId = SaveOrGetCurrency(priceAutoRu.Currency),
+                    WithNds = priceAutoRu.WithNds,
+                    Value = priceAutoRu.Value
+                };
 
-            _dataManager.Prices.Save(ref price);
+                _dataManager.Prices.Save(ref price);
+            }
         }
 
         private void SaveDocuments(AutoRu.Documents documentsAutoRu, Guid announcementId)
         {
-            var documents = new Entities.Documents()
+            if(documentsAutoRu != null)
             {
-                AnnouncementId = announcementId,
-                Warranty = documentsAutoRu.Warranty,
-                LicensePlate = documentsAutoRu.LicensePlate,
-                PurchaseDate = documentsAutoRu.GetFormattedPurchaseDate(),
-                WarrantyExpire = documentsAutoRu.GetFormattedWarrantyExpire()
-            };
+                var documents = new Entities.Documents()
+                {
+                    AnnouncementId = announcementId,
+                    Warranty = documentsAutoRu.Warranty,
+                    LicensePlate = documentsAutoRu.LicensePlate,
+                    PurchaseDate = documentsAutoRu.GetFormattedPurchaseDate(),
+                    WarrantyExpire = documentsAutoRu.GetFormattedWarrantyExpire()
+                };
 
-            _dataManager.Documents.Save(ref documents);
+                _dataManager.Documents.Save(ref documents);
 
-            SavePts(documentsAutoRu, documents.Id);
+                SavePts(documentsAutoRu, documents.Id);
+            }
         }
 
         private void SavePts(AutoRu.Documents ptsAutoRu, Guid documentsId)
         {
-            var pts = new Entities.Pts()
+            if(ptsAutoRu != null)
             {
-                DocumentsId = documentsId,
-                PtsTypeId = SaveOrGetPtsType(ptsAutoRu.Pts),
-                IsOriginal = (bool)ptsAutoRu.PtsOriginal,
-                CustomCleared = ptsAutoRu.CustomCleared,
-                NotRegisteredInRussia = ptsAutoRu.NotRegisteredInRussia,
-                Year = ptsAutoRu.Year,
-                OwnersNumber = ptsAutoRu.OwnersNumber
-            };
+                var pts = new Entities.Pts()
+                {
+                    DocumentsId = documentsId,
+                    PtsTypeId = SaveOrGetPtsType(ptsAutoRu.Pts),
+                    IsOriginal = ptsAutoRu.PtsOriginal,
+                    CustomCleared = ptsAutoRu.CustomCleared,
+                    NotRegisteredInRussia = ptsAutoRu.NotRegisteredInRussia,
+                    Year = ptsAutoRu.Year,
+                    OwnersNumber = ptsAutoRu.OwnersNumber
+                };
 
-            _dataManager.Pts.Save(ref pts);
+                _dataManager.Pts.Save(ref pts);
 
-            SaveVin(ptsAutoRu, pts.Id);
+                SaveVin(ptsAutoRu, pts.Id);
+            }
         }
 
         private void SaveVin(AutoRu.Documents vinAutoRu, Guid ptsId)
         {
-            var vin = new Entities.Vin()
+            if(vinAutoRu != null)
             {
-                PtsId = ptsId,
-                ResolutionId = SaveOrGetVinResolution(vinAutoRu.VinResolution),
-                Value = vinAutoRu.Vin
-            };
+                var vin = new Entities.Vin()
+                {
+                    PtsId = ptsId,
+                    ResolutionId = SaveOrGetVinResolution(vinAutoRu.VinResolution),
+                    Value = vinAutoRu.Vin
+                };
 
-            _dataManager.Vins.Save(ref vin);
+                _dataManager.Vins.Save(ref vin);
+            }
         }
 
         private void SaveVehicleInformation(AutoRu.Vehicle vehicleAutoRu, Guid announcementId)
@@ -524,397 +582,476 @@ namespace CatalogCars.Model.Importers.HighPerformance
 
         private void SaveMarkLogo(AutoRu.MarkLogo markLogoAutoRu, Guid markId)
         {
-            var markLogo = new Entities.MarkLogo()
+            if(markLogoAutoRu != null)
             {
-                MarkId = markId,
-                Name = markLogoAutoRu.Name,
-                RuName = markLogoAutoRu.Name,
-                Logo = markLogoAutoRu.Sizes.Logo,
-                BigLogo = markLogoAutoRu.Sizes.BigLogo,
-                BlackLogo = markLogoAutoRu.Sizes.BlackLogo
-            };
+                var markLogo = new Entities.MarkLogo()
+                {
+                    MarkId = markId,
+                    Name = markLogoAutoRu.Name,
+                    RuName = markLogoAutoRu.Name,
+                    Logo = markLogoAutoRu.Sizes.Logo,
+                    BigLogo = markLogoAutoRu.Sizes.BigLogo,
+                    BlackLogo = markLogoAutoRu.Sizes.BlackLogo
+                };
 
-            _dataManager.MarkLogos.Save(ref markLogo);
+                _dataManager.MarkLogos.Save(ref markLogo);
+            }
         }
 
         private void SaveTechnicalParameters(AutoRu.TechnicalParameters technicalParametersAutoRu, Guid vehicleId)
         {
-            var technicalParameters = new Entities.TechnicalParameters()
+            if(technicalParametersAutoRu != null)
             {
-                VehicleId = vehicleId,
-                GearTypeId = SaveOrGetGearType(technicalParametersAutoRu.GearType),
-                EngineTypeId = SaveOrGetEngineType(technicalParametersAutoRu.EngineType),
-                TransmissionId = SaveOrGetTransmission(technicalParametersAutoRu.Transmission),
-                Power = technicalParametersAutoRu.Power,
-                PowerKvt = technicalParametersAutoRu.PowerKvt,
-                Displacement = technicalParametersAutoRu.Displacement,
-                ClearanceMin = technicalParametersAutoRu.ClearanceMin,
-                FuelRate = technicalParametersAutoRu.FuelRate,
-                Acceleration = technicalParametersAutoRu.Acceleration,
-                Name = technicalParametersAutoRu.Name,
-                HumanName = technicalParametersAutoRu.HumanName,
-                Nameplate = technicalParametersAutoRu.Nameplate
-            };
+                var technicalParameters = new Entities.TechnicalParameters()
+                {
+                    VehicleId = vehicleId,
+                    GearTypeId = SaveOrGetGearType(technicalParametersAutoRu.GearType),
+                    EngineTypeId = SaveOrGetEngineType(technicalParametersAutoRu.EngineType),
+                    TransmissionId = SaveOrGetTransmission(technicalParametersAutoRu.Transmission),
+                    Power = technicalParametersAutoRu.Power,
+                    PowerKvt = technicalParametersAutoRu.PowerKvt,
+                    Displacement = technicalParametersAutoRu.Displacement,
+                    ClearanceMin = technicalParametersAutoRu.ClearanceMin,
+                    FuelRate = technicalParametersAutoRu.FuelRate,
+                    Acceleration = technicalParametersAutoRu.Acceleration,
+                    Name = technicalParametersAutoRu.Name,
+                    HumanName = technicalParametersAutoRu.HumanName,
+                    Nameplate = technicalParametersAutoRu.Nameplate
+                };
 
-            _dataManager.TechnicalParameters.Save(ref technicalParameters);
+                _dataManager.TechnicalParameters.Save(ref technicalParameters);
+            }
         }
 
         private void SaveConfiguration(AutoRu.Configuration configurationAutoRu, Guid vehicleId)
         {
-            var configuration = new Entities.Configuration()
+            if(configurationAutoRu != null)
             {
-                VehicleId = vehicleId,
-                BodyTypeId = SaveOrGetBodyType(configurationAutoRu),
-                DoorsCount = (int)configurationAutoRu.DoorsCount,
-                TrunkVolumeMin = (double)configurationAutoRu.TrunkVolumeMin,
-                TrunkVolumeMax = configurationAutoRu.TrunkVolumeMax
-            };
+                var configuration = new Entities.Configuration()
+                {
+                    VehicleId = vehicleId,
+                    BodyTypeId = SaveOrGetBodyType(configurationAutoRu),
+                    DoorsCount = (int)configurationAutoRu.DoorsCount,
+                    TrunkVolumeMin = configurationAutoRu.TrunkVolumeMin,
+                    TrunkVolumeMax = configurationAutoRu.TrunkVolumeMax
+                };
 
-            _dataManager.Configurations.Save(ref configuration);
+                _dataManager.Configurations.Save(ref configuration);
 
-            SaveVehicleMainPhoto(configurationAutoRu.MainPhoto, configuration.Id);
-            SaveConfigurationTags(configurationAutoRu.Tags, configuration.Id);
+                SaveVehicleMainPhoto(configurationAutoRu.MainPhoto, configuration.Id);
+                SaveConfigurationTags(configurationAutoRu.Tags, configuration.Id);
+            }
         }
 
         private void SaveVehicleMainPhoto(AutoRu.MainPhoto vehicleMainPhotoAutoRu, Guid configurationId)
         {
-            var vehicleMainPhoto = new Entities.VehicleMainPhoto()
+            if(vehicleMainPhotoAutoRu != null)
             {
-                ConfigurationId = configurationId,
-                Original = vehicleMainPhotoAutoRu.Sizes.Original,
-                Cattouch = vehicleMainPhotoAutoRu.Sizes.Cattouch,
-                Wizardv3mr = vehicleMainPhotoAutoRu.Sizes.Wizardv3mr
-            };
+                var vehicleMainPhoto = new Entities.VehicleMainPhoto()
+                {
+                    ConfigurationId = configurationId,
+                    Original = vehicleMainPhotoAutoRu.Sizes.Original,
+                    Cattouch = vehicleMainPhotoAutoRu.Sizes.Cattouch,
+                    Wizardv3mr = vehicleMainPhotoAutoRu.Sizes.Wizardv3mr
+                };
 
-            _dataManager.VehicleMainPhotos.Save(ref vehicleMainPhoto);
+                _dataManager.VehicleMainPhotos.Save(ref vehicleMainPhoto);
+            }
         }
 
         private void SaveConfigurationTags(string[] tagsAutoRu, Guid configurationId)
         {
-            foreach(var tagAutoRu in tagsAutoRu)
+            if(tagsAutoRu != null)
             {
-                var configurationTag = new Entities.ConfigurationTag()
+                foreach (var tagAutoRu in tagsAutoRu)
                 {
-                    ConfigurationId = configurationId,
-                    TagId = SaveOrGetTag(tagAutoRu)
-                };
+                    var configurationTag = new Entities.ConfigurationTag()
+                    {
+                        ConfigurationId = configurationId,
+                        TagId = SaveOrGetTag(tagAutoRu)
+                    };
 
-                _dataManager.ConfigurationTags.Save(ref configurationTag);
+                    _dataManager.ConfigurationTags.Save(ref configurationTag);
+                }
             }
         }
 
         private void SaveComplectation(AutoRu.Complectation complectationAutoRu, Guid vehicleId)
         {
-            var complectation = new Entities.Complectation()
+            if(complectationAutoRu.Id != "0")
             {
-                VehicleId = vehicleId,
-                Name = complectationAutoRu.Name,
-                RuName = complectationAutoRu.Name
-            };
+                var complectation = new Entities.Complectation()
+                {
+                    VehicleId = vehicleId,
+                    Name = complectationAutoRu.Name,
+                    RuName = complectationAutoRu.Name
+                };
 
-            _dataManager.Complectations.Save(ref complectation);
+                _dataManager.Complectations.Save(ref complectation);
 
-            SaveVendorColors(complectationAutoRu.VendorColors, complectation.Id);
-            SaveComplectationOptions(complectationAutoRu.Options, complectation.Id);
+                SaveVendorColors(complectationAutoRu.VendorColors, complectation.Id);
+                SaveComplectationOptions(complectationAutoRu.Options, complectation.Id);
+            }
         }
 
         private void SaveVendorColors(AutoRu.VendorColors[] vendorColorsAutoRu, Guid complectationId)
         {
-            foreach(var vendorColorAutoRu in vendorColorsAutoRu)
+            if(vendorColorsAutoRu != null)
             {
-                var vendorColors = new Entities.VendorColor()
+                foreach (var vendorColorAutoRu in vendorColorsAutoRu)
                 {
-                    ComplectationId = complectationId,
-                    ColorTypeId = SaveOrGetColorType(vendorColorAutoRu.ColorType),
-                    IsMainColor = vendorColorAutoRu.MainColor,
-                    Name = vendorColorAutoRu.Name,
-                    RuName = (!string.IsNullOrEmpty(vendorColorAutoRu.NameRu) ? vendorColorAutoRu.NameRu : vendorColorAutoRu.Name),
-                    HexCode = vendorColorAutoRu.StockColor.HexCode,
-                    HexCodes = string.Join(", ", vendorColorAutoRu.HexCodes)
-                };
+                    var vendorColors = new Entities.VendorColor()
+                    {
+                        ComplectationId = complectationId,
+                        ColorTypeId = SaveOrGetColorType(vendorColorAutoRu.ColorType),
+                        IsMainColor = vendorColorAutoRu.MainColor,
+                        Name = vendorColorAutoRu.Name,
+                        RuName = (!string.IsNullOrEmpty(vendorColorAutoRu.NameRu) ? vendorColorAutoRu.NameRu : vendorColorAutoRu.Name),
+                        HexCode = vendorColorAutoRu.StockColor.HexCode,
+                        HexCodes = (vendorColorAutoRu.HexCodes != null ? string.Join(", ", vendorColorAutoRu.HexCodes) : "")
+                    };
 
-                _dataManager.VendorColors.Save(ref vendorColors);
+                    _dataManager.VendorColors.Save(ref vendorColors);
 
-                SaveVendorColorPhotos(vendorColorAutoRu.Photos, vendorColors.Id);
+                    SaveVendorColorPhotos(vendorColorAutoRu.Photos, vendorColors.Id);
+                }
             }
         }
 
         private void SaveVendorColorPhotos(AutoRu.VendorColorPhoto[] vendorColorPhotosAutoRu, Guid vendorColorsId)
         {
-            foreach(var vendorColorPhotoAutoRu in vendorColorPhotosAutoRu)
+            if(vendorColorPhotosAutoRu != null)
             {
-                var vendorColorPhoto = new Entities.VendorColorPhoto()
+                foreach (var vendorColorPhotoAutoRu in vendorColorPhotosAutoRu)
                 {
-                    VendorColorId = vendorColorsId,
-                    Name = vendorColorPhotoAutoRu.Name,
-                    Full = vendorColorPhotoAutoRu.Sizes.Full,
-                    Orig = vendorColorPhotoAutoRu.Sizes.Orig,
-                    Small = vendorColorPhotoAutoRu.Sizes.Small,
-                    Image = vendorColorPhotoAutoRu.Sizes.Image,
-                    ThumbS = vendorColorPhotoAutoRu.Sizes.ThumbS,
-                    ThumbM = vendorColorPhotoAutoRu.Sizes.ThumbM,
-                    AutoMain = vendorColorPhotoAutoRu.Sizes.AutoMain,
-                    ThumbS2x = vendorColorPhotoAutoRu.Sizes.ThumbS2x,
-                    Cattouch = vendorColorPhotoAutoRu.Sizes.Cattouch,
-                    Wizardv3 = vendorColorPhotoAutoRu.Sizes.Wizardv3,
-                    IslandOff = vendorColorPhotoAutoRu.Sizes.IslandOff,
-                    Wizardv3mr = vendorColorPhotoAutoRu.Sizes.Wizardv3mr,
-                    Resolution92x69 = vendorColorPhotoAutoRu.Sizes.Resolution92x69,
-                    Resolution120x90 = vendorColorPhotoAutoRu.Sizes.Resolution120x90,
-                    Resolution320x240 = vendorColorPhotoAutoRu.Sizes.Resolution320x240,
-                    Resolution456x342 = vendorColorPhotoAutoRu.Sizes.Resolution456x342,
-                    Resolution832x624 = vendorColorPhotoAutoRu.Sizes.Resolution832x624,
-                    Resolution1200x900 = vendorColorPhotoAutoRu.Sizes.Resolution1200x900,
-                    Resolution1200x900n = vendorColorPhotoAutoRu.Sizes.Resolution1200x900n,
-                };
+                    var vendorColorPhoto = new Entities.VendorColorPhoto()
+                    {
+                        VendorColorId = vendorColorsId,
+                        Name = vendorColorPhotoAutoRu.Name,
+                        Full = vendorColorPhotoAutoRu.Sizes.Full,
+                        Orig = vendorColorPhotoAutoRu.Sizes.Orig,
+                        Small = vendorColorPhotoAutoRu.Sizes.Small,
+                        Image = vendorColorPhotoAutoRu.Sizes.Image,
+                        ThumbS = vendorColorPhotoAutoRu.Sizes.ThumbS,
+                        ThumbM = vendorColorPhotoAutoRu.Sizes.ThumbM,
+                        AutoMain = vendorColorPhotoAutoRu.Sizes.AutoMain,
+                        ThumbS2x = vendorColorPhotoAutoRu.Sizes.ThumbS2x,
+                        Cattouch = vendorColorPhotoAutoRu.Sizes.Cattouch,
+                        Wizardv3 = vendorColorPhotoAutoRu.Sizes.Wizardv3,
+                        IslandOff = vendorColorPhotoAutoRu.Sizes.IslandOff,
+                        Wizardv3mr = vendorColorPhotoAutoRu.Sizes.Wizardv3mr,
+                        Resolution92x69 = vendorColorPhotoAutoRu.Sizes.Resolution92x69,
+                        Resolution120x90 = vendorColorPhotoAutoRu.Sizes.Resolution120x90,
+                        Resolution320x240 = vendorColorPhotoAutoRu.Sizes.Resolution320x240,
+                        Resolution456x342 = vendorColorPhotoAutoRu.Sizes.Resolution456x342,
+                        Resolution832x624 = vendorColorPhotoAutoRu.Sizes.Resolution832x624,
+                        Resolution1200x900 = vendorColorPhotoAutoRu.Sizes.Resolution1200x900,
+                        Resolution1200x900n = vendorColorPhotoAutoRu.Sizes.Resolution1200x900n,
+                    };
 
-                _dataManager.VendorColorPhotos.Save(ref vendorColorPhoto);
+                    _dataManager.VendorColorPhotos.Save(ref vendorColorPhoto);
+                }
             }
         }
 
         private void SaveComplectationOptions(string[] optionsAutoRu, Guid complectationId)
         {
-            foreach(var optionAutoRu in optionsAutoRu)
+            if(optionsAutoRu != null)
             {
-                var complectationOption = new Entities.ComplectationOption()
+                foreach (var optionAutoRu in optionsAutoRu)
                 {
-                    ComplectationId = complectationId,
-                    OptionId = SaveOrGetOption(optionAutoRu)
-                };
+                    var complectationOption = new Entities.ComplectationOption()
+                    {
+                        ComplectationId = complectationId,
+                        OptionId = SaveOrGetOption(optionAutoRu)
+                    };
 
-                _dataManager.ComplectationOptions.Save(ref complectationOption);
+                    _dataManager.ComplectationOptions.Save(ref complectationOption);
+                }
             }
         }
 
         private void SaveState(AutoRu.State stateAutoRu, Guid announcementId)
         {
-            var state = new Entities.State()
+            if(stateAutoRu != null)
             {
-                AnnouncementId = announcementId,
-                IsBeaten = stateAutoRu.IsBeaten,
-                Mileage = stateAutoRu.Mileage
-            };
+                var state = new Entities.State()
+                {
+                    AnnouncementId = announcementId,
+                    IsBeaten = stateAutoRu.IsBeaten,
+                    Mileage = stateAutoRu.Mileage
+                };
 
-            _dataManager.States.Save(ref state);
+                _dataManager.States.Save(ref state);
 
-            SaveExternalPanorama(stateAutoRu.ExternalPanorama, state.Id);
-            SaveStatePhotos(stateAutoRu.Photos, state.Id);
+                if (stateAutoRu.ExternalPanorama != null)
+                {
+                    SaveExternalPanorama(stateAutoRu.ExternalPanorama, state.Id);
+                }
+
+                SaveStatePhotos(stateAutoRu.Photos, state.Id);
+            }
         }
 
         private void SaveExternalPanorama(AutoRu.ExternalPanorama externalPanoramaAutoRu, Guid stateId)
         {
-            var externalPanorama = new Entities.ExternalPanorama()
+            if(externalPanoramaAutoRu != null)
             {
-                StateId = stateId,
-                Preview = externalPanoramaAutoRu.Published.Preview,
-                QualityR4x3 = (double)externalPanoramaAutoRu.Published.QualityR4x3,
-                QualityR16x9 = (double)externalPanoramaAutoRu.Published.QualityR16x9,
-            };
+                var externalPanorama = new Entities.ExternalPanorama()
+                {
+                    StateId = stateId,
+                    Preview = externalPanoramaAutoRu.Published.Preview,
+                    QualityR4x3 = (double)externalPanoramaAutoRu.Published.QualityR4x3,
+                    QualityR16x9 = (double)externalPanoramaAutoRu.Published.QualityR16x9,
+                };
 
-            _dataManager.ExternalPanoramas.Save(ref externalPanorama);
+                _dataManager.ExternalPanoramas.Save(ref externalPanorama);
 
-            SaveVideoH264(externalPanoramaAutoRu.Published.VideoH264, externalPanorama.Id);
-            SaveVideoWebm(externalPanoramaAutoRu.Published.VideoWebm, externalPanorama.Id);
-            SavePicturePng(externalPanoramaAutoRu.Published.PicturePng, externalPanorama.Id);
-            SavePictureJpeg(externalPanoramaAutoRu.Published.PictureJpeg, externalPanorama.Id);
-            SavePictureWebp(externalPanoramaAutoRu.Published.PictureWebp, externalPanorama.Id);
-            SaveVideoMp4R16x9(externalPanoramaAutoRu.Published.VideoMp4R16x9, externalPanorama.Id);
-            SaveVideoWebmR16x9(externalPanoramaAutoRu.Published.VideoWebmR16x9, externalPanorama.Id);
-            SavePicturePngR16x9(externalPanoramaAutoRu.Published.PicturePngR16x9, externalPanorama.Id);
-            SavePictureJpegR16x9(externalPanoramaAutoRu.Published.PictureJpegR16x9, externalPanorama.Id);
-            SavePictureWebpR16x9(externalPanoramaAutoRu.Published.PictureWebpR16x9, externalPanorama.Id);
+                SaveVideoH264(externalPanoramaAutoRu.Published.VideoH264, externalPanorama.Id);
+                SaveVideoWebm(externalPanoramaAutoRu.Published.VideoWebm, externalPanorama.Id);
+                SavePicturePng(externalPanoramaAutoRu.Published.PicturePng, externalPanorama.Id);
+                SavePictureJpeg(externalPanoramaAutoRu.Published.PictureJpeg, externalPanorama.Id);
+                SavePictureWebp(externalPanoramaAutoRu.Published.PictureWebp, externalPanorama.Id);
+                SaveVideoMp4R16x9(externalPanoramaAutoRu.Published.VideoMp4R16x9, externalPanorama.Id);
+                SaveVideoWebmR16x9(externalPanoramaAutoRu.Published.VideoWebmR16x9, externalPanorama.Id);
+                SavePicturePngR16x9(externalPanoramaAutoRu.Published.PicturePngR16x9, externalPanorama.Id);
+                SavePictureJpegR16x9(externalPanoramaAutoRu.Published.PictureJpegR16x9, externalPanorama.Id);
+                SavePictureWebpR16x9(externalPanoramaAutoRu.Published.PictureWebpR16x9, externalPanorama.Id);
+            }
         }
 
         private void SaveVideoH264(AutoRu.Video videoAutoRu, Guid externalPanoramaId)
         {
-            var video = new Entities.VideoH264()
+            if(videoAutoRu != null)
             {
-                ExternalPanoramaId = externalPanoramaId,
-                FullUrl = videoAutoRu.FullUrl,
-                LowResUrl = videoAutoRu.LowResUrl,
-                HighResUrl = videoAutoRu.HighResUrl,
-                PreviewUrl = videoAutoRu.PreviewUrl,
-            };
+                var video = new Entities.VideoH264()
+                {
+                    ExternalPanoramaId = externalPanoramaId,
+                    FullUrl = videoAutoRu.FullUrl,
+                    LowResUrl = videoAutoRu.LowResUrl,
+                    HighResUrl = videoAutoRu.HighResUrl,
+                    PreviewUrl = videoAutoRu.PreviewUrl,
+                };
 
-            _dataManager.VideosH264.Save(ref video);
+                _dataManager.VideosH264.Save(ref video);
+            }
         }
 
         private void SaveVideoWebm(AutoRu.Video videoAutoRu, Guid externalPanoramaId)
         {
-            var video = new Entities.VideoWebm()
+            if(videoAutoRu != null)
             {
-                ExternalPanoramaId = externalPanoramaId,
-                FullUrl = videoAutoRu.FullUrl,
-                LowResUrl = videoAutoRu.LowResUrl,
-                HighResUrl = videoAutoRu.HighResUrl,
-                PreviewUrl = videoAutoRu.PreviewUrl,
-            };
+                var video = new Entities.VideoWebm()
+                {
+                    ExternalPanoramaId = externalPanoramaId,
+                    FullUrl = videoAutoRu.FullUrl,
+                    LowResUrl = videoAutoRu.LowResUrl,
+                    HighResUrl = videoAutoRu.HighResUrl,
+                    PreviewUrl = videoAutoRu.PreviewUrl,
+                };
 
-            _dataManager.VideosWebm.Save(ref video);
+                _dataManager.VideosWebm.Save(ref video);
+            }
         }
 
         private void SavePicturePng(AutoRu.Picture pictureAutoRu, Guid externalPanoramaId)
         {
-            var picture = new Entities.PicturePng()
+            if(pictureAutoRu != null)
             {
-                ExternalPanoramaId = externalPanoramaId,
-                FullFirstFrame = pictureAutoRu.FullFirstFrame,
-                HighResFirstFrame = pictureAutoRu.HighResFirstFrame,
-                PreviewFirstFrame = pictureAutoRu.PreviewFirstFrame,
-            };
+                var picture = new Entities.PicturePng()
+                {
+                    ExternalPanoramaId = externalPanoramaId,
+                    FullFirstFrame = pictureAutoRu.FullFirstFrame,
+                    HighResFirstFrame = pictureAutoRu.HighResFirstFrame,
+                    PreviewFirstFrame = pictureAutoRu.PreviewFirstFrame,
+                };
 
-            _dataManager.PicturesPng.Save(ref picture);
+                _dataManager.PicturesPng.Save(ref picture);
+            }
         }
 
         private void SavePictureJpeg(AutoRu.Picture pictureAutoRu, Guid externalPanoramaId)
         {
-            var picture = new Entities.PictureJpeg()
+            if(pictureAutoRu != null)
             {
-                ExternalPanoramaId = externalPanoramaId,
-                FullFirstFrame = pictureAutoRu.FullFirstFrame,
-                HighResFirstFrame = pictureAutoRu.HighResFirstFrame,
-                PreviewFirstFrame = pictureAutoRu.PreviewFirstFrame,
-            };
+                var picture = new Entities.PictureJpeg()
+                {
+                    ExternalPanoramaId = externalPanoramaId,
+                    FullFirstFrame = pictureAutoRu.FullFirstFrame,
+                    HighResFirstFrame = pictureAutoRu.HighResFirstFrame,
+                    PreviewFirstFrame = pictureAutoRu.PreviewFirstFrame,
+                };
 
-            _dataManager.PicturesJpeg.Save(ref picture);
+                _dataManager.PicturesJpeg.Save(ref picture);
+            }
         }
 
         private void SavePictureWebp(AutoRu.Picture pictureAutoRu, Guid externalPanoramaId)
         {
-            var picture = new Entities.PictureWebp()
+            if(pictureAutoRu != null)
             {
-                ExternalPanoramaId = externalPanoramaId,
-                FullFirstFrame = pictureAutoRu.FullFirstFrame,
-                HighResFirstFrame = pictureAutoRu.HighResFirstFrame,
-                PreviewFirstFrame = pictureAutoRu.PreviewFirstFrame,
-            };
+                var picture = new Entities.PictureWebp()
+                {
+                    ExternalPanoramaId = externalPanoramaId,
+                    FullFirstFrame = pictureAutoRu.FullFirstFrame,
+                    HighResFirstFrame = pictureAutoRu.HighResFirstFrame,
+                    PreviewFirstFrame = pictureAutoRu.PreviewFirstFrame,
+                };
 
-            _dataManager.PicturesWebp.Save(ref picture);
+                _dataManager.PicturesWebp.Save(ref picture);
+            }
         }
 
         private void SaveVideoMp4R16x9(AutoRu.Video videoAutoRu, Guid externalPanoramaId)
         {
-            var video = new Entities.VideoMp4R16x9()
+            if(videoAutoRu != null)
             {
-                ExternalPanoramaId = externalPanoramaId,
-                FullUrl = videoAutoRu.FullUrl,
-                LowResUrl = videoAutoRu.LowResUrl,
-                HighResUrl = videoAutoRu.HighResUrl,
-                PreviewUrl = videoAutoRu.PreviewUrl,
-            };
+                var video = new Entities.VideoMp4R16x9()
+                {
+                    ExternalPanoramaId = externalPanoramaId,
+                    FullUrl = videoAutoRu.FullUrl,
+                    LowResUrl = videoAutoRu.LowResUrl,
+                    HighResUrl = videoAutoRu.HighResUrl,
+                    PreviewUrl = videoAutoRu.PreviewUrl,
+                };
 
-            _dataManager.VideosMp4R16X9.Save(ref video);
+                _dataManager.VideosMp4R16X9.Save(ref video);
+            }
         }
 
         private void SaveVideoWebmR16x9(AutoRu.Video videoAutoRu, Guid externalPanoramaId)
         {
-            var video = new Entities.VideoWebmR16x9()
+            if(videoAutoRu != null)
             {
-                ExternalPanoramaId = externalPanoramaId,
-                FullUrl = videoAutoRu.FullUrl,
-                LowResUrl = videoAutoRu.LowResUrl,
-                HighResUrl = videoAutoRu.HighResUrl,
-                PreviewUrl = videoAutoRu.PreviewUrl,
-            };
+                var video = new Entities.VideoWebmR16x9()
+                {
+                    ExternalPanoramaId = externalPanoramaId,
+                    FullUrl = videoAutoRu.FullUrl,
+                    LowResUrl = videoAutoRu.LowResUrl,
+                    HighResUrl = videoAutoRu.HighResUrl,
+                    PreviewUrl = videoAutoRu.PreviewUrl,
+                };
 
-            _dataManager.VideosWebmR16X9.Save(ref video);
+                _dataManager.VideosWebmR16X9.Save(ref video);
+            }
         }
 
         private void SavePicturePngR16x9(AutoRu.Picture pictureAutoRu, Guid externalPanoramaId)
         {
-            var picture = new Entities.PicturePngR16x9()
+            if(pictureAutoRu != null)
             {
-                ExternalPanoramaId = externalPanoramaId,
-                FullFirstFrame = pictureAutoRu.FullFirstFrame,
-                HighResFirstFrame = pictureAutoRu.HighResFirstFrame,
-                PreviewFirstFrame = pictureAutoRu.PreviewFirstFrame,
-            };
+                var picture = new Entities.PicturePngR16x9()
+                {
+                    ExternalPanoramaId = externalPanoramaId,
+                    FullFirstFrame = pictureAutoRu.FullFirstFrame,
+                    HighResFirstFrame = pictureAutoRu.HighResFirstFrame,
+                    PreviewFirstFrame = pictureAutoRu.PreviewFirstFrame,
+                };
 
-            _dataManager.PicturesPngR16X9.Save(ref picture);
+                _dataManager.PicturesPngR16X9.Save(ref picture);
+            }
         }
 
         private void SavePictureJpegR16x9(AutoRu.Picture pictureAutoRu, Guid externalPanoramaId)
         {
-            var picture = new Entities.PictureJpegR16x9()
+            if(pictureAutoRu != null)
             {
-                ExternalPanoramaId = externalPanoramaId,
-                FullFirstFrame = pictureAutoRu.FullFirstFrame,
-                HighResFirstFrame = pictureAutoRu.HighResFirstFrame,
-                PreviewFirstFrame = pictureAutoRu.PreviewFirstFrame,
-            };
+                var picture = new Entities.PictureJpegR16x9()
+                {
+                    ExternalPanoramaId = externalPanoramaId,
+                    FullFirstFrame = pictureAutoRu.FullFirstFrame,
+                    HighResFirstFrame = pictureAutoRu.HighResFirstFrame,
+                    PreviewFirstFrame = pictureAutoRu.PreviewFirstFrame,
+                };
 
-            _dataManager.PicturesJpegR16X9.Save(ref picture);
+                _dataManager.PicturesJpegR16X9.Save(ref picture);
+            }
         }
 
         private void SavePictureWebpR16x9(AutoRu.Picture pictureAutoRu, Guid externalPanoramaId)
         {
-            var picture = new Entities.PictureWebpR16x9()
+            if(pictureAutoRu != null)
             {
-                ExternalPanoramaId = externalPanoramaId,
-                FullFirstFrame = pictureAutoRu.FullFirstFrame,
-                HighResFirstFrame = pictureAutoRu.HighResFirstFrame,
-                PreviewFirstFrame = pictureAutoRu.PreviewFirstFrame,
-            };
+                var picture = new Entities.PictureWebpR16x9()
+                {
+                    ExternalPanoramaId = externalPanoramaId,
+                    FullFirstFrame = pictureAutoRu.FullFirstFrame,
+                    HighResFirstFrame = pictureAutoRu.HighResFirstFrame,
+                    PreviewFirstFrame = pictureAutoRu.PreviewFirstFrame,
+                };
 
-            _dataManager.PicturesWebpR16X9.Save(ref picture);
+                _dataManager.PicturesWebpR16X9.Save(ref picture);
+            }
         }
 
         private void SaveStatePhotos(AutoRu.StatePhoto[] statePhotosAutoRu, Guid stateId)
         {
-            foreach(var statePhotoAutoRu in statePhotosAutoRu)
+            if(statePhotosAutoRu != null)
             {
-                var statePhoto = new Entities.StatePhoto()
+                foreach (var statePhotoAutoRu in statePhotosAutoRu)
                 {
-                    StateId = stateId,
-                    ClassId = SaveOrGetPhotoClass(statePhotoAutoRu.PhotoClass),
-                    Small = statePhotoAutoRu.Sizes.Small,
-                    ThumbM = statePhotoAutoRu.Sizes.ThumbM,
-                    Preview = statePhotoAutoRu.Preview,
-                    Resolution320x240 = statePhotoAutoRu.Sizes.Resolution320x240,
-                    Resolution456x342 = statePhotoAutoRu.Sizes.Resolution456x342,
-                    Resolution456x342n = statePhotoAutoRu.Sizes.Resolution456x342n,
-                    Resolution1200x900 = statePhotoAutoRu.Sizes.Resolution1200x900,
-                    Resolution1200x900n = statePhotoAutoRu.Sizes.Resolution1200x900n
-                };
+                    var statePhoto = new Entities.StatePhoto()
+                    {
+                        StateId = stateId,
+                        ClassId = SaveOrGetPhotoClass(statePhotoAutoRu.PhotoClass),
+                        Small = statePhotoAutoRu.Sizes.Small,
+                        ThumbM = statePhotoAutoRu.Sizes.ThumbM,
+                        Preview = statePhotoAutoRu.Preview,
+                        Resolution320x240 = statePhotoAutoRu.Sizes.Resolution320x240,
+                        Resolution456x342 = statePhotoAutoRu.Sizes.Resolution456x342,
+                        Resolution456x342n = statePhotoAutoRu.Sizes.Resolution456x342n,
+                        Resolution1200x900 = statePhotoAutoRu.Sizes.Resolution1200x900,
+                        Resolution1200x900n = statePhotoAutoRu.Sizes.Resolution1200x900n
+                    };
 
-                _dataManager.StatePhotos.Save(ref statePhoto);
+                    _dataManager.StatePhotos.Save(ref statePhoto);
+                }
             }
         }
 
         private void SaveAnnouncementDescription(string descriptionAutoRu, Guid announcementId)
         {
-            var description = new Entities.AnnouncementDescription()
+            if (!string.IsNullOrEmpty(descriptionAutoRu))
             {
-                AnnouncementId = announcementId,
-                Value = descriptionAutoRu
-            };
+                var description = new Entities.AnnouncementDescription()
+                {
+                    AnnouncementId = announcementId,
+                    Value = descriptionAutoRu
+                };
 
-            _dataManager.AnnouncementDescriptions.Save(ref description);
+                _dataManager.AnnouncementDescriptions.Save(ref description);
+            }
         }
 
         private void SaveAnnouncementAdditionalInformation(AutoRu.AdditionalInfo additionalInfoAutoRu, Guid announcementId)
         {
-            var additionalInformation = new Entities.AnnouncementAdditionalInformation()
+            if(additionalInfoAutoRu != null)
             {
-                AnnouncementId = announcementId,
-                CreatedAt = additionalInfoAutoRu.CreatedAt,
-                UpdatedAt = additionalInfoAutoRu.UpdatedAt
-            };
+                var additionalInformation = new Entities.AnnouncementAdditionalInformation()
+                {
+                    AnnouncementId = announcementId,
+                    CreatedAt = additionalInfoAutoRu.CreatedAt,
+                    UpdatedAt = additionalInfoAutoRu.UpdatedAt
+                };
 
-            _dataManager.AnnouncementAdditionalInformation.Save(ref additionalInformation);
+                _dataManager.AnnouncementAdditionalInformation.Save(ref additionalInformation);
+            }
         }
 
         private void SaveAnnouncementTags(string[] tagsAutoRu, Guid announcementId)
         {
-            foreach(var tagAutoRu in tagsAutoRu)
+            if(tagsAutoRu != null)
             {
-                var announcementTag = new Entities.AnnouncementTag()
+                foreach (var tagAutoRu in tagsAutoRu)
                 {
-                    AnnouncementId = announcementId,
-                    TagId = SaveOrGetTag(tagAutoRu)
-                };
+                    var announcementTag = new Entities.AnnouncementTag()
+                    {
+                        AnnouncementId = announcementId,
+                        TagId = SaveOrGetTag(tagAutoRu)
+                    };
 
-                _dataManager.AnnouncementTags.Save(ref announcementTag);
+                    _dataManager.AnnouncementTags.Save(ref announcementTag);
+                }
             }
         }
 

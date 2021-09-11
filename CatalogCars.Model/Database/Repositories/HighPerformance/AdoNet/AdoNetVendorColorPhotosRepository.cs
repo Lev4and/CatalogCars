@@ -51,7 +51,7 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
             {
                 entity.Id = Guid.NewGuid();
 
-                var query = $"INSERT INTO [VendorColorPhotos] (Id, VendorColorId, Name, Full, Orig, Small, Image, ThumbS, ThumbM, " +
+                var query = $"INSERT INTO [VendorColorPhotos] (Id, VendorColorId, Name, [Full], Orig, Small, Image, ThumbS, ThumbM, " +
                     $"AutoMain, ThumbS2x, Cattouch, Wizardv3, IslandOff, Wizardv3mr, Resolution92x69, Resolution120x90, " +
                     $"Resolution320x240, Resolution456x342, Resolution832x624, Resolution1200x900, Resolution1200x900n) VALUES " +
                     $"('{entity.Id}', '{entity.VendorColorId}', @Name, @Full, @Orig, @Small, @Image, @ThumbS, @ThumbM, @AutoMain, " +

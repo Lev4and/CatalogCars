@@ -8,13 +8,10 @@ namespace CatalogCars.Model.Database.Entities
     {
         public Guid Id { get; set; }
 
-        [Required]
         public string Name { get; set; }
 
-        [Required]
         public string RuName { get; set; }
 
-        [Required]
         [MaxLength(1)]
         public string AutoClass { get; set; }
 

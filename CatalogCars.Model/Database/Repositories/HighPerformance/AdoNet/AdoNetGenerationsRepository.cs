@@ -1,4 +1,5 @@
 ﻿using CatalogCars.Model.Database.Entities;
+using CatalogCars.Model.Database.Extensions;
 using CatalogCars.Model.Database.Repositories.HighPerformance.Abstract;
 using Microsoft.Data.SqlClient;
 using System;
@@ -16,29 +17,31 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
             _context = context;
         }
 
-        public bool Contains(Guid modelId, int yearFrom, string name)
+        public bool Contains(Guid modelId, int? yearFrom, string name)
         {
             var query = $"SELECT TOP(1) * " +
                 $"FROM Generations " +
-                $"WHERE Generations.ModelId = '{modelId}' AND Generations.YearFrom = {yearFrom} AND Generations.Name = @Name";
+                $"WHERE Generations.ModelId = '{modelId}' AND Generations.YearFrom = @YearFrom AND Generations.Name = @Name";
 
             var parameters = new List<SqlParameter>()
             {
-                new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = name }
+                new SqlParameter() { ParameterName = "@YearFrom", SqlDbType = SqlDbType.Int, Value = yearFrom.GetDbValue() },
+                new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = name.GetDbValue() }
             };
 
             return _context.ExecuteQuery(query, parameters).Rows.Count > 0;
         }
 
-        public Guid GetGenerationId(Guid modelId, int yearFrom, string name)
+        public Guid GetGenerationId(Guid modelId, int? yearFrom, string name)
         {
             var query = $"SELECT TOP(1) Generations.Id " +
                 $"FROM Generations " +
-                $"WHERE Generations.ModelId = '{modelId}' AND Generations.YearFrom = {yearFrom} AND Generations.Name = @Name";
+                $"WHERE Generations.ModelId = '{modelId}' AND Generations.YearFrom = @YearFrom AND Generations.Name = @Name";
 
             var parameters = new List<SqlParameter>()
             {
-                new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = name }
+                new SqlParameter() { ParameterName = "@YearFrom", SqlDbType = SqlDbType.Int, Value = yearFrom.GetDbValue() },
+                new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = name.GetDbValue() }
             };
 
             return _context.ExecuteQuery(query, parameters).Rows[0].Field<Guid>("Id");
@@ -51,12 +54,14 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
                 entity.Id = Guid.NewGuid();
 
                 var query = $"INSERT INTO [Generations] (Id, ModelId, PriceSegmentId, YearFrom, Name, RuName) " +
-                    $"VALUES ('{entity.Id}', '{entity.ModelId}', '{entity.PriceSegmentId}', {entity.YearFrom}, @Name, @RuName)";
+                    $"VALUES ('{entity.Id}', '{entity.ModelId}', @PriceSegmentId, @YearFrom, @Name, @RuName)";
 
                 var parameters = new List<SqlParameter>()
                 {
-                    new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = entity.Name },
-                    new SqlParameter() { ParameterName = "@RuName", SqlDbType = SqlDbType.NVarChar, Value = entity.RuName },
+                    new SqlParameter() { ParameterName = "@PriceSegmentId", SqlDbType = SqlDbType.UniqueIdentifier, Value = entity.PriceSegmentId.GetDbValue() },
+                    new SqlParameter() { ParameterName = "@YearFrom", SqlDbType = SqlDbType.Int, Value = entity.YearFrom.GetDbValue() },
+                    new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = entity.Name.GetDbValue() },
+                    new SqlParameter() { ParameterName = "@RuName", SqlDbType = SqlDbType.NVarChar, Value = entity.RuName.GetDbValue() },
                 };
 
                 _context.ExecuteQuery(query, parameters);

@@ -10,7 +10,7 @@ namespace CatalogCars.Model.Database.Entities
 
         public Guid? PtsTypeId { get; set; }
 
-        public bool IsOriginal { get; set; }
+        public bool? IsOriginal { get; set; }
 
         public bool? CustomCleared { get; set; }
 

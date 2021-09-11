@@ -10,14 +10,12 @@ namespace CatalogCars.Model.Database.Entities
 
         public Guid ModelId { get; set; }
 
-        public Guid PriceSegmentId { get; set; }
+        public Guid? PriceSegmentId { get; set; }
 
-        public int YearFrom { get; set; }
+        public int? YearFrom { get; set; }
 
-        [Required]
         public string Name { get; set; }
 
-        [Required]
         public string RuName { get; set; }
 
         public virtual Model Model { get; set; }

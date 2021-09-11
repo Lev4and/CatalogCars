@@ -7,7 +7,7 @@ namespace CatalogCars.Model.Database.Entities
     {
         public Guid Id { get; set; }
 
-        public Guid RegionId { get; set; }
+        public Guid? RegionId { get; set; }
 
         public string Address { get; set; }
 

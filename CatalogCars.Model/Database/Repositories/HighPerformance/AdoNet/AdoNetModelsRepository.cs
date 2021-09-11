@@ -1,4 +1,5 @@
-﻿using CatalogCars.Model.Database.Repositories.HighPerformance.Abstract;
+﻿using CatalogCars.Model.Database.Extensions;
+using CatalogCars.Model.Database.Repositories.HighPerformance.Abstract;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -56,7 +57,7 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
                 {
                     new SqlParameter() { ParameterName = "@Code", SqlDbType = SqlDbType.NVarChar, Value = entity.Code },
                     new SqlParameter() { ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = entity.Name },
-                    new SqlParameter() { ParameterName = "@RuName", SqlDbType = SqlDbType.NVarChar, Value = entity.RuName }
+                    new SqlParameter() { ParameterName = "@RuName", SqlDbType = SqlDbType.NVarChar, Value = entity.RuName.GetDbValue() }
                 };
 
                 _context.ExecuteQuery(query, parameters);

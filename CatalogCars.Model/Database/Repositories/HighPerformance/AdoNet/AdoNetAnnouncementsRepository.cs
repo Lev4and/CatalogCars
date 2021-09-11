@@ -1,4 +1,5 @@
 ﻿using CatalogCars.Model.Database.Entities;
+using CatalogCars.Model.Database.Extensions;
 using CatalogCars.Model.Database.Repositories.HighPerformance.Abstract;
 using Microsoft.Data.SqlClient;
 using System;
@@ -21,12 +22,13 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
             entity.Id = Guid.NewGuid();
 
             var query = $"INSERT INTO [Announcements] (Id, ColorId, SalonId, SellerId, StatusId, SectionId, CategoryId, " +
-                $"SellerTypeId, AvailabilityId, SaleId, Summary) VALUES ('{entity.Id}', '{entity.ColorId}', '{entity.SalonId}', " +
+                $"SellerTypeId, AvailabilityId, SaleId, Summary) VALUES ('{entity.Id}', '{entity.ColorId}', @SalonId, " +
                 $"'{entity.SellerId}', '{entity.StatusId}', '{entity.SectionId}', '{entity.CategoryId}', '{entity.SellerTypeId}', " +
                 $"'{entity.AvailabilityId}', @SaleId, @Summary)";
 
             var parameters = new List<SqlParameter>()
             {
+                new SqlParameter() { ParameterName = "@SalonId", SqlDbType = SqlDbType.UniqueIdentifier, Value = entity.SalonId.GetDbValue() },
                 new SqlParameter() { ParameterName = "@SaleId", SqlDbType = SqlDbType.NVarChar, Value = entity.SaleId },
                 new SqlParameter() { ParameterName = "@Summary", SqlDbType = SqlDbType.NVarChar, Value = entity.Summary },
             };

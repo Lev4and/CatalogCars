@@ -16,7 +16,6 @@ namespace CatalogCars.Model.Database.Entities
         [Required]
         public string Name { get; set; }
 
-        [Required]
         public string RuName { get; set; }
 
         public virtual Mark Mark { get; set; }

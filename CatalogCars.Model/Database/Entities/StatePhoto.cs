@@ -8,7 +8,7 @@ namespace CatalogCars.Model.Database.Entities
 
         public Guid StateId { get; set; }
 
-        public Guid ClassId { get; set; }
+        public Guid? ClassId { get; set; }
 
         public string Small { get; set; }
 

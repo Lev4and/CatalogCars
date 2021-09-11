@@ -10,11 +10,11 @@ namespace CatalogCars.Model.Database.Entities
 
         public Guid LocationId { get; set; }
 
-        public bool IsOficial { get; set; }
+        public bool? IsOficial { get; set; }
 
-        public bool ActualStock { get; set; }
+        public bool? ActualStock { get; set; }
 
-        public bool LoyaltyProgram { get; set; }
+        public bool? LoyaltyProgram { get; set; }
 
         public string Code { get; set; }
 

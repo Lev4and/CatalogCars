@@ -38,7 +38,7 @@ namespace CatalogCars.Model.Database.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("SalonId")
+                    b.Property<Guid?>("SalonId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("SectionId")
@@ -213,13 +213,13 @@ namespace CatalogCars.Model.Database.Migrations
                         {
                             Id = new Guid("21f7b496-c675-4e8a-a34c-fc5ec0762fdb"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a6e8a9b8-efd0-4eba-9a0c-a3deb2af95f4",
+                            ConcurrencyStamp = "d0285905-d21a-47dd-b7d7-e6b18666a07a",
                             Email = "andrey.levchenko.2001@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ANDREY.LEVCHENKO.2001@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAELcljTuGPZX9Y5F7jBerYRZ+URiBSgeWM1UYYZvUZ25olD6hwgdJtJ4p/JvWq+k4VA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBIIAY4UTke05aiL0lm0ugdS43Wo1+iXYc5EMXypwsP0MhzRtsq5diYjUJhzRZUUhw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -258,7 +258,7 @@ namespace CatalogCars.Model.Database.Migrations
                         new
                         {
                             Id = new Guid("b867520a-92db-4658-be39-84da53a601c0"),
-                            ConcurrencyStamp = "99650a9c-baa6-4dca-8cdd-f6469710504c",
+                            ConcurrencyStamp = "6c917c84-1114-4dc1-977a-8499ac6c5df0",
                             Name = "Администратор",
                             NormalizedName = "АДМИНИСТРАТОР"
                         });
@@ -314,16 +314,13 @@ namespace CatalogCars.Model.Database.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AutoClass")
-                        .IsRequired()
                         .HasMaxLength(1)
                         .HasColumnType("nvarchar(1)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RuName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -446,7 +443,7 @@ namespace CatalogCars.Model.Database.Migrations
                     b.Property<double?>("TrunkVolumeMax")
                         .HasColumnType("float");
 
-                    b.Property<double>("TrunkVolumeMin")
+                    b.Property<double?>("TrunkVolumeMin")
                         .HasColumnType("float");
 
                     b.Property<Guid>("VehicleId")
@@ -627,17 +624,15 @@ namespace CatalogCars.Model.Database.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("PriceSegmentId")
+                    b.Property<Guid?>("PriceSegmentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("RuName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("YearFrom")
+                    b.Property<int?>("YearFrom")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -661,7 +656,7 @@ namespace CatalogCars.Model.Database.Migrations
                     b.Property<string>("GeobaseId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("RegionId")
+                    b.Property<Guid?>("RegionId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -746,7 +741,6 @@ namespace CatalogCars.Model.Database.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RuName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -1024,7 +1018,7 @@ namespace CatalogCars.Model.Database.Migrations
                     b.Property<Guid>("DocumentsId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("IsOriginal")
+                    b.Property<bool?>("IsOriginal")
                         .HasColumnType("bit");
 
                     b.Property<bool?>("NotRegisteredInRussia")
@@ -1115,19 +1109,19 @@ namespace CatalogCars.Model.Database.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("ActualStock")
+                    b.Property<bool?>("ActualStock")
                         .HasColumnType("bit");
 
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsOficial")
+                    b.Property<bool?>("IsOficial")
                         .HasColumnType("bit");
 
                     b.Property<Guid>("LocationId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("LoyaltyProgram")
+                    b.Property<bool?>("LoyaltyProgram")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -1272,7 +1266,7 @@ namespace CatalogCars.Model.Database.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ClassId")
+                    b.Property<Guid?>("ClassId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Preview")
@@ -1548,11 +1542,9 @@ namespace CatalogCars.Model.Database.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RuName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -1770,7 +1762,6 @@ namespace CatalogCars.Model.Database.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Value")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -1932,9 +1923,7 @@ namespace CatalogCars.Model.Database.Migrations
 
                     b.HasOne("CatalogCars.Model.Database.Entities.Salon", "Salon")
                         .WithMany("Announcements")
-                        .HasForeignKey("SalonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SalonId");
 
                     b.HasOne("CatalogCars.Model.Database.Entities.Section", "Section")
                         .WithMany("Announcements")
@@ -2140,9 +2129,7 @@ namespace CatalogCars.Model.Database.Migrations
 
                     b.HasOne("CatalogCars.Model.Database.Entities.PriceSegment", "PriceSegment")
                         .WithMany("Generations")
-                        .HasForeignKey("PriceSegmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PriceSegmentId");
 
                     b.Navigation("Model");
 
@@ -2153,9 +2140,7 @@ namespace CatalogCars.Model.Database.Migrations
                 {
                     b.HasOne("CatalogCars.Model.Database.Entities.RegionInformation", "Region")
                         .WithMany("Locations")
-                        .HasForeignKey("RegionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RegionId");
 
                     b.Navigation("Region");
                 });
@@ -2359,9 +2344,7 @@ namespace CatalogCars.Model.Database.Migrations
                 {
                     b.HasOne("CatalogCars.Model.Database.Entities.PhotoClass", "Class")
                         .WithMany("States")
-                        .HasForeignKey("ClassId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ClassId");
 
                     b.HasOne("CatalogCars.Model.Database.Entities.State", "State")
                         .WithMany("Photos")

@@ -10,7 +10,7 @@ namespace CatalogCars.Model.Database.Entities
 
         public Guid ColorId { get; set; }
 
-        public Guid SalonId { get; set; }
+        public Guid? SalonId { get; set; }
 
         public Guid SellerId { get; set; }
 
