@@ -18,11 +18,11 @@ namespace CatalogCars.Authorization.Api.Controllers
     [Route("api/authorization")]
     public class AuthorizationController : Controller
     {
-        private readonly DefaultDataManager _dataManager;
+        private readonly AuthorizationDataManager _dataManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public AuthorizationController(DefaultDataManager dataManager, UserManager<ApplicationUser> userManager,
+        public AuthorizationController(AuthorizationDataManager dataManager, UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager)
         {
             _dataManager = dataManager;

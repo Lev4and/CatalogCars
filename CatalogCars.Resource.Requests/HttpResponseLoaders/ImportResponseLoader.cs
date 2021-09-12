@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CatalogCars.Resource.Requests.HttpResponseLoaders
 {
-    public class ImportResponseLoader
+    public class ImportResponseLoader : BaseResponseLoader
     {
         private readonly ImportClient _client;
 
@@ -14,19 +14,9 @@ namespace CatalogCars.Resource.Requests.HttpResponseLoaders
             _client = new ImportClient();
         }
 
-        public async Task<Stream> GetStreamAsync(Announcement announcement)
+        public async Task<Stream> GetStreamFromSaveAnnouncementResponseAsync(Announcement announcement)
         {
-            var response = await _client.SaveAnnouncementAsync(announcement);
-
-            if (response != null)
-            {
-                if (response.IsSuccessStatusCode)
-                {
-                    return await response.Content.ReadAsStreamAsync();
-                }
-            }
-
-            return null;
+            return await GetStreamFromResponseAsync(await _client.SaveAnnouncementAsync(announcement));
         }
     }
 }

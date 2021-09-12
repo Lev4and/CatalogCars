@@ -2,18 +2,19 @@
     x:Class="CatalogCars.DesktopApplication.Views.Pages.Menu.Menu"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="clr-namespace:CatalogCars.DesktopApplication.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:local="clr-namespace:CatalogCars.DesktopApplication.Views.Pages.Menu"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Меню"
-    xmlns:c="clr-namespace:CatalogCars.DesktopApplication.Converters"
     xmlns:mdt="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:uc="clr-namespace:CatalogCars.DesktopApplication.Views.UserControls"
-    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-    WindowTitle="CatalogCars - Меню"
-    DataContext="{Binding MenuViewModel, Source={StaticResource ViewModelLocator}}"
+    Title="Меню"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    Background="{StaticResource PageBackgroundBrush}"
+    DataContext="{Binding MenuViewModel, Source={StaticResource ViewModelLocator}}"
+    WindowTitle="CatalogCars - Меню"
     mc:Ignorable="d">
     <Page.Resources>
         <c:BoolToCollapsedVisibility x:Key="BoolToCollapsedVisibility" />
@@ -71,8 +72,8 @@
                                     </i:Interaction.Triggers>
                                 </ToggleButton>
                             </Grid>
-                            <Grid Grid.Row="1" Background="GhostWhite">
-                                <Image Source="/Resources/Images/Icons/favicon.png" />
+                            <Grid Grid.Row="1">
+                                <Image Margin="5" Source="/Resources/Icons/Icon.png" />
                             </Grid>
                             <ScrollViewer
                                 Grid.Row="2"
@@ -83,8 +84,17 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Grid Grid.Row="0" Visibility="{Binding ElementName=ImportCarsButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                    <Grid Grid.Row="0" Visibility="{Binding ElementName=MarksButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="MarksButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=Marks}"
+                                            Kind="Cogs"
+                                            Text="Марки" />
+                                    </Grid>
+                                    <Grid Grid.Row="1" Visibility="{Binding ElementName=ImportCarsButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
                                         <uc:MenuButton
                                             x:Name="ImportCarsButton"
                                             HorizontalContentAlignment="Left"
@@ -92,7 +102,7 @@
                                             Kind="DatabaseImport"
                                             Text="Импорт объявлений" />
                                     </Grid>
-                                    <Grid Grid.Row="1">
+                                    <Grid Grid.Row="2">
                                         <uc:MenuButton
                                             x:Name="ExitButton"
                                             HorizontalContentAlignment="Left"

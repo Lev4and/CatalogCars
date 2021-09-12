@@ -11,8 +11,9 @@
     Title="Импорт объявлений"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    Background="{StaticResource PageBackgroundBrush}"
     DataContext="{Binding ImportCarsViewModel, Source={StaticResource ViewModelLocator}}"
-    WindowTitle="Electro - Импорт объявлений"
+    WindowTitle="CatalogCars - Импорт объявлений"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>

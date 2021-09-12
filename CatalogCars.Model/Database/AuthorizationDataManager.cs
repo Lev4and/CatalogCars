@@ -2,17 +2,14 @@
 
 namespace CatalogCars.Model.Database
 {
-    public class DefaultDataManager
+    public class AuthorizationDataManager
     {
-        public IMarksRepository Marks { get; set; }
-
         public IRolesRepository Roles { get; set; }
 
         public IUsersRepository Users { get; set; }
 
-        public DefaultDataManager(IMarksRepository marks, IRolesRepository roles, IUsersRepository users)
+        public AuthorizationDataManager(IRolesRepository roles, IUsersRepository users)
         {
-            Marks = marks;
             Roles = roles;
             Users = users;
         }

@@ -16,7 +16,7 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
 
         public async Task<bool> SaveAnnouncementAsync(Announcement announcement)
         {
-            var resultStream = await _responseLoader.GetStreamAsync(announcement);
+            var resultStream = await _responseLoader.GetStreamFromSaveAnnouncementResponseAsync(announcement);
 
             if (resultStream != null)
             {

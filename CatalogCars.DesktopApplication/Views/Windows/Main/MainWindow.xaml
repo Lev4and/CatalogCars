@@ -8,7 +8,8 @@
     Title="CatalogCars"
     Width="800"
     Height="450"
+    Background="{StaticResource WindowBackgroundBrush}"
     Content="{Binding PageSource}"
     DataContext="{Binding MainWindowViewModel, Source={StaticResource ViewModelLocator}}"
-    mc:Ignorable="d">
-</Window>
+    Icon="/Resources/Icons/Icon.png"
+    mc:Ignorable="d" />

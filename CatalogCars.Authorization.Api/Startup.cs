@@ -1,8 +1,8 @@
 using CatalogCars.Model.Common;
 using CatalogCars.Model.Database;
 using CatalogCars.Model.Database.Entities;
-using CatalogCars.Model.Database.Repositories.Default.Abstract;
-using CatalogCars.Model.Database.Repositories.Default.EntityFramework;
+using EntityFrameworkAbstract = CatalogCars.Model.Database.Repositories.Default.Abstract;
+using EntityFramework = CatalogCars.Model.Database.Repositories.Default.EntityFramework;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -28,9 +28,9 @@ namespace CatalogCars.Authorization.Api
             services.AddTransient<RoleManager<ApplicatonRole>>();
             services.AddTransient<UserManager<ApplicationUser>>();
 
-            services.AddTransient<IRolesRepository, EFRolesRepository>();
-            services.AddTransient<IUsersRepository, EFUsersRepository>();
-            services.AddTransient<DefaultDataManager>();
+            services.AddTransient<EntityFrameworkAbstract.IRolesRepository, EntityFramework.EFRolesRepository>();
+            services.AddTransient<EntityFrameworkAbstract.IUsersRepository, EntityFramework.EFUsersRepository>();
+            services.AddTransient<AuthorizationDataManager>();
 
             services.AddDbContext<CatalogCarsDbContext>((options) =>
             {

@@ -1,6 +1,7 @@
 ﻿using CatalogCars.Model.Converters.AutoRu;
 using CatalogCars.Model.Importers.HighPerformance;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace CatalogCars.Resource.Api.Controllers
 {
@@ -17,6 +18,7 @@ namespace CatalogCars.Resource.Api.Controllers
         }
 
         [HttpPost("index")]
+        [ProducesResponseType(typeof(Guid), 200)]
         public IActionResult Index(Announcement announcement)
         {
             return Ok(_importer.Import(announcement));
