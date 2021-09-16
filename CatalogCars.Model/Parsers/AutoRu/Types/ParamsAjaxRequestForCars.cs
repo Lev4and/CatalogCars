@@ -62,8 +62,8 @@ namespace CatalogCars.Model.Parsers.AutoRu.Types
             Category = "cars";
             DamageGroup = "ANY";
             OutputType = "table";
-            TopDays = $"{topDays}";
             CustomsStateGroup = "DOESNT_MATTER";
+            TopDays = topDays > 0 ? $"{topDays}" : "";
         }
     }
 }

@@ -2,6 +2,7 @@
 using CatalogCars.Model.Parsers.AutoRu.CookieWorkers;
 using CatalogCars.Model.Parsers.AutoRu.JsonWorkers;
 using CatalogCars.Model.Parsers.AutoRu.ParseWorkers;
+using CatalogCars.Model.Parsers.AutoRu.Types;
 using FluentAssertions;
 using System.IO;
 using System.Threading.Tasks;

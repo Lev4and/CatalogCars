@@ -3,6 +3,7 @@ using CatalogCars.Model.Common;
 using CatalogCars.Model.Database;
 using CatalogCars.Model.Database.Entities;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Mark;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Model;
 using CatalogCars.Model.Importers.HighPerformance;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -41,7 +42,12 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<IMarksSorter, ByAscendingNameMarksSorter>();
             services.AddTransient<IMarksSorter, ByDescendingNameMarksSorter>();
 
+            services.AddTransient<IModelsSorter, DefaultModelsSorter>();
+            services.AddTransient<IModelsSorter, ByAscendingNameModelsSorter>();
+            services.AddTransient<IModelsSorter, ByDescendingNameModelsSorter>();
+
             services.AddTransient<EntityFrameworkAbstract.IMarksRepository, EntityFramework.EFMarksRepository>();
+            services.AddTransient<EntityFrameworkAbstract.IModelsRepository, EntityFramework.EFModelsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IRolesRepository, EntityFramework.EFRolesRepository>();
             services.AddTransient<EntityFrameworkAbstract.IUsersRepository, EntityFramework.EFUsersRepository>();
             services.AddTransient<DefaultDataManager>();

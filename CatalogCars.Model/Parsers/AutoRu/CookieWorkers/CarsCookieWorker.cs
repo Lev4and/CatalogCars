@@ -15,6 +15,23 @@ namespace CatalogCars.Model.Parsers.AutoRu.CookieWorkers
             _cookieLoader = new CarsCookieLoader();
         }
 
+        public async Task<HeadersAjaxRequestForCars> GetHeadersAjaxRequestForCars()
+        {
+            var result = new HeadersAjaxRequestForCars();
+            var cookies = await _cookieLoader.GetCookies();
+
+            result.CsrfToken = cookies.FirstOrDefault(cookie => cookie.Name == "_csrf_token").Value;
+
+            foreach (var cookie in cookies)
+            {
+                result.CookieContent += $"{cookie.Name}={cookie.Value};";
+            }
+
+            result.CookieContent += "gradius=1000;gids=";
+
+            return result;
+        }
+
         public async Task<HeadersAjaxRequestForCars> GetHeadersAjaxRequestForCars(RangeMileage rangeMileage, RangePrice rangePrice,  int topDays, int numberPage)
         {
             var result = new HeadersAjaxRequestForCars();

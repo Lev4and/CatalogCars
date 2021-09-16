@@ -31,6 +31,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             return _context.Marks
                 .Where(mark => mark.Name.ToLower().Contains(searchString))
                 .Select(mark => mark.Name)
+                .OrderBy(mark => mark)
                 .Take(5)
                 .AsNoTracking();
         }

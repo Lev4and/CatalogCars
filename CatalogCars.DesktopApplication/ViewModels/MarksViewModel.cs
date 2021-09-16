@@ -35,6 +35,11 @@ namespace CatalogCars.DesktopApplication.ViewModels
             return GetNamesMarksAsync();
         });
 
+        public ICommand Loaded => new AsyncCommand(() =>
+        {
+            return LoadedAsync();
+        });
+
         public ICommand Search => new AsyncCommand(() =>
         {
             return SearchAsync();
@@ -60,8 +65,11 @@ namespace CatalogCars.DesktopApplication.ViewModels
                 { SortingOption.ByAscendingName, "Сортировка по названию: от А до Я" },
                 { SortingOption.ByDescendingName, "Сортировка по названию: от Я до А" }
             };
+        }
 
-            ResetAsync();
+        private async Task LoadedAsync()
+        {
+            await ResetAsync();
         }
 
         private async Task ResetPaginationAsync()

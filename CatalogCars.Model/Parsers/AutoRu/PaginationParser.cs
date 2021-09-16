@@ -15,7 +15,7 @@ namespace CatalogCars.Model.Parsers.AutoRu
             {
                 return new CarsPagination()
                 {
-                    MaxNumberPage = Convert.ToInt32(document.QuerySelectorAll("a.ListingPagination-module__page").ToList()
+                    MaxNumberPage = Convert.ToInt32(document.QuerySelectorAll("a.ListingPagination__page").ToList()
                         .Last().QuerySelector("span.Button__text").TextContent)
                 };
             }

@@ -85,6 +85,7 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <Grid Grid.Row="0" Visibility="{Binding ElementName=MarksButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
                                         <uc:MenuButton
@@ -94,7 +95,15 @@
                                             Kind="Cogs"
                                             Text="Марки" />
                                     </Grid>
-                                    <Grid Grid.Row="1" Visibility="{Binding ElementName=ImportCarsButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                    <Grid Grid.Row="1" Visibility="{Binding ElementName=ModelsButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="ModelsButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=Models}"
+                                            Kind="CarCog"
+                                            Text="Модели" />
+                                    </Grid>
+                                    <Grid Grid.Row="2" Visibility="{Binding ElementName=ImportCarsButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
                                         <uc:MenuButton
                                             x:Name="ImportCarsButton"
                                             HorizontalContentAlignment="Left"
@@ -102,7 +111,7 @@
                                             Kind="DatabaseImport"
                                             Text="Импорт объявлений" />
                                     </Grid>
-                                    <Grid Grid.Row="2">
+                                    <Grid Grid.Row="3">
                                         <uc:MenuButton
                                             x:Name="ExitButton"
                                             HorizontalContentAlignment="Left"

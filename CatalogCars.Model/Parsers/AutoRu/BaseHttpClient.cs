@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CatalogCars.Model.Parsers.AutoRu.Types;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -37,7 +38,7 @@ namespace CatalogCars.Model.Parsers.AutoRu
             _ajaxClient = new HttpClient(_handler);
 
             _client.BaseAddress = new Uri(_baseUrl);
-            _ajaxClient.BaseAddress = new Uri($"{_baseUrl}-/ajax/desktop/listing/");
+            _ajaxClient.BaseAddress = new Uri($"{_baseUrl}-/ajax/desktop/");
 
             _client.DefaultRequestHeaders.Add("Connection", "keep-alive");
             _client.DefaultRequestHeaders.Add("sec-ch-ua", "\" Not; A Brand\";v=\"99\", \"Yandex\";v=\"91\", \"Chromium\";v=\"91\"");
@@ -53,9 +54,38 @@ namespace CatalogCars.Model.Parsers.AutoRu
             _client.DefaultRequestHeaders.Add("Accept-Language", "ru,en;q=0.9");
         }
 
+        public List<Cookie> GetCookies()
+        {
+            return _cookieContainer.GetCookies(new Uri($"{_client.BaseAddress}")).Cast<Cookie>().ToList();
+        }
+
         public List<Cookie> GetCookies(string url)
         {
             return _cookieContainer.GetCookies(new Uri($"{_client.BaseAddress}{url}")).Cast<Cookie>().ToList();
+        }
+
+        public void SetAjaxRequestHeaders(HeadersAjaxRequestForCars headers)
+        {
+            if (headers != null)
+            {
+                _ajaxClient.DefaultRequestHeaders.Clear();
+
+                _ajaxClient.DefaultRequestHeaders.Add("Host", "auto.ru");
+                _ajaxClient.DefaultRequestHeaders.Add("Connection", "keep-alive");
+                _ajaxClient.DefaultRequestHeaders.Add("sec-ch-ua", "\" Not; A Brand\";v=\"99\", \"Yandex\";v=\"91\", \"Chromium\";v=\"91\"");
+                _ajaxClient.DefaultRequestHeaders.Add("x-csrf-token", headers.CsrfToken);
+                _ajaxClient.DefaultRequestHeaders.Add("sec-ch-ua-mobile", "?0");
+                _ajaxClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 YaBrowser/21.6.4.787 Yowser/2.5 Safari/537.36");
+                _ajaxClient.DefaultRequestHeaders.Add("x-requested-with", "fetch");
+                _ajaxClient.DefaultRequestHeaders.Add("Accept", "*/*");
+                _ajaxClient.DefaultRequestHeaders.Add("Origin", "https://auto.ru");
+                _ajaxClient.DefaultRequestHeaders.Add("Sec-Fetch-Site", "same-origin");
+                _ajaxClient.DefaultRequestHeaders.Add("Sec-Fetch-Mode", "same-origin");
+                _ajaxClient.DefaultRequestHeaders.Add("Sec-Fetch-Dest", "empty");
+                _ajaxClient.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate, br");
+                _ajaxClient.DefaultRequestHeaders.Add("Accept-Language", "ru,en;q=0.9");
+                _ajaxClient.DefaultRequestHeaders.Add("Cookie", headers.CookieContent);
+            }
         }
     }
 }
