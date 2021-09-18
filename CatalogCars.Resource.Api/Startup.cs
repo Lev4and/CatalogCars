@@ -2,6 +2,7 @@ using CatalogCars.Authorization.Common;
 using CatalogCars.Model.Common;
 using CatalogCars.Model.Database;
 using CatalogCars.Model.Database.Entities;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Generation;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Mark;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Model;
 using CatalogCars.Model.Importers.HighPerformance;
@@ -38,6 +39,10 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<RoleManager<ApplicatonRole>>();
             services.AddTransient<UserManager<ApplicationUser>>();
 
+            services.AddTransient<IGenerationsSorter, DefaultGenerationsSorter>();
+            services.AddTransient<IGenerationsSorter, ByAscendingNameGenerationsSorter>();
+            services.AddTransient<IGenerationsSorter, ByDescendingNameGenerationsSorter>();
+
             services.AddTransient<IMarksSorter, DefaultMarksSorter>();
             services.AddTransient<IMarksSorter, ByAscendingNameMarksSorter>();
             services.AddTransient<IMarksSorter, ByDescendingNameMarksSorter>();
@@ -46,8 +51,10 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<IModelsSorter, ByAscendingNameModelsSorter>();
             services.AddTransient<IModelsSorter, ByDescendingNameModelsSorter>();
 
+            services.AddTransient<EntityFrameworkAbstract.IGenerationsRepository, EntityFramework.EFGenerationsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IMarksRepository, EntityFramework.EFMarksRepository>();
             services.AddTransient<EntityFrameworkAbstract.IModelsRepository, EntityFramework.EFModelsRepository>();
+            services.AddTransient<EntityFrameworkAbstract.IPriceSegmentsRepository, EntityFramework.EFPriceSegmentsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IRolesRepository, EntityFramework.EFRolesRepository>();
             services.AddTransient<EntityFrameworkAbstract.IUsersRepository, EntityFramework.EFUsersRepository>();
             services.AddTransient<DefaultDataManager>();
@@ -94,6 +101,7 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<AdoNetAbstract.ISalonPhonesRepository, AdoNet.AdoNetSalonPhonesRepository>();
             services.AddTransient<AdoNetAbstract.ISalonsRepository, AdoNet.AdoNetSalonsRepository>();
             services.AddTransient<AdoNetAbstract.ISectionsRepository, AdoNet.AdoNetSectionsRepository>();
+            services.AddTransient<AdoNetAbstract.ISellerPhonesRepository, AdoNet.AdoNetSellerPhonesRepository>();
             services.AddTransient<AdoNetAbstract.ISellersRepository, AdoNet.AdoNetSellersRepository>();
             services.AddTransient<AdoNetAbstract.ISellerTypesRepository, AdoNet.AdoNetSellerTypesRepository>();
             services.AddTransient<AdoNetAbstract.IStatePhotosRepository, AdoNet.AdoNetStatePhotosRepository>();

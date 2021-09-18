@@ -47,7 +47,7 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
 
         public bool Save(ref RegionInformation entity)
         {
-            if (!Contains(entity.Name))
+            if (!Contains(entity.StringId))
             {
                 entity.Id = Guid.NewGuid();
 

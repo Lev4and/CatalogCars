@@ -53,6 +53,8 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
             else
             {
                 entity.Id = GetSellerId(entity.LocationId);
+
+                return false;
             }
 
             return true;

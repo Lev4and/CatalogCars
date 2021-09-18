@@ -16,7 +16,7 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             _responseLoader = new MarksResponseLoader();
         }
 
-        public async Task<int> GetCountMarks(MarksFilters filters)
+        public async Task<int> GetCountMarksAsync(MarksFilters filters)
         {
             var resultStream = await _responseLoader.GetStreamFromGetCountMarksResponseAsync(filters);
 
@@ -31,7 +31,7 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             return 0;
         }
 
-        public async Task<string[]> GetNamesMarks(string searchString)
+        public async Task<string[]> GetNamesMarksAsync(string searchString)
         {
             var resultStream = await _responseLoader.GetStreamFromGetNamesMarksResponseAsync(searchString);
 

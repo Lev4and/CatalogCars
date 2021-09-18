@@ -70,6 +70,8 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
             else
             {
                 entity.Id = GetSalonId(entity.LocationId, entity.Name);
+
+                return false;
             }
 
             return true;

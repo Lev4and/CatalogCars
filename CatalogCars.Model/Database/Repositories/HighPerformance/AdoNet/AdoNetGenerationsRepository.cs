@@ -21,7 +21,7 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
         {
             var query = $"SELECT TOP(1) * " +
                 $"FROM Generations " +
-                $"WHERE Generations.ModelId = '{modelId}' AND Generations.YearFrom = @YearFrom AND Generations.Name = @Name";
+                $"WHERE Generations.ModelId = '{modelId}' AND Generations.YearFrom {(yearFrom != null ? "= @YearFrom" : "IS NULL")} AND Generations.Name {(!string.IsNullOrEmpty(name) ? "= @Name" : "IS NULL")}";
 
             var parameters = new List<SqlParameter>()
             {
@@ -36,7 +36,7 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
         {
             var query = $"SELECT TOP(1) Generations.Id " +
                 $"FROM Generations " +
-                $"WHERE Generations.ModelId = '{modelId}' AND Generations.YearFrom = @YearFrom AND Generations.Name = @Name";
+                $"WHERE Generations.ModelId = '{modelId}' AND Generations.YearFrom {(yearFrom != null ? "= @YearFrom" : "IS NULL")} AND Generations.Name {(!string.IsNullOrEmpty(name) ? "= @Name" : "IS NULL")}";
 
             var parameters = new List<SqlParameter>()
             {

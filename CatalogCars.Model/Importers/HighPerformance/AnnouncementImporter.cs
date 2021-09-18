@@ -41,9 +41,10 @@ namespace CatalogCars.Model.Importers.HighPerformance
                     RegistrationDate = salonAutoRu.RegistrationDate
                 };
 
-                _dataManager.Salons.Save(ref salon);
-
-                SaveSalonPhones(salonAutoRu.Phones, salon.Id);
+                if(_dataManager.Salons.Save(ref salon))
+                {
+                    SaveSalonPhones(salonAutoRu.Phones, salon.Id);
+                }
 
                 return salon.Id;
             }
@@ -122,7 +123,10 @@ namespace CatalogCars.Model.Importers.HighPerformance
                 Name = sellerAutoRu.Name
             };
 
-            _dataManager.Sellers.Save(ref seller);
+            if(_dataManager.Sellers.Save(ref seller))
+            {
+                SaveSellerPhones(sellerAutoRu.Phones, seller.Id);
+            }
 
             return seller.Id;
         }
@@ -488,6 +492,23 @@ namespace CatalogCars.Model.Importers.HighPerformance
                     };
 
                     _dataManager.SalonPhones.Save(ref salonPhone);
+                }
+            }
+        }
+
+        private void SaveSellerPhones(AutoRu.Phone[] phonesAutoRu, Guid sellerId)
+        {
+            if (phonesAutoRu != null)
+            {
+                foreach (var phoneAutoRu in phonesAutoRu)
+                {
+                    var sellerPhone = new Entities.SellerPhone()
+                    {
+                        SellerId = sellerId,
+                        PhoneId = SaveOrGetPhone(phoneAutoRu)
+                    };
+
+                    _dataManager.SellerPhones.Save(ref sellerPhone);
                 }
             }
         }

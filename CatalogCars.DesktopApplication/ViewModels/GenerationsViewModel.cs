@@ -1,36 +1,55 @@
 ﻿using CatalogCars.Model.Database.AuxiliaryTypes;
-using Entities = CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpRequesters;
 using DevExpress.Mvvm;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
-using System.Windows.Controls;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Input;
+using Entities = CatalogCars.Model.Database.Entities;
 
 namespace CatalogCars.DesktopApplication.ViewModels
 {
-    public class ModelsViewModel : BindableBase
+    public class GenerationsViewModel : BindableBase
     {
         private readonly MarksRequester _marksRequester;
         private readonly ModelsRequester _modelsRequester;
+        private readonly GenerationsRequester _generationsRequester;
+        private readonly PriceSegmentsRequester _priceSegmentsRequester;
+
+        public double MinYearFrom { get; set; }
+
+        public double MaxYearFrom { get; set; }
 
         public Pagination Pagination { get; set; }
-
-        public ModelsFilters Filters { get; set; }
 
         public MarksFilters MarksFilters { get; set; }
 
         public Pagination MarksPagination { get; set; }
 
-        public ObservableCollection<string> NamesModels { get; set; }
+        public GenerationsFilters Filters { get; set; }
+
+        public ModelsFilters ModelsFilters { get; set; }
+
+        public Pagination ModelsPagination { get; set; }
+
+        public ObservableCollection<string> NamesGenerations { get; set; }
 
         public ObservableCollection<Entities.Mark> Marks { get; set; }
 
         public ObservableCollection<Entities.Model> Models { get; set; }
 
+        public ObservableCollection<Entities.Generation> Generations { get; set; }
+
+        public ObservableCollection<Entities.PriceSegment> PriceSegments { get; set; }
+
         public Dictionary<SortingOption, string> SortingOptions { get; set; }
+
+        public ICommand ModelsScrollViewerChanged => new AsyncCommand<object>((obj) =>
+        {
+            return ModelsLoadAsync(obj as ScrollChangedEventArgs);
+        });
 
         public ICommand MarksScrollViewerChanged => new AsyncCommand<object>((obj) =>
         {
@@ -42,9 +61,14 @@ namespace CatalogCars.DesktopApplication.ViewModels
             return LoadAsync(obj as ScrollChangedEventArgs);
         });
 
+        public ICommand SelectedMarksChanged => new AsyncCommand(() =>
+        {
+            return SearchModelsAsync();
+        });
+
         public ICommand SearchStringChanged => new AsyncCommand(() =>
         {
-            return GetNamesModelsAsync();
+            return GetNamesGenerationsAsync();
         });
 
         public ICommand Loaded => new AsyncCommand(() =>
@@ -67,10 +91,12 @@ namespace CatalogCars.DesktopApplication.ViewModels
             return new Task(() => { });
         });
 
-        public ModelsViewModel()
+        public GenerationsViewModel()
         {
             _marksRequester = new MarksRequester();
             _modelsRequester = new ModelsRequester();
+            _generationsRequester = new GenerationsRequester();
+            _priceSegmentsRequester = new PriceSegmentsRequester();
 
             SortingOptions = new Dictionary<SortingOption, string>()
             {
@@ -91,7 +117,7 @@ namespace CatalogCars.DesktopApplication.ViewModels
             {
                 NumberPage = Filters.NumberPage,
                 ItemsPerPage = Filters.ItemsPerPage,
-                CountTotalItems = (await _modelsRequester.GetCountModelsAsync(Filters))
+                CountTotalItems = (await _generationsRequester.GetCountGenerationsAsync(Filters))
             };
         }
 
@@ -99,29 +125,52 @@ namespace CatalogCars.DesktopApplication.ViewModels
         {
             MarksPagination = new Pagination()
             {
-                NumberPage = Filters.NumberPage,
-                ItemsPerPage = Filters.ItemsPerPage,
+                NumberPage = MarksFilters.NumberPage,
+                ItemsPerPage = MarksFilters.ItemsPerPage,
                 CountTotalItems = (await _marksRequester.GetCountMarksAsync(MarksFilters))
+            };
+        }
+
+        private async Task ResetModelsPaginationAsync()
+        {
+            ModelsPagination = new Pagination()
+            {
+                NumberPage = ModelsFilters.NumberPage,
+                ItemsPerPage = ModelsFilters.ItemsPerPage,
+                CountTotalItems = (await _modelsRequester.GetCountModelsOfMarksAsync(ModelsFilters))
             };
         }
 
         private async Task ResetAsync()
         {
-            Filters = new ModelsFilters();
+            MinYearFrom = (double) await _generationsRequester.GetMinYearFromGenerationAsync();
+            MaxYearFrom = (double) await _generationsRequester.GetMaxYearFromGenerationAsync();
+
+            PriceSegments = new ObservableCollection<Entities.PriceSegment>(await 
+                _priceSegmentsRequester.GetPriceSegmentsAsync());
+
+            Filters = new GenerationsFilters();
+
+            Filters.RangeYearFrom.From = (int)MinYearFrom;
+            Filters.RangeYearFrom.To = (int)MaxYearFrom;
+
             MarksFilters = new MarksFilters();
+            ModelsFilters = new ModelsFilters();
 
             await ResetPaginationAsync();
             await ResetMarksPaginationAsync();
+            await ResetModelsPaginationAsync();
 
-            await GetNamesModelsAsync();
+            await GetNamesGenerationsAsync();
 
             await SearchAsync();
             await SearchMarksAsync();
+            await SearchModelsAsync();
         }
 
-        private async Task GetNamesModelsAsync()
+        private async Task GetNamesGenerationsAsync()
         {
-            NamesModels = new ObservableCollection<string>((await _modelsRequester.GetNamesModelsAsync(Filters.SearchString)).ToList());
+            NamesGenerations = new ObservableCollection<string>((await _generationsRequester.GetNamesGenerationsAsync(Filters.SearchString)).ToList());
         }
 
         private async Task SearchAsync()
@@ -130,7 +179,7 @@ namespace CatalogCars.DesktopApplication.ViewModels
 
             await ResetPaginationAsync();
 
-            Models = new ObservableCollection<Entities.Model>((await _modelsRequester.GetModelsAsync(Filters)).ToList());
+            Generations = new ObservableCollection<Entities.Generation>((await _generationsRequester.GetGenerationsAsync(Filters)).ToList());
         }
 
         private async Task SearchMarksAsync()
@@ -140,6 +189,36 @@ namespace CatalogCars.DesktopApplication.ViewModels
             await ResetMarksPaginationAsync();
 
             Marks = new ObservableCollection<Entities.Mark>((await _marksRequester.GetMarksAsync(MarksFilters)).ToList());
+        }
+
+        private async Task SearchModelsAsync()
+        {
+            ModelsFilters.ResetForSearch();
+            ModelsFilters.MarksIds = Filters.MarksIds;
+
+            await ResetModelsPaginationAsync();
+
+            Models = new ObservableCollection<Entities.Model>((await _modelsRequester.GetModelsOfMarksAsync(ModelsFilters)).ToList());
+        }
+
+        private async Task ModelsLoadAsync(ScrollChangedEventArgs eventArgs)
+        {
+            if ((int)(eventArgs.VerticalOffset / (eventArgs.ExtentHeight - eventArgs.ViewportHeight) * 100) >= 80)
+            {
+                if (ModelsPagination.NumberPage < ModelsPagination.MaxNumberPage)
+                {
+                    ModelsFilters.NumberPage += 1;
+                    ModelsPagination.NumberPage += 1;
+                    ModelsFilters.MarksIds = Filters.MarksIds;
+
+                    var models = await _modelsRequester.GetModelsOfMarksAsync(ModelsFilters);
+
+                    foreach (var model in models)
+                    {
+                        Models.Add(model);
+                    }
+                }
+            }
         }
 
         private async Task MarksLoadAsync(ScrollChangedEventArgs eventArgs)
@@ -170,11 +249,11 @@ namespace CatalogCars.DesktopApplication.ViewModels
                     Filters.NumberPage += 1;
                     Pagination.NumberPage += 1;
 
-                    var models = await _modelsRequester.GetModelsAsync(Filters);
+                    var generations = await _generationsRequester.GetGenerationsAsync(Filters);
 
-                    foreach (var model in models)
+                    foreach (var generation in generations)
                     {
-                        Models.Add(model);
+                        Generations.Add(generation);
                     }
                 }
             }

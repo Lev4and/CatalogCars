@@ -7,6 +7,8 @@ namespace CatalogCars.DesktopApplication.ViewModels.Locators
     {
         private static ServiceProvider _provider;
 
+        public GenerationsViewModel GenerationsViewModel => _provider.GetRequiredService<GenerationsViewModel>();
+
         public ImportCarsViewModel ImportCarsViewModel => _provider.GetRequiredService<ImportCarsViewModel>();
 
         public MainWindowViewModel MainWindowViewModel => _provider.GetRequiredService<MainWindowViewModel>();
@@ -21,6 +23,7 @@ namespace CatalogCars.DesktopApplication.ViewModels.Locators
         {
             var services = new ServiceCollection();
 
+            services.AddTransient<GenerationsViewModel>();
             services.AddTransient<ImportCarsViewModel>();
             services.AddTransient<MainWindowViewModel>();
             services.AddTransient<MarksViewModel>();

@@ -2,6 +2,7 @@
 using CatalogCars.Model.Database.Repositories.Default.Abstract;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Model;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -27,6 +28,13 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Count();
         }
 
+        public int GetCountModelsOfMarks(ModelsFilters filters)
+        {
+            return _context.Models
+                .Where(model => (filters.MarksIds.Count > 0 ? filters.MarksIds.Contains(model.MarkId) : false))
+                .Count();
+        }
+
         public IQueryable<Entities.Model> GetModels(ModelsFilters filters)
         {
             var sorter = _sorters.FirstOrDefault(sorter => sorter.SortingOption == filters.SortingOption);
@@ -43,6 +51,18 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             }
 
             return models
+                .Skip((filters.NumberPage - 1) * filters.ItemsPerPage)
+                .Take(filters.ItemsPerPage)
+                .AsNoTracking();
+        }
+
+        public IQueryable<Entities.Model> GetModelsOfMarks(ModelsFilters filters)
+        {
+            return _context.Models
+                .Include(model => model.Mark)
+                .Where(model => (filters.MarksIds.Count > 0 ? filters.MarksIds.Contains(model.MarkId) : false))
+                .OrderBy(model => model.Mark.Name)
+                    .ThenBy(model => model.Name)
                 .Skip((filters.NumberPage - 1) * filters.ItemsPerPage)
                 .Take(filters.ItemsPerPage)
                 .AsNoTracking();

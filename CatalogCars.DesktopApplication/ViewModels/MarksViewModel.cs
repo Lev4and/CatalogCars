@@ -78,7 +78,7 @@ namespace CatalogCars.DesktopApplication.ViewModels
             {
                 NumberPage = Filters.NumberPage,
                 ItemsPerPage = Filters.ItemsPerPage,
-                CountTotalItems = (await _marksRequester.GetCountMarks(Filters))
+                CountTotalItems = (await _marksRequester.GetCountMarksAsync(Filters))
             };
         }
 
@@ -93,7 +93,7 @@ namespace CatalogCars.DesktopApplication.ViewModels
 
         private async Task GetNamesMarksAsync()
         {
-            NamesMarks = new ObservableCollection<string>((await _marksRequester.GetNamesMarks(Filters.SearchString)).ToList());
+            NamesMarks = new ObservableCollection<string>((await _marksRequester.GetNamesMarksAsync(Filters.SearchString)).ToList());
         }
 
         private async Task SearchAsync()

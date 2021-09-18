@@ -21,7 +21,7 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
         {
             var query = $"SELECT TOP(1) * " +
                 $"FROM BodyTypeGroups " +
-                $"WHERE BodyTypeGroups.Name = @Name";
+                $"WHERE BodyTypeGroups.Name {(!string.IsNullOrEmpty(name) ? "= @Name" : "IS NULL")}";
 
             var parameters = new List<SqlParameter>()
             {
@@ -35,7 +35,7 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
         {
             var query = $"SELECT TOP(1) BodyTypeGroups.Id " +
                 $"FROM BodyTypeGroups " +
-                $"WHERE BodyTypeGroups.Name = @Name";
+                $"WHERE BodyTypeGroups.Name {(!string.IsNullOrEmpty(name) ? "= @Name" : "IS NULL")}";
 
             var parameters = new List<SqlParameter>()
             {

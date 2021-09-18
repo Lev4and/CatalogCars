@@ -192,8 +192,8 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Border
-                                        Width="64"
-                                        Height="64"
+                                        Width="32"
+                                        Height="32"
                                         Margin="5"
                                         BorderBrush="Black"
                                         BorderThickness="1">

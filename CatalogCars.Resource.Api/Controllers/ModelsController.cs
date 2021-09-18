@@ -25,6 +25,14 @@ namespace CatalogCars.Resource.Api.Controllers
             return Ok(_dataManager.Models.GetCountModels(filters));
         }
 
+        [HttpPost]
+        [Route("byMarksIds/count")]
+        [ProducesResponseType(typeof(int), 200)]
+        public IActionResult CountModelsOfMarks([FromBody] ModelsFilters filters)
+        {
+            return Ok(_dataManager.Models.GetCountModelsOfMarks(filters));
+        }
+
         [HttpPost("names")]
         [ProducesResponseType(typeof(string[]), 200)]
         public IActionResult Names([FromBody] string searchString)
@@ -37,6 +45,14 @@ namespace CatalogCars.Resource.Api.Controllers
         public IActionResult Index([FromBody] ModelsFilters filters)
         {
             return Ok(_dataManager.Models.GetModels(filters).ToArray());
+        }
+
+        [HttpPost]
+        [Route("byMarksIds")]
+        [ProducesResponseType(typeof(Entities.Model[]), 200)]
+        public IActionResult ModelsOfMarks([FromBody] ModelsFilters filters)
+        {
+            return Ok(_dataManager.Models.GetModelsOfMarks(filters).ToArray());
         }
     }
 }
