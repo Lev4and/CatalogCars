@@ -12,17 +12,21 @@ namespace CatalogCars.Model.Database
 
         public IPriceSegmentsRepository PriceSegments { get; set; }
 
+        public IRegionsRepository Regions { get; set; }
+
         public IRolesRepository Roles { get; set; }
 
         public IUsersRepository Users { get; set; }
 
         public DefaultDataManager(IGenerationsRepository generations, IMarksRepository marks, 
-            IModelsRepository models, IPriceSegmentsRepository priceSegments, IRolesRepository roles, IUsersRepository users)
+            IModelsRepository models, IPriceSegmentsRepository priceSegments, IRegionsRepository regions,
+            IRolesRepository roles, IUsersRepository users)
         {
             Generations = generations;
             Marks = marks;
             Models = models;
             PriceSegments = priceSegments;
+            Regions = regions;
             Roles = roles;
             Users = users;
         }

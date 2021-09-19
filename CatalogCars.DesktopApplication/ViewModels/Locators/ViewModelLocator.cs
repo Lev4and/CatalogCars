@@ -19,6 +19,8 @@ namespace CatalogCars.DesktopApplication.ViewModels.Locators
 
         public ModelsViewModel ModelsViewModel => _provider.GetRequiredService<ModelsViewModel>();
 
+        public RegionsViewModel RegionsViewModel => _provider.GetRequiredService<RegionsViewModel>();
+
         public static void Init()
         {
             var services = new ServiceCollection();
@@ -29,6 +31,7 @@ namespace CatalogCars.DesktopApplication.ViewModels.Locators
             services.AddTransient<MarksViewModel>();
             services.AddTransient<MenuViewModel>();
             services.AddTransient<ModelsViewModel>();
+            services.AddTransient<RegionsViewModel>();
 
             services.AddSingleton<PageService>();
             services.AddSingleton<WindowService>();

@@ -5,6 +5,7 @@ using CatalogCars.Model.Database.Entities;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Generation;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Mark;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Model;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Region;
 using CatalogCars.Model.Importers.HighPerformance;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -51,10 +52,15 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<IModelsSorter, ByAscendingNameModelsSorter>();
             services.AddTransient<IModelsSorter, ByDescendingNameModelsSorter>();
 
+            services.AddTransient<IRegionsSorter, DefaultRegionsSorter>();
+            services.AddTransient<IRegionsSorter, ByAscendingNameRegionsSorter>();
+            services.AddTransient<IRegionsSorter, ByDescendingNameRegionsSorter>();
+
             services.AddTransient<EntityFrameworkAbstract.IGenerationsRepository, EntityFramework.EFGenerationsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IMarksRepository, EntityFramework.EFMarksRepository>();
             services.AddTransient<EntityFrameworkAbstract.IModelsRepository, EntityFramework.EFModelsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IPriceSegmentsRepository, EntityFramework.EFPriceSegmentsRepository>();
+            services.AddTransient<EntityFrameworkAbstract.IRegionsRepository, EntityFramework.EFRegionsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IRolesRepository, EntityFramework.EFRolesRepository>();
             services.AddTransient<EntityFrameworkAbstract.IUsersRepository, EntityFramework.EFUsersRepository>();
             services.AddTransient<DefaultDataManager>();
