@@ -23,14 +23,7 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
 
         public GenerationsFilters()
         {
-            NumberPage = 1;
-            ItemsPerPage = 25;
-            SearchString = "";
-            PriceSegmentId = null;
-            SortingOption = SortingOption.ByAscendingName;
-            RangeYearFrom = new RangeYearFrom(2100, 1900);
-            MarksIds = new List<Guid>();
-            ModelsIds = new List<Guid>();
+            Reset();
         }
 
         public void Reset()

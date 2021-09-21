@@ -1,6 +1,9 @@
-﻿namespace CatalogCars.Model.Database.AuxiliaryTypes
+﻿using System;
+using System.Collections.Generic;
+
+namespace CatalogCars.Model.Database.AuxiliaryTypes
 {
-    public class RegionsFilters : IFilters
+    public class LocationsFilters : IFilters
     {
         public int NumberPage { get; set; }
 
@@ -10,7 +13,9 @@
 
         public SortingOption SortingOption { get; set; }
 
-        public RegionsFilters()
+        public List<Guid> RegionsIds { get; set; }
+
+        public LocationsFilters()
         {
             Reset();
         }
@@ -21,6 +26,7 @@
             ItemsPerPage = 25;
             SearchString = "";
             SortingOption = SortingOption.ByAscendingName;
+            RegionsIds = new List<Guid>();
         }
 
         public void ResetForSearch()

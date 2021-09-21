@@ -1,6 +1,7 @@
 ﻿using CatalogCars.Model.Database;
 using CatalogCars.Model.Database.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace CatalogCars.Resource.Api.Controllers
 {
@@ -20,7 +21,7 @@ namespace CatalogCars.Resource.Api.Controllers
         [ProducesResponseType(typeof(PriceSegment[]), 200)]
         public IActionResult Index()
         {
-            return Ok(_dataManager.PriceSegments.GetPriceSegments());
+            return Ok(_dataManager.PriceSegments.GetPriceSegments().ToArray());
         }
     }
 }

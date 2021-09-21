@@ -12,10 +12,7 @@
 
         public MarksFilters()
         {
-            NumberPage = 1;
-            ItemsPerPage = 25;
-            SearchString = "";
-            SortingOption = SortingOption.ByAscendingName;
+            Reset();
         }
 
         public void Reset()

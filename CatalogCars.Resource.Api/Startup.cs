@@ -3,6 +3,7 @@ using CatalogCars.Model.Common;
 using CatalogCars.Model.Database;
 using CatalogCars.Model.Database.Entities;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Generation;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Location;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Mark;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Model;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Region;
@@ -44,6 +45,10 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<IGenerationsSorter, ByAscendingNameGenerationsSorter>();
             services.AddTransient<IGenerationsSorter, ByDescendingNameGenerationsSorter>();
 
+            services.AddTransient<ILocationsSorter, DefaultLocationsSorter>();
+            services.AddTransient<ILocationsSorter, ByAscendingNameLocationsSorter>();
+            services.AddTransient<ILocationsSorter, ByDescendingNameLocationsSorter>();
+
             services.AddTransient<IMarksSorter, DefaultMarksSorter>();
             services.AddTransient<IMarksSorter, ByAscendingNameMarksSorter>();
             services.AddTransient<IMarksSorter, ByDescendingNameMarksSorter>();
@@ -57,6 +62,7 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<IRegionsSorter, ByDescendingNameRegionsSorter>();
 
             services.AddTransient<EntityFrameworkAbstract.IGenerationsRepository, EntityFramework.EFGenerationsRepository>();
+            services.AddTransient<EntityFrameworkAbstract.ILocationsRepository, EntityFramework.EFLocationsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IMarksRepository, EntityFramework.EFMarksRepository>();
             services.AddTransient<EntityFrameworkAbstract.IModelsRepository, EntityFramework.EFModelsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IPriceSegmentsRepository, EntityFramework.EFPriceSegmentsRepository>();

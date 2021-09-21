@@ -17,11 +17,7 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
 
         public ModelsFilters()
         {
-            NumberPage = 1;
-            ItemsPerPage = 25;
-            SearchString = "";
-            SortingOption = SortingOption.ByAscendingName;
-            MarksIds = new List<Guid>();
+            Reset();
         }
 
         public void Reset()

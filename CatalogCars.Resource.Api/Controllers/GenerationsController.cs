@@ -2,6 +2,7 @@
 using CatalogCars.Model.Database.AuxiliaryTypes;
 using CatalogCars.Model.Database.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace CatalogCars.Resource.Api.Controllers
 {
@@ -28,7 +29,7 @@ namespace CatalogCars.Resource.Api.Controllers
         [ProducesResponseType(typeof(Generation[]), 200)]
         public IActionResult Index([FromBody] GenerationsFilters filters)
         {
-            return Ok(_dataManager.Generations.GetGenerations(filters));
+            return Ok(_dataManager.Generations.GetGenerations(filters).ToArray());
         }
 
         [HttpPost("maxYearFromGeneration")]
@@ -49,7 +50,7 @@ namespace CatalogCars.Resource.Api.Controllers
         [ProducesResponseType(typeof(string[]), 200)]
         public IActionResult Names([FromBody] string searchString)
         {
-            return Ok(_dataManager.Generations.GetNamesGenerations(searchString));
+            return Ok(_dataManager.Generations.GetNamesGenerations(searchString).ToArray());
         }
     }
 }
