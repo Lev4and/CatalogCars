@@ -48,23 +48,15 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
             var from = 0;
             var to = 0;
 
-            if (NumberPage > 1)
+            if (CountTotalItems > 0)
             {
-                from = (NumberPage - 1) * ItemsPerPage;
+                from = 1;
                 to = NumberPage * ItemsPerPage <= CountTotalItems ? NumberPage * ItemsPerPage : CountTotalItems;
             }
             else
             {
-                if (CountTotalItems > 0)
-                {
-                    from = 1;
-                    to = NumberPage * ItemsPerPage <= CountTotalItems ? NumberPage * ItemsPerPage : CountTotalItems;
-                }
-                else
-                {
-                    from = 0;
-                    to = 0;
-                }
+                from = 0;
+                to = 0;
             }
 
             return $"Показаны {from}-{to} из {CountTotalItems} {Declension.DeclensionByNumeral(CountTotalItems, new string[3] { "результата", "результатов", "результатов" }, false)}";
