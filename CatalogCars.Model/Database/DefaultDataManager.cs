@@ -4,6 +4,8 @@ namespace CatalogCars.Model.Database
 {
     public class DefaultDataManager
     {
+        public ICurrenciesRepository Currencies { get; set; }
+
         public IGenerationsRepository Generations { get; set; }
 
         public ILocationsRepository Locations { get; set; }
@@ -22,10 +24,12 @@ namespace CatalogCars.Model.Database
 
         public IUsersRepository Users { get; set; }
 
-        public DefaultDataManager(IGenerationsRepository generations, ILocationsRepository locations, IMarksRepository marks, 
+        public DefaultDataManager(ICurrenciesRepository currencies, IGenerationsRepository generations, 
+            ILocationsRepository locations, IMarksRepository marks, 
             IModelsRepository models, IPriceSegmentsRepository priceSegments, IRegionsRepository regions,
             IRolesRepository roles, IStatusesRepository statuses, IUsersRepository users)
         {
+            Currencies = currencies;
             Generations = generations;
             Locations = locations;
             Marks = marks;

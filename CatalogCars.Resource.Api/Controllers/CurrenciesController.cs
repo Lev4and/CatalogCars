@@ -7,36 +7,36 @@ using System.Linq;
 namespace CatalogCars.Resource.Api.Controllers
 {
     [ApiController]
-    [Route("api/statuses")]
+    [Route("api/currencies")]
     [Produces("application/json")]
-    public class StatusesController : Controller
+    public class CurrenciesController : Controller
     {
         private readonly DefaultDataManager _dataManager;
 
-        public StatusesController(DefaultDataManager dataManager)
+        public CurrenciesController(DefaultDataManager dataManager)
         {
             _dataManager = dataManager;
         }
 
         [HttpPost("count")]
         [ProducesResponseType(typeof(int), 200)]
-        public IActionResult Count([FromBody] StatusesFilters filters)
+        public IActionResult Count([FromBody] CurrenciesFilters filters)
         {
-            return Ok(_dataManager.Statuses.GetCountStatuses(filters));
+            return Ok(_dataManager.Currencies.GetCountCurrencies(filters));
         }
 
         [HttpPost("names")]
         [ProducesResponseType(typeof(string[]), 200)]
         public IActionResult Names([FromBody] string searchString)
         {
-            return Ok(_dataManager.Statuses.GetNamesStatuses(searchString).ToArray());
+            return Ok(_dataManager.Currencies.GetNamesCurrencies(searchString).ToArray());
         }
 
-        [HttpPost]
-        [ProducesResponseType(typeof(Status[]), 200)]
-        public IActionResult Index([FromBody] StatusesFilters filters)
+        [HttpPost()]
+        [ProducesResponseType(typeof(Currency[]), 200)]
+        public IActionResult Index([FromBody] CurrenciesFilters filters)
         {
-            return Ok(_dataManager.Statuses.GetStatuses(filters).ToArray());
+            return Ok(_dataManager.Currencies.GetCurrencies(filters).ToArray());
         }
     }
 }

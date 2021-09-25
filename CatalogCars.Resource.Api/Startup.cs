@@ -2,6 +2,7 @@ using CatalogCars.Authorization.Common;
 using CatalogCars.Model.Common;
 using CatalogCars.Model.Database;
 using CatalogCars.Model.Database.Entities;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Currency;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Generation;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Location;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Mark;
@@ -42,6 +43,10 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<RoleManager<ApplicatonRole>>();
             services.AddTransient<UserManager<ApplicationUser>>();
 
+            services.AddTransient<ICurrenciesSorter, DefaultCurrenciesSorter>();
+            services.AddTransient<ICurrenciesSorter, ByAscendingNameCurrenciesSorter>();
+            services.AddTransient<ICurrenciesSorter, ByDescendingNameCurrenciesSorter>();
+
             services.AddTransient<IGenerationsSorter, DefaultGenerationsSorter>();
             services.AddTransient<IGenerationsSorter, ByAscendingNameGenerationsSorter>();
             services.AddTransient<IGenerationsSorter, ByDescendingNameGenerationsSorter>();
@@ -66,6 +71,7 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<IStatusesSorter, ByAscendingNameStatusesSorter>();
             services.AddTransient<IStatusesSorter, ByDescendingNameStatusesSorter>();
 
+            services.AddTransient<EntityFrameworkAbstract.ICurrenciesRepository, EntityFramework.EFCurrenciesRepository>();
             services.AddTransient<EntityFrameworkAbstract.IGenerationsRepository, EntityFramework.EFGenerationsRepository>();
             services.AddTransient<EntityFrameworkAbstract.ILocationsRepository, EntityFramework.EFLocationsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IMarksRepository, EntityFramework.EFMarksRepository>();
