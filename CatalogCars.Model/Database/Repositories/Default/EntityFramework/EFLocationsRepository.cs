@@ -58,8 +58,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Include(location => location.Region)
                 .Where(location =>
                     EF.Functions.Like(location.Region.Name + ", " + location.Address, $"%{searchString}%"))
+                .OrderBy(location => location.Region.Name)
+                    .ThenBy(location => location.Address)
                 .Select(location => location.Region.Name + ", " + location.Address)
-                .OrderBy(location => location)
                 .Take(5)
                 .AsNoTracking();
         }

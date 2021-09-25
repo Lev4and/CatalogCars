@@ -50,6 +50,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Where(category => EF.Functions.Like(category.RuName, $"%{searchString}%"))
                 .OrderBy(category => category.RuName)
                 .Select(category => category.RuName)
+                .Take(5)
                 .AsNoTracking();
         }
     }

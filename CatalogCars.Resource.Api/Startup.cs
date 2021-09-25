@@ -10,6 +10,7 @@ using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Ma
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Model;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Region;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Status;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.SteeringWheel;
 using CatalogCars.Model.Importers.HighPerformance;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -76,6 +77,10 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<IStatusesSorter, ByAscendingNameStatusesSorter>();
             services.AddTransient<IStatusesSorter, ByDescendingNameStatusesSorter>();
 
+            services.AddTransient<ISteeringWheelsSorter, DefaultSteeringWheelsSorter>();
+            services.AddTransient<ISteeringWheelsSorter, ByAscendingNameSteeringWheelsSorter>();
+            services.AddTransient<ISteeringWheelsSorter, ByDescendingNameSteeringWheelsSorter>();
+
             services.AddTransient<EntityFrameworkAbstract.ICategoriesRepository, EntityFramework.EFCategoriesRepository>();
             services.AddTransient<EntityFrameworkAbstract.ICurrenciesRepository, EntityFramework.EFCurrenciesRepository>();
             services.AddTransient<EntityFrameworkAbstract.IGenerationsRepository, EntityFramework.EFGenerationsRepository>();
@@ -86,6 +91,7 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<EntityFrameworkAbstract.IRegionsRepository, EntityFramework.EFRegionsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IRolesRepository, EntityFramework.EFRolesRepository>();
             services.AddTransient<EntityFrameworkAbstract.IStatusesRepository, EntityFramework.EFStatusesRepository>();
+            services.AddTransient<EntityFrameworkAbstract.ISteeringWheelsRepository, EntityFramework.EFSteeringWheelsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IUsersRepository, EntityFramework.EFUsersRepository>();
             services.AddTransient<DefaultDataManager>();
 

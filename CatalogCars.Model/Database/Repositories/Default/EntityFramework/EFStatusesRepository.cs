@@ -31,7 +31,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             return _context.Statuses
                 .Where(status => EF.Functions.Like(status.RuName, $"%{searchString}%"))
                 .OrderBy(status => status.RuName)
-                .Select(status => status.RuName);
+                .Select(status => status.RuName)
+                .Take(5)
+                .AsNoTracking();
         }
 
         public IQueryable<Status> GetStatuses(StatusesFilters filters)

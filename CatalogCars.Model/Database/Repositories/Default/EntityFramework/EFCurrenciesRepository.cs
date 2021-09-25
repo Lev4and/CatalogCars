@@ -53,6 +53,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                     $"%{searchString}%"))
                 .OrderBy(currency => currency.Name)
                 .Select(currency => currency.Name + " (" + currency.Designation + ")")
+                .Take(5)
                 .AsNoTracking();
         }
     }

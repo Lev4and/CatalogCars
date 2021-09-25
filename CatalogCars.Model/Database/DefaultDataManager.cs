@@ -24,13 +24,15 @@ namespace CatalogCars.Model.Database
 
         public IStatusesRepository Statuses { get; set; }
 
+        public ISteeringWheelsRepository SteeringWheels { get; set; }
+
         public IUsersRepository Users { get; set; }
 
         public DefaultDataManager(ICategoriesRepository categories, ICurrenciesRepository currencies, 
             IGenerationsRepository generations, 
             ILocationsRepository locations, IMarksRepository marks, 
             IModelsRepository models, IPriceSegmentsRepository priceSegments, IRegionsRepository regions,
-            IRolesRepository roles, IStatusesRepository statuses, IUsersRepository users)
+            IRolesRepository roles, IStatusesRepository statuses, ISteeringWheelsRepository steeringWheels, IUsersRepository users)
         {
             Categories = categories;
             Currencies = currencies;
@@ -42,6 +44,7 @@ namespace CatalogCars.Model.Database
             Regions = regions;
             Roles = roles;
             Statuses = statuses;
+            SteeringWheels = steeringWheels;
             Users = users;
         }
     }
