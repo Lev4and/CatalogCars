@@ -9,6 +9,7 @@ using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Lo
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Mark;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Model;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Region;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Section;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.SellerType;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Status;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.SteeringWheel;
@@ -74,6 +75,10 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<IRegionsSorter, ByAscendingNameRegionsSorter>();
             services.AddTransient<IRegionsSorter, ByDescendingNameRegionsSorter>();
 
+            services.AddTransient<ISectionsSorter, DefaultSectionsSorter>();
+            services.AddTransient<ISectionsSorter, ByAscendingNameSectionsSorter>();
+            services.AddTransient<ISectionsSorter, ByDescendingNameSectionsSorter>();
+
             services.AddTransient<ISellerTypesSorter, DefaultSellerTypesSorter>();
             services.AddTransient<ISellerTypesSorter, ByAscendingNameSellerTypesSorter>();
             services.AddTransient<ISellerTypesSorter, ByDescendingNameSellerTypesSorter>();
@@ -95,6 +100,7 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<EntityFrameworkAbstract.IPriceSegmentsRepository, EntityFramework.EFPriceSegmentsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IRegionsRepository, EntityFramework.EFRegionsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IRolesRepository, EntityFramework.EFRolesRepository>();
+            services.AddTransient<EntityFrameworkAbstract.ISectionsRepository, EntityFramework.EFSectionsRepository>();
             services.AddTransient<EntityFrameworkAbstract.ISellerTypesRepository, EntityFramework.EFSellerTypesRepository>();
             services.AddTransient<EntityFrameworkAbstract.IStatusesRepository, EntityFramework.EFStatusesRepository>();
             services.AddTransient<EntityFrameworkAbstract.ISteeringWheelsRepository, EntityFramework.EFSteeringWheelsRepository>();

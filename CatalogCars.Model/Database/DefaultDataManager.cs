@@ -22,6 +22,8 @@ namespace CatalogCars.Model.Database
 
         public IRolesRepository Roles { get; set; }
 
+        public ISectionsRepository Sections { get; set; }
+
         public ISellerTypesRepository SellerTypes { get; set; }
 
         public IStatusesRepository Statuses { get; set; }
@@ -34,7 +36,7 @@ namespace CatalogCars.Model.Database
             IGenerationsRepository generations, 
             ILocationsRepository locations, IMarksRepository marks, 
             IModelsRepository models, IPriceSegmentsRepository priceSegments, IRegionsRepository regions,
-            IRolesRepository roles, IStatusesRepository statuses, ISellerTypesRepository sellerTypes,
+            IRolesRepository roles, IStatusesRepository statuses, ISectionsRepository sections, ISellerTypesRepository sellerTypes,
             ISteeringWheelsRepository steeringWheels, IUsersRepository users)
         {
             Categories = categories;
@@ -46,6 +48,7 @@ namespace CatalogCars.Model.Database
             PriceSegments = priceSegments;
             Regions = regions;
             Roles = roles;
+            Sections = sections;
             SellerTypes = sellerTypes;
             Statuses = statuses;
             SteeringWheels = steeringWheels;
