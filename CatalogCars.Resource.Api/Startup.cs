@@ -7,6 +7,7 @@ using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Lo
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Mark;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Model;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Region;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Status;
 using CatalogCars.Model.Importers.HighPerformance;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -61,6 +62,10 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<IRegionsSorter, ByAscendingNameRegionsSorter>();
             services.AddTransient<IRegionsSorter, ByDescendingNameRegionsSorter>();
 
+            services.AddTransient<IStatusesSorter, DefaultStatusesSorter>();
+            services.AddTransient<IStatusesSorter, ByAscendingNameStatusesSorter>();
+            services.AddTransient<IStatusesSorter, ByDescendingNameStatusesSorter>();
+
             services.AddTransient<EntityFrameworkAbstract.IGenerationsRepository, EntityFramework.EFGenerationsRepository>();
             services.AddTransient<EntityFrameworkAbstract.ILocationsRepository, EntityFramework.EFLocationsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IMarksRepository, EntityFramework.EFMarksRepository>();
@@ -68,6 +73,7 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<EntityFrameworkAbstract.IPriceSegmentsRepository, EntityFramework.EFPriceSegmentsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IRegionsRepository, EntityFramework.EFRegionsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IRolesRepository, EntityFramework.EFRolesRepository>();
+            services.AddTransient<EntityFrameworkAbstract.IStatusesRepository, EntityFramework.EFStatusesRepository>();
             services.AddTransient<EntityFrameworkAbstract.IUsersRepository, EntityFramework.EFUsersRepository>();
             services.AddTransient<DefaultDataManager>();
 

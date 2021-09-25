@@ -18,11 +18,13 @@ namespace CatalogCars.Model.Database
 
         public IRolesRepository Roles { get; set; }
 
+        public IStatusesRepository Statuses { get; set; }
+
         public IUsersRepository Users { get; set; }
 
         public DefaultDataManager(IGenerationsRepository generations, ILocationsRepository locations, IMarksRepository marks, 
             IModelsRepository models, IPriceSegmentsRepository priceSegments, IRegionsRepository regions,
-            IRolesRepository roles, IUsersRepository users)
+            IRolesRepository roles, IStatusesRepository statuses, IUsersRepository users)
         {
             Generations = generations;
             Locations = locations;
@@ -31,6 +33,7 @@ namespace CatalogCars.Model.Database
             PriceSegments = priceSegments;
             Regions = regions;
             Roles = roles;
+            Statuses = statuses;
             Users = users;
         }
     }
