@@ -15,9 +15,9 @@ namespace CatalogCars.Model.Parsers.AutoRu.JsonWorkers
             _jsonLoader = new CarsJsonLoader();
         }
 
-        public async Task<ListingCount> GetCountCars(HeadersAjaxRequestForCars headers, RangeMileage rangeMileage, RangePrice rangePrice, int topDays, int numberPage)
+        public async Task<ListingCount> GetCountCars(HeadersAjaxRequestForCars headers, RangeMileage rangeMileage, RangePrice rangePrice, int pageSize, int topDays, int numberPage)
         {
-            var jsonResult = await _jsonLoader.GetCountCars(headers, rangeMileage, rangePrice, topDays, numberPage);
+            var jsonResult = await _jsonLoader.GetCountCars(headers, rangeMileage, rangePrice, pageSize, topDays, numberPage);
 
             if (!string.IsNullOrEmpty(jsonResult))
             {
@@ -27,14 +27,14 @@ namespace CatalogCars.Model.Parsers.AutoRu.JsonWorkers
             return new ListingCount();
         }
 
-        public async Task<string> GetCars(HeadersAjaxRequestForCars headers, RangeMileage rangeMileage, RangePrice rangePrice,  int topDays, int numberPage)
+        public async Task<string> GetCars(HeadersAjaxRequestForCars headers, RangeMileage rangeMileage, RangePrice rangePrice, int pageSize, int topDays, int numberPage)
         {
-            return await _jsonLoader.GetCars(headers, rangeMileage, rangePrice, topDays, numberPage);
+            return await _jsonLoader.GetCars(headers, rangeMileage, rangePrice, pageSize, topDays, numberPage);
         }
 
-        public async Task<PriceRange[]> GetPriceRanges(HeadersAjaxRequestForCars headers, RangeMileage rangeMileage, RangePrice rangePrice, int topDays, int numberPage)
+        public async Task<PriceRange[]> GetPriceRanges(HeadersAjaxRequestForCars headers, RangeMileage rangeMileage, RangePrice rangePrice, int pageSize, int topDays, int numberPage)
         {
-            var jsonResult = await _jsonLoader.GetPriceRanges(headers, rangeMileage, rangePrice, topDays, numberPage);
+            var jsonResult = await _jsonLoader.GetPriceRanges(headers, rangeMileage, rangePrice, pageSize, topDays, numberPage);
 
             if (!string.IsNullOrEmpty(jsonResult))
             {

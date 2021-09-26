@@ -17,7 +17,7 @@ namespace CatalogCars.Model.Tests.Parsers.AutoRu.CookieWorkers
         [Fact]
         public async Task GetHeadersAjaxRequestForCars_WithParams_ReturnNotNullGetHeadersAjaxRequestForCars()
         {
-            await _cookieWorker.GetHeadersAjaxRequestForCars(new RangeMileage(30000, 0), new RangePrice(300000, 0), 1, 1);
+            await _cookieWorker.GetHeadersAjaxRequestForCars(new RangeMileage(30000, 0), new RangePrice(300000, 0), 1, 1, 1);
         }
     }
 }

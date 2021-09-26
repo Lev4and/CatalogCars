@@ -14,9 +14,9 @@ namespace CatalogCars.Model.Parsers.AutoRu.JsonLoaders
             _httpClient = new CarsHttpClient();
         }
 
-        public async Task<string> GetCountCars(HeadersAjaxRequestForCars headers, RangeMileage rangeMileage, RangePrice rangePrice, int topDays, int numberPage)
+        public async Task<string> GetCountCars(HeadersAjaxRequestForCars headers, RangeMileage rangeMileage, RangePrice rangePrice, int pageSize, int topDays, int numberPage)
         {
-            var response = await _httpClient.GetCountCars(headers, rangeMileage, rangePrice, topDays, numberPage);
+            var response = await _httpClient.GetCountCars(headers, rangeMileage, rangePrice, pageSize, topDays, numberPage);
 
             if (response != null)
             {
@@ -29,9 +29,9 @@ namespace CatalogCars.Model.Parsers.AutoRu.JsonLoaders
             return "";
         }
 
-        public async Task<string> GetCars(HeadersAjaxRequestForCars headers, RangeMileage rangeMileage, RangePrice rangePrice, int topDays, int numberPage)
+        public async Task<string> GetCars(HeadersAjaxRequestForCars headers, RangeMileage rangeMileage, RangePrice rangePrice, int pageSize, int topDays, int numberPage)
         {
-            var response = await _httpClient.GetCars(headers, rangeMileage, rangePrice, topDays, numberPage);
+            var response = await _httpClient.GetCars(headers, rangeMileage, rangePrice, pageSize, topDays, numberPage);
 
             if (response != null)
             {
@@ -44,9 +44,9 @@ namespace CatalogCars.Model.Parsers.AutoRu.JsonLoaders
             return "";
         }
 
-        public async Task<string> GetPriceRanges(HeadersAjaxRequestForCars headers, RangeMileage rangeMileage, RangePrice rangePrice, int topDays, int numberPage)
+        public async Task<string> GetPriceRanges(HeadersAjaxRequestForCars headers, RangeMileage rangeMileage, RangePrice rangePrice, int pageSize, int topDays, int numberPage)
         {
-            var response = await _httpClient.GetPriceRanges(headers, rangeMileage, rangePrice, topDays, numberPage);
+            var response = await _httpClient.GetPriceRanges(headers, rangeMileage, rangePrice, pageSize, topDays, numberPage);
 
             if (response != null)
             {

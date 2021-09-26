@@ -4,6 +4,8 @@ using CatalogCars.Model.Parsers.AutoRu.JsonWorkers;
 using CatalogCars.Model.Parsers.AutoRu.ParseWorkers;
 using CatalogCars.Model.Parsers.AutoRu.Types;
 using FluentAssertions;
+using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using Xunit;
@@ -28,8 +30,8 @@ namespace CatalogCars.Model.Tests.Parsers.AutoRu.JsonWorkers
         [Fact]
         public async Task GetCars_WithParams_ReturnNotNullResult()
         {
-            var headers = await _cookieWorker.GetHeadersAjaxRequestForCars(new RangeMileage(30000, 0), new RangePrice(300000, 0), 1, 1);
-            var cars = await _jsonWorker.GetCars(headers, new RangeMileage(30000, 0), new RangePrice(300000, 0), 1, 1);
+            var headers = await _cookieWorker.GetHeadersAjaxRequestForCars(new RangeMileage(30000, 0), new RangePrice(300000, 0), 1, 1, 1);
+            var cars = await _jsonWorker.GetCars(headers, new RangeMileage(30000, 0), new RangePrice(300000, 0), 95, 1, 1);
 
             cars.Should().NotBeNull();
         }
@@ -37,23 +39,55 @@ namespace CatalogCars.Model.Tests.Parsers.AutoRu.JsonWorkers
         [Fact]
         public async Task GetAllCars_WithParams_ReturnNotNullResult()
         {
-            var priceIncrement = 10000000;
-            var mileageIncrement = 250000;
+            var topDays = 5;
+            var pageSize = 95;
+            var priceIncrement = 50000;
+            var mileageIncrement = 50000;
 
-            for (int i = 19000000; i <= 300000000; i += priceIncrement)
+            for (int i = 1900000; i <= 300000000; i += priceIncrement)
             {
+                if(i >= 900000)
+                {
+                    if(i >= 3000000)
+                    {
+                        if(i >= 10000000)
+                        {
+                            priceIncrement = 10000000;
+                        }
+                        else
+                        {
+                            priceIncrement = 5000000;
+                        }
+                    }
+                    else
+                    {
+                        priceIncrement = 100000;
+                    }
+                }
+
                 for(int j = 0; j < 1100000; j += mileageIncrement)
                 {
+                    if(j >= 300000)
+                    {
+                        mileageIncrement = 800000;
+                    }
+                    else
+                    {
+                        mileageIncrement = 50000;
+                    }
+
                     var rangePrice = new RangePrice(i + priceIncrement - 1, i);
                     var rangeMileage = new RangeMileage(j + mileageIncrement - 1, j);
 
-                    var pagination = await _paginationParseWorker.GetCarsPagination(rangeMileage, rangePrice, 5, 1);
-                    var headers = await _cookieWorker.GetHeadersAjaxRequestForCars(rangeMileage, rangePrice, 5, 1);
+                    var headers = await _cookieWorker.GetHeadersAjaxRequestForCars(rangeMileage, rangePrice, 1, topDays, 1);
 
-                    for (int z = 1; z <= pagination.MaxNumberPage; z++)
+                    int maxNumberPage = Convert.ToInt32(JsonConvert.DeserializeObject<dynamic>((await _jsonWorker.GetCars(headers, 
+                        rangeMileage, rangePrice, pageSize, topDays, 1))).pagination.total_page_count);
+
+                    for (int z = 1; z <= maxNumberPage; z++)
                     {
-                        File.WriteAllText($"Cars/from 2021-09-01 to 2021-09-05/Price from {i} to {i + priceIncrement - 1} Mileage from {j} to {j + mileageIncrement - 1} Page {z}.json", 
-                            await _jsonWorker.GetCars(headers, rangeMileage, rangePrice, 5, z));
+                        File.WriteAllText($"Cars/from 2021-09-21 to 2021-09-26/Price from {i} to {i + priceIncrement - 1} Mileage from {j} to {j + mileageIncrement - 1} Page {z}.json", 
+                            await _jsonWorker.GetCars(headers, rangeMileage, rangePrice, pageSize, topDays, z));
                     }
                 }
             }

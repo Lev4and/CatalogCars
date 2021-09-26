@@ -32,10 +32,10 @@ namespace CatalogCars.Model.Parsers.AutoRu.CookieWorkers
             return result;
         }
 
-        public async Task<HeadersAjaxRequestForCars> GetHeadersAjaxRequestForCars(RangeMileage rangeMileage, RangePrice rangePrice,  int topDays, int numberPage)
+        public async Task<HeadersAjaxRequestForCars> GetHeadersAjaxRequestForCars(RangeMileage rangeMileage, RangePrice rangePrice, int pageSize, int topDays, int numberPage)
         {
             var result = new HeadersAjaxRequestForCars();
-            var cookies = await _cookieLoader.GetCookies(rangeMileage, rangePrice, topDays, numberPage);
+            var cookies = await _cookieLoader.GetCookies(rangeMileage, rangePrice, pageSize, topDays, numberPage);
 
             result.CsrfToken = cookies.FirstOrDefault(cookie => cookie.Name == "_csrf_token").Value;
 

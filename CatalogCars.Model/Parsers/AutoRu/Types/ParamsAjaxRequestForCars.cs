@@ -32,6 +32,9 @@ namespace CatalogCars.Model.Parsers.AutoRu.Types
         [JsonProperty("section")]
         public string Section { get; set; }
 
+        [JsonProperty("page_size")]
+        public string PageSize { get; set; }
+
         [JsonProperty("category")]
         public string Category { get; set; }
 
@@ -44,7 +47,7 @@ namespace CatalogCars.Model.Parsers.AutoRu.Types
         [JsonProperty("customs_state_group")]
         public string CustomsStateGroup { get; set; }
 
-        public ParamsAjaxRequestForCars(RangeMileage rangeMileage, RangePrice rangePrice,  int topDays, int numberPage)
+        public ParamsAjaxRequestForCars(RangeMileage rangeMileage, RangePrice rangePrice, int pageSize, int topDays, int numberPage)
         {
             HasImage = false;
 
@@ -62,6 +65,7 @@ namespace CatalogCars.Model.Parsers.AutoRu.Types
             Category = "cars";
             DamageGroup = "ANY";
             OutputType = "table";
+            PageSize = $"{pageSize}";
             CustomsStateGroup = "DOESNT_MATTER";
             TopDays = topDays > 0 ? $"{topDays}" : "";
         }

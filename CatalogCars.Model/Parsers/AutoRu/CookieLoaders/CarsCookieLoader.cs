@@ -30,15 +30,15 @@ namespace CatalogCars.Model.Parsers.AutoRu.CookieLoaders
             return new List<Cookie>();
         }
 
-        public async Task<List<Cookie>> GetCookies(RangeMileage rangeMileage, RangePrice rangePrice,  int topDays, int numberPage)
+        public async Task<List<Cookie>> GetCookies(RangeMileage rangeMileage, RangePrice rangePrice, int pageSize, int topDays, int numberPage)
         {
-            var response = await _httpClient.GetCars(rangeMileage, rangePrice, topDays, numberPage);
+            var response = await _httpClient.GetCars(rangeMileage, rangePrice, pageSize, topDays, numberPage);
 
             if (response != null)
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    return _httpClient.GetCookies(_httpClient.GetUrl(rangeMileage, rangePrice, topDays, numberPage));
+                    return _httpClient.GetCookies(_httpClient.GetUrl(rangeMileage, rangePrice, pageSize, topDays, numberPage));
                 }
             }
 
