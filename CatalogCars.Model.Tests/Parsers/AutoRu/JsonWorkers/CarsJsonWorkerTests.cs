@@ -40,7 +40,7 @@ namespace CatalogCars.Model.Tests.Parsers.AutoRu.JsonWorkers
         public async Task GetAllCars_WithParams_ReturnNotNullResult()
         {
             var topDays = 5;
-            var pageSize = 95;
+            var pageSize = 100;
             var priceIncrement = 50000;
             var mileageIncrement = 50000;
 

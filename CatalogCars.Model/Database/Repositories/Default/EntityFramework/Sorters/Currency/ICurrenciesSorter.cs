@@ -1,12 +1,7 @@
-﻿using CatalogCars.Model.Database.AuxiliaryTypes;
-using System.Linq;
-
-namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Currency
+﻿namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Currency
 {
-    public interface ICurrenciesSorter
+    public interface ICurrenciesSorter : ISorter<Entities.Currency>
     {
-        SortingOption SortingOption { get; }
 
-        IQueryable<Entities.Currency> Sort(IQueryable<Entities.Currency> currencies);
     }
 }

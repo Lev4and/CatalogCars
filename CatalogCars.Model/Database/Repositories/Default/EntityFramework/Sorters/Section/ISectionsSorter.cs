@@ -1,12 +1,7 @@
-﻿using CatalogCars.Model.Database.AuxiliaryTypes;
-using System.Linq;
-
-namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Section
+﻿namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Section
 {
-    public interface ISectionsSorter
+    public interface ISectionsSorter : ISorter<Entities.Section>
     {
-        SortingOption SortingOption { get; }
 
-        IQueryable<Entities.Section> Sort(IQueryable<Entities.Section> sections);
     }
 }

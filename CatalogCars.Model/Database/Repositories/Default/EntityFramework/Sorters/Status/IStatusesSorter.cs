@@ -1,12 +1,7 @@
-﻿using CatalogCars.Model.Database.AuxiliaryTypes;
-using System.Linq;
-
-namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Status
+﻿namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Status
 {
-    public interface IStatusesSorter
+    public interface IStatusesSorter : ISorter<Entities.Status>
     {
-        SortingOption SortingOption { get; }
 
-        IQueryable<Entities.Status> Sort(IQueryable<Entities.Status> statuses);
     }
 }

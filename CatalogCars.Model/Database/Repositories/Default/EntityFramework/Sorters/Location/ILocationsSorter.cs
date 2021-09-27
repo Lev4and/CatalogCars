@@ -1,12 +1,7 @@
-﻿using CatalogCars.Model.Database.AuxiliaryTypes;
-using System.Linq;
-
-namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Location
+﻿namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Location
 {
-    public interface ILocationsSorter
+    public interface ILocationsSorter : ISorter<Entities.Location>
     {
-        SortingOption SortingOption { get; }
 
-        IQueryable<Entities.Location> Sort(IQueryable<Entities.Location> locations);
     }
 }

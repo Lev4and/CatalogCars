@@ -7,9 +7,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorter
     {
         public SortingOption SortingOption => SortingOption.ByDescendingName;
 
-        public IQueryable<Entities.SteeringWheel> Sort(IQueryable<Entities.SteeringWheel> steeringWheels)
+        public IQueryable<Entities.SteeringWheel> Sort(IQueryable<Entities.SteeringWheel> collection)
         {
-            return steeringWheels.OrderByDescending(steeringWheel => steeringWheel.RuName);
+            return collection.OrderByDescending(item => item.RuName);
         }
     }
 }

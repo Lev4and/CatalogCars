@@ -1,12 +1,7 @@
-﻿using CatalogCars.Model.Database.AuxiliaryTypes;
-using System.Linq;
-
-namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Region
+﻿namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Region
 {
-    public interface IRegionsSorter
+    public interface IRegionsSorter : ISorter<Entities.RegionInformation>
     {
-        SortingOption SortingOption { get; }
 
-        IQueryable<Entities.RegionInformation> Sort(IQueryable<Entities.RegionInformation> regions);
     }
 }

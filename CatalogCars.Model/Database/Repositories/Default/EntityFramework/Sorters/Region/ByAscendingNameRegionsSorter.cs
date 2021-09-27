@@ -8,9 +8,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorter
     {
         public SortingOption SortingOption => SortingOption.ByAscendingName;
 
-        public IQueryable<RegionInformation> Sort(IQueryable<RegionInformation> regions)
+        public IQueryable<RegionInformation> Sort(IQueryable<RegionInformation> collection)
         {
-            return regions.OrderBy(region => region.Name);
+            return collection.OrderBy(item => item.Name);
         }
     }
 }

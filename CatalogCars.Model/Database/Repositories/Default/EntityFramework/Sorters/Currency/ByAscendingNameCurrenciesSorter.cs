@@ -7,9 +7,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorter
     {
         public SortingOption SortingOption => SortingOption.ByAscendingName;
 
-        public IQueryable<Entities.Currency> Sort(IQueryable<Entities.Currency> currencies)
+        public IQueryable<Entities.Currency> Sort(IQueryable<Entities.Currency> collection)
         {
-            return currencies.OrderBy(currency => currency.Name);
+            return collection.OrderBy(item => item.Name);
         }
     }
 }

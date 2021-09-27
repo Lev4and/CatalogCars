@@ -7,9 +7,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorter
     {
         public SortingOption SortingOption => SortingOption.ByAscendingName;
 
-        public IQueryable<Entities.Section> Sort(IQueryable<Entities.Section> sections)
+        public IQueryable<Entities.Section> Sort(IQueryable<Entities.Section> collection)
         {
-            return sections.OrderBy(section => section.RuName);
+            return collection.OrderBy(item => item.RuName);
         }
     }
 }

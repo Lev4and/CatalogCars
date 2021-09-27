@@ -2,17 +2,36 @@ using CatalogCars.Authorization.Common;
 using CatalogCars.Model.Common;
 using CatalogCars.Model.Database;
 using CatalogCars.Model.Database.Entities;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Availability;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.BodyType;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.BodyTypeGroup;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Category;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Color;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.ColorType;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Coordinate;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Currency;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.EngineType;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.GearType;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Generation;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Location;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Mark;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Model;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Option;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Phone;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.PhotoClass;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.PriceSegment;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.PtsType;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Region;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Salon;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Section;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Seller;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.SellerType;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Status;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.SteeringWheel;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Tag;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Transmission;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Vendor;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.VinResolution;
 using CatalogCars.Model.Importers.HighPerformance;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -47,13 +66,46 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<RoleManager<ApplicatonRole>>();
             services.AddTransient<UserManager<ApplicationUser>>();
 
+            #region Сортировщики
+            services.AddTransient<IAvailabilitiesSorter, DefaultAvailabilitiesSorter>();
+            services.AddTransient<IAvailabilitiesSorter, ByAscendingNameAvailabilitiesSorter>();
+            services.AddTransient<IAvailabilitiesSorter, ByDescendingNameAvailabilitiesSorter>();
+
+            services.AddTransient<IBodyTypesSorter, DefaultBodyTypesSorter>();
+            services.AddTransient<IBodyTypesSorter, ByAscendingNameBodyTypesSorter>();
+            services.AddTransient<IBodyTypesSorter, ByDescendingNameBodyTypesSorter>();
+
+            services.AddTransient<IBodyTypeGroupsSorter, DefaultBodyTypeGroupsSorter>();
+            services.AddTransient<IBodyTypeGroupsSorter, ByAscendingNameBodyTypeGroupsSorter>();
+            services.AddTransient<IBodyTypeGroupsSorter, ByDescendingNameBodyTypeGroupsSorter>();
+
             services.AddTransient<ICategoriesSorter, DefaultCategoriesSorter>();
             services.AddTransient<ICategoriesSorter, ByAscendingNameCategoriesSorter>();
             services.AddTransient<ICategoriesSorter, ByDescendingNameCategoriesSorter>();
 
+            services.AddTransient<IColorsSorter, DefaultColorsSorter>();
+            services.AddTransient<IColorsSorter, ByAscendingNameColorsSorter>();
+            services.AddTransient<IColorsSorter, ByDescendingNameColorsSorter>();
+
+            services.AddTransient<IColorTypesSorter, DefaultColorTypesSorter>();
+            services.AddTransient<IColorTypesSorter, ByAscendingNameColorTypesSorter>();
+            services.AddTransient<IColorTypesSorter, ByDescendingNameColorTypesSorter>();
+
+            services.AddTransient<ICoordinatesSorter, DefaultCoordinatesSorter>();
+            services.AddTransient<ICoordinatesSorter, ByAscendingNameCoordinatesSorter>();
+            services.AddTransient<ICoordinatesSorter, ByDescendingNameCoordinatesSorter>();
+
             services.AddTransient<ICurrenciesSorter, DefaultCurrenciesSorter>();
             services.AddTransient<ICurrenciesSorter, ByAscendingNameCurrenciesSorter>();
             services.AddTransient<ICurrenciesSorter, ByDescendingNameCurrenciesSorter>();
+
+            services.AddTransient<IEngineTypesSorter, DefaultEngineTypesSorter>();
+            services.AddTransient<IEngineTypesSorter, ByAscendingNameEngineTypesSorter>();
+            services.AddTransient<IEngineTypesSorter, ByDescendingNameEngineTypesSorter>();
+
+            services.AddTransient<IGearTypesSorter, DefaultGearTypesSorter>();
+            services.AddTransient<IGearTypesSorter, ByAscendingNameGearTypesSorter>();
+            services.AddTransient<IGearTypesSorter, ByDescendingNameGearTypesSorter>();
 
             services.AddTransient<IGenerationsSorter, DefaultGenerationsSorter>();
             services.AddTransient<IGenerationsSorter, ByAscendingNameGenerationsSorter>();
@@ -71,13 +123,41 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<IModelsSorter, ByAscendingNameModelsSorter>();
             services.AddTransient<IModelsSorter, ByDescendingNameModelsSorter>();
 
+            services.AddTransient<IOptionsSorter, DefaultOptionsSorter>();
+            services.AddTransient<IOptionsSorter, ByAscendingNameOptionsSorter>();
+            services.AddTransient<IOptionsSorter, ByDescendingNameOptionsSorter>();
+
+            services.AddTransient<IPhonesSorter, DefaultPhonesSorter>();
+            services.AddTransient<IPhonesSorter, ByAscendingNamePhonesSorter>();
+            services.AddTransient<IPhonesSorter, ByDescendingNamePhonesSorter>();
+
+            services.AddTransient<IPhotoClassesSorter, DefaultPhotoClassesSorter>();
+            services.AddTransient<IPhotoClassesSorter, ByAscendingNamePhotoClassesSorter>();
+            services.AddTransient<IPhotoClassesSorter, ByDescendingNamePhotoClassesSorter>();
+
+            services.AddTransient<IPriceSegmentsSorter, DefaultPriceSegmentsSorter>();
+            services.AddTransient<IPriceSegmentsSorter, ByAscendingNamePriceSegmentsSorter>();
+            services.AddTransient<IPriceSegmentsSorter, ByDescendingNamePriceSegmentsSorter>();
+
+            services.AddTransient<IPtsTypesSorter, DefaultPtsTypesSorter>();
+            services.AddTransient<IPtsTypesSorter, ByAscendingNamePtsTypesSorter>();
+            services.AddTransient<IPtsTypesSorter, ByDescendingNamePtsTypesSorter>();
+
             services.AddTransient<IRegionsSorter, DefaultRegionsSorter>();
             services.AddTransient<IRegionsSorter, ByAscendingNameRegionsSorter>();
             services.AddTransient<IRegionsSorter, ByDescendingNameRegionsSorter>();
 
+            services.AddTransient<ISalonsSorter, DefaultSalonsSorter>();
+            services.AddTransient<ISalonsSorter, ByAscendingNameSalonsSorter>();
+            services.AddTransient<ISalonsSorter, ByDescendingNameSalonsSorter>();
+
             services.AddTransient<ISectionsSorter, DefaultSectionsSorter>();
             services.AddTransient<ISectionsSorter, ByAscendingNameSectionsSorter>();
             services.AddTransient<ISectionsSorter, ByDescendingNameSectionsSorter>();
+
+            services.AddTransient<ISellersSorter, DefaultSellersSorter>();
+            services.AddTransient<ISellersSorter, ByAscendingNameSellersSorter>();
+            services.AddTransient<ISellersSorter, ByDescendingNameSellersSorter>();
 
             services.AddTransient<ISellerTypesSorter, DefaultSellerTypesSorter>();
             services.AddTransient<ISellerTypesSorter, ByAscendingNameSellerTypesSorter>();
@@ -91,20 +171,55 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<ISteeringWheelsSorter, ByAscendingNameSteeringWheelsSorter>();
             services.AddTransient<ISteeringWheelsSorter, ByDescendingNameSteeringWheelsSorter>();
 
+            services.AddTransient<ITagsSorter, DefaultTagsSorter>();
+            services.AddTransient<ITagsSorter, ByAscendingNameTagsSorter>();
+            services.AddTransient<ITagsSorter, ByDescendingNameTagsSorter>();
+
+            services.AddTransient<ITransmissionsSorter, DefaultTransmissionsSorter>();
+            services.AddTransient<ITransmissionsSorter, ByAscendingNameTransmissionsSorter>();
+            services.AddTransient<ITransmissionsSorter, ByDescendingNameTransmissionsSorter>();
+
+            services.AddTransient<IVendorsSorter, DefaultVendorsSorter>();
+            services.AddTransient<IVendorsSorter, ByAscendingNameVendorsSorter>();
+            services.AddTransient<IVendorsSorter, ByDescendingNameVendorsSorter>();
+
+            services.AddTransient<IVinResolutionsSorter, DefaultVinResolutionsSorter>();
+            services.AddTransient<IVinResolutionsSorter, ByAscendingNameVinResolutionsSorter>();
+            services.AddTransient<IVinResolutionsSorter, ByDescendingNameVinResolutionsSorter>();
+            #endregion
+
+            services.AddTransient<EntityFrameworkAbstract.IAvailabilitiesRepository, EntityFramework.EFAvailabilitiesRepository>();
+            services.AddTransient<EntityFrameworkAbstract.IBodyTypeGroupsRepository, EntityFramework.EFBodyTypeGroupsRepository>();
+            services.AddTransient<EntityFrameworkAbstract.IBodyTypesRepository, EntityFramework.EFBodyTypesRepository>();
             services.AddTransient<EntityFrameworkAbstract.ICategoriesRepository, EntityFramework.EFCategoriesRepository>();
+            services.AddTransient<EntityFrameworkAbstract.IColorsRepository, EntityFramework.EFColorsRepository>();
+            services.AddTransient<EntityFrameworkAbstract.IColorTypesRepository, EntityFramework.EFColorTypesRepository>();
+            services.AddTransient<EntityFrameworkAbstract.ICoordinatesRepository, EntityFramework.EFCoordinatesRepository>();
             services.AddTransient<EntityFrameworkAbstract.ICurrenciesRepository, EntityFramework.EFCurrenciesRepository>();
+            services.AddTransient<EntityFrameworkAbstract.IEngineTypesRepository, EntityFramework.EFEngineTypesRepository>();
+            services.AddTransient<EntityFrameworkAbstract.IGearTypesRepository, EntityFramework.EFGearTypesRepository>();
             services.AddTransient<EntityFrameworkAbstract.IGenerationsRepository, EntityFramework.EFGenerationsRepository>();
             services.AddTransient<EntityFrameworkAbstract.ILocationsRepository, EntityFramework.EFLocationsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IMarksRepository, EntityFramework.EFMarksRepository>();
             services.AddTransient<EntityFrameworkAbstract.IModelsRepository, EntityFramework.EFModelsRepository>();
+            services.AddTransient<EntityFrameworkAbstract.IOptionsRepository, EntityFramework.EFOptionsRepository>();
+            services.AddTransient<EntityFrameworkAbstract.IPhonesRepository, EntityFramework.EFPhonesRepository>();
+            services.AddTransient<EntityFrameworkAbstract.IPhotoClassesRepository, EntityFramework.EFPhotoClassesRepository>();
             services.AddTransient<EntityFrameworkAbstract.IPriceSegmentsRepository, EntityFramework.EFPriceSegmentsRepository>();
+            services.AddTransient<EntityFrameworkAbstract.IPtsTypesRepository, EntityFramework.EFPtsTypesRepository>();
             services.AddTransient<EntityFrameworkAbstract.IRegionsRepository, EntityFramework.EFRegionsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IRolesRepository, EntityFramework.EFRolesRepository>();
+            services.AddTransient<EntityFrameworkAbstract.ISalonsRepository, EntityFramework.EFSalonsRepository>();
             services.AddTransient<EntityFrameworkAbstract.ISectionsRepository, EntityFramework.EFSectionsRepository>();
+            services.AddTransient<EntityFrameworkAbstract.ISellersRepository, EntityFramework.EFSellersRepository>();
             services.AddTransient<EntityFrameworkAbstract.ISellerTypesRepository, EntityFramework.EFSellerTypesRepository>();
             services.AddTransient<EntityFrameworkAbstract.IStatusesRepository, EntityFramework.EFStatusesRepository>();
             services.AddTransient<EntityFrameworkAbstract.ISteeringWheelsRepository, EntityFramework.EFSteeringWheelsRepository>();
+            services.AddTransient<EntityFrameworkAbstract.ITagsRepository, EntityFramework.EFTagsRepository>();
+            services.AddTransient<EntityFrameworkAbstract.ITransmissionsRepository, EntityFramework.EFTransmissionsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IUsersRepository, EntityFramework.EFUsersRepository>();
+            services.AddTransient<EntityFrameworkAbstract.IVinResolutionsRepository, EntityFramework.EFVinResolutionsRepository>();
+            services.AddTransient<EntityFrameworkAbstract.IVendorsRepository, EntityFramework.EFVendorsRepository>();
             services.AddTransient<DefaultDataManager>();
 
             services.AddTransient<AdoNetAbstract.IAnnouncementAdditionalInformationRepository, AdoNet.AdoNetAnnouncementAdditionalInformationRepository>();

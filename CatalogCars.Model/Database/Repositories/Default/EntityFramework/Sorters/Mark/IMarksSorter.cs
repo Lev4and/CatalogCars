@@ -1,12 +1,7 @@
-﻿using CatalogCars.Model.Database.AuxiliaryTypes;
-using System.Linq;
-
-namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Mark
+﻿namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Mark
 {
-    public interface IMarksSorter
+    public interface IMarksSorter : ISorter<Entities.Mark>
     {
-        SortingOption SortingOption { get; }
 
-        IQueryable<Entities.Mark> Sort(IQueryable<Entities.Mark> marks);
     }
 }
