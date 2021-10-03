@@ -24,8 +24,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             var sorter = _sorters.FirstOrDefault(sorter => sorter.SortingOption == filters.SortingOption);
 
             IQueryable<BodyTypeGroup> bodyTypeGroups = _context.BodyTypeGroups
-                .Where(bodyTypeGroup => EF.Functions.Like(bodyTypeGroup.AutoClass + " - " + bodyTypeGroup.RuName, 
-                    $"%{filters.SearchString}%"));
+                .Where(bodyTypeGroup => EF.Functions.Like((bodyTypeGroup.AutoClass != null ? bodyTypeGroup.AutoClass :
+                    "Не указан") + " - " + (bodyTypeGroup.RuName != null ? bodyTypeGroup.RuName : "Не указано"),
+                        $"%{filters.SearchString}%"));
 
             if(sorter != null)
             {
@@ -42,19 +43,22 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         public int GetCountBodyTypeGroups(BodyTypeGroupsFilters filters)
         {
             return _context.BodyTypeGroups
-                .Where(bodyTypeGroup => EF.Functions.Like(bodyTypeGroup.AutoClass + " - " + bodyTypeGroup.RuName,
-                    $"%{filters.SearchString}%"))
+                .Where(bodyTypeGroup => EF.Functions.Like((bodyTypeGroup.AutoClass != null ? bodyTypeGroup.AutoClass :
+                    "Не указан") + " - " + (bodyTypeGroup.RuName != null ? bodyTypeGroup.RuName : "Не указано"),
+                        $"%{filters.SearchString}%"))
                 .Count();
         }
 
         public IQueryable<string> GetNamesBodyTypeGroups(string searchString)
         {
             return _context.BodyTypeGroups
-                .Where(bodyTypeGroup => EF.Functions.Like(bodyTypeGroup.AutoClass + " - " + bodyTypeGroup.RuName,
-                    $"%{searchString}%"))
+                .Where(bodyTypeGroup => EF.Functions.Like((bodyTypeGroup.AutoClass != null ? bodyTypeGroup.AutoClass : 
+                    "Не указан") + " - " + (bodyTypeGroup.RuName != null ? bodyTypeGroup.RuName : "Не указано"), 
+                        $"%{searchString}%"))
                 .OrderBy(bodyTypeGroup => bodyTypeGroup.AutoClass)
                     .ThenBy(bodyTypeGroup => bodyTypeGroup.RuName)
-                .Select(bodyTypeGroup => bodyTypeGroup.AutoClass + " - " + bodyTypeGroup.RuName)
+                .Select(bodyTypeGroup => (bodyTypeGroup.AutoClass != null ? bodyTypeGroup.AutoClass : "Не указан") + 
+                    " - " + (bodyTypeGroup.RuName != null ? bodyTypeGroup.RuName : "Не указано"))
                 .Take(5)
                 .AsNoTracking();
         }

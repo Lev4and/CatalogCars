@@ -74,6 +74,10 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<IBodyTypesSorter, DefaultBodyTypesSorter>();
             services.AddTransient<IBodyTypesSorter, ByAscendingNameBodyTypesSorter>();
             services.AddTransient<IBodyTypesSorter, ByDescendingNameBodyTypesSorter>();
+            services.AddTransient<IBodyTypesSorter, ByAscendingAutoClassBodyTypesSorter>();
+            services.AddTransient<IBodyTypesSorter, ByDescendingAutoClassBodyTypesSorter>();
+            services.AddTransient<IBodyTypesSorter, ByAscendingBodyTypeGroupNameBodyTypesSorter>();
+            services.AddTransient<IBodyTypesSorter, ByDescendingBodyTypeGroupNameBodyTypesSorter>();
 
             services.AddTransient<IBodyTypeGroupsSorter, DefaultBodyTypeGroupsSorter>();
             services.AddTransient<IBodyTypeGroupsSorter, ByAscendingNameBodyTypeGroupsSorter>();
@@ -94,6 +98,10 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<ICoordinatesSorter, DefaultCoordinatesSorter>();
             services.AddTransient<ICoordinatesSorter, ByAscendingNameCoordinatesSorter>();
             services.AddTransient<ICoordinatesSorter, ByDescendingNameCoordinatesSorter>();
+            services.AddTransient<ICoordinatesSorter, ByAscendingRegionNameCoordinatesSorter>();
+            services.AddTransient<ICoordinatesSorter, ByDescendingRegionNameCoordinatesSorter>();
+            services.AddTransient<ICoordinatesSorter, ByAscendingLocationAddressCoordinatesSorter>();
+            services.AddTransient<ICoordinatesSorter, ByDescendingLocationAddressCoordinatesSorter>();
 
             services.AddTransient<ICurrenciesSorter, DefaultCurrenciesSorter>();
             services.AddTransient<ICurrenciesSorter, ByAscendingNameCurrenciesSorter>();
@@ -110,10 +118,18 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<IGenerationsSorter, DefaultGenerationsSorter>();
             services.AddTransient<IGenerationsSorter, ByAscendingNameGenerationsSorter>();
             services.AddTransient<IGenerationsSorter, ByDescendingNameGenerationsSorter>();
+            services.AddTransient<IGenerationsSorter, ByAscendingMarkNameGenerationsSorter>();
+            services.AddTransient<IGenerationsSorter, ByAscendingYearFromGenerationsSorter>();
+            services.AddTransient<IGenerationsSorter, ByAscendingModelNameGenerationsSorter>();
+            services.AddTransient<IGenerationsSorter, ByDescendingMarkNameGenerationsSorter>();
+            services.AddTransient<IGenerationsSorter, ByDescendingYearFromGenerationsSorter>();
+            services.AddTransient<IGenerationsSorter, ByDescendingModelNameGenerationsSorter>();
 
             services.AddTransient<ILocationsSorter, DefaultLocationsSorter>();
             services.AddTransient<ILocationsSorter, ByAscendingNameLocationsSorter>();
             services.AddTransient<ILocationsSorter, ByDescendingNameLocationsSorter>();
+            services.AddTransient<ILocationsSorter, ByAscendingRegionNameLocationsSorter>();
+            services.AddTransient<ILocationsSorter, ByDescendingRegionNameLocationsSorter>();
 
             services.AddTransient<IMarksSorter, DefaultMarksSorter>();
             services.AddTransient<IMarksSorter, ByAscendingNameMarksSorter>();
@@ -122,6 +138,8 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<IModelsSorter, DefaultModelsSorter>();
             services.AddTransient<IModelsSorter, ByAscendingNameModelsSorter>();
             services.AddTransient<IModelsSorter, ByDescendingNameModelsSorter>();
+            services.AddTransient<IModelsSorter, ByAscendingMarkNameModelsSorter>();
+            services.AddTransient<IModelsSorter, ByDescendingMarkNameModelsSorter>();
 
             services.AddTransient<IOptionsSorter, DefaultOptionsSorter>();
             services.AddTransient<IOptionsSorter, ByAscendingNameOptionsSorter>();
@@ -150,6 +168,12 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<ISalonsSorter, DefaultSalonsSorter>();
             services.AddTransient<ISalonsSorter, ByAscendingNameSalonsSorter>();
             services.AddTransient<ISalonsSorter, ByDescendingNameSalonsSorter>();
+            services.AddTransient<ISalonsSorter, ByAscendingRegionNameSalonsSorter>();
+            services.AddTransient<ISalonsSorter, ByDescendingRegionNameSalonsSorter>();
+            services.AddTransient<ISalonsSorter, ByAscendingLocationAddressSalonsSorter>();
+            services.AddTransient<ISalonsSorter, ByDescendingLocationAddressSalonsSorter>();
+            services.AddTransient<ISalonsSorter, ByAscendingRegistrationDateSalonsSorter>();
+            services.AddTransient<ISalonsSorter, ByDescendingRegistrationDateSalonsSorter>();
 
             services.AddTransient<ISectionsSorter, DefaultSectionsSorter>();
             services.AddTransient<ISectionsSorter, ByAscendingNameSectionsSorter>();
@@ -158,6 +182,10 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<ISellersSorter, DefaultSellersSorter>();
             services.AddTransient<ISellersSorter, ByAscendingNameSellersSorter>();
             services.AddTransient<ISellersSorter, ByDescendingNameSellersSorter>();
+            services.AddTransient<ISellersSorter, ByAscendingRegionNameSellersSorter>();
+            services.AddTransient<ISellersSorter, ByDescendingRegionNameSellersSorter>();
+            services.AddTransient<ISellersSorter, ByAscendingLocationAddressSellersSorter>();
+            services.AddTransient<ISellersSorter, ByDescendingLocationAddressSellersSorter>();
 
             services.AddTransient<ISellerTypesSorter, DefaultSellerTypesSorter>();
             services.AddTransient<ISellerTypesSorter, ByAscendingNameSellerTypesSorter>();

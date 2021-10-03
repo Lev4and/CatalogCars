@@ -3,7 +3,6 @@ using CatalogCars.Model.Database.Entities;
 using CatalogCars.Model.Database.Repositories.Default.Abstract;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Generation;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,8 +24,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             return _context.Generations
                 .Include(generation => generation.Model)
                     .ThenInclude(model => model.Mark)
-                .Where(generation => EF.Functions.Like(generation.Model.Mark.Name + " " + generation.Model.Name + " " +
-                    generation.Name, $"%{filters.SearchString}%") &&
+                .Where(generation => EF.Functions.Like(generation.Model.Mark.Name + " " + generation.Model.Name +
+                    (generation.Name != null ? " " + generation.Name : "") + (generation.YearFrom != null ? " " +
+                        generation.YearFrom : ""), $"%{filters.SearchString}%") &&
                         (filters.MarksIds.Count > 0 ? filters.MarksIds.Contains(generation.Model.MarkId) : true) &&
                             (filters.ModelsIds.Count > 0 ? filters.ModelsIds.Contains(generation.ModelId) : true) &&
                                 (filters.RangeYearFrom.To != null || filters.RangeYearFrom.From != null ?
@@ -46,8 +46,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Include(generation => generation.Model)
                     .ThenInclude(model => model.Mark)
                         .ThenInclude(mark => mark.Logo)
-                .Where(generation => EF.Functions.Like(generation.Model.Mark.Name + " " + generation.Model.Name + " " +
-                    generation.Name, $"%{filters.SearchString}%") && 
+                .Where(generation => EF.Functions.Like(generation.Model.Mark.Name + " " + generation.Model.Name +
+                    (generation.Name != null ? " " + generation.Name : "") + (generation.YearFrom != null ? " " +
+                        generation.YearFrom : ""), $"%{filters.SearchString}%") && 
                         (filters.MarksIds.Count > 0 ? filters.MarksIds.Contains(generation.Model.MarkId) : true) &&
                             (filters.ModelsIds.Count > 0 ? filters.ModelsIds.Contains(generation.ModelId) : true) &&
                                 (filters.RangeYearFrom.To != null || filters.RangeYearFrom.From != null ? 
@@ -82,14 +83,16 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             return _context.Generations
                 .Include(generation => generation.Model)
                     .ThenInclude(model => model.Mark)
-                .Where(generation => EF.Functions.Like(generation.Model.Mark.Name + " " + generation.Model.Name + " " +
-                    generation.Name, $"%{searchString}%"))
+                .Where(generation => EF.Functions.Like(generation.Model.Mark.Name + " " + generation.Model.Name +
+                    (generation.Name != null ? " " + generation.Name : "") + (generation.YearFrom != null ? " " + 
+                        generation.YearFrom : ""), $"%{searchString}%"))
                 .OrderBy(generation => generation.Model.Mark.Name)
                     .ThenBy(generation => generation.Model.Name)
                         .ThenBy(generation => generation.Name)
                             .ThenBy(generation => generation.YearFrom)
-                .Select(generation => $"{generation.Model.Mark.Name} {generation.Model.Name} {generation.Name} " +
-                    $"{generation.YearFrom}")
+                .Select(generation => generation.Model.Mark.Name + " " + generation.Model.Name +
+                    (generation.Name != null ? " " + generation.Name : "") + (generation.YearFrom != null ? " " +
+                        generation.YearFrom : ""))
                 .Take(5)
                 .AsNoTracking();
         }

@@ -213,13 +213,13 @@ namespace CatalogCars.Model.Database.Migrations
                         {
                             Id = new Guid("21f7b496-c675-4e8a-a34c-fc5ec0762fdb"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d0285905-d21a-47dd-b7d7-e6b18666a07a",
+                            ConcurrencyStamp = "c2f91154-e11f-45bf-8ac4-65429a3b2ae0",
                             Email = "andrey.levchenko.2001@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ANDREY.LEVCHENKO.2001@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBIIAY4UTke05aiL0lm0ugdS43Wo1+iXYc5EMXypwsP0MhzRtsq5diYjUJhzRZUUhw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEG/JYnPbyLgN0SGBYoNw8p4nuqMfwX2dj4UF174w9ZJKOtJZmwxqEAw4Jx0LXDc6aw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -258,7 +258,7 @@ namespace CatalogCars.Model.Database.Migrations
                         new
                         {
                             Id = new Guid("b867520a-92db-4658-be39-84da53a601c0"),
-                            ConcurrencyStamp = "6c917c84-1114-4dc1-977a-8499ac6c5df0",
+                            ConcurrencyStamp = "85a98b49-fa77-448c-bdbe-1aba3c162fa0",
                             Name = "Администратор",
                             NormalizedName = "АДМИНИСТРАТОР"
                         });
@@ -1115,7 +1115,7 @@ namespace CatalogCars.Model.Database.Migrations
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("IsOficial")
+                    b.Property<bool?>("IsOfficial")
                         .HasColumnType("bit");
 
                     b.Property<Guid>("LocationId")

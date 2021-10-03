@@ -19,8 +19,6 @@ namespace CatalogCars.DesktopApplication.ViewModels
 
         public RegionsFilters Filters { get; set; }
 
-        public Dictionary<SortingOption, string> SortingOptions { get; set; }
-
         public ObservableCollection<RegionInformation> Regions { get; set; }
 
         public ObservableCollection<string> NamesRegions { get; set; }
@@ -58,13 +56,6 @@ namespace CatalogCars.DesktopApplication.ViewModels
         public RegionsViewModel()
         {
             _regionsRequester = new RegionsRequester();
-
-            SortingOptions = new Dictionary<SortingOption, string>()
-            {
-                { SortingOption.Default, "Сортировка по умолчанию" },
-                { SortingOption.ByAscendingName, "Сортировка по названию: от А до Я" },
-                { SortingOption.ByDescendingName, "Сортировка по названию: от Я до А" }
-            };
         }
 
         private async Task LoadedAsync()

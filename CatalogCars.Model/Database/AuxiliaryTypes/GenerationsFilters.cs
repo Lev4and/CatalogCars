@@ -21,6 +21,8 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
 
         public List<Guid> ModelsIds { get; set; }
 
+        public Dictionary<SortingOption, string> SortingOptions { get; set; }
+
         public GenerationsFilters()
         {
             Reset();
@@ -36,6 +38,18 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
             RangeYearFrom = new RangeYearFrom(2100, 1900);
             MarksIds = new List<Guid>();
             ModelsIds = new List<Guid>();
+            SortingOptions = new Dictionary<SortingOption, string>()
+            {
+                { SortingOption.Default, "Сортировка по умолчанию" },
+                { SortingOption.ByAscendingName, "Сортировка по названию: от А до Я" },
+                { SortingOption.ByDescendingName, "Сортировка по названию: от Я до А" },
+                { SortingOption.ByAscendingMarkName, "Сортировка по названию марки: от А до Я" },
+                { SortingOption.ByDescendingMarkName, "Сортировка по названию марки: от Я до А" },
+                { SortingOption.ByAscendingModelName, "Сортировка по названию модели: от А до Я" },
+                { SortingOption.ByDescendingModelName, "Сортировка по названию модели: от Я до А" },
+                { SortingOption.ByAscendingYearFrom, "Сортировка по возрастанию года релиза" },
+                { SortingOption.ByDescendingYearFrom, "Сортировка по убыванию года релиза" }
+            };
         }
 
         public void ResetForSearch()

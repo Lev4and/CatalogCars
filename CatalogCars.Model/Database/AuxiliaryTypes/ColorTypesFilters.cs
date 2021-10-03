@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace CatalogCars.Model.Database.AuxiliaryTypes
 {
@@ -16,6 +12,8 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
 
         public SortingOption SortingOption { get; set; }
 
+        public Dictionary<SortingOption, string> SortingOptions { get; set; }
+
         public ColorTypesFilters()
         {
             Reset();
@@ -27,6 +25,12 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
             ItemsPerPage = 25;
             SearchString = "";
             SortingOption = SortingOption.ByAscendingName;
+            SortingOptions = new Dictionary<SortingOption, string>()
+            {
+                { SortingOption.Default, "Сортировка по умолчанию" },
+                { SortingOption.ByAscendingName, "Сортировка по названию: от А до Я" },
+                { SortingOption.ByDescendingName, "Сортировка по названию: от Я до А" }
+            };
         }
 
         public void ResetForSearch()

@@ -51,13 +51,13 @@ namespace CatalogCars.Model.Database.Repositories.HighPerformance.AdoNet
             {
                 entity.Id = Guid.NewGuid();
 
-                var query = $"INSERT INTO [Salons] (Id, LocationId, IsOficial, ActualStock, LoyaltyProgram, Code, Name, " +
-                    $"RegistrationDate) VALUES ('{entity.Id}', '{entity.LocationId}', @IsOficial, @ActualStock, @LoyaltyProgram, " +
+                var query = $"INSERT INTO [Salons] (Id, LocationId, IsOfficial, ActualStock, LoyaltyProgram, Code, Name, " +
+                    $"RegistrationDate) VALUES ('{entity.Id}', '{entity.LocationId}', @IsOfficial, @ActualStock, @LoyaltyProgram, " +
                     $"@Code, @Name, @RegistrationDate)";
 
                 var parameters = new List<SqlParameter>()
                 {
-                    new SqlParameter() { ParameterName = "@IsOficial", SqlDbType = SqlDbType.Bit, Value = entity.IsOficial.GetDbValue() },
+                    new SqlParameter() { ParameterName = "@IsOfficial", SqlDbType = SqlDbType.Bit, Value = entity.IsOfficial.GetDbValue() },
                     new SqlParameter() { ParameterName = "@ActualStock", SqlDbType = SqlDbType.Bit, Value = entity.ActualStock.GetDbValue() },
                     new SqlParameter() { ParameterName = "@LoyaltyProgram", SqlDbType = SqlDbType.Bit, Value = entity.LoyaltyProgram.GetDbValue() },
                     new SqlParameter() { ParameterName = "@Code", SqlDbType = SqlDbType.NVarChar, Value = entity.Code.GetDbValue() },

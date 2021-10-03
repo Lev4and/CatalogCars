@@ -39,12 +39,12 @@ namespace CatalogCars.Model.Tests.Parsers.AutoRu.JsonWorkers
         [Fact]
         public async Task GetAllCars_WithParams_ReturnNotNullResult()
         {
-            var topDays = 5;
-            var pageSize = 100;
+            var topDays = 6;
+            var pageSize = 37;
             var priceIncrement = 50000;
             var mileageIncrement = 50000;
 
-            for (int i = 1900000; i <= 300000000; i += priceIncrement)
+            for (int i = 3000000; i <= 300000000; i += priceIncrement)
             {
                 if(i >= 900000)
                 {
@@ -56,7 +56,7 @@ namespace CatalogCars.Model.Tests.Parsers.AutoRu.JsonWorkers
                         }
                         else
                         {
-                            priceIncrement = 5000000;
+                            priceIncrement = 500000;
                         }
                     }
                     else
@@ -86,7 +86,7 @@ namespace CatalogCars.Model.Tests.Parsers.AutoRu.JsonWorkers
 
                     for (int z = 1; z <= maxNumberPage; z++)
                     {
-                        File.WriteAllText($"Cars/from 2021-09-21 to 2021-09-26/Price from {i} to {i + priceIncrement - 1} Mileage from {j} to {j + mileageIncrement - 1} Page {z}.json", 
+                        File.WriteAllText($"Cars/from 2021-09-27 to 2021-10-03/Price from {i} to {i + priceIncrement - 1} Mileage from {j} to {j + mileageIncrement - 1} Page {z}.json", 
                             await _jsonWorker.GetCars(headers, rangeMileage, rangePrice, pageSize, topDays, z));
                     }
                 }

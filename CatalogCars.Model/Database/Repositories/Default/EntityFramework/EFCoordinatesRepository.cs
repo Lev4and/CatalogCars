@@ -27,8 +27,11 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             IQueryable<Coordinate> coordinates = _context.Coordinates
                 .Include(coordinate => coordinate.Location)
                     .ThenInclude(location => location.Region)
-                .Where(coordinate => EF.Functions.Like(coordinate.Location.Region.Name + " - " + coordinate.Location.Address +
-                    " (" + coordinate.Latitude + " " + coordinate.Longitude + ")", $"%{filters.SearchString}%") &&
+                .Where(coordinate => EF.Functions.Like((coordinate.Location.Region.Name != null ?
+                    (coordinate.Location.Address != null ? coordinate.Location.Region.Name + " - " :
+                        coordinate.Location.Region.Name + "") : "") + (coordinate.Location.Address != null ?
+                            coordinate.Location.Address + " " : " ") + "(" + coordinate.Latitude + " " + coordinate.Longitude +
+                                ")", $"%{filters.SearchString}%") &&
                     (filters.RegionsIds.Count > 0 ? filters.RegionsIds.Contains((Guid)coordinate.Location.RegionId) : true));
 
             if(sorter != null)
@@ -47,8 +50,11 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             return _context.Coordinates
                 .Include(coordinate => coordinate.Location)
                     .ThenInclude(location => location.Region)
-                .Where(coordinate => EF.Functions.Like(coordinate.Location.Region.Name + " - " + coordinate.Location.Address +
-                    " (" + coordinate.Latitude + " " + coordinate.Longitude + ")", $"%{filters.SearchString}%") &&
+                .Where(coordinate => EF.Functions.Like((coordinate.Location.Region.Name != null ?
+                    (coordinate.Location.Address != null ? coordinate.Location.Region.Name + " - " :
+                        coordinate.Location.Region.Name + "") : "") + (coordinate.Location.Address != null ?
+                            coordinate.Location.Address + " " : " ") + "(" + coordinate.Latitude + " " + coordinate.Longitude +
+                                ")", $"%{filters.SearchString}%") &&
                     (filters.RegionsIds.Count > 0 ? filters.RegionsIds.Contains((Guid)coordinate.Location.RegionId) : true))
                 .Count();
         }
@@ -58,14 +64,19 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             return _context.Coordinates
                 .Include(coordinate => coordinate.Location)
                     .ThenInclude(location => location.Region)
-                .Where(coordinate => EF.Functions.Like(coordinate.Location.Region.Name + " - " + coordinate.Location.Address +
-                    " (" + coordinate.Latitude + " " + coordinate.Longitude + ")", $"%{searchString}%"))
+                .Where(coordinate => EF.Functions.Like((coordinate.Location.Region.Name != null ? 
+                    (coordinate.Location.Address != null ? coordinate.Location.Region.Name + " - " : 
+                        coordinate.Location.Region.Name + "") : "") + (coordinate.Location.Address != null ? 
+                            coordinate.Location.Address + " " : "") + "(" + coordinate.Latitude + " " + coordinate.Longitude + 
+                                ")", $"%{searchString}%"))
                 .OrderBy(coordinate => coordinate.Location.Region.Name)
                     .ThenBy(coordinate => coordinate.Location.Address)
                         .ThenBy(coordinate => coordinate.Latitude)
                             .ThenBy(coordinate => coordinate.Longitude)
-                .Select(coordinate => coordinate.Location.Region.Name + " - " + coordinate.Location.Address +
-                    " (" + coordinate.Latitude + " " + coordinate.Longitude + ")")
+                .Select(coordinate => (coordinate.Location.Region.Name != null ? (coordinate.Location.Address != null ? 
+                    coordinate.Location.Region.Name + " - " : coordinate.Location.Region.Name + "") : "") + 
+                        (coordinate.Location.Address != null ? coordinate.Location.Address + " " : " ") + "(" + 
+                            coordinate.Latitude + " " + coordinate.Longitude + ")")
                 .Take(5)
                 .AsNoTracking();
         }

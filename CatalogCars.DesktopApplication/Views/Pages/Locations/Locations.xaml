@@ -129,7 +129,7 @@
                                     DisplayMemberPath="Value"
                                     FontSize="14"
                                     FontWeight="Medium"
-                                    ItemsSource="{Binding Path=SortingOptions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    ItemsSource="{Binding Path=Filters.SortingOptions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                     SelectedValue="{Binding Path=Filters.SortingOption, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                     SelectedValuePath="Key"
                                     ToolTip="{Binding ElementName=SortingOptionsComboBox, Path=Text}" />
@@ -246,14 +246,40 @@
                         <DataGridTemplateColumn Header="Регион">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=Region.Name}" />
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=Region.Name}">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Region.Name}" Value="{x:Null}">
+                                                        <Setter Property="Text" Value="Неизвестен" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Region.Name}" Value="">
+                                                        <Setter Property="Text" Value="Неизвестен" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="Адрес">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=Address}" />
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=Address}">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Address}" Value="{x:Null}">
+                                                        <Setter Property="Text" Value="Неизвестен" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Address}" Value="">
+                                                        <Setter Property="Text" Value="Неизвестен" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

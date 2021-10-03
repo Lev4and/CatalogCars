@@ -30,8 +30,6 @@ namespace CatalogCars.DesktopApplication.ViewModels
 
         public ObservableCollection<Entities.RegionInformation> Regions { get; set; }
 
-        public Dictionary<SortingOption, string> SortingOptions { get; set; }
-
         public ICommand RegionsScrollViewerChanged => new AsyncCommand<object>((obj) =>
         {
             return RegionsLoadAsync(obj as ScrollChangedEventArgs);
@@ -71,13 +69,6 @@ namespace CatalogCars.DesktopApplication.ViewModels
         {
             _regionsRequester = new RegionsRequester();
             _locationsRequester = new LocationsRequester();
-
-            SortingOptions = new Dictionary<SortingOption, string>()
-            {
-                { SortingOption.Default, "Сортировка по умолчанию" },
-                { SortingOption.ByAscendingName, "Сортировка по названию: от А до Я" },
-                { SortingOption.ByDescendingName, "Сортировка по названию: от Я до А" }
-            };
         }
 
         private async Task LoadedAsync()

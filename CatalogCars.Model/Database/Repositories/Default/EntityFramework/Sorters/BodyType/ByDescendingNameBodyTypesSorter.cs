@@ -6,7 +6,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorter
 {
     public class ByDescendingNameBodyTypesSorter : IBodyTypesSorter
     {
-        public SortingOption SortingOption => throw new NotImplementedException();
+        public SortingOption SortingOption => SortingOption.ByDescendingName;
 
         public IQueryable<Entities.BodyType> Sort(IQueryable<Entities.BodyType> collection)
         {

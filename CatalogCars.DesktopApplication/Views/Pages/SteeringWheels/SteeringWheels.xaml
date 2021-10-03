@@ -1,0 +1,233 @@
+﻿<Page
+    x:Class="CatalogCars.DesktopApplication.Views.Pages.SteeringWheels.SteeringWheels"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="clr-namespace:CatalogCars.DesktopApplication.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    xmlns:et="clr-namespace:CatalogCars.DesktopApplication.EventTriggers"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:local="clr-namespace:CatalogCars.DesktopApplication.Views.Pages.SteeringWheels"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mdt="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:ta="clr-namespace:CatalogCars.DesktopApplication.TriggerActions"
+    xmlns:uc="clr-namespace:CatalogCars.DesktopApplication.Views.UserControls"
+    Title="Рулевые колеса"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Background="{StaticResource PageBackgroundBrush}"
+    DataContext="{Binding SteeringWheelsViewModel, Source={StaticResource ViewModelLocator}}"
+    WindowTitle="CatalogCars - Рулевые колеса"
+    mc:Ignorable="d">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding Path=Loaded}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Margin="0,0,5,0">
+                <Button
+                    Width="50"
+                    Height="50"
+                    Command="{Binding Path=Info}"
+                    Style="{StaticResource DetailsButtonStyle}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding Path=Info}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </Grid>
+        </Grid>
+        <Grid
+            Grid.Row="0"
+            Grid.Column="1"
+            Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Margin="0,0,5,0">
+                <ComboBox
+                    x:Name="SearchString"
+                    mdt:HintAssist.Hint="Поиск по названию"
+                    FontSize="24"
+                    FontWeight="Medium"
+                    IsDropDownOpen="True"
+                    IsEditable="True"
+                    IsTextSearchEnabled="False"
+                    ItemsSource="{Binding Path=NamesSteeringWheels, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Text="{Binding Path=Filters.SearchString, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    ToolTip="{Binding ElementName=SearchString, Path=Text}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="KeyUp">
+                            <i:InvokeCommandAction Command="{Binding Path=SearchStringChanged}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+            </Grid>
+            <Grid Grid.Column="1" Margin="5,0,0,0">
+                <Button
+                    Width="50"
+                    Height="50"
+                    Command="{Binding Path=Search}"
+                    Style="{StaticResource ToFindButtonStyle}"
+                    ToolTip="Найти">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding Path=Search}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </Grid>
+        </Grid>
+        <Grid
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="5">
+            <GroupBox
+                BorderThickness="3"
+                FontSize="24"
+                FontWeight="Medium"
+                Header="Фильтры">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+                    <Grid Margin="5,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Margin="0,0,0,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <ComboBox
+                                    x:Name="SortingOptionsComboBox"
+                                    mdt:HintAssist.HelperText="Укажите способ сортировки"
+                                    mdt:HintAssist.Hint="Сортировка"
+                                    DisplayMemberPath="Value"
+                                    FontSize="14"
+                                    FontWeight="Medium"
+                                    ItemsSource="{Binding Path=Filters.SortingOptions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValue="{Binding Path=Filters.SortingOption, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValuePath="Key"
+                                    ToolTip="{Binding ElementName=SortingOptionsComboBox, Path=Text}" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="0,10,0,10">
+                            <Button
+                                VerticalAlignment="Center"
+                                mdt:ButtonAssist.CornerRadius="0"
+                                Command="{Binding Path=Search}"
+                                Content="Применить фильтры"
+                                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                ToolTip="Применить фильтры">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding Path=Search}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                        </Grid>
+                        <Grid Grid.Row="2" Margin="0,5,0,0">
+                            <Button
+                                VerticalAlignment="Center"
+                                mdt:ButtonAssist.CornerRadius="0"
+                                Command="{Binding Path=Reset}"
+                                Content="Сбросить фильтры"
+                                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                ToolTip="Сбросить фильтры">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding Path=Reset}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </ScrollViewer>
+            </GroupBox>
+        </Grid>
+        <Grid
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <DataGrid
+                    CellStyle="{StaticResource DefaultDataGridCellStyle}"
+                    ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
+                    ItemsSource="{Binding Path=SteeringWheels, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource DefaultDataGridStyle}"
+                    VerticalScrollBarVisibility="Auto">
+                    <i:Interaction.Triggers>
+                        <et:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
+                            <ta:CustomCommandAction Command="{Binding ScrollViewerChanged}" />
+                        </et:RoutedEventTrigger>
+                    </i:Interaction.Triggers>
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Название">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=Name}">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Name}" Value="{x:Null}">
+                                                        <Setter Property="Text" Value="Неизвестно" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Name}" Value="">
+                                                        <Setter Property="Text" Value="Неизвестно" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Русское название">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=RuName}">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding RuName}" Value="{x:Null}">
+                                                        <Setter Property="Text" Value="Неизвестно" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding RuName}" Value="">
+                                                        <Setter Property="Text" Value="Неизвестно" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

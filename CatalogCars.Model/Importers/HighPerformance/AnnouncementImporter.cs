@@ -33,7 +33,7 @@ namespace CatalogCars.Model.Importers.HighPerformance
                 var salon = new Entities.Salon()
                 {
                     LocationId = SaveOrGetLocation(salonAutoRu.Place),
-                    IsOficial = salonAutoRu.IsOficial,
+                    IsOfficial = salonAutoRu.IsOfficial,
                     ActualStock = salonAutoRu.ActualStock,
                     LoyaltyProgram = salonAutoRu.LoyaltyProgram,
                     Code = salonAutoRu.Code,

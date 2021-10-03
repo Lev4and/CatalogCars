@@ -19,8 +19,6 @@ namespace CatalogCars.DesktopApplication.ViewModels
 
         public Pagination Pagination { get; set; }
 
-        public Dictionary<SortingOption, string> SortingOptions { get; set; }
-
         public ObservableCollection<string> NamesMarks { get; set; }
 
         public ObservableCollection<Mark> Marks { get; set; }
@@ -58,13 +56,6 @@ namespace CatalogCars.DesktopApplication.ViewModels
         public MarksViewModel()
         {
             _marksRequester = new MarksRequester();
-
-            SortingOptions = new Dictionary<SortingOption, string>()
-            {
-                { SortingOption.Default, "Сортировка по умолчанию" },
-                { SortingOption.ByAscendingName, "Сортировка по названию: от А до Я" },
-                { SortingOption.ByDescendingName, "Сортировка по названию: от Я до А" }
-            };
         }
 
         private async Task LoadedAsync()

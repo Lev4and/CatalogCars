@@ -15,6 +15,8 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
 
         public List<Guid> BodyTypeGroupsIds { get; set; }
 
+        public Dictionary<SortingOption, string> SortingOptions { get; set; }
+
         public BodyTypesFilters()
         {
             Reset();
@@ -27,6 +29,16 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
             SearchString = "";
             SortingOption = SortingOption.ByAscendingName;
             BodyTypeGroupsIds = new List<Guid>();
+            SortingOptions = new Dictionary<SortingOption, string>()
+            {
+                { SortingOption.Default, "Сортировка по умолчанию" },
+                { SortingOption.ByAscendingName, "Сортировка по названию: от А до Я" },
+                { SortingOption.ByDescendingName, "Сортировка по названию: от Я до А" },
+                { SortingOption.ByAscendingAutoClass, "Сортировка по классу кузова: от А до Я" },
+                { SortingOption.ByDescendingAutoClass, "Сортировка по классу кузова: от Я до А" },
+                { SortingOption.ByAscendingBodyTypeGroupName, "Сортировка по названию типа кузова: от А до Я" },
+                { SortingOption.ByDescendingBodyTypeGroupName, "Сортировка по названию типа кузова: от Я до А" }
+            };
         }
 
         public void ResetForSearch()

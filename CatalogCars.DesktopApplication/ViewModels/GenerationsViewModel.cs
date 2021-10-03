@@ -44,8 +44,6 @@ namespace CatalogCars.DesktopApplication.ViewModels
 
         public ObservableCollection<Entities.PriceSegment> PriceSegments { get; set; }
 
-        public Dictionary<SortingOption, string> SortingOptions { get; set; }
-
         public ICommand ModelsScrollViewerChanged => new AsyncCommand<object>((obj) =>
         {
             return ModelsLoadAsync(obj as ScrollChangedEventArgs);
@@ -97,13 +95,6 @@ namespace CatalogCars.DesktopApplication.ViewModels
             _modelsRequester = new ModelsRequester();
             _generationsRequester = new GenerationsRequester();
             _priceSegmentsRequester = new PriceSegmentsRequester();
-
-            SortingOptions = new Dictionary<SortingOption, string>()
-            {
-                { SortingOption.Default, "Сортировка по умолчанию" },
-                { SortingOption.ByAscendingName, "Сортировка по названию: от А до Я" },
-                { SortingOption.ByDescendingName, "Сортировка по названию: от Я до А" }
-            };
         }
 
         private async Task LoadedAsync()

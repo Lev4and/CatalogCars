@@ -1,4 +1,6 @@
-﻿namespace CatalogCars.Model.Database.AuxiliaryTypes
+﻿using System.Collections.Generic;
+
+namespace CatalogCars.Model.Database.AuxiliaryTypes
 {
     public class AvailabilitiesFilters : IFilters
     {
@@ -9,6 +11,8 @@
         public string SearchString { get; set; }
 
         public SortingOption SortingOption { get; set; }
+
+        public Dictionary<SortingOption, string> SortingOptions { get; set; }
 
         public AvailabilitiesFilters()
         {
@@ -21,6 +25,12 @@
             ItemsPerPage = 25;
             SearchString = "";
             SortingOption = SortingOption.ByAscendingName;
+            SortingOptions = new Dictionary<SortingOption, string>()
+            {
+                { SortingOption.Default, "Сортировка по умолчанию" },
+                { SortingOption.ByAscendingName, "Сортировка по названию: от А до Я" },
+                { SortingOption.ByDescendingName, "Сортировка по названию: от Я до А" }
+            };
         }
 
         public void ResetForSearch()

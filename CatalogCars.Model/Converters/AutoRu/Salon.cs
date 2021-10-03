@@ -6,7 +6,7 @@ namespace CatalogCars.Model.Converters.AutoRu
     public class Salon
     {
         [JsonProperty("is_oficial")]
-        public bool? IsOficial { get; set; }
+        public bool? IsOfficial { get; set; }
 
         [JsonProperty("actual_stock")]
         public bool? ActualStock { get; set; }

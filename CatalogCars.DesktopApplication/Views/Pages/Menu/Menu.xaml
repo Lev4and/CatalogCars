@@ -89,6 +89,31 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <Grid Grid.Row="0" Visibility="{Binding ElementName=MarksButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
                                         <uc:MenuButton
@@ -130,7 +155,207 @@
                                             Kind="SignDirection"
                                             Text="Локации" />
                                     </Grid>
-                                    <Grid Grid.Row="5" Visibility="{Binding ElementName=ImportCarsButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                    <Grid Grid.Row="5" Visibility="{Binding ElementName=AvailabilitiesButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="AvailabilitiesButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=Availabilities}"
+                                            Kind="PackageVariant"
+                                            Text="Виды доступности" />
+                                    </Grid>
+                                    <Grid Grid.Row="6" Visibility="{Binding ElementName=BodyTypeGroupsButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="BodyTypeGroupsButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=BodyTypeGroups}"
+                                            Kind="CarHatchback"
+                                            Text="Классификация автомобильных кузовов" />
+                                    </Grid>
+                                    <Grid Grid.Row="7" Visibility="{Binding ElementName=BodyTypesButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="BodyTypesButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=BodyTypes}"
+                                            Kind="CarPickup"
+                                            Text="Типы автомобильных кузовов" />
+                                    </Grid>
+                                    <Grid Grid.Row="8" Visibility="{Binding ElementName=CategoriesButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="CategoriesButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=Categories}"
+                                            Kind="FormatListBulleted"
+                                            Text="Категории" />
+                                    </Grid>
+                                    <Grid Grid.Row="9" Visibility="{Binding ElementName=ColorsButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="ColorsButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=Colors}"
+                                            Kind="Palette"
+                                            Text="Цвета" />
+                                    </Grid>
+                                    <Grid Grid.Row="10" Visibility="{Binding ElementName=ColorTypesButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="ColorTypesButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=ColorTypes}"
+                                            Kind="FormatListBulleted"
+                                            Text="Типы цвета" />
+                                    </Grid>
+                                    <Grid Grid.Row="11" Visibility="{Binding ElementName=CoordinatesButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="CoordinatesButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=Coordinates}"
+                                            Kind="MapMarker"
+                                            Text="Координаты" />
+                                    </Grid>
+                                    <Grid Grid.Row="12" Visibility="{Binding ElementName=CurrenciesButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="CurrenciesButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=Currencies}"
+                                            Kind="CurrencyUsd"
+                                            Text="Валюты" />
+                                    </Grid>
+                                    <Grid Grid.Row="13" Visibility="{Binding ElementName=EngineTypesButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="EngineTypesButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=EngineTypes}"
+                                            Kind="Engine"
+                                            Text="Типы двигателей" />
+                                    </Grid>
+                                    <Grid Grid.Row="14" Visibility="{Binding ElementName=GearTypes, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="GearTypesButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=GearTypes}"
+                                            Kind="CogOutline"
+                                            Text="Типы привода" />
+                                    </Grid>
+                                    <Grid Grid.Row="15" Visibility="{Binding ElementName=OptionsButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="OptionsButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=Options}"
+                                            Kind="FormatListChecks"
+                                            Text="Опции" />
+                                    </Grid>
+                                    <Grid Grid.Row="16" Visibility="{Binding ElementName=PhonesButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="PhonesButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=Phones}"
+                                            Kind="Phone"
+                                            Text="Номера телефонов" />
+                                    </Grid>
+                                    <Grid Grid.Row="17" Visibility="{Binding ElementName=PhotoClassesButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="PhotoClassesButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=PhotoClasses}"
+                                            Kind="Image"
+                                            Text="Классы фотографий" />
+                                    </Grid>
+                                    <Grid Grid.Row="18" Visibility="{Binding ElementName=PriceSegmentsButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="PriceSegmentsButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=PriceSegments}"
+                                            Kind="FormatListChecks"
+                                            Text="Ценовые сегменты" />
+                                    </Grid>
+                                    <Grid Grid.Row="19" Visibility="{Binding ElementName=PtsTypesButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="PtsTypesButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=PtsTypes}"
+                                            Kind="FormatListChecks"
+                                            Text="Типы ПТС" />
+                                    </Grid>
+                                    <Grid Grid.Row="20" Visibility="{Binding ElementName=SalonsButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="SalonsButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=Salons}"
+                                            Kind="Store"
+                                            Text="Салоны" />
+                                    </Grid>
+                                    <Grid Grid.Row="21" Visibility="{Binding ElementName=SectionsButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="SectionsButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=Sections}"
+                                            Kind="FormatListChecks"
+                                            Text="Разделы" />
+                                    </Grid>
+                                    <Grid Grid.Row="22" Visibility="{Binding ElementName=SellersButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="SellersButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=Sellers}"
+                                            Kind="AccountCash"
+                                            Text="Продавцы" />
+                                    </Grid>
+                                    <Grid Grid.Row="23" Visibility="{Binding ElementName=SellerTypesButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="SellerTypesButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=SellerTypes}"
+                                            Kind="AccountTie"
+                                            Text="Типы продавцов" />
+                                    </Grid>
+                                    <Grid Grid.Row="24" Visibility="{Binding ElementName=StatusesButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="StatusesButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=Statuses}"
+                                            Kind="TextBoxCheck"
+                                            Text="Статусы" />
+                                    </Grid>
+                                    <Grid Grid.Row="25" Visibility="{Binding ElementName=SteeringWheelsButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="SteeringWheelsButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=SteeringWheels}"
+                                            Kind="Steering"
+                                            Text="Рулевые колеса" />
+                                    </Grid>
+                                    <Grid Grid.Row="26" Visibility="{Binding ElementName=TagsButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="TagsButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=Tags}"
+                                            Kind="Tag"
+                                            Text="Теги" />
+                                    </Grid>
+                                    <Grid Grid.Row="27" Visibility="{Binding ElementName=TransmissionsButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="TransmissionsButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=Transmissions}"
+                                            Kind="CarShiftPattern"
+                                            Text="Типы передач" />
+                                    </Grid>
+                                    <Grid Grid.Row="28" Visibility="{Binding ElementName=VendorsButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="VendorsButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=Vendors}"
+                                            Kind="Cog"
+                                            Text="Производители" />
+                                    </Grid>
+                                    <Grid Grid.Row="29" Visibility="{Binding ElementName=VinResolutionsButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
+                                        <uc:MenuButton
+                                            x:Name="VinResolutionsButton"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding Path=VinResolutions}"
+                                            Kind="Identifier"
+                                            Text="Типы разрешений VIN" />
+                                    </Grid>
+                                    <Grid Grid.Row="30" Visibility="{Binding ElementName=ImportCarsButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
                                         <uc:MenuButton
                                             x:Name="ImportCarsButton"
                                             HorizontalContentAlignment="Left"
@@ -138,7 +363,7 @@
                                             Kind="DatabaseImport"
                                             Text="Импорт объявлений" />
                                     </Grid>
-                                    <Grid Grid.Row="6">
+                                    <Grid Grid.Row="31">
                                         <uc:MenuButton
                                             x:Name="ExitButton"
                                             HorizontalContentAlignment="Left"

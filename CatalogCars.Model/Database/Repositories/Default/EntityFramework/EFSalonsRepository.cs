@@ -29,7 +29,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                     (filters.RegionsIds.Count > 0 ? filters.RegionsIds.Contains((Guid)salon.Location.RegionId) : true) &&
                         salon.RegistrationDate >= filters.RangeRegistrationDate.From &&
                             salon.RegistrationDate <= filters.RangeRegistrationDate.To &&
-                                (filters.IsOficial != null ? salon.IsOficial == filters.IsOficial : true) &&
+                                (filters.IsOfficial != null ? salon.IsOfficial == filters.IsOfficial : true) &&
                                     (filters.ActualStock != null ? salon.ActualStock == filters.ActualStock : true) &&
                                         (filters.LoyaltyProgram != null ? salon.LoyaltyProgram == filters.LoyaltyProgram : true))
                 .Count();
@@ -68,7 +68,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                     (filters.RegionsIds.Count > 0 ? filters.RegionsIds.Contains((Guid)salon.Location.RegionId) : true) &&
                         salon.RegistrationDate >= filters.RangeRegistrationDate.From &&
                             salon.RegistrationDate <= filters.RangeRegistrationDate.To &&
-                                (filters.IsOficial != null ? salon.IsOficial == filters.IsOficial : true) &&
+                                (filters.IsOfficial != null ? salon.IsOfficial == filters.IsOfficial : true) &&
                                     (filters.ActualStock != null ? salon.ActualStock == filters.ActualStock : true) &&
                                         (filters.LoyaltyProgram != null ? salon.LoyaltyProgram == filters.LoyaltyProgram : true));
 

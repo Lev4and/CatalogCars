@@ -25,8 +25,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
             IQueryable<BodyType> bodyTypes = _context.BodyTypes
                 .Include(bodyType => bodyType.BodyTypeGroup)
-                .Where(bodyType => EF.Functions.Like(bodyType.BodyTypeGroup.AutoClass + " - " + bodyType.BodyTypeGroup.RuName +
-                    " - " + bodyType.RuName, $"%{filters.SearchString}%") &&
+                .Where(bodyType => EF.Functions.Like((bodyType.BodyTypeGroup.AutoClass != null ?
+                    bodyType.BodyTypeGroup.AutoClass + " - " : "") + (bodyType.BodyTypeGroup.RuName != null ?
+                        bodyType.BodyTypeGroup.RuName + " - " : "") + bodyType.RuName, $"%{filters.SearchString}%") &&
                     (filters.BodyTypeGroupsIds.Count > 0 ? filters.BodyTypeGroupsIds.Contains(bodyType.BodyTypeGroupId) : true));
 
             if(sorter != null)
@@ -44,8 +45,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         {
             return _context.BodyTypes
                 .Include(bodyType => bodyType.BodyTypeGroup)
-                .Where(bodyType => EF.Functions.Like(bodyType.BodyTypeGroup.AutoClass + " - " + bodyType.BodyTypeGroup.RuName +
-                    " - " + bodyType.RuName, $"%{filters.SearchString}%") &&
+                .Where(bodyType => EF.Functions.Like((bodyType.BodyTypeGroup.AutoClass != null ?
+                    bodyType.BodyTypeGroup.AutoClass + " - " : "") + (bodyType.BodyTypeGroup.RuName != null ?
+                        bodyType.BodyTypeGroup.RuName + " - " : "") + bodyType.RuName, $"%{filters.SearchString}%") &&
                     (filters.BodyTypeGroupsIds.Count > 0 ? filters.BodyTypeGroupsIds.Contains(bodyType.BodyTypeGroupId) : true))
                 .Count();
         }
@@ -54,13 +56,14 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         {
             return _context.BodyTypes
                 .Include(bodyType => bodyType.BodyTypeGroup)
-                .Where(bodyType => EF.Functions.Like(bodyType.BodyTypeGroup.AutoClass + " - " + bodyType.BodyTypeGroup.RuName +
-                    " - " + bodyType.RuName, $"%{searchString}%"))
+                .Where(bodyType => EF.Functions.Like((bodyType.BodyTypeGroup.AutoClass != null ? 
+                    bodyType.BodyTypeGroup.AutoClass + " - " : "") + (bodyType.BodyTypeGroup.RuName != null ? 
+                        bodyType.BodyTypeGroup.RuName + " - " : "") + bodyType.RuName, $"%{searchString}%"))
                 .OrderBy(bodyType => bodyType.BodyTypeGroup.AutoClass)
                     .ThenBy(bodyType => bodyType.BodyTypeGroup.RuName)
                         .ThenBy(bodyType => bodyType.RuName)
-                .Select(bodyType => bodyType.BodyTypeGroup.AutoClass + " - " + bodyType.BodyTypeGroup.RuName +
-                    " - " + bodyType.RuName)
+                .Select(bodyType => (bodyType.BodyTypeGroup.AutoClass != null ? bodyType.BodyTypeGroup.AutoClass + " - " : "") + 
+                    (bodyType.BodyTypeGroup.RuName != null ? bodyType.BodyTypeGroup.RuName +" - " : "") + bodyType.RuName)
                 .Take(5)
                 .AsNoTracking();
         }

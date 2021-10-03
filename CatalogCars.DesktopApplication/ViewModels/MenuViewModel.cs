@@ -51,6 +51,131 @@ namespace CatalogCars.DesktopApplication.ViewModels
             _menuPageService.ChangePage(new Pages.Locations.Locations());
         });
 
+        public ICommand Availabilities => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.Availabilities.Availabilities());
+        });
+
+        public ICommand BodyTypeGroups => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.BodyTypeGroups.BodyTypeGroups());
+        });
+
+        public ICommand BodyTypes => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.BodyTypes.BodyTypes());
+        });
+
+        public ICommand Categories => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.Categories.Categories());
+        });
+
+        public ICommand Colors => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.Colors.Colors());
+        });
+
+        public ICommand ColorTypes => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.ColorTypes.ColorTypes());
+        });
+
+        public ICommand Coordinates => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.Coordinates.Coordinates());
+        });
+
+        public ICommand Currencies => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.Currencies.Currencies());
+        });
+
+        public ICommand EngineTypes => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.EngineTypes.EngineTypes());
+        });
+
+        public ICommand GearTypes => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.GearTypes.GearTypes());
+        });
+
+        public ICommand Options => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.Options.Options());
+        });
+
+        public ICommand Phones => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.Phones.Phones());
+        });
+
+        public ICommand PhotoClasses => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.PhotoClasses.PhotoClasses());
+        });
+
+        public ICommand PriceSegments => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.PriceSegments.PriceSegments());
+        });
+
+        public ICommand PtsTypes => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.PtsTypes.PtsTypes());
+        });
+
+        public ICommand Salons => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.Salons.Salons());
+        });
+
+        public ICommand Sections => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.Sections.Sections());
+        });
+
+        public ICommand Sellers => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.Sellers.Sellers());
+        });
+
+        public ICommand SellerTypes => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.SellerTypes.SellerTypes());
+        });
+
+        public ICommand Statuses => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.Statuses.Statuses());
+        });
+
+        public ICommand SteeringWheels => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.SteeringWheels.SteeringWheels());
+        });
+
+        public ICommand Tags => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.Tags.Tags());
+        });
+
+        public ICommand Transmissions => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.Transmissions.Transmissions());
+        });
+
+        public ICommand Vendors => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.Vendors.Vendors());
+        });
+
+        public ICommand VinResolutions => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.VinResolutions.VinResolutions());
+        });
+
         public ICommand ImportCars => new DelegateCommand(() =>
         {
             _menuPageService.ChangePage(new Pages.ImportCars.ImportCars());

@@ -10,7 +10,7 @@ namespace CatalogCars.Model.Database.Entities
 
         public Guid LocationId { get; set; }
 
-        public bool? IsOficial { get; set; }
+        public bool? IsOfficial { get; set; }
 
         public bool? ActualStock { get; set; }
 

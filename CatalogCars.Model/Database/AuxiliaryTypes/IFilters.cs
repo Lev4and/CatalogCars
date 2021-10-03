@@ -1,4 +1,6 @@
-﻿namespace CatalogCars.Model.Database.AuxiliaryTypes
+﻿using System.Collections.Generic;
+
+namespace CatalogCars.Model.Database.AuxiliaryTypes
 {
     public interface IFilters
     {
@@ -9,5 +11,7 @@
         public string SearchString { get; set; }
 
         public SortingOption SortingOption { get; set; }
+
+        public Dictionary<SortingOption, string> SortingOptions { get; set; }
     }
 }
