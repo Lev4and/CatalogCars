@@ -10,6 +10,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
 
         IQueryable<string> GetNamesSellerTypes(string searchString);
 
+        IQueryable<SellerType> GetSellerTypes();
+
         IQueryable<SellerType> GetSellerTypes(SellerTypesFilters filters);
     }
 }

@@ -46,6 +46,21 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             return new string[0];
         }
 
+        public async Task<Currency[]> GetCurrenciesAsync()
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetCurrenciesResponseAsync();
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<Currency[]>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new Currency[0];
+        }
+
         public async Task<Currency[]> GetCurrenciesAsync(CurrenciesFilters filters)
         {
             var resultStream = await _responseLoader.GetStreamFromGetCurrenciesResponseAsync(filters);

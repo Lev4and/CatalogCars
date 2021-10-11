@@ -19,9 +19,19 @@ namespace CatalogCars.Resource.Requests.HttpResponseLoaders
             return await GetStreamFromResponseAsync(await _client.GetCountGenerationsAsync(filters));
         }
 
+        public async Task<Stream> GetStreamFromGetCountGenerationsByModelsIdsResponseAsync(GenerationsFilters filters)
+        {
+            return await GetStreamFromResponseAsync(await _client.GetCountGenerationsByModelsIdsAsync(filters));
+        }
+
         public async Task<Stream> GetStreamFromGetGenerationsResponseAsync(GenerationsFilters filters)
         {
             return await GetStreamFromResponseAsync(await _client.GetGenerationsAsync(filters));
+        }
+
+        public async Task<Stream> GetStreamFromGetGenerationsByModelsIdsResponseAsync(GenerationsFilters filters)
+        {
+            return await GetStreamFromResponseAsync(await _client.GetGenerationsByModelsIdsAsync(filters));
         }
 
         public async Task<Stream> GetStreamFromGetMaxYearFromGenerationResponseAsync()

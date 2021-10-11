@@ -8,8 +8,12 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
     {
         int GetCountBodyTypes(BodyTypesFilters filters);
 
+        int GetCountBodyTypesOfBodyTypeGroups(BodyTypesFilters filters);
+
         IQueryable<string> GetNamesBodyTypes(string searchString);
 
         IQueryable<BodyType> GetBodyTypes(BodyTypesFilters filters);
+
+        IQueryable<BodyType> GetBodyTypesOfBodyTypeGroups(BodyTypesFilters filters);
     }
 }

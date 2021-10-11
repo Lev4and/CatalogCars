@@ -32,6 +32,13 @@ namespace CatalogCars.Resource.Api.Controllers
             return Ok(_dataManager.Transmissions.GetNamesTransmissions(searchString).ToArray());
         }
 
+        [HttpGet]
+        [ProducesResponseType(typeof(Transmission[]), 200)]
+        public IActionResult Index()
+        {
+            return Ok(_dataManager.Transmissions.GetTransmissions().ToArray());
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(Transmission[]), 200)]
         public IActionResult Index([FromBody] TransmissionsFilters filters)

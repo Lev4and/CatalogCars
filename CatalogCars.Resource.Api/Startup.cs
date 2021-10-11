@@ -2,6 +2,7 @@ using CatalogCars.Authorization.Common;
 using CatalogCars.Model.Common;
 using CatalogCars.Model.Database;
 using CatalogCars.Model.Database.Entities;
+using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Announcement;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Availability;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.BodyType;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.BodyTypeGroup;
@@ -67,6 +68,10 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<UserManager<ApplicationUser>>();
 
             #region Сортировщики
+            services.AddTransient<IAnnouncementsSorter, DefaultAnnouncementsSorter>();
+            services.AddTransient<IAnnouncementsSorter, ByAscendingNameAnnouncementsSorter>();
+            services.AddTransient<IAnnouncementsSorter, ByDescendingNameAnnouncementsSorter>();
+
             services.AddTransient<IAvailabilitiesSorter, DefaultAvailabilitiesSorter>();
             services.AddTransient<IAvailabilitiesSorter, ByAscendingNameAvailabilitiesSorter>();
             services.AddTransient<IAvailabilitiesSorter, ByDescendingNameAvailabilitiesSorter>();
@@ -216,12 +221,16 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<IVinResolutionsSorter, ByDescendingNameVinResolutionsSorter>();
             #endregion
 
+            #region Репозитории выборки
+            services.AddTransient<EntityFrameworkAbstract.IAnnouncementAdditionalInformationRepository, EntityFramework.EFAnnouncementAdditionalInformationRepository>();
+            services.AddTransient<EntityFrameworkAbstract.IAnnouncementsRepository, EntityFramework.EFAnnouncementsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IAvailabilitiesRepository, EntityFramework.EFAvailabilitiesRepository>();
             services.AddTransient<EntityFrameworkAbstract.IBodyTypeGroupsRepository, EntityFramework.EFBodyTypeGroupsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IBodyTypesRepository, EntityFramework.EFBodyTypesRepository>();
             services.AddTransient<EntityFrameworkAbstract.ICategoriesRepository, EntityFramework.EFCategoriesRepository>();
             services.AddTransient<EntityFrameworkAbstract.IColorsRepository, EntityFramework.EFColorsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IColorTypesRepository, EntityFramework.EFColorTypesRepository>();
+            services.AddTransient<EntityFrameworkAbstract.IConfigurationsRepository, EntityFramework.EFConfigurationsRepository>();
             services.AddTransient<EntityFrameworkAbstract.ICoordinatesRepository, EntityFramework.EFCoordinatesRepository>();
             services.AddTransient<EntityFrameworkAbstract.ICurrenciesRepository, EntityFramework.EFCurrenciesRepository>();
             services.AddTransient<EntityFrameworkAbstract.IEngineTypesRepository, EntityFramework.EFEngineTypesRepository>();
@@ -234,6 +243,7 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<EntityFrameworkAbstract.IPhonesRepository, EntityFramework.EFPhonesRepository>();
             services.AddTransient<EntityFrameworkAbstract.IPhotoClassesRepository, EntityFramework.EFPhotoClassesRepository>();
             services.AddTransient<EntityFrameworkAbstract.IPriceSegmentsRepository, EntityFramework.EFPriceSegmentsRepository>();
+            services.AddTransient<EntityFrameworkAbstract.IPricesRepository, EntityFramework.EFPricesRepository>();
             services.AddTransient<EntityFrameworkAbstract.IPtsTypesRepository, EntityFramework.EFPtsTypesRepository>();
             services.AddTransient<EntityFrameworkAbstract.IRegionsRepository, EntityFramework.EFRegionsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IRolesRepository, EntityFramework.EFRolesRepository>();
@@ -241,15 +251,19 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<EntityFrameworkAbstract.ISectionsRepository, EntityFramework.EFSectionsRepository>();
             services.AddTransient<EntityFrameworkAbstract.ISellersRepository, EntityFramework.EFSellersRepository>();
             services.AddTransient<EntityFrameworkAbstract.ISellerTypesRepository, EntityFramework.EFSellerTypesRepository>();
+            services.AddTransient<EntityFrameworkAbstract.IStatesRepository, EntityFramework.EFStatesRepository>();
             services.AddTransient<EntityFrameworkAbstract.IStatusesRepository, EntityFramework.EFStatusesRepository>();
             services.AddTransient<EntityFrameworkAbstract.ISteeringWheelsRepository, EntityFramework.EFSteeringWheelsRepository>();
             services.AddTransient<EntityFrameworkAbstract.ITagsRepository, EntityFramework.EFTagsRepository>();
+            services.AddTransient<EntityFrameworkAbstract.ITechnicalParametersRepository, EntityFramework.EFTechnicalParametersRepository>();
             services.AddTransient<EntityFrameworkAbstract.ITransmissionsRepository, EntityFramework.EFTransmissionsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IUsersRepository, EntityFramework.EFUsersRepository>();
             services.AddTransient<EntityFrameworkAbstract.IVinResolutionsRepository, EntityFramework.EFVinResolutionsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IVendorsRepository, EntityFramework.EFVendorsRepository>();
             services.AddTransient<DefaultDataManager>();
+            #endregion
 
+            #region Репозитории высокопроизводительного импорта
             services.AddTransient<AdoNetAbstract.IAnnouncementAdditionalInformationRepository, AdoNet.AdoNetAnnouncementAdditionalInformationRepository>();
             services.AddTransient<AdoNetAbstract.IAnnouncementDescriptionsRepository, AdoNet.AdoNetAnnouncementDescriptionsRepository>();
             services.AddTransient<AdoNetAbstract.IAnnouncementsRepository, AdoNet.AdoNetAnnouncementsRepository>();
@@ -314,6 +328,7 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<AdoNetAbstract.IVinResolutionsRepository, AdoNet.AdoNetVinResolutionsRepository>();
             services.AddTransient<AdoNetAbstract.IVinsRepository, AdoNet.AdoNetVinsRepository>();
             services.AddTransient<HighPerformanceDataManager>();
+            #endregion
 
             services.AddDbContext<CatalogCarsDbContext>((options) =>
             {

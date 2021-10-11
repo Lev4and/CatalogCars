@@ -10,6 +10,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
 
         IQueryable<string> GetNamesTransmissions(string searchString);
 
+        IQueryable<Transmission> GetTransmissions();
+
         IQueryable<Transmission> GetTransmissions(TransmissionsFilters filters);
     }
 }

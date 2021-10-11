@@ -31,9 +31,39 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             return 0;
         }
 
+        public async Task<int> GetCountGenerationsByModelsIdsAsync(GenerationsFilters filters)
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetCountGenerationsByModelsIdsResponseAsync(filters);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<int>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return 0;
+        }
+
         public async Task<Generation[]> GetGenerationsAsync(GenerationsFilters filters)
         {
             var resultStream = await _responseLoader.GetStreamFromGetGenerationsResponseAsync(filters);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<Generation[]>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new Generation[0];
+        }
+
+        public async Task<Generation[]> GetGenerationsByModelsIdsAsync(GenerationsFilters filters)
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetGenerationsByModelsIdsResponseAsync(filters);
 
             if (resultStream != null)
             {

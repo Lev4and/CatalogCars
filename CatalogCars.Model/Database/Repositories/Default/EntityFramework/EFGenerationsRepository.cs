@@ -37,6 +37,14 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Count();
         }
 
+        public int GetCountGenerationsOfModels(GenerationsFilters filters)
+        {
+            return _context.Generations
+                .Where(generation => (filters.ModelsIds.Count > 0 ?
+                    filters.ModelsIds.Contains(generation.ModelId) : false))
+                .Count();
+        }
+
         public IQueryable<Generation> GetGenerations(GenerationsFilters filters)
         {
             var sorter = _sorters.FirstOrDefault(sorter => sorter.SortingOption == filters.SortingOption);
@@ -63,6 +71,22 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             }
 
             return generations
+                .Skip((filters.NumberPage - 1) * filters.ItemsPerPage)
+                .Take(filters.ItemsPerPage)
+                .AsNoTracking();
+        }
+
+        public IQueryable<Generation> GetGenerationsOfModels(GenerationsFilters filters)
+        {
+            return _context.Generations
+                .Include(generation => generation.Model)
+                    .ThenInclude(model => model.Mark)
+                .Where(generation => (filters.ModelsIds.Count > 0 ? 
+                    filters.ModelsIds.Contains(generation.ModelId) : false))
+                .OrderBy(generation => generation.Model.Mark.Name)
+                    .ThenBy(generation => generation.Model.Name)
+                        .ThenBy(generation => generation.Name)
+                            .ThenBy(generation => generation.YearFrom)
                 .Skip((filters.NumberPage - 1) * filters.ItemsPerPage)
                 .Take(filters.ItemsPerPage)
                 .AsNoTracking();

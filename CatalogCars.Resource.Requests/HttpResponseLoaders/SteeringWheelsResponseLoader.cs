@@ -24,6 +24,11 @@ namespace CatalogCars.Resource.Requests.HttpResponseLoaders
             return await GetStreamFromResponseAsync(await _client.GetNamesSteeringWheelsAsync(searchString));
         }
 
+        public async Task<Stream> GetStreamFromGetSteeringWheelsResponseAsync()
+        {
+            return await GetStreamFromResponseAsync(await _client.GetSteeringWheelsAsync());
+        }
+
         public async Task<Stream> GetStreamFromGetSteeringWheelsResponseAsync(SteeringWheelsFilters filters)
         {
             return await GetStreamFromResponseAsync(await _client.GetSteeringWheelsAsync(filters));

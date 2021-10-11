@@ -12,8 +12,12 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
 
         int GetCountGenerations(GenerationsFilters filters);
 
+        int GetCountGenerationsOfModels(GenerationsFilters filters);
+
         IQueryable<string> GetNamesGenerations(string searchString);
 
         IQueryable<Generation> GetGenerations(GenerationsFilters filters);
+
+        IQueryable<Generation> GetGenerationsOfModels(GenerationsFilters filters);
     }
 }

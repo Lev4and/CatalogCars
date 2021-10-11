@@ -32,6 +32,13 @@ namespace CatalogCars.Resource.Api.Controllers
             return Ok(_dataManager.EngineTypes.GetNamesEngineTypes(searchString).ToArray());
         }
 
+        [HttpGet]
+        [ProducesResponseType(typeof(EngineType[]), 200)]
+        public IActionResult Index()
+        {
+            return Ok(_dataManager.EngineTypes.GetEngineTypes().ToArray());
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(EngineType[]), 200)]
         public IActionResult Index([FromBody] EngineTypesFilters filters)

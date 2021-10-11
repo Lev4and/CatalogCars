@@ -10,6 +10,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
 
         IQueryable<string> GetNamesCurrencies(string searchString);
 
+        IQueryable<Currency> GetCurrencies();
+
         IQueryable<Currency> GetCurrencies(CurrenciesFilters filters);
     }
 }

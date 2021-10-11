@@ -22,7 +22,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         public int GetCountCurrencies(CurrenciesFilters filters)
         {
             return _context.Currencies
-                .Where(currency => EF.Functions.Like(currency.Name + " (" + currency.Designation + ")",
+                .Where(currency => EF.Functions.Like(currency.Name + (currency.Designation != null ? 
+                    " (" + currency.Designation + ")" : ""),
                     $"%{filters.SearchString}%"))
                 .Count();
         }
@@ -32,8 +33,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             var sorter = _sorters.FirstOrDefault(sorter => sorter.SortingOption == filters.SortingOption);
 
             IQueryable<Currency> currencies = _context.Currencies
-                .Where(currency => EF.Functions.Like(currency.Name + " (" + currency.Designation + ")",
-                    $"%{filters.SearchString}%"));
+                .Where(currency => EF.Functions.Like(currency.Name + (currency.Designation != null ?
+                    " (" + currency.Designation + ")" : ""), $"%{filters.SearchString}%"));
 
             if(sorter != null)
             {
@@ -46,11 +47,17 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .AsNoTracking();
         }
 
+        public IQueryable<Currency> GetCurrencies()
+        {
+            return _context.Currencies
+                .AsNoTracking();
+        }
+
         public IQueryable<string> GetNamesCurrencies(string searchString)
         {
             return _context.Currencies
-                .Where(currency => EF.Functions.Like(currency.Name + " (" + currency.Designation + ")",
-                    $"%{searchString}%"))
+                .Where(currency => EF.Functions.Like(currency.Name + (currency.Designation != null ?
+                    " (" + currency.Designation + ")" : ""), $"%{searchString}%"))
                 .OrderBy(currency => currency.Name)
                 .Select(currency => currency.Name + " (" + currency.Designation + ")")
                 .Take(5)

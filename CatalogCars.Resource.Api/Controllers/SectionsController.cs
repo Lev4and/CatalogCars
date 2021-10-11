@@ -32,6 +32,13 @@ namespace CatalogCars.Resource.Api.Controllers
             return Ok(_dataManager.Sections.GetNamesSections(searchString).ToArray());
         }
 
+        [HttpGet]
+        [ProducesResponseType(typeof(Section[]), 200)]
+        public IActionResult Index()
+        {
+            return Ok(_dataManager.Sections.GetSections().ToArray());
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(Section[]), 200)]
         public IActionResult Index([FromBody] SectionsFilters filters)

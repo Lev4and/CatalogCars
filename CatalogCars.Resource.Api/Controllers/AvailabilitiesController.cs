@@ -32,6 +32,13 @@ namespace CatalogCars.Resource.Api.Controllers
             return Ok(_dataManager.Availabilities.GetNamesAvailabilities(searchString).ToArray());
         }
 
+        [HttpGet]
+        [ProducesResponseType(typeof(Availability[]), 200)]
+        public IActionResult Index()
+        {
+            return Ok(_dataManager.Availabilities.GetAvailabilities().ToArray());
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(Availability[]), 200)]
         public IActionResult Index([FromBody] AvailabilitiesFilters filters)

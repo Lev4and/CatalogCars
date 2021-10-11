@@ -4,6 +4,10 @@ namespace CatalogCars.Model.Database
 {
     public class DefaultDataManager
     {
+        public IAnnouncementAdditionalInformationRepository AnnouncementAdditionalInformation { get; set; }
+
+        public IAnnouncementsRepository Announcements { get; set; }
+
         public IAvailabilitiesRepository Availabilities { get; set; }
 
         public IBodyTypeGroupsRepository BodyTypeGroups { get; set; }
@@ -15,6 +19,8 @@ namespace CatalogCars.Model.Database
         public IColorsRepository Colors { get; set; }
 
         public IColorTypesRepository ColorTypes { get; set; }
+
+        public IConfigurationsRepository Configurations { get; set; }
 
         public ICoordinatesRepository Coordinates { get; set; }
 
@@ -40,6 +46,8 @@ namespace CatalogCars.Model.Database
 
         public IPriceSegmentsRepository PriceSegments { get; set; }
 
+        public IPricesRepository Prices { get; set; }
+
         public IPtsTypesRepository PtsTypes { get; set; }
 
         public IRegionsRepository Regions { get; set; }
@@ -54,11 +62,15 @@ namespace CatalogCars.Model.Database
 
         public ISellerTypesRepository SellerTypes { get; set; }
 
+        public IStatesRepository States { get; set; }
+
         public IStatusesRepository Statuses { get; set; }
 
         public ISteeringWheelsRepository SteeringWheels { get; set; }
 
         public ITagsRepository Tags { get; set; }
+
+        public ITechnicalParametersRepository TechnicalParameters { get; set; }
 
         public ITransmissionsRepository Transmissions { get; set; }
 
@@ -68,25 +80,30 @@ namespace CatalogCars.Model.Database
 
         public IVinResolutionsRepository VinResolutions { get; set; }
 
-        public DefaultDataManager(IAvailabilitiesRepository availabilities, IBodyTypeGroupsRepository bodyTypeGroups, 
-            IBodyTypesRepository bodyTypes, ICategoriesRepository categories, IColorsRepository colors,
-            IColorTypesRepository colorTypes, ICoordinatesRepository coordinates, ICurrenciesRepository currencies, 
-            IEngineTypesRepository engineTypes, IGearTypesRepository gearTypes, IGenerationsRepository generations, 
-            ILocationsRepository locations, IMarksRepository marks, 
+        public DefaultDataManager(IAnnouncementAdditionalInformationRepository announcementAdditionalInformation, 
+            IAnnouncementsRepository announcements, IAvailabilitiesRepository availabilities, 
+            IBodyTypeGroupsRepository bodyTypeGroups, IBodyTypesRepository bodyTypes, ICategoriesRepository categories, 
+            IColorsRepository colors, IColorTypesRepository colorTypes, IConfigurationsRepository configurations, 
+            ICoordinatesRepository coordinates, 
+            ICurrenciesRepository currencies, IEngineTypesRepository engineTypes, IGearTypesRepository gearTypes, 
+            IGenerationsRepository generations, ILocationsRepository locations, IMarksRepository marks, 
             IModelsRepository models, IOptionsRepository options, IPhonesRepository phones, IPhotoClassesRepository photoClasses, 
-            IPriceSegmentsRepository priceSegments, IPtsTypesRepository ptsTypes, IRegionsRepository regions,
+            IPriceSegmentsRepository priceSegments, IPricesRepository prices, IPtsTypesRepository ptsTypes, IRegionsRepository regions,
             IRolesRepository roles, ISalonsRepository salons, IStatusesRepository statuses, ISectionsRepository sections, 
-            ISellersRepository sellers, ISellerTypesRepository sellerTypes,
-            ISteeringWheelsRepository steeringWheels, ITagsRepository tags, ITransmissionsRepository transmissions, 
-            IUsersRepository users,
+            ISellersRepository sellers, ISellerTypesRepository sellerTypes, IStatesRepository states,
+            ISteeringWheelsRepository steeringWheels, ITagsRepository tags, ITechnicalParametersRepository technicalParameters, 
+            ITransmissionsRepository transmissions, IUsersRepository users,
             IVendorsRepository vendors, IVinResolutionsRepository vinResolutions)
         {
+            AnnouncementAdditionalInformation = announcementAdditionalInformation;
+            Announcements = announcements;
             Availabilities = availabilities;
             BodyTypeGroups = bodyTypeGroups;
             BodyTypes = bodyTypes;
             Categories = categories;
             Colors = colors;
             ColorTypes = colorTypes;
+            Configurations = configurations;
             Coordinates = coordinates;
             Currencies = currencies;
             EngineTypes = engineTypes;
@@ -99,6 +116,7 @@ namespace CatalogCars.Model.Database
             Phones = phones;
             PhotoClasses = photoClasses;
             PriceSegments = priceSegments;
+            Prices = prices;
             PtsTypes = ptsTypes;
             Regions = regions;
             Roles = roles;
@@ -106,9 +124,11 @@ namespace CatalogCars.Model.Database
             Sections = sections;
             Sellers = sellers;
             SellerTypes = sellerTypes;
+            States = states;
             Statuses = statuses;
             SteeringWheels = steeringWheels;
             Tags = tags;
+            TechnicalParameters = technicalParameters;
             Transmissions = transmissions;
             Users = users;
             Vendors = vendors;

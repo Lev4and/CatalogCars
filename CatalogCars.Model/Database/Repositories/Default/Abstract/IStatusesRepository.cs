@@ -10,6 +10,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
 
         IQueryable<string> GetNamesStatuses(string searchString);
 
+        IQueryable<Status> GetStatuses();
+
         IQueryable<Status> GetStatuses(StatusesFilters filters);
     }
 }

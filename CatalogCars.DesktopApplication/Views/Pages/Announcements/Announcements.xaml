@@ -1,0 +1,1256 @@
+﻿<Page
+    x:Class="CatalogCars.DesktopApplication.Views.Pages.Announcements.Announcements"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="clr-namespace:CatalogCars.DesktopApplication.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    xmlns:et="clr-namespace:CatalogCars.DesktopApplication.EventTriggers"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:local="clr-namespace:CatalogCars.DesktopApplication.Views.Pages.Announcements"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mdt="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:ta="clr-namespace:CatalogCars.DesktopApplication.TriggerActions"
+    xmlns:uc="clr-namespace:CatalogCars.DesktopApplication.Views.UserControls"
+    Title="Объявления"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Background="{StaticResource PageBackgroundBrush}"
+    DataContext="{Binding AnnouncementsViewModel, Source={StaticResource ViewModelLocator}}"
+    WindowTitle="CatalogCars - Объявления"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <c:UrlToBitmapImage x:Key="UrlToBitmapImage" />
+        <c:ObjectCollectionToGuidCollection x:Key="ObjectCollectionToGuidCollection" />
+    </Page.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding Path=Loaded}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Margin="0,0,5,0">
+                <Button
+                    Width="50"
+                    Height="50"
+                    Command="{Binding Path=Info}"
+                    Style="{StaticResource DetailsButtonStyle}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding Path=Info}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </Grid>
+        </Grid>
+        <Grid
+            Grid.Row="0"
+            Grid.Column="1"
+            Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Margin="0,0,5,0">
+                <ComboBox
+                    x:Name="SearchString"
+                    mdt:HintAssist.Hint="Поиск по названию"
+                    FontSize="24"
+                    FontWeight="Medium"
+                    IsDropDownOpen="True"
+                    IsEditable="True"
+                    IsTextSearchEnabled="False"
+                    ItemsSource="{Binding Path=NamesGenerations, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Text="{Binding Path=Filters.SearchString, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    ToolTip="{Binding ElementName=SearchString, Path=Text}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="KeyUp">
+                            <i:InvokeCommandAction Command="{Binding Path=SearchStringChanged}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+            </Grid>
+            <Grid Grid.Column="1" Margin="5,0,0,0">
+                <Button
+                    Width="50"
+                    Height="50"
+                    Command="{Binding Path=Search}"
+                    Style="{StaticResource ToFindButtonStyle}"
+                    ToolTip="Найти">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding Path=Search}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </Grid>
+        </Grid>
+        <Grid
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="5">
+            <GroupBox
+                BorderThickness="3"
+                FontSize="24"
+                FontWeight="Medium"
+                Header="Фильтры">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+                    <Grid Margin="5,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Margin="0,0,0,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <ComboBox
+                                    x:Name="SortingOptionsComboBox"
+                                    mdt:HintAssist.HelperText="Укажите способ сортировки"
+                                    mdt:HintAssist.Hint="Сортировка"
+                                    DisplayMemberPath="Value"
+                                    FontSize="14"
+                                    FontWeight="Medium"
+                                    ItemsSource="{Binding Path=Filters.SortingOptions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValue="{Binding Path=Filters.SortingOption, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValuePath="Key"
+                                    ToolTip="{Binding ElementName=SortingOptionsComboBox, Path=Text}" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="0,5,0,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <ComboBox
+                                    x:Name="WarrantyValuesComboBox"
+                                    mdt:HintAssist.HelperText="Укажите наличие гарантии"
+                                    mdt:HintAssist.Hint="Гарантия"
+                                    DisplayMemberPath="Value"
+                                    FontSize="14"
+                                    FontWeight="Medium"
+                                    ItemsSource="{Binding Path=Filters.WarrantyValues, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValue="{Binding Path=Filters.Warranty, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValuePath="Key"
+                                    ToolTip="{Binding ElementName=WarrantyValuesComboBox, Path=Text}" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="2" Margin="0,5,0,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <ComboBox
+                                    x:Name="IsBeatenValuesComboBox"
+                                    mdt:HintAssist.HelperText="Укажите битая ли или нет"
+                                    mdt:HintAssist.Hint="Битая?"
+                                    DisplayMemberPath="Value"
+                                    FontSize="14"
+                                    FontWeight="Medium"
+                                    ItemsSource="{Binding Path=Filters.IsBeatenValues, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValue="{Binding Path=Filters.IsBeaten, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValuePath="Key"
+                                    ToolTip="{Binding ElementName=IsBeatenValuesComboBox, Path=Text}" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="3" Margin="0,5,0,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <ComboBox
+                                    x:Name="IsOriginalValuesComboBox"
+                                    mdt:HintAssist.HelperText="Укажите является ли оригинальной ПТС"
+                                    mdt:HintAssist.Hint="Оригинальный ПТС"
+                                    DisplayMemberPath="Value"
+                                    FontSize="14"
+                                    FontWeight="Medium"
+                                    ItemsSource="{Binding Path=Filters.IsOriginalValues, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValue="{Binding Path=Filters.IsOriginal, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValuePath="Key"
+                                    ToolTip="{Binding ElementName=IsOriginalValuesComboBox, Path=Text}" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="4" Margin="0,5,0,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <ComboBox
+                                    x:Name="StatusesComboBox"
+                                    mdt:HintAssist.HelperText="Укажите статус"
+                                    mdt:HintAssist.Hint="Статус"
+                                    DisplayMemberPath="RuName"
+                                    FontSize="14"
+                                    FontWeight="Medium"
+                                    ItemsSource="{Binding Path=Statuses, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValue="{Binding Path=Filters.StatusId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValuePath="Id"
+                                    ToolTip="{Binding ElementName=StatusesComboBox, Path=Text}" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="5" Margin="0,5,0,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <ComboBox
+                                    x:Name="SectionsComboBox"
+                                    mdt:HintAssist.HelperText="Укажите раздел"
+                                    mdt:HintAssist.Hint="Раздел"
+                                    DisplayMemberPath="RuName"
+                                    FontSize="14"
+                                    FontWeight="Medium"
+                                    ItemsSource="{Binding Path=Sections, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValue="{Binding Path=Filters.SectionId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValuePath="Id"
+                                    ToolTip="{Binding ElementName=SectionsComboBox, Path=Text}" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="6" Margin="0,5,0,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <ComboBox
+                                    x:Name="CurrenciesComboBox"
+                                    mdt:HintAssist.HelperText="Укажите валюту"
+                                    mdt:HintAssist.Hint="Валюта"
+                                    DisplayMemberPath="Name"
+                                    FontSize="14"
+                                    FontWeight="Medium"
+                                    ItemsSource="{Binding Path=Currencies, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValue="{Binding Path=Filters.CurrencyId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValuePath="Id"
+                                    ToolTip="{Binding ElementName=CurrenciesComboBox, Path=Text}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding Path=SelectedCurrencyChanged}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ComboBox>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="7" Margin="0,5,0,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <ComboBox
+                                    x:Name="GearTypesComboBox"
+                                    mdt:HintAssist.HelperText="Укажите тип привода"
+                                    mdt:HintAssist.Hint="Тип привода"
+                                    DisplayMemberPath="RuName"
+                                    FontSize="14"
+                                    FontWeight="Medium"
+                                    ItemsSource="{Binding Path=GearTypes, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValue="{Binding Path=Filters.GearTypeId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValuePath="Id"
+                                    ToolTip="{Binding ElementName=GearTypesComboBox, Path=Text}" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="8" Margin="0,5,0,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <ComboBox
+                                    x:Name="EngineTypesComboBox"
+                                    mdt:HintAssist.HelperText="Укажите тип двигателя"
+                                    mdt:HintAssist.Hint="Тип двигателя"
+                                    DisplayMemberPath="RuName"
+                                    FontSize="14"
+                                    FontWeight="Medium"
+                                    ItemsSource="{Binding Path=EngineTypes, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValue="{Binding Path=Filters.EngineTypeId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValuePath="Id"
+                                    ToolTip="{Binding ElementName=EngineTypesComboBox, Path=Text}" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="9" Margin="0,5,0,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <ComboBox
+                                    x:Name="SellerTypesComboBox"
+                                    mdt:HintAssist.HelperText="Укажите тип продавца"
+                                    mdt:HintAssist.Hint="Тип продавца"
+                                    DisplayMemberPath="RuName"
+                                    FontSize="14"
+                                    FontWeight="Medium"
+                                    ItemsSource="{Binding Path=SellerTypes, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValue="{Binding Path=Filters.SellerTypeId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValuePath="Id"
+                                    ToolTip="{Binding ElementName=SellerTypesComboBox, Path=Text}" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="10" Margin="0,5,0,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <ComboBox
+                                    x:Name="TransmissionsComboBox"
+                                    mdt:HintAssist.HelperText="Укажите тип передач"
+                                    mdt:HintAssist.Hint="Тип передач"
+                                    DisplayMemberPath="RuName"
+                                    FontSize="14"
+                                    FontWeight="Medium"
+                                    ItemsSource="{Binding Path=Transmissions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValue="{Binding Path=Filters.TransmissionId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValuePath="Id"
+                                    ToolTip="{Binding ElementName=TransmissionsComboBox, Path=Text}" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="11" Margin="0,5,0,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <ComboBox
+                                    x:Name="AvailabilitiesComboBox"
+                                    mdt:HintAssist.HelperText="Укажите вид доступности"
+                                    mdt:HintAssist.Hint="Вид доступности"
+                                    DisplayMemberPath="RuName"
+                                    FontSize="14"
+                                    FontWeight="Medium"
+                                    ItemsSource="{Binding Path=Availabilities, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValue="{Binding Path=Filters.AvailabilityId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValuePath="Id"
+                                    ToolTip="{Binding ElementName=AvailabilitiesComboBox, Path=Text}" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="12" Margin="0,5,0,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <ComboBox
+                                    x:Name="SteeringWheelsComboBox"
+                                    mdt:HintAssist.HelperText="Укажите рулевое колесо"
+                                    mdt:HintAssist.Hint="Рулевое колесо"
+                                    DisplayMemberPath="RuName"
+                                    FontSize="14"
+                                    FontWeight="Medium"
+                                    ItemsSource="{Binding Path=SteeringWheels, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValue="{Binding Path=Filters.SteeringWheelId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValuePath="Id"
+                                    ToolTip="{Binding ElementName=SteeringWheelsComboBox, Path=Text}" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="13" Margin="0,10,0,10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Expander
+                                    MaxHeight="400"
+                                    HorizontalAlignment="Stretch"
+                                    Background="#673AB7">
+                                    <Expander.Header>
+                                        <TextBlock
+                                            Padding="0"
+                                            FontSize="20"
+                                            FontWeight="Medium"
+                                            Foreground="White"
+                                            Text="Марки" />
+                                    </Expander.Header>
+                                    <uc:XListBox
+                                        Height="150"
+                                        Background="White"
+                                        DisplayMemberPath="Name"
+                                        FontSize="14"
+                                        ItemsSource="{Binding Path=Marks, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        SelectedValuePath="Id"
+                                        SelectionMode="Multiple"
+                                        XSelectedItems="{Binding Path=Filters.MarksIds, Converter={StaticResource ObjectCollectionToGuidCollection}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                        <i:Interaction.Triggers>
+                                            <et:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
+                                                <ta:CustomCommandAction Command="{Binding MarksScrollViewerChanged}" />
+                                            </et:RoutedEventTrigger>
+                                            <i:EventTrigger EventName="SelectionChanged">
+                                                <i:InvokeCommandAction Command="{Binding Path=SelectedMarksChanged}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <ListBox.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ListBoxItem}">
+                                                <Setter Property="Margin" Value="5" />
+                                                <Setter Property="Padding" Value="5" />
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                            <CheckBox
+                                                                VerticalAlignment="Center"
+                                                                VerticalContentAlignment="Center"
+                                                                Focusable="False"
+                                                                IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource Mode=TemplatedParent}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                                <ContentPresenter />
+                                                            </CheckBox>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ListBox.ItemContainerStyle>
+                                    </uc:XListBox>
+                                </Expander>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="14" Margin="0,10,0,10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <Expander
+                                    MaxHeight="400"
+                                    HorizontalAlignment="Stretch"
+                                    Background="#673AB7">
+                                    <Expander.Header>
+                                        <TextBlock
+                                            Padding="0"
+                                            FontSize="20"
+                                            FontWeight="Medium"
+                                            Foreground="White"
+                                            Text="Модели" />
+                                    </Expander.Header>
+                                    <uc:XListBox
+                                        Height="150"
+                                        Background="White"
+                                        DisplayMemberPath="Name"
+                                        FontSize="14"
+                                        ItemsSource="{Binding Path=Models, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        SelectedValuePath="Id"
+                                        SelectionMode="Multiple"
+                                        XSelectedItems="{Binding Path=Filters.ModelsIds, Converter={StaticResource ObjectCollectionToGuidCollection}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                        <i:Interaction.Triggers>
+                                            <et:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
+                                                <ta:CustomCommandAction Command="{Binding ModelsScrollViewerChanged}" />
+                                            </et:RoutedEventTrigger>
+                                            <i:EventTrigger EventName="SelectionChanged">
+                                                <i:InvokeCommandAction Command="{Binding Path=SelectedModelsChanged}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <ListBox.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ListBoxItem}">
+                                                <Setter Property="Margin" Value="5" />
+                                                <Setter Property="Padding" Value="5" />
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                            <CheckBox
+                                                                VerticalAlignment="Center"
+                                                                VerticalContentAlignment="Center"
+                                                                Focusable="False"
+                                                                IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource Mode=TemplatedParent}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                                <TextBlock>
+                                                                    <TextBlock.Text>
+                                                                        <MultiBinding StringFormat="{}{0} {1}">
+                                                                            <Binding Path="Mark.Name" />
+                                                                            <Binding Path="Name" />
+                                                                        </MultiBinding>
+                                                                    </TextBlock.Text>
+                                                                </TextBlock>
+                                                            </CheckBox>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ListBox.ItemContainerStyle>
+                                    </uc:XListBox>
+                                </Expander>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="15" Margin="0,10,0,10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <Expander
+                                    MaxHeight="400"
+                                    HorizontalAlignment="Stretch"
+                                    Background="#673AB7">
+                                    <Expander.Header>
+                                        <TextBlock
+                                            Padding="0"
+                                            FontSize="20"
+                                            FontWeight="Medium"
+                                            Foreground="White"
+                                            Text="Поколения" />
+                                    </Expander.Header>
+                                    <uc:XListBox
+                                        Height="150"
+                                        Background="White"
+                                        DisplayMemberPath="Name"
+                                        FontSize="14"
+                                        ItemsSource="{Binding Path=Generations, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        SelectedValuePath="Id"
+                                        SelectionMode="Multiple"
+                                        XSelectedItems="{Binding Path=Filters.GenerationsIds, Converter={StaticResource ObjectCollectionToGuidCollection}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                        <i:Interaction.Triggers>
+                                            <et:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
+                                                <ta:CustomCommandAction Command="{Binding GenerationsScrollViewerChanged}" />
+                                            </et:RoutedEventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <ListBox.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ListBoxItem}">
+                                                <Setter Property="Margin" Value="5" />
+                                                <Setter Property="Padding" Value="5" />
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                            <CheckBox
+                                                                VerticalAlignment="Center"
+                                                                VerticalContentAlignment="Center"
+                                                                Focusable="False"
+                                                                IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource Mode=TemplatedParent}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                                <TextBlock>
+                                                                    <TextBlock.Text>
+                                                                        <MultiBinding StringFormat="{}{0} {1} {2}">
+                                                                            <Binding Path="Model.Mark.Name" />
+                                                                            <Binding Path="Model.Name" />
+                                                                            <Binding Path="Name" />
+                                                                        </MultiBinding>
+                                                                    </TextBlock.Text>
+                                                                </TextBlock>
+                                                            </CheckBox>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ListBox.ItemContainerStyle>
+                                    </uc:XListBox>
+                                </Expander>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="16" Margin="0,10,0,10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <Expander
+                                    MaxHeight="400"
+                                    HorizontalAlignment="Stretch"
+                                    Background="#673AB7">
+                                    <Expander.Header>
+                                        <TextBlock
+                                            Padding="0"
+                                            FontSize="20"
+                                            FontWeight="Medium"
+                                            Foreground="White"
+                                            Text="Классы кузовов" />
+                                    </Expander.Header>
+                                    <uc:XListBox
+                                        Height="150"
+                                        Background="White"
+                                        FontSize="14"
+                                        ItemsSource="{Binding Path=BodyTypeGroups, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        SelectedValuePath="Id"
+                                        SelectionMode="Multiple"
+                                        XSelectedItems="{Binding Path=Filters.BodyTypeGroupsIds, Converter={StaticResource ObjectCollectionToGuidCollection}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                        <i:Interaction.Triggers>
+                                            <et:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
+                                                <ta:CustomCommandAction Command="{Binding BodyTypeGroupsScrollViewerChanged}" />
+                                            </et:RoutedEventTrigger>
+                                            <i:EventTrigger EventName="SelectionChanged">
+                                                <i:InvokeCommandAction Command="{Binding Path=SelectedBodyTypeGroupsChanged}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <ListBox.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ListBoxItem}">
+                                                <Setter Property="Margin" Value="5" />
+                                                <Setter Property="Padding" Value="5" />
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                            <CheckBox
+                                                                VerticalAlignment="Center"
+                                                                VerticalContentAlignment="Center"
+                                                                Focusable="False"
+                                                                IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource Mode=TemplatedParent}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                                <TextBlock>
+                                                                    <TextBlock.Text>
+                                                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                                                            <Binding Path="AutoClass" />
+                                                                            <Binding Path="RuName" />
+                                                                        </MultiBinding>
+                                                                    </TextBlock.Text>
+                                                                </TextBlock>
+                                                            </CheckBox>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ListBox.ItemContainerStyle>
+                                    </uc:XListBox>
+                                </Expander>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="17" Margin="0,10,0,10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <Expander
+                                    MaxHeight="400"
+                                    HorizontalAlignment="Stretch"
+                                    Background="#673AB7">
+                                    <Expander.Header>
+                                        <TextBlock
+                                            Padding="0"
+                                            FontSize="20"
+                                            FontWeight="Medium"
+                                            Foreground="White"
+                                            Text="Типы кузовов" />
+                                    </Expander.Header>
+                                    <uc:XListBox
+                                        Height="150"
+                                        Background="White"
+                                        FontSize="14"
+                                        ItemsSource="{Binding Path=BodyTypes, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        SelectedValuePath="Id"
+                                        SelectionMode="Multiple"
+                                        XSelectedItems="{Binding Path=Filters.BodyTypesIds, Converter={StaticResource ObjectCollectionToGuidCollection}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                        <i:Interaction.Triggers>
+                                            <et:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
+                                                <ta:CustomCommandAction Command="{Binding BodyTypesScrollViewerChanged}" />
+                                            </et:RoutedEventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <ListBox.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ListBoxItem}">
+                                                <Setter Property="Margin" Value="5" />
+                                                <Setter Property="Padding" Value="5" />
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                            <CheckBox
+                                                                VerticalAlignment="Center"
+                                                                VerticalContentAlignment="Center"
+                                                                Focusable="False"
+                                                                IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource Mode=TemplatedParent}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                                <TextBlock>
+                                                                    <TextBlock.Text>
+                                                                        <MultiBinding StringFormat="{}{0} - {1} - {2}">
+                                                                            <Binding Path="BodyTypeGroup.AutoClass" />
+                                                                            <Binding Path="BodyTypeGroup.RuName" />
+                                                                            <Binding Path="RuName" />
+                                                                        </MultiBinding>
+                                                                    </TextBlock.Text>
+                                                                </TextBlock>
+                                                            </CheckBox>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ListBox.ItemContainerStyle>
+                                    </uc:XListBox>
+                                </Expander>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="18" Margin="0,10,0,10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <Expander
+                                    MaxHeight="400"
+                                    HorizontalAlignment="Stretch"
+                                    Background="#673AB7">
+                                    <Expander.Header>
+                                        <TextBlock
+                                            Padding="0"
+                                            FontSize="20"
+                                            FontWeight="Medium"
+                                            Foreground="White"
+                                            Text="Регионы" />
+                                    </Expander.Header>
+                                    <uc:XListBox
+                                        Height="150"
+                                        Background="White"
+                                        DisplayMemberPath="Name"
+                                        FontSize="14"
+                                        ItemsSource="{Binding Path=Regions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        SelectedValuePath="Id"
+                                        SelectionMode="Multiple"
+                                        XSelectedItems="{Binding Path=Filters.RegionsIds, Converter={StaticResource ObjectCollectionToGuidCollection}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                        <i:Interaction.Triggers>
+                                            <et:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
+                                                <ta:CustomCommandAction Command="{Binding RegionsScrollViewerChanged}" />
+                                            </et:RoutedEventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <ListBox.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ListBoxItem}">
+                                                <Setter Property="Margin" Value="5" />
+                                                <Setter Property="Padding" Value="5" />
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                            <CheckBox
+                                                                VerticalAlignment="Center"
+                                                                VerticalContentAlignment="Center"
+                                                                Focusable="False"
+                                                                IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource Mode=TemplatedParent}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                                <ContentPresenter />
+                                                            </CheckBox>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ListBox.ItemContainerStyle>
+                                    </uc:XListBox>
+                                </Expander>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="19" Margin="0,10,0,10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <Expander
+                                    MaxHeight="400"
+                                    HorizontalAlignment="Stretch"
+                                    Background="#673AB7">
+                                    <Expander.Header>
+                                        <TextBlock
+                                            Padding="0"
+                                            FontSize="20"
+                                            FontWeight="Medium"
+                                            Foreground="White"
+                                            Text="Цвета" />
+                                    </Expander.Header>
+                                    <uc:XListBox
+                                        Height="150"
+                                        Background="White"
+                                        DisplayMemberPath="Value"
+                                        FontSize="14"
+                                        ItemsSource="{Binding Path=Colors, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        SelectedValuePath="Id"
+                                        SelectionMode="Multiple"
+                                        XSelectedItems="{Binding Path=Filters.ColorsIds, Converter={StaticResource ObjectCollectionToGuidCollection}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                        <i:Interaction.Triggers>
+                                            <et:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
+                                                <ta:CustomCommandAction Command="{Binding ColorsScrollViewerChanged}" />
+                                            </et:RoutedEventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <ListBox.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ListBoxItem}">
+                                                <Setter Property="Margin" Value="5" />
+                                                <Setter Property="Padding" Value="5" />
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                            <CheckBox
+                                                                VerticalAlignment="Center"
+                                                                VerticalContentAlignment="Center"
+                                                                Focusable="False"
+                                                                IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource Mode=TemplatedParent}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                                <ContentPresenter />
+                                                            </CheckBox>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ListBox.ItemContainerStyle>
+                                    </uc:XListBox>
+                                </Expander>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="20" Margin="0,10,0,10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <Expander
+                                    MaxHeight="400"
+                                    HorizontalAlignment="Stretch"
+                                    Background="#673AB7">
+                                    <Expander.Header>
+                                        <TextBlock
+                                            Padding="0"
+                                            FontSize="20"
+                                            FontWeight="Medium"
+                                            Foreground="White"
+                                            Text="Производители" />
+                                    </Expander.Header>
+                                    <uc:XListBox
+                                        Height="150"
+                                        Background="White"
+                                        DisplayMemberPath="RuName"
+                                        FontSize="14"
+                                        ItemsSource="{Binding Path=Vendors, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        SelectedValuePath="Id"
+                                        SelectionMode="Multiple"
+                                        XSelectedItems="{Binding Path=Filters.VendorsIds, Converter={StaticResource ObjectCollectionToGuidCollection}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                        <i:Interaction.Triggers>
+                                            <et:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
+                                                <ta:CustomCommandAction Command="{Binding VendorsScrollViewerChanged}" />
+                                            </et:RoutedEventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <ListBox.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ListBoxItem}">
+                                                <Setter Property="Margin" Value="5" />
+                                                <Setter Property="Padding" Value="5" />
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                            <CheckBox
+                                                                VerticalAlignment="Center"
+                                                                VerticalContentAlignment="Center"
+                                                                Focusable="False"
+                                                                IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource Mode=TemplatedParent}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                                <ContentPresenter />
+                                                            </CheckBox>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ListBox.ItemContainerStyle>
+                                    </uc:XListBox>
+                                </Expander>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="21" Margin="0,10,0,10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <Expander
+                                    MaxHeight="400"
+                                    HorizontalAlignment="Stretch"
+                                    Background="#673AB7">
+                                    <Expander.Header>
+                                        <TextBlock
+                                            Padding="0"
+                                            FontSize="20"
+                                            FontWeight="Medium"
+                                            Foreground="White"
+                                            Text="Теги" />
+                                    </Expander.Header>
+                                    <uc:XListBox
+                                        Height="150"
+                                        Background="White"
+                                        DisplayMemberPath="RuName"
+                                        FontSize="14"
+                                        ItemsSource="{Binding Path=Tags, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        SelectedValuePath="Id"
+                                        SelectionMode="Multiple"
+                                        XSelectedItems="{Binding Path=Filters.TagsIds, Converter={StaticResource ObjectCollectionToGuidCollection}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                        <i:Interaction.Triggers>
+                                            <et:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
+                                                <ta:CustomCommandAction Command="{Binding TagsScrollViewerChanged}" />
+                                            </et:RoutedEventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <ListBox.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ListBoxItem}">
+                                                <Setter Property="Margin" Value="5" />
+                                                <Setter Property="Padding" Value="5" />
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                            <CheckBox
+                                                                VerticalAlignment="Center"
+                                                                VerticalContentAlignment="Center"
+                                                                Focusable="False"
+                                                                IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource Mode=TemplatedParent}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                                <ContentPresenter />
+                                                            </CheckBox>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ListBox.ItemContainerStyle>
+                                    </uc:XListBox>
+                                </Expander>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="22" Margin="0,10,0,10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <Expander
+                                    MaxHeight="400"
+                                    HorizontalAlignment="Stretch"
+                                    Background="#673AB7">
+                                    <Expander.Header>
+                                        <TextBlock
+                                            Padding="0"
+                                            FontSize="20"
+                                            FontWeight="Medium"
+                                            Foreground="White"
+                                            Text="Опции" />
+                                    </Expander.Header>
+                                    <uc:XListBox
+                                        Height="150"
+                                        Background="White"
+                                        DisplayMemberPath="RuName"
+                                        FontSize="14"
+                                        ItemsSource="{Binding Path=Options, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        SelectedValuePath="Id"
+                                        SelectionMode="Multiple"
+                                        XSelectedItems="{Binding Path=Filters.OptionsIds, Converter={StaticResource ObjectCollectionToGuidCollection}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                        <i:Interaction.Triggers>
+                                            <et:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
+                                                <ta:CustomCommandAction Command="{Binding OptionsScrollViewerChanged}" />
+                                            </et:RoutedEventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <ListBox.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ListBoxItem}">
+                                                <Setter Property="Margin" Value="5" />
+                                                <Setter Property="Padding" Value="5" />
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                            <CheckBox
+                                                                VerticalAlignment="Center"
+                                                                VerticalContentAlignment="Center"
+                                                                Focusable="False"
+                                                                IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource Mode=TemplatedParent}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                                <ContentPresenter />
+                                                            </CheckBox>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ListBox.ItemContainerStyle>
+                                    </uc:XListBox>
+                                </Expander>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="23" Margin="0,5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="0,0,0,5">
+                                <TextBlock
+                                    FontSize="18"
+                                    Text="Мощность"
+                                    TextAlignment="Center" />
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <uc:DoubleSlider
+                                    MinValue="{Binding Path=Filters.RangePower.Min, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    MaxValue="{Binding Path=Filters.RangePower.Max, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    BeginValue="{Binding Path=Filters.RangePower.From, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    EndValue="{Binding Path=Filters.RangePower.To, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    IsSnapToTickEnabled="True"
+                                    TickFrequency="1" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="24" Margin="0,5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="0,0,0,5">
+                                <TextBlock
+                                    FontSize="18"
+                                    Text="Стоимость"
+                                    FontWeight="Medium"
+                                    TextAlignment="Center" />
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <uc:DoubleSlider
+                                    MinValue="{Binding Path=Filters.RangePrice.Min, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    MaxValue="{Binding Path=Filters.RangePrice.Max, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    EndValue="{Binding Path=Filters.RangePrice.To, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    BeginValue="{Binding Path=Filters.RangePrice.From, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    IsSnapToTickEnabled="True"
+                                    TickFrequency="10000" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="25" Margin="0,5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="0,0,0,5">
+                                <TextBlock
+                                    FontSize="18"
+                                    Text="Пробег"
+                                    TextAlignment="Center" />
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <uc:DoubleSlider
+                                    MinValue="{Binding Path=Filters.RangeMileage.Min, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    MaxValue="{Binding Path=Filters.RangeMileage.Max, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    BeginValue="{Binding Path=Filters.RangeMileage.From, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    EndValue="{Binding Path=Filters.RangeMileage.To, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    IsSnapToTickEnabled="True"
+                                    TickFrequency="1000" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="26" Margin="0,5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="0,0,0,5">
+                                <TextBlock
+                                    FontSize="18"
+                                    Text="Мощность КВт"
+                                    TextAlignment="Center" />
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <uc:DoubleSlider
+                                    MinValue="{Binding Path=Filters.RangePowerKvt.Min, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    MaxValue="{Binding Path=Filters.RangePowerKvt.Max, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    BeginValue="{Binding Path=Filters.RangePowerKvt.From, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    EndValue="{Binding Path=Filters.RangePowerKvt.To, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    IsSnapToTickEnabled="True"
+                                    TickFrequency="1" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="27" Margin="0,5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="0,0,0,5">
+                                <TextBlock
+                                    FontSize="18"
+                                    Text="Расход топлива"
+                                    TextAlignment="Center" />
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <uc:DoubleSlider
+                                    MinValue="{Binding Path=Filters.RangeFuelRate.Min, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    MaxValue="{Binding Path=Filters.RangeFuelRate.Max, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    BeginValue="{Binding Path=Filters.RangeFuelRate.From, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    EndValue="{Binding Path=Filters.RangeFuelRate.To, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    IsSnapToTickEnabled="True"
+                                    TickFrequency="0.1" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="28" Margin="0,5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0"  Margin="0,0,0,5">
+                                <TextBlock
+                                    FontSize="18"
+                                    Text="Дата публикации"
+                                    TextAlignment="Center" />
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <uc:DoubleDatePicker
+                                    BeginSelectedDate="{Binding Path=Filters.RangeCreatedAt.From, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    EndSelectedDate="{Binding Path=Filters.RangeCreatedAt.To, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    MinSelectedDate="{Binding Path=Filters.RangeCreatedAt.Min, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    MaxSelectedDate="{Binding Path=Filters.RangeCreatedAt.Max, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="29" Margin="0,5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="0,0,0,5">
+                                <TextBlock
+                                    FontSize="18"
+                                    Text="Кол-во дверей"
+                                    TextAlignment="Center" />
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <uc:DoubleSlider
+                                    MinValue="{Binding Path=Filters.RangeDoorsCount.Min, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    MaxValue="{Binding Path=Filters.RangeDoorsCount.Max, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    BeginValue="{Binding Path=Filters.RangeDoorsCount.From, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    EndValue="{Binding Path=Filters.RangeDoorsCount.To, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    IsSnapToTickEnabled="True"
+                                    TickFrequency="1" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="30" Margin="0,5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="0,0,0,5">
+                                <TextBlock
+                                    FontSize="18"
+                                    Text="Разгон"
+                                    TextAlignment="Center" />
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <uc:DoubleSlider
+                                    MinValue="{Binding Path=Filters.RangeAcceleration.Min, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    MaxValue="{Binding Path=Filters.RangeAcceleration.Max, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    BeginValue="{Binding Path=Filters.RangeAcceleration.From, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    EndValue="{Binding Path=Filters.RangeAcceleration.To, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    IsSnapToTickEnabled="True"
+                                    TickFrequency="0.1" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="31" Margin="0,5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="0,0,0,5">
+                                <TextBlock
+                                    FontSize="18"
+                                    Text="Перемещение"
+                                    TextAlignment="Center" />
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <uc:DoubleSlider
+                                    MinValue="{Binding Path=Filters.RangeDisplacement.Min, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    MaxValue="{Binding Path=Filters.RangeDisplacement.Max, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    BeginValue="{Binding Path=Filters.RangeDisplacement.From, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    EndValue="{Binding Path=Filters.RangeDisplacement.To, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    IsSnapToTickEnabled="True"
+                                    TickFrequency="1" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="32" Margin="0,0,0,5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="0,0,0,5">
+                                <TextBlock
+                                    FontSize="18"
+                                    Text="Минимальный зазор"
+                                    TextAlignment="Center" />
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <uc:DoubleSlider
+                                    MinValue="{Binding Path=Filters.RangeClearanceMin.Min, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    MaxValue="{Binding Path=Filters.RangeClearanceMin.Max, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    BeginValue="{Binding Path=Filters.RangeClearanceMin.From, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    EndValue="{Binding Path=Filters.RangeClearanceMin.To, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    IsSnapToTickEnabled="True"
+                                    TickFrequency="1" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="33" Margin="0,10,0,10">
+                            <Button
+                                VerticalAlignment="Center"
+                                mdt:ButtonAssist.CornerRadius="0"
+                                Command="{Binding Path=Search}"
+                                Content="Применить фильтры"
+                                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                ToolTip="Применить фильтры">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding Path=Search}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                        </Grid>
+                        <Grid Grid.Row="34" Margin="0,5,0,0">
+                            <Button
+                                VerticalAlignment="Center"
+                                mdt:ButtonAssist.CornerRadius="0"
+                                Command="{Binding Path=Reset}"
+                                Content="Сбросить фильтры"
+                                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                ToolTip="Сбросить фильтры">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding Path=Reset}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </ScrollViewer>
+            </GroupBox>
+        </Grid>
+        <Grid
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <DataGrid
+                    CellStyle="{StaticResource DefaultDataGridCellStyle}"
+                    ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
+                    ItemsSource="{Binding Path=Announcements, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource DefaultDataGridStyle}"
+                    VerticalScrollBarVisibility="Auto">
+                    <i:Interaction.Triggers>
+                        <et:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
+                            <ta:CustomCommandAction Command="{Binding ScrollViewerChanged}" />
+                        </et:RoutedEventTrigger>
+                    </i:Interaction.Triggers>
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Марка, модель, поколение">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0} {1} {2}">
+                                                <Binding Path="Vehicle.Generation.Model.Mark.Name" />
+                                                <Binding Path="Vehicle.Generation.Model.Name" />
+                                                <Binding Path="Vehicle.Generation.Name" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Краткое описание" Binding="{Binding Path=Summary}" />
+                        <DataGridTextColumn Header="Пробег" Binding="{Binding Path=State.Mileage, StringFormat={}{0:N0} км, ConverterCulture=ru-Ru}" />
+                        <DataGridTextColumn Header="Стоимость" Binding="{Binding Path=Price.Value, StringFormat={}{0:C0}, ConverterCulture=ru-Ru}" />
+                        <DataGridTextColumn Header="Регион" Binding="{Binding Path=Seller.Location.Region.Name}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

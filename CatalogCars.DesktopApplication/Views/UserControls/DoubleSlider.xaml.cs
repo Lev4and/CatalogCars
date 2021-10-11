@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace CatalogCars.DesktopApplication.Views.UserControls
@@ -20,11 +21,16 @@ namespace CatalogCars.DesktopApplication.Views.UserControls
         public double MinValue
         {
             get { return (double)GetValue(MinValueProperty); }
-            set { SetValue(MinValueProperty, value); BeginValue = value; }
+            set { SetValue(MinValueProperty, value); BeginValue = MinValue; }
         }
 
         public static readonly DependencyProperty MinValueProperty =
-            DependencyProperty.Register("MinValue", typeof(double), typeof(DoubleSlider), new PropertyMetadata(0d));
+            DependencyProperty.Register("MinValue", typeof(double), typeof(DoubleSlider), new PropertyMetadata(0d, OnMinValueChanged));
+
+        private static void OnMinValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            
+        }
 
         public double BeginValue
         {
@@ -33,7 +39,12 @@ namespace CatalogCars.DesktopApplication.Views.UserControls
         }
 
         public static readonly DependencyProperty BeginValueProperty =
-            DependencyProperty.Register("BeginValue", typeof(double), typeof(DoubleSlider), new PropertyMetadata(0d));
+            DependencyProperty.Register("BeginValue", typeof(double), typeof(DoubleSlider), new PropertyMetadata(0d, OnBeginValueChanged));
+
+        private static void OnBeginValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            
+        }
 
         public double EndValue
         {
@@ -42,16 +53,26 @@ namespace CatalogCars.DesktopApplication.Views.UserControls
         }
 
         public static readonly DependencyProperty EndValueProperty =
-            DependencyProperty.Register("EndValue", typeof(double), typeof(DoubleSlider), new PropertyMetadata(1d));
+            DependencyProperty.Register("EndValue", typeof(double), typeof(DoubleSlider), new PropertyMetadata(1d, OnEndValueChanged));
+
+        private static void OnEndValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            
+        }
 
         public double MaxValue
         {
             get { return (double)GetValue(MaxValueProperty); }
-            set { SetValue(MaxValueProperty, value); EndValue = value; }
+            set { SetValue(MaxValueProperty, value); EndValue = MaxValue; }
         }
 
         public static readonly DependencyProperty MaxValueProperty =
-            DependencyProperty.Register("MaxValue", typeof(double), typeof(DoubleSlider), new PropertyMetadata(1d));
+            DependencyProperty.Register("MaxValue", typeof(double), typeof(DoubleSlider), new PropertyMetadata(1d, OnMaxValueChanged));
+
+        private static void OnMaxValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            
+        }
 
         public double TickFrequency
         {

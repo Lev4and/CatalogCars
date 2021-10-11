@@ -32,6 +32,13 @@ namespace CatalogCars.Resource.Api.Controllers
             return Ok(_dataManager.GearTypes.GetNamesGearTypes(searchString).ToArray());
         }
 
+        [HttpGet]
+        [ProducesResponseType(typeof(GearType[]), 200)]
+        public IActionResult Index()
+        {
+            return Ok(_dataManager.GearTypes.GetGearTypes().ToArray());
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(GearType[]), 200)]
         public IActionResult Index([FromBody] GearTypesFilters filters)

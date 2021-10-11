@@ -26,6 +26,11 @@ namespace CatalogCars.DesktopApplication.ViewModels
             IsLeftDrawerOpen = false;
         });
 
+        public ICommand Announcements => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.Announcements.Announcements());
+        });
+
         public ICommand Marks => new DelegateCommand(() =>
         {
             _menuPageService.ChangePage(new Pages.Marks.Marks());

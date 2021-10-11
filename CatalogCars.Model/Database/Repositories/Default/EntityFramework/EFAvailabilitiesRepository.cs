@@ -37,6 +37,12 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .AsNoTracking();
         }
 
+        public IQueryable<Availability> GetAvailabilities()
+        {
+            return _context.Availabilities
+                .AsNoTracking();
+        }
+
         public int GetCountAvailabilities(AvailabilitiesFilters filters)
         {
             return _context.Availabilities

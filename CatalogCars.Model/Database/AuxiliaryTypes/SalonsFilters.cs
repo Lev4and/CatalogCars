@@ -49,19 +49,16 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
             RegionsIds = new List<Guid>();
             IsOfficialValues = new Dictionary<bool?, string>()
             {
-                //{ null, "Не имеет значения" },
                 { true, "Является официальным" },
                 { false, "Не является официальным" }
             };
             ActualStockValues = new Dictionary<bool?, string>()
             {
-                //{ null, "Не имеет значения" },
                 { true, "Есть" },
                 { false, "Нету" }
             };
             LoyaltyProgramValues = new Dictionary<bool?, string>()
             {
-                //{ null, "Не имеет значения" },
                 { true, "Есть" },
                 { false, "Нету" }
             };

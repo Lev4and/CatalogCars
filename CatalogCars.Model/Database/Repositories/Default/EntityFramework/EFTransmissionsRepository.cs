@@ -53,5 +53,11 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Take(filters.ItemsPerPage)
                 .AsNoTracking();
         }
+
+        public IQueryable<Transmission> GetTransmissions()
+        {
+            return _context.Transmissions
+                .AsNoTracking();
+        }
     }
 }

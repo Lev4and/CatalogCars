@@ -2,16 +2,16 @@
 
 namespace CatalogCars.Model.Database.AuxiliaryTypes
 {
-    public class RangeRegistrationDate
+    public class RangeRegistrationDate : Range<DateTime?>
     {
-        public DateTime? To { get; set; }
-
-        public DateTime? From { get; set; }
-
-        public RangeRegistrationDate(DateTime to, DateTime from)
+        public RangeRegistrationDate(DateTime? to, DateTime? from) : base(to, from)
         {
-            To = to;
-            From = from;
+
+        }
+
+        public override bool CheckСhanges()
+        {
+            return From != Min || To != Max;
         }
     }
 }

@@ -1,15 +1,15 @@
 ﻿namespace CatalogCars.Model.Database.AuxiliaryTypes
 {
-    public class RangeMileage
+    public class RangeMileage : Range<double>
     {
-        public double To { get; private set; }
-
-        public double From { get; private set; }
-
-        public RangeMileage(double to, double from)
+        public RangeMileage(double to, double from) : base(to, from)
         {
-            To = to;
-            From = from;
+
+        }
+
+        public override bool CheckСhanges()
+        {
+            return From != Min || To != Max;
         }
     }
 }

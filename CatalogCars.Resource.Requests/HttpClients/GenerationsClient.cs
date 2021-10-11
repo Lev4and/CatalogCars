@@ -19,9 +19,21 @@ namespace CatalogCars.Resource.Requests.HttpClients
                 "application/json"));
         }
 
+        public async Task<HttpResponseMessage> GetCountGenerationsByModelsIdsAsync(GenerationsFilters filters)
+        {
+            return await _client.PostAsync("byModelsIds/count", new StringContent(JsonConvert.SerializeObject(filters), Encoding.UTF8,
+                "application/json"));
+        }
+
         public async Task<HttpResponseMessage> GetGenerationsAsync(GenerationsFilters filters)
         {
             return await _client.PostAsync("", new StringContent(JsonConvert.SerializeObject(filters), Encoding.UTF8,
+                "application/json"));
+        }
+
+        public async Task<HttpResponseMessage> GetGenerationsByModelsIdsAsync(GenerationsFilters filters)
+        {
+            return await _client.PostAsync("byModelsIds", new StringContent(JsonConvert.SerializeObject(filters), Encoding.UTF8,
                 "application/json"));
         }
 

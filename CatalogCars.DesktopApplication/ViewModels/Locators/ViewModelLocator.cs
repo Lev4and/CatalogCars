@@ -7,6 +7,8 @@ namespace CatalogCars.DesktopApplication.ViewModels.Locators
     {
         private static ServiceProvider _provider;
 
+        public AnnouncementsViewModel AnnouncementsViewModel => _provider.GetRequiredService<AnnouncementsViewModel>();
+
         public AvailabilitiesViewModel AvailabilitiesViewModel => _provider.GetRequiredService<AvailabilitiesViewModel>();
 
         public BodyTypeGroupsViewModel BodyTypeGroupsViewModel => _provider.GetRequiredService<BodyTypeGroupsViewModel>();
@@ -77,6 +79,7 @@ namespace CatalogCars.DesktopApplication.ViewModels.Locators
         {
             var services = new ServiceCollection();
 
+            services.AddTransient<AnnouncementsViewModel>();
             services.AddTransient<AvailabilitiesViewModel>();
             services.AddTransient<BodyTypeGroupsViewModel>();
             services.AddTransient<BodyTypesViewModel>();

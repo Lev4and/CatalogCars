@@ -19,6 +19,12 @@ namespace CatalogCars.Resource.Requests.HttpClients
                 Encoding.UTF8, "application/json"));
         }
 
+        public async Task<HttpResponseMessage> GetCountBodyTypesOfBodyTypeGroups(BodyTypesFilters filters)
+        {
+            return await _client.PostAsync("byBodyTypeGroupsIds/count", new StringContent(JsonConvert.SerializeObject(filters),
+                Encoding.UTF8, "application/json"));
+        }
+
         public async Task<HttpResponseMessage> GetNamesBodyTypesAsync(string searchString)
         {
             return await _client.PostAsync("names", new StringContent(JsonConvert.SerializeObject(searchString),
@@ -28,6 +34,12 @@ namespace CatalogCars.Resource.Requests.HttpClients
         public async Task<HttpResponseMessage> GetBodyTypesAsync(BodyTypesFilters filters)
         {
             return await _client.PostAsync("", new StringContent(JsonConvert.SerializeObject(filters),
+                Encoding.UTF8, "application/json"));
+        }
+
+        public async Task<HttpResponseMessage> GetBodyTypesOfBodyTypeGroupsAsync(BodyTypesFilters filters)
+        {
+            return await _client.PostAsync("byBodyTypeGroupsIds", new StringContent(JsonConvert.SerializeObject(filters),
                 Encoding.UTF8, "application/json"));
         }
     }

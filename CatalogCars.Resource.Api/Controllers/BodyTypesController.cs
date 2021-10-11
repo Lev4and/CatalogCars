@@ -25,6 +25,13 @@ namespace CatalogCars.Resource.Api.Controllers
             return Ok(_dataManager.BodyTypes.GetCountBodyTypes(filters));
         }
 
+        [HttpPost("byBodyTypeGroupsIds/count")]
+        [ProducesResponseType(typeof(int), 200)]
+        public IActionResult CountBodyTypesOfBodyTypeGroups([FromBody] BodyTypesFilters filters)
+        {
+            return Ok(_dataManager.BodyTypes.GetCountBodyTypesOfBodyTypeGroups(filters));
+        }
+
         [HttpPost("names")]
         [ProducesResponseType(typeof(string[]), 200)]
         public IActionResult Names([FromBody] string searchString)
@@ -37,6 +44,13 @@ namespace CatalogCars.Resource.Api.Controllers
         public IActionResult Index([FromBody] BodyTypesFilters filters)
         {
             return Ok(_dataManager.BodyTypes.GetBodyTypes(filters).ToArray());
+        }
+
+        [HttpPost("byBodyTypeGroupsIds")]
+        [ProducesResponseType(typeof(BodyType[]), 200)]
+        public IActionResult BodyTypesOfBodyTypeGroups([FromBody] BodyTypesFilters filters)
+        {
+            return Ok(_dataManager.BodyTypes.GetBodyTypesOfBodyTypeGroups(filters).ToArray());
         }
     }
 }

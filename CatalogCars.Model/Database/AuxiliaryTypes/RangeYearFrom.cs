@@ -1,15 +1,15 @@
 ﻿namespace CatalogCars.Model.Database.AuxiliaryTypes
 {
-    public class RangeYearFrom
+    public class RangeYearFrom : Range<int?>
     {
-        public int? To { get; set; }
-
-        public int? From { get; set; }
-
-        public RangeYearFrom(int? to, int? from)
+        public RangeYearFrom(int? to, int? from) : base(to, from)
         {
-            To = to;
-            From = from;
+
+        }
+
+        public override bool CheckСhanges()
+        {
+            return From != Min || To != Max;
         }
     }
 }

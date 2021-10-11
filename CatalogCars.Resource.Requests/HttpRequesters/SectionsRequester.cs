@@ -46,6 +46,21 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             return new string[0];
         }
 
+        public async Task<Section[]> GetSectionsAsync()
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetSectionsResponseAsync();
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<Section[]>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new Section[0];
+        }
+
         public async Task<Section[]> GetSectionsAsync(SectionsFilters filters)
         {
             var resultStream = await _responseLoader.GetStreamFromGetSectionsResponseAsync(filters);

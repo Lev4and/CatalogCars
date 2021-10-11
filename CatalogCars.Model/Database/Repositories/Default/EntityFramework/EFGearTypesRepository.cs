@@ -44,6 +44,12 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .AsNoTracking();
         }
 
+        public IQueryable<GearType> GetGearTypes()
+        {
+            return _context.GearTypes
+                .AsNoTracking();
+        }
+
         public IQueryable<string> GetNamesGearTypes(string searchString)
         {
             return _context.GearTypes

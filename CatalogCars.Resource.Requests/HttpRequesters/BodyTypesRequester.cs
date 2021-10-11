@@ -31,6 +31,21 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             return 0;
         }
 
+        public async Task<int> GetCountBodyTypesOfBodyTypeGroupsAsync(BodyTypesFilters filters)
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetCountBodyTypesOfBodyTypeGroupsResponseAsync(filters);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<int>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return 0;
+        }
+
         public async Task<string[]> GetNamesBodyTypesAsync(string searchString)
         {
             var resultStream = await _responseLoader.GetStreamFromGetNamesBodyTypesResponseAsync(searchString);
@@ -49,6 +64,21 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
         public async Task<BodyType[]> GetBodyTypesAsync(BodyTypesFilters filters)
         {
             var resultStream = await _responseLoader.GetStreamFromGetBodyTypesResponseAsync(filters);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<BodyType[]>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new BodyType[0];
+        }
+
+        public async Task<BodyType[]> GetBodyTypesOfBodyTypeGroupsAsync(BodyTypesFilters filters)
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetBodyTypesOfBodyTypeGroupsResponseAsync(filters);
 
             if (resultStream != null)
             {

@@ -19,6 +19,11 @@ namespace CatalogCars.Resource.Requests.HttpResponseLoaders
             return await GetStreamFromResponseAsync(await _client.GetCountBodyTypesAsync(filters));
         }
 
+        public async Task<Stream> GetStreamFromGetCountBodyTypesOfBodyTypeGroupsResponseAsync(BodyTypesFilters filters)
+        {
+            return await GetStreamFromResponseAsync(await _client.GetCountBodyTypesOfBodyTypeGroups(filters));
+        }
+
         public async Task<Stream> GetStreamFromGetNamesBodyTypesResponseAsync(string searchString)
         {
             return await GetStreamFromResponseAsync(await _client.GetNamesBodyTypesAsync(searchString));
@@ -27,6 +32,11 @@ namespace CatalogCars.Resource.Requests.HttpResponseLoaders
         public async Task<Stream> GetStreamFromGetBodyTypesResponseAsync(BodyTypesFilters filters)
         {
             return await GetStreamFromResponseAsync(await _client.GetBodyTypesAsync(filters));
+        }
+
+        public async Task<Stream> GetStreamFromGetBodyTypesOfBodyTypeGroupsResponseAsync(BodyTypesFilters filters)
+        {
+            return await GetStreamFromResponseAsync(await _client.GetBodyTypesOfBodyTypeGroupsAsync(filters));
         }
     }
 }

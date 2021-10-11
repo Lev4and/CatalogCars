@@ -46,6 +46,21 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             return new string[0];
         }
 
+        public async Task<SteeringWheel[]> GetSteeringWheelsAsync()
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetSteeringWheelsResponseAsync();
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SteeringWheel[]>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SteeringWheel[0];
+        }
+
         public async Task<SteeringWheel[]> GetSteeringWheelsAsync(SteeringWheelsFilters filters)
         {
             var resultStream = await _responseLoader.GetStreamFromGetSteeringWheelsResponseAsync(filters);

@@ -24,9 +24,10 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         {
             return _context.Locations
                 .Include(location => location.Region)
-                .Where(location => 
-                    (EF.Functions.Like(location.Region.Name + ", " + location.Address, $"%{filters.SearchString}%")) && 
-                    (filters.RegionsIds.Count > 0 ? filters.RegionsIds.Contains((Guid)location.RegionId) : true))
+                .Where(location => EF.Functions.Like((location.Region.Name != null ? (location.Address != null ?
+                    location.Region.Name + ", " : location.Region.Name) : "") + (location.Address != null ?
+                        location.Address : ""), $"%{filters.SearchString}%") && 
+                            (filters.RegionsIds.Count > 0 ? filters.RegionsIds.Contains((Guid)location.RegionId) : true))
                 .Count();
         }
 
@@ -37,9 +38,10 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             IQueryable<Location> locations = _context.Locations
                 .Include(location => location.Region)
                 .Include(location => location.Coordinate)
-                .Where(location =>
-                    (EF.Functions.Like(location.Region.Name + " " + location.Address, $"%{filters.SearchString}%")) &&
-                    (filters.RegionsIds.Count > 0 ? filters.RegionsIds.Contains((Guid)location.RegionId) : true));
+                .Where(location => EF.Functions.Like((location.Region.Name != null ? (location.Address != null ? 
+                    location.Region.Name + ", " : location.Region.Name) : "") + (location.Address != null ? 
+                        location.Address : ""), $"%{filters.SearchString}%") &&
+                            (filters.RegionsIds.Count > 0 ? filters.RegionsIds.Contains((Guid)location.RegionId) : true));
 
             if(sorter != null)
             {

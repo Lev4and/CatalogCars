@@ -10,6 +10,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
 
         IQueryable<string> GetNamesSections(string searchString);
 
+        IQueryable<Section> GetSections();
+
         IQueryable<Section> GetSections(SectionsFilters filters);
     }
 }

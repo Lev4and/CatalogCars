@@ -32,7 +32,14 @@ namespace CatalogCars.Resource.Api.Controllers
             return Ok(_dataManager.SteeringWheels.GetNamesSteeringWheels(searchString).ToArray());
         }
 
-        [HttpPost()]
+        [HttpGet]
+        [ProducesResponseType(typeof(SteeringWheel[]), 200)]
+        public IActionResult Index()
+        {
+            return Ok(_dataManager.SteeringWheels.GetSteeringWheels().ToArray());
+        }
+
+        [HttpPost]
         [ProducesResponseType(typeof(SteeringWheel[]), 200)]
         public IActionResult Index([FromBody] SteeringWheelsFilters filters)
         {

@@ -41,6 +41,26 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .AsNoTracking();
         }
 
+        public IQueryable<BodyType> GetBodyTypesOfBodyTypeGroups(BodyTypesFilters filters)
+        {
+            var sorter = _sorters.FirstOrDefault(sorter => sorter.SortingOption == filters.SortingOption);
+
+            IQueryable<BodyType> bodyTypes = _context.BodyTypes
+                .Include(bodyType => bodyType.BodyTypeGroup)
+                .Where(bodyType => (filters.BodyTypeGroupsIds.Count > 0 ? 
+                    filters.BodyTypeGroupsIds.Contains(bodyType.BodyTypeGroupId) : false));
+
+            if (sorter != null)
+            {
+                bodyTypes = sorter.Sort(bodyTypes);
+            }
+
+            return bodyTypes
+                .Skip((filters.NumberPage - 1) * filters.ItemsPerPage)
+                .Take(filters.ItemsPerPage)
+                .AsNoTracking();
+        }
+
         public int GetCountBodyTypes(BodyTypesFilters filters)
         {
             return _context.BodyTypes
@@ -49,6 +69,15 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                     bodyType.BodyTypeGroup.AutoClass + " - " : "") + (bodyType.BodyTypeGroup.RuName != null ?
                         bodyType.BodyTypeGroup.RuName + " - " : "") + bodyType.RuName, $"%{filters.SearchString}%") &&
                     (filters.BodyTypeGroupsIds.Count > 0 ? filters.BodyTypeGroupsIds.Contains(bodyType.BodyTypeGroupId) : true))
+                .Count();
+        }
+
+        public int GetCountBodyTypesOfBodyTypeGroups(BodyTypesFilters filters)
+        {
+            return _context.BodyTypes
+                .Include(bodyType => bodyType.BodyTypeGroup)
+                .Where(bodyType => (filters.BodyTypeGroupsIds.Count > 0 ? 
+                    filters.BodyTypeGroupsIds.Contains(bodyType.BodyTypeGroupId) : false))
                 .Count();
         }
 

@@ -10,6 +10,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
 
         IQueryable<string> GetNamesSteeringWheels(string searchString);
 
+        IQueryable<SteeringWheel> GetSteeringWheels();
+
         IQueryable<SteeringWheel> GetSteeringWheels(SteeringWheelsFilters filters);
     }
 }

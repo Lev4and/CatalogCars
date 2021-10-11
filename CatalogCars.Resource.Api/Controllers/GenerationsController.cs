@@ -25,11 +25,25 @@ namespace CatalogCars.Resource.Api.Controllers
             return Ok(_dataManager.Generations.GetCountGenerations(filters));
         }
 
+        [HttpPost("byModelsIds/count")]
+        [ProducesResponseType(typeof(int), 200)]
+        public IActionResult CountGenerationsByModelsIds([FromBody] GenerationsFilters filters)
+        {
+            return Ok(_dataManager.Generations.GetCountGenerationsOfModels(filters));
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(Generation[]), 200)]
         public IActionResult Index([FromBody] GenerationsFilters filters)
         {
             return Ok(_dataManager.Generations.GetGenerations(filters).ToArray());
+        }
+
+        [HttpPost("byModelsIds")]
+        [ProducesResponseType(typeof(Generation[]), 200)]
+        public IActionResult GenerationsByModelsIds([FromBody] GenerationsFilters filters)
+        {
+            return Ok(_dataManager.Generations.GetGenerationsOfModels(filters).ToArray());
         }
 
         [HttpPost("maxYearFromGeneration")]

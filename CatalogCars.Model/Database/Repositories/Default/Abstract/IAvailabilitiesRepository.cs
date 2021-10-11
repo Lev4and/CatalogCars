@@ -10,6 +10,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
 
         IQueryable<string> GetNamesAvailabilities(string searchString);
 
+        IQueryable<Availability> GetAvailabilities();
+
         IQueryable<Availability> GetAvailabilities(AvailabilitiesFilters filters);
     }
 }

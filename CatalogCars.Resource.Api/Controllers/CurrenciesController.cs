@@ -32,7 +32,14 @@ namespace CatalogCars.Resource.Api.Controllers
             return Ok(_dataManager.Currencies.GetNamesCurrencies(searchString).ToArray());
         }
 
-        [HttpPost()]
+        [HttpGet]
+        [ProducesResponseType(typeof(Currency[]), 200)]
+        public IActionResult Index()
+        {
+            return Ok(_dataManager.Currencies.GetCurrencies().ToArray());
+        }
+
+        [HttpPost]
         [ProducesResponseType(typeof(Currency[]), 200)]
         public IActionResult Index([FromBody] CurrenciesFilters filters)
         {

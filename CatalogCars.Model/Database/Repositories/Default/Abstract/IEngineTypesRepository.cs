@@ -10,6 +10,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
 
         IQueryable<string> GetNamesEngineTypes(string searchString);
 
+        IQueryable<EngineType> GetEngineTypes();
+
         IQueryable<EngineType> GetEngineTypes(EngineTypesFilters filters);
     }
 }

@@ -1,15 +1,15 @@
 ﻿namespace CatalogCars.Model.Database.AuxiliaryTypes
 {
-    public class RangePrice
+    public class RangePrice : Range<double>
     {
-        public double To { get; private set; }
-
-        public double From { get; private set; }
-
-        public RangePrice(double to, double from)
+        public RangePrice(double to, double from) : base(to, from)
         {
-            To = to;
-            From = from;
+
+        }
+
+        public override bool CheckСhanges()
+        {
+            return From != Min || To != Max;
         }
     }
 }

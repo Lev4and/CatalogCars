@@ -24,6 +24,11 @@ namespace CatalogCars.Resource.Requests.HttpResponseLoaders
             return await GetStreamFromResponseAsync(await _client.GetNamesCurrenciesAsync(searchString));
         }
 
+        public async Task<Stream> GetStreamFromGetCurrenciesResponseAsync()
+        {
+            return await GetStreamFromResponseAsync(await _client.GetCurrenciesAsync());
+        }
+
         public async Task<Stream> GetStreamFromGetCurrenciesResponseAsync(CurrenciesFilters filters)
         {
             return await GetStreamFromResponseAsync(await _client.GetCurrenciesAsync(filters));
