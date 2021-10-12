@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    @await Html.PartialAsync("_Metatags")
+    @await Html.PartialAsync("_Title")
+    @await Html.PartialAsync("_Icon")
+    @await Html.PartialAsync("_Css")
+    @if (IsSectionDefined("StylePage"))
+    {
+        @await RenderSectionAsync("StylePage");
+    }
+
+    <script src="~/js/pace.min.js"></script>
+</head>
+<body class="bg-theme bg-theme1">
+    <div class="wrapper">
+        @await Html.PartialAsync("_Sidebar")
+        @await Html.PartialAsync("_Header")
+        @RenderBody()
+        @await Html.PartialAsync("_Overlay")
+        @await Html.PartialAsync("_BackToTopButton")
+        @await Html.PartialAsync("_Footer")
+    </div>
+    @await Html.PartialAsync("_SwitcherWrapper")
+    @await Html.PartialAsync("_Scripts")
+    @if (IsSectionDefined("ScriptPage"))
+    {
+        @await RenderSectionAsync("ScriptPage")
+    }
+    @if (IsSectionDefined("PerfectScrollbarInit"))
+    {
+        @await RenderSectionAsync("PerfectScrollbarInit")
+    }
+</body>
+</html>
