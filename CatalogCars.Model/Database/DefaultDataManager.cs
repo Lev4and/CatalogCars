@@ -48,6 +48,8 @@ namespace CatalogCars.Model.Database
 
         public IPricesRepository Prices { get; set; }
 
+        public IPtsRepository Pts { get; set; }
+
         public IPtsTypesRepository PtsTypes { get; set; }
 
         public IRegionsRepository Regions { get; set; }
@@ -88,7 +90,7 @@ namespace CatalogCars.Model.Database
             ICurrenciesRepository currencies, IEngineTypesRepository engineTypes, IGearTypesRepository gearTypes, 
             IGenerationsRepository generations, ILocationsRepository locations, IMarksRepository marks, 
             IModelsRepository models, IOptionsRepository options, IPhonesRepository phones, IPhotoClassesRepository photoClasses, 
-            IPriceSegmentsRepository priceSegments, IPricesRepository prices, IPtsTypesRepository ptsTypes, IRegionsRepository regions,
+            IPriceSegmentsRepository priceSegments, IPricesRepository prices, IPtsRepository pts, IPtsTypesRepository ptsTypes, IRegionsRepository regions,
             IRolesRepository roles, ISalonsRepository salons, IStatusesRepository statuses, ISectionsRepository sections, 
             ISellersRepository sellers, ISellerTypesRepository sellerTypes, IStatesRepository states,
             ISteeringWheelsRepository steeringWheels, ITagsRepository tags, ITechnicalParametersRepository technicalParameters, 
@@ -117,6 +119,7 @@ namespace CatalogCars.Model.Database
             PhotoClasses = photoClasses;
             PriceSegments = priceSegments;
             Prices = prices;
+            Pts = pts;
             PtsTypes = ptsTypes;
             Regions = regions;
             Roles = roles;

@@ -244,6 +244,7 @@ namespace CatalogCars.Resource.Api
             services.AddTransient<EntityFrameworkAbstract.IPhotoClassesRepository, EntityFramework.EFPhotoClassesRepository>();
             services.AddTransient<EntityFrameworkAbstract.IPriceSegmentsRepository, EntityFramework.EFPriceSegmentsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IPricesRepository, EntityFramework.EFPricesRepository>();
+            services.AddTransient<EntityFrameworkAbstract.IPtsRepository, EntityFramework.EFPtsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IPtsTypesRepository, EntityFramework.EFPtsTypesRepository>();
             services.AddTransient<EntityFrameworkAbstract.IRegionsRepository, EntityFramework.EFRegionsRepository>();
             services.AddTransient<EntityFrameworkAbstract.IRolesRepository, EntityFramework.EFRolesRepository>();

@@ -229,8 +229,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             if (filters.RangeCreatedAt.CheckСhanges())
             {
                 announcements = announcements.Where(announcement => announcement.AdditionalInformation.CreatedAt >= 
-                    filters.RangeCreatedAt.From && announcement.AdditionalInformation.CreatedAt <= 
-                        filters.RangeCreatedAt.To);
+                    filters.RangeCreatedAt.From.Date && announcement.AdditionalInformation.CreatedAt <= 
+                        filters.RangeCreatedAt.To.Date.AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(999));
             }
 
             if (filters.RangeDoorsCount.CheckСhanges())
