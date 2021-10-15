@@ -104,7 +104,7 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
             NumberPage = 1;
             ItemsPerPage = 25;
             SearchString = "";
-            SortingOption = SortingOption.ByAscendingName;
+            SortingOption = SortingOption.Default;
             StatusId = null;
             SectionId = null;
             CurrencyId = null;

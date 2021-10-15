@@ -39,6 +39,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                         .ThenInclude(configuration => configuration.BodyType)
                 .Include(announcement => announcement.Vehicle)
                     .ThenInclude(vehicle => vehicle.Configuration)
+                        .ThenInclude(configuration => configuration.MainPhoto)
                 .Include(announcement => announcement.Vehicle)
                     .ThenInclude(vehicle => vehicle.TechnicalParameters)
                 .Include(announcement => announcement.Documents)
