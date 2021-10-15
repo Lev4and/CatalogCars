@@ -1304,7 +1304,7 @@
                                         </Grid.ColumnDefinitions>
                                         <Grid
                                             Grid.Column="0"
-                                            Margin="0,0,5,0"
+                                            Margin="10,0,5,0"
                                             VerticalAlignment="Center">
                                             <Border BorderBrush="Black" BorderThickness="1">
                                                 <Image Source="{Binding Path=Vehicle.Configuration.MainPhoto.Wizardv3mr, Converter={StaticResource UrlToBitmapImage}}" Stretch="Uniform" />
@@ -1350,7 +1350,7 @@
                                             </Grid>
                                             <Grid Grid.Row="1" Margin="0,5,0,0">
                                                 <WrapPanel>
-                                                    <Grid Margin="0,0,5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1365,7 +1365,7 @@
                                                             <TextBlock FontSize="14" Text="{Binding Path=Vehicle.Configuration.BodyType.RuName}" />
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1380,7 +1380,7 @@
                                                             <TextBlock FontSize="14" Text="{Binding Path=Vehicle.TechnicalParameters.EngineType.RuName}" />
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1395,7 +1395,7 @@
                                                             <TextBlock FontSize="14" Text="{Binding Path=Vehicle.TechnicalParameters.GearType.RuName}" />
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1410,7 +1410,7 @@
                                                             <TextBlock FontSize="14" Text="{Binding Path=Vehicle.TechnicalParameters.Transmission.RuName}" />
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1425,7 +1425,7 @@
                                                             <TextBlock FontSize="14" Text="{Binding Path=Vehicle.SteeringWheel.RuName}" />
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1440,7 +1440,7 @@
                                                             <TextBlock FontSize="14" Text="{Binding Path=Vehicle.TechnicalParameters.Power, StringFormat={}{0} л.с.}" />
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1455,7 +1455,7 @@
                                                             <TextBlock FontSize="14" Text="{Binding Path=Vehicle.TechnicalParameters.PowerKvt, StringFormat={}{0} кВт}" />
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1470,7 +1470,7 @@
                                                             <TextBlock FontSize="14" Text="{Binding Path=Vehicle.TechnicalParameters.Displacement, StringFormat={}{0} л}" />
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1485,7 +1485,7 @@
                                                             <TextBlock FontSize="14" Text="{Binding Path=Vehicle.TechnicalParameters.ClearanceMin, StringFormat={}{0} мм}" />
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1500,7 +1500,7 @@
                                                             <TextBlock FontSize="14" Text="{Binding Path=Vehicle.TechnicalParameters.FuelRate, StringFormat={}{0:F2} л, TargetNullValue=Неизвестно}" />
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1515,7 +1515,7 @@
                                                             <TextBlock FontSize="14" Text="{Binding Path=Vehicle.TechnicalParameters.Acceleration, StringFormat={}{0:F2} с}" />
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1546,7 +1546,7 @@
                                                             </TextBlock>
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1561,7 +1561,7 @@
                                                             <TextBlock FontSize="14" Text="{Binding Path=Documents.Pts.OwnersNumber, TargetNullValue=Неизвестно}" />
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1576,7 +1576,7 @@
                                                             <TextBlock FontSize="14" Text="{Binding Path=State.Mileage, StringFormat={}{0:N0} км, ConverterCulture=ru-Ru}" />
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1591,7 +1591,7 @@
                                                             <TextBlock FontSize="14" Text="{Binding Path=Vehicle.Configuration.DoorsCount, TargetNullValue=Неизвестно}" />
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1606,7 +1606,7 @@
                                                             <TextBlock FontSize="14" Text="{Binding Path=Vehicle.Configuration.TrunkVolumeMin, StringFormat={}{0:F2} л, TargetNullValue=Неизвестно}" />
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1621,7 +1621,7 @@
                                                             <TextBlock FontSize="14" Text="{Binding Path=Vehicle.Configuration.TrunkVolumeMax, StringFormat={}{0:F2} л, TargetNullValue=Неизвестно}" />
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1636,7 +1636,7 @@
                                                             <TextBlock FontSize="14" Text="{Binding Path=Vehicle.Vendor.RuName}" />
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1651,7 +1651,7 @@
                                                             <TextBlock FontSize="14" Text="{Binding Path=Seller.Location.Region.Name}" />
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1666,7 +1666,7 @@
                                                             <TextBlock FontSize="14" Text="{Binding Path=Status.RuName}" />
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1681,7 +1681,7 @@
                                                             <TextBlock FontSize="14" Text="{Binding Path=Availability.RuName}" />
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1696,7 +1696,7 @@
                                                             <TextBlock FontSize="14" Text="{Binding Path=Section.RuName}" />
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1711,7 +1711,7 @@
                                                             <TextBlock FontSize="14" Text="{Binding Path=SellerType.RuName}" />
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
@@ -1726,7 +1726,7 @@
                                                             <TextBlock FontSize="14" Text="{Binding Path=AdditionalInformation.CreatedAt, StringFormat={}{0:dd-MM-yyyy HH:mm:ss}}" />
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid Margin="5,0">
+                                                    <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition />
