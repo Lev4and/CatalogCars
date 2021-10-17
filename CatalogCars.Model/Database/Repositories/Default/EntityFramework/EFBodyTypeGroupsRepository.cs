@@ -40,6 +40,14 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 
         }
 
+        public IQueryable<BodyTypeGroup> GetBodyTypeGroups()
+        {
+            return _context.BodyTypeGroups
+                .OrderBy(bodyTypeGroup => bodyTypeGroup.AutoClass)
+                    .ThenBy(bodyTypeGroup => bodyTypeGroup.RuName)
+                .AsNoTracking();
+        }
+
         public int GetCountBodyTypeGroups(BodyTypeGroupsFilters filters)
         {
             return _context.BodyTypeGroups

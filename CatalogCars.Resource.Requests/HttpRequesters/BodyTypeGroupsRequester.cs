@@ -46,6 +46,21 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             return new string[0];
         }
 
+        public async Task<BodyTypeGroup[]> GetBodyTypeGroupsAsync()
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetBodyTypeGroupsResponseAsync();
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<BodyTypeGroup[]>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new BodyTypeGroup[0];
+        }
+
         public async Task<BodyTypeGroup[]> GetBodyTypeGroupsAsync(BodyTypeGroupsFilters filters)
         {
             var resultStream = await _responseLoader.GetStreamFromGetBodyTypeGroupsResponseAsync(filters);

@@ -32,6 +32,13 @@ namespace CatalogCars.Resource.Api.Controllers
             return Ok(_dataManager.BodyTypeGroups.GetNamesBodyTypeGroups(searchString).ToArray());
         }
 
+        [HttpGet]
+        [ProducesResponseType(typeof(BodyTypeGroup[]), 200)]
+        public IActionResult Index()
+        {
+            return Ok(_dataManager.BodyTypeGroups.GetBodyTypeGroups().ToArray());
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(BodyTypeGroup[]), 200)]
         public IActionResult Index([FromBody] BodyTypeGroupsFilters filters)

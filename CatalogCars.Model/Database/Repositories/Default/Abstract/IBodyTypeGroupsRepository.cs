@@ -10,6 +10,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
 
         IQueryable<string> GetNamesBodyTypeGroups(string searchString);
 
+        IQueryable<BodyTypeGroup> GetBodyTypeGroups();
+
         IQueryable<BodyTypeGroup> GetBodyTypeGroups(BodyTypeGroupsFilters filters);
     }
 }

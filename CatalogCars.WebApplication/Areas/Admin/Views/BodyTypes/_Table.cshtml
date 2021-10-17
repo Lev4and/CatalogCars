@@ -1,0 +1,78 @@
+﻿@model BodyTypesViewModel
+<div class="card-body">
+    <div class="card-title">
+        <h4 class="mb-0">@ViewData["Title"]</h4>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="d-flex justify-content-end">
+                <a asp-area="Admin" asp-controller="BodyTypes" asp-action="Save">
+                    <button class="btn btn-success m-1 px-5 radius-30">Добавить</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="table-responsive">
+        <div id="table_wrapper" class="dataTables_wrapper dt-bootstrap4">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="table" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Класс</th>
+                                <th>Тип</th>
+                                <th>Наименование</th>
+                                <th>Русское наименование</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var bodyType in Model.BodyTypes)
+                            {
+                                <tr>
+                                    <td>@bodyType.BodyTypeGroup.AutoClass</td>
+                                    <td>@bodyType.BodyTypeGroup.RuName</td>
+                                    <td>@bodyType.Name</td>
+                                    <td>@bodyType.RuName</td>
+                                    <td>
+                                        <div class="btn-group pull-right">
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Класс</th>
+                                <th>Тип</th>
+                                <th>Наименование</th>
+                                <th>Русское наименование</th>
+                                <th>Действия</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <nav class="d-md-flex justify-content-between align-items-center border-top pt-3" aria-label="Page navigation example">
+                <div class="text-center text-md-left mb-3 mb-md-0 dataTables_info">
+                    @Model.Pagination.GetFormattedStringRange()
+                </div>
+                <ul class="pagination mb-0 pagination-shop justify-content-center justify-content-md-start">
+                    @foreach (var item in Model.Pagination.GeneratePagination())
+                    {
+                        <li class="paginate_button page-item @(Model.Pagination.NumberPage == item ? "active" : "")">
+                            <a class="page-link" data-number-page="@item">
+                                @item
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>

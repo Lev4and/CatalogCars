@@ -24,6 +24,11 @@ namespace CatalogCars.Resource.Requests.HttpResponseLoaders
             return await GetStreamFromResponseAsync(await _client.GetNamesBodyTypeGroupsAsync(searchString));
         }
 
+        public async Task<Stream> GetStreamFromGetBodyTypeGroupsResponseAsync()
+        {
+            return await GetStreamFromResponseAsync(await _client.GetBodyTypeGroupsAsync());
+        }
+
         public async Task<Stream> GetStreamFromGetBodyTypeGroupsResponseAsync(BodyTypeGroupsFilters filters)
         {
             return await GetStreamFromResponseAsync(await _client.GetBodyTypeGroupsAsync(filters));

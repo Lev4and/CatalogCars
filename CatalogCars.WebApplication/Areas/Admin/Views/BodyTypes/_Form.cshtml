@@ -1,11 +1,11 @@
-﻿@model AvailabilitiesViewModel
+﻿@model BodyTypesViewModel
 <div class="card-body">
     <div class="card-title">
         <h4 class="mb-0">Фильтры</h4>
     </div>
     <hr />
     <div class="form-body">
-        <form method="post" asp-area="Admin" asp-controller="Availabilities" asp-action="Index">
+        <form method="post" asp-area="Admin" asp-controller="BodyTypes" asp-action="Index">
             <input type="hidden" asp-for="@Model.Filters.NumberPage" />
             <input type="hidden" asp-for="@Model.Pagination.NumberPage" />
             <input type="hidden" asp-for="@Model.Pagination.ItemsPerPage" />
@@ -44,9 +44,20 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Классы автомобильных кузовов</label>
+                <div class="col-sm-10">
+                    <select class="multiple-select" asp-for="@Model.Filters.BodyTypeGroupsIds" multiple="multiple">
+                        @foreach(var bodyTypeGroup in Model.BodyTypeGroups)
+                        {
+                            <option value="@bodyTypeGroup.Id">@bodyTypeGroup.AutoClass - @bodyTypeGroup.RuName</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Строка поиска</label>
                 <div class="col-sm-10">
-                    <select class="single-select" asp-for="@Model.Filters.SearchString">
+                    <select id="single-select-search-string" class="single-select" asp-for="@Model.Filters.SearchString">
 
                     </select>
                 </div>

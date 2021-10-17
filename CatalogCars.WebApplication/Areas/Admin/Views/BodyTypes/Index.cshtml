@@ -1,4 +1,4 @@
-﻿@model AvailabilitiesViewModel
+﻿@model BodyTypesViewModel
 @section StylePage
 {
     <link rel="stylesheet" type="text/css" href="~/plugins/datatable/css/dataTables.bootstrap4.min.css" asp-append-version="true" />
@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="~/plugins/select2/css/select2-bootstrap4.css" asp-append-version="true" />
 }
 @{
-    ViewData["Title"] = "Виды доступности";
+    ViewData["Title"] = "Типы автомобильных кузовов";
 }
 <div class="page-wrapper">
     <div class="page-content-wrapper">
@@ -39,6 +39,7 @@
     <script src="~/plugins/select2/js/select2.min.js" asp-append-version="true"></script>
     <script>
         initSearchString();
+        initSelectBodyTypeGroupsIds();
 
         setEventListenerOnClickPageLink();
         setEventListenerOnClickResetFilters();
@@ -55,7 +56,7 @@
                 placeholder: $(this).data('placeholder'),
                 allowClear: Boolean($(this).data('allow-clear')),
                 ajax: {
-                    url: '/Admin/Availabilities/Names',
+                    url: '/Admin/BodyTypes/Names',
                     type: 'post',
                     data: function (obj) {
                         return { searchString: obj.term };
@@ -81,16 +82,26 @@
             });
         }
 
+        function initSelectBodyTypeGroupsIds() {
+            $('select[name="Filters.BodyTypeGroupsIds"]').select2({
+                width: '100%',
+                theme: 'bootstrap4',
+                placeholder: $(this).data('placeholder'),
+                allowClear: Boolean($(this).data('allow-clear')),
+            });
+        }
+
         function setEventListenerOnClickResetFilters() {
             $('input[type="button"][value="Сбросить"]').on('click', function (e) {
                 $.ajax({
-                    url: '/Admin/Availabilities/ResetFilters',
+                    url: '/Admin/BodyTypes/ResetFilters',
                     method: 'POST',
                     success: function (data) {
                         $('#form-card').empty();
                         $('#form-card').html(data);
 
                         initSearchString();
+                        initSelectBodyTypeGroupsIds();
 
                         setEventListenerOnClickResetFilters();
                         setEventListenerOnClickApplyFilters();
@@ -102,7 +113,7 @@
         function setEventListenerOnClickApplyFilters() {
             $('input[type="button"][value="Применить"]').on('click', function (e) {
                 $.ajax({
-                    url: '/Admin/Availabilities',
+                    url: '/Admin/BodyTypes',
                     method: 'POST',
                     data: $('form').serialize(),
                     success: function (data) {
@@ -117,7 +128,7 @@
             $('.page-link').each(function () {
                 $(this).on('click', function (e) {
                     $.ajax({
-                        url: `/Admin/Availabilities/page=${$(this).attr('data-number-page')}`,
+                        url: `/Admin/BodyTypes/page=${$(this).attr('data-number-page')}`,
                         method: 'POST',
                         data: $('form').serialize(),
                         success: function (data) {
