@@ -63,6 +63,8 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
 
         public RangeTrunkVolume RangeTrunkVolumeMax { get; set; }
 
+        public List<int> Limits { get; set; }
+
         public List<Guid> TagsIds { get; set; }
 
         public List<Guid> MarksIds { get; set; }
@@ -89,7 +91,7 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
 
         public Dictionary<bool?, string> IsOriginalValues { get; set; }
 
-        public Dictionary<SortingOption, string> SortingOptions { get; set; }
+        public Dictionary<SortingOption, string> SortingOptions { get; set; } 
 
         public AnnouncementsFilters()
         {
@@ -137,6 +139,10 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
             RangeClearanceMin = new RangeClearanceMin(0, 0);
             RangeTrunkVolumeMin = new RangeTrunkVolume(0, 0);
             RangeTrunkVolumeMax = new RangeTrunkVolume(0, 0);
+            Limits = new List<int>()
+            {
+                5, 10, 15, 20, 25, 50, 100
+            };
             WarrantyValues = new Dictionary<bool?, string>()
             {
                 { true, "Есть" },

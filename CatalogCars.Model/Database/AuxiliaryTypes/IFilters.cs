@@ -12,6 +12,8 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
 
         public SortingOption SortingOption { get; set; }
 
+        public List<int> Limits { get; set; }
+
         public Dictionary<SortingOption, string> SortingOptions { get; set; }
     }
 }

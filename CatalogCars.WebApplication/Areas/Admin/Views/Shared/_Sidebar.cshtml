@@ -1,7 +1,7 @@
 ﻿<div class="sidebar-wrapper" data-simplebar="true">
     <div class="sidebar-header">
         <div class="">
-            <img src="~/images/logo.png" width="32" height="32" class="logo-icon-2" alt="" />
+            <img src="~/images/logo.png" style="width: 35px; height: 35px;" class="logo-icon-2" alt="" />
         </div>
         <div>
             <h4 class="logo-text">CatalogCars</h4>
@@ -25,6 +25,14 @@
                     </a>
                 </li>
             </ul>
+        </li>
+        <li class="menu-label">
+            База данных
+        </li>
+        <li>
+            <a asp-area="Admin" asp-controller="Availabilities" asp-action="Index">
+                <div class="menu-title">Виды доступности</div>
+            </a>
         </li>
     </ul>
 </div>

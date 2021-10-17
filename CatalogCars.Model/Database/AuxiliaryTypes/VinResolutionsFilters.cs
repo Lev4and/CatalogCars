@@ -11,6 +11,8 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
         public string SearchString { get; set; }
 
         public SortingOption SortingOption { get; set; }
+        
+        public List<int> Limits { get; set; }
 
         public Dictionary<SortingOption, string> SortingOptions { get; set; }
 
@@ -25,6 +27,10 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
             ItemsPerPage = 25;
             SearchString = "";
             SortingOption = SortingOption.ByAscendingName;
+            Limits = new List<int>()
+            {
+                5, 10, 15, 20, 25, 50, 100
+            };
             SortingOptions = new Dictionary<SortingOption, string>()
             {
                 { SortingOption.Default, "Сортировка по умолчанию" },

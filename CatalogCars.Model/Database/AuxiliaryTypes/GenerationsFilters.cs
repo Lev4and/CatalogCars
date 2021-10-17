@@ -16,6 +16,8 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
         public SortingOption SortingOption { get; set; }
 
         public RangeYearFrom RangeYearFrom { get; set; }
+        
+        public List<int> Limits { get; set; }
 
         public List<Guid> MarksIds { get; set; }
 
@@ -36,6 +38,10 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
             PriceSegmentId = null;
             SortingOption = SortingOption.ByAscendingName;
             RangeYearFrom = new RangeYearFrom(2100, 1900);
+            Limits = new List<int>()
+            {
+                5, 10, 15, 20, 25, 50, 100
+            };
             MarksIds = new List<Guid>();
             ModelsIds = new List<Guid>();
             SortingOptions = new Dictionary<SortingOption, string>()

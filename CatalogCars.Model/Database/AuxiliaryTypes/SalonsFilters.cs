@@ -20,6 +20,8 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
         public SortingOption SortingOption { get; set; }
 
         public RangeRegistrationDate RangeRegistrationDate { get; set; }
+        
+        public List<int> Limits { get; set; }
 
         public List<Guid> RegionsIds { get; set; }
 
@@ -46,6 +48,10 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
             SearchString = "";
             SortingOption = SortingOption.ByAscendingName;
             RangeRegistrationDate = new RangeRegistrationDate(toRegistrationDate, fromRegistrationDate);
+            Limits = new List<int>()
+            {
+                5, 10, 15, 20, 25, 50, 100
+            };
             RegionsIds = new List<Guid>();
             IsOfficialValues = new Dictionary<bool?, string>()
             {
