@@ -1,6 +1,8 @@
 ﻿using CatalogCars.Model.Database;
+using CatalogCars.Model.Database.AnonymousTypes;
 using CatalogCars.Model.Database.AuxiliaryTypes;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 using Entities = CatalogCars.Model.Database.Entities;
 
@@ -53,6 +55,14 @@ namespace CatalogCars.Resource.Api.Controllers
         public IActionResult ModelsOfMarks([FromBody] ModelsFilters filters)
         {
             return Ok(_dataManager.Models.GetModelsOfMarks(filters).ToArray());
+        }
+
+        [HttpGet]
+        [Route("byMark/popularityModels")]
+        [ProducesResponseType(typeof(PopularityModels[]), 200)]
+        public IActionResult PopularityModelsOfMark([FromQuery] Guid markId)
+        {
+            return Ok(_dataManager.Models.GetPopularityModelsOfMark(markId).ToArray());
         }
     }
 }

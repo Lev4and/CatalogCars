@@ -43,5 +43,10 @@ namespace CatalogCars.Resource.Requests.HttpClients
             return await _client.PostAsync("byMarksIds", new StringContent(JsonConvert.SerializeObject(filters), Encoding.UTF8,
                 "application/json"));
         }
+
+        public async Task<HttpResponseMessage> GetPopularityModelsOfMark(Guid markId)
+        {
+            return await _client.GetAsync($"byMark/popularityModels/?markId={markId}");
+        }
     }
 }

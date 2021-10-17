@@ -39,5 +39,10 @@ namespace CatalogCars.Resource.Requests.HttpResponseLoaders
         {
             return await GetStreamFromResponseAsync(await _client.GetModelsOfMarksAsync(filters));
         }
+
+        public async Task<Stream> GetStreamFromGetPopularityModelsOfMarkResponseAsync(Guid markId)
+        {
+            return await GetStreamFromResponseAsync(await _client.GetPopularityModelsOfMark(markId));
+        }
     }
 }

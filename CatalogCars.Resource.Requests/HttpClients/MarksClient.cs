@@ -1,5 +1,6 @@
 ﻿using CatalogCars.Model.Database.AuxiliaryTypes;
 using Newtonsoft.Json;
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,16 @@ namespace CatalogCars.Resource.Requests.HttpClients
         {
             return await _client.PostAsync("", new StringContent(JsonConvert.SerializeObject(filters), 
                 Encoding.UTF8, "application/json"));
+        }
+
+        public async Task<HttpResponseMessage> GetMarkAsync(Guid markId)
+        {
+            return await _client.GetAsync($"?markId={markId}");
+        }
+
+        public async Task<HttpResponseMessage> GetPopularityMark(Guid markId)
+        {
+            return await _client.GetAsync($"popularityMark/?markId={markId}");
         }
     }
 }

@@ -1,8 +1,10 @@
-﻿using CatalogCars.Model.Database.AuxiliaryTypes;
+﻿using CatalogCars.Model.Database.AnonymousTypes;
+using CatalogCars.Model.Database.AuxiliaryTypes;
 using CatalogCars.Model.Database.Entities;
 using CatalogCars.Model.Database.Repositories.Default.Abstract;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Mark;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -52,6 +54,34 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             return marks
                 .Skip((filters.NumberPage - 1) * filters.ItemsPerPage)
                 .Take(filters.ItemsPerPage)
+                .AsNoTracking();
+        }
+
+        public Mark GetMark(Guid markId)
+        {
+            return _context.Marks
+                .Include(mark => mark.Logo)
+                .Include(mark => mark.Models)
+                .FirstOrDefault(mark => mark.Id == markId);
+        }
+
+        public IQueryable<PopularityMark> GetPopularityMark(Guid markId)
+        {
+            return _context.AnnouncementAdditionalInformation
+                .Include(announcementAdditionalInformation => announcementAdditionalInformation.Announcement)
+                    .ThenInclude(announcement => announcement.Vehicle)
+                        .ThenInclude(vehicle => vehicle.Generation)
+                            .ThenInclude(generation => generation.Model)
+                .Where(announcementAdditionalInformation =>
+                    announcementAdditionalInformation.Announcement.Vehicle.Generation.Model.MarkId == markId && 
+                        announcementAdditionalInformation.CreatedAt >= DateTime.Now.AddMonths(-1))
+                .GroupBy(announcementAdditionalInformation => announcementAdditionalInformation.CreatedAt.Date)
+                .Select(group => new PopularityMark
+                {
+                    Count = group.Count(),
+                    DateTime = group.Key
+                })
+                .OrderBy(popularityMark => popularityMark.DateTime)
                 .AsNoTracking();
         }
     }

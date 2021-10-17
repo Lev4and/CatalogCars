@@ -1,4 +1,5 @@
-﻿using CatalogCars.Model.Database.AuxiliaryTypes;
+﻿using CatalogCars.Model.Database.AnonymousTypes;
+using CatalogCars.Model.Database.AuxiliaryTypes;
 using CatalogCars.Model.Database.Repositories.Default.Abstract;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Model;
 using Microsoft.EntityFrameworkCore;
@@ -77,6 +78,23 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                     .ThenBy(model => model.Name)
                 .Select(model => $"{model.Mark.Name} {model.Name}")
                 .Take(5)
+                .AsNoTracking();
+        }
+
+        public IQueryable<PopularityModels> GetPopularityModelsOfMark(Guid markId)
+        {
+            return _context.Announcements
+                .Include(announcement => announcement.Vehicle)
+                    .ThenInclude(vehicle => vehicle.Generation)
+                        .ThenInclude(generation => generation.Model)
+                .Where(announcement => announcement.Vehicle.Generation.Model.MarkId == markId)
+                .GroupBy(announcement => announcement.Vehicle.Generation.Model.Name)
+                .Select(group => new PopularityModels
+                {
+                    Count = group.Count(),
+                    ModelName = group.Key
+                })
+                .OrderByDescending(popularityModels => popularityModels.Count)
                 .AsNoTracking();
         }
     }

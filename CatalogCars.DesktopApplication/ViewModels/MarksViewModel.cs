@@ -1,19 +1,24 @@
-﻿using CatalogCars.Model.Database.AuxiliaryTypes;
+﻿using CatalogCars.DesktopApplication.Services;
+using CatalogCars.Model.Database.AuxiliaryTypes;
 using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpRequesters;
 using DevExpress.Mvvm;
-using System.Collections.Generic;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Pages = CatalogCars.DesktopApplication.Views.Pages;
 
 namespace CatalogCars.DesktopApplication.ViewModels
 {
     public class MarksViewModel : BindableBase
     {
+        private readonly MenuPageService _menuPageService;
         private readonly MarksRequester _marksRequester;
+
+        public Guid? SelectedMarkId { get; set; }
 
         public MarksFilters Filters { get; set; }
 
@@ -50,12 +55,18 @@ namespace CatalogCars.DesktopApplication.ViewModels
 
         public ICommand Info => new AsyncCommand(() =>
         {
-            return new Task(() => { });
-        });
+            return OnClickInfo();
+        }, () => SelectedMarkId != null);
 
-        public MarksViewModel()
+        public MarksViewModel(MenuPageService menuPageService)
         {
+            _menuPageService = menuPageService;
             _marksRequester = new MarksRequester();
+        }
+
+        private async Task OnClickInfo()
+        {
+            _menuPageService.ChangePage(new Pages.Marks.Info((Guid)SelectedMarkId));
         }
 
         private async Task LoadedAsync()

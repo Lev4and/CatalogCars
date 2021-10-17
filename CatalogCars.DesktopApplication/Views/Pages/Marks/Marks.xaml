@@ -180,6 +180,8 @@
                     CellStyle="{StaticResource DefaultDataGridCellStyle}"
                     ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
                     ItemsSource="{Binding Path=Marks, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedValue="{Binding Path=SelectedMarkId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    SelectedValuePath="Id"
                     Style="{StaticResource DefaultDataGridStyle}"
                     VerticalScrollBarVisibility="Auto">
                     <i:Interaction.Triggers>

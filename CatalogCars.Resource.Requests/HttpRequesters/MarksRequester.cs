@@ -1,7 +1,9 @@
-﻿using CatalogCars.Model.Database.AuxiliaryTypes;
+﻿using CatalogCars.Model.Database.AnonymousTypes;
+using CatalogCars.Model.Database.AuxiliaryTypes;
 using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpResponseLoaders;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -59,6 +61,36 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             }
 
             return new Mark[0];
+        }
+
+        public async Task<Mark> GetMarkAsync(Guid markId)
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetMarkResponseAsync(markId);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<Mark>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new Mark();
+        }
+
+        public async Task<PopularityMark[]> GetPopularityMarkAsync(Guid markId)
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetPopularityMarkResponseAsync(markId);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<PopularityMark[]>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new PopularityMark[0];
         }
     }
 }
