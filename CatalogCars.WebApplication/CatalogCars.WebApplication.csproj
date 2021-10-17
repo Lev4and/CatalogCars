@@ -16,7 +16,6 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Components\" />
     <Folder Include="Areas\Admin\Views\Shared\Components\" />
-    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>
