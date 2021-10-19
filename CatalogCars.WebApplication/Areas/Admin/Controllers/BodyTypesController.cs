@@ -87,16 +87,5 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
                     })
             });
         }
-
-        [HttpPost]
-        [Route("~/Admin/BodyTypes/ResetFilters")]
-        public async Task<PartialViewResult> ResetFilters()
-        {
-            return PartialView("_Form", new BodyTypesViewModel() 
-            { 
-                Filters = new BodyTypesFilters(),
-                BodyTypeGroups = (await _bodyTypeGroupsRequester.GetBodyTypeGroupsAsync()).ToList()
-            });
-        }
     }
 }

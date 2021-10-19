@@ -77,19 +77,12 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
             return Json(new
             {
                 results = (await _bodyTypeGroupsRequester.GetNamesBodyTypeGroupsAsync(searchString))
-                    .Select(name => new
+                .Select(name => new
                     {
                         Id = name,
                         Text = name
                     })
             });
-        }
-
-        [HttpPost]
-        [Route("~/Admin/BodyTypeGroups/ResetFilters")]
-        public PartialViewResult ResetFilters()
-        {
-            return PartialView("_Form", new BodyTypeGroupsViewModel() { Filters =new BodyTypeGroupsFilters() });
         }
     }
 }

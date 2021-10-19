@@ -84,12 +84,5 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
                     })
             });
         }
-
-        [HttpPost]
-        [Route("~/Admin/Categories/ResetFilters")]
-        public PartialViewResult ResetFilters()
-        {
-            return PartialView("_Form", new CategoriesViewModel() { Filters = new CategoriesFilters() });
-        }
     }
 }

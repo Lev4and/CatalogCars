@@ -81,24 +81,6 @@
             });
         }
 
-        function setEventListenerOnClickResetFilters() {
-            $('input[type="button"][value="Сбросить"]').on('click', function (e) {
-                $.ajax({
-                    url: '/Admin/Categories/ResetFilters',
-                    method: 'POST',
-                    success: function (data) {
-                        $('#form-card').empty();
-                        $('#form-card').html(data);
-
-                        initSearchString();
-
-                        setEventListenerOnClickResetFilters();
-                        setEventListenerOnClickApplyFilters();
-                    }
-                });
-            });
-        }
-
         function setEventListenerOnClickApplyFilters() {
             $('input[type="button"][value="Применить"]').on('click', function (e) {
                 $.ajax({
