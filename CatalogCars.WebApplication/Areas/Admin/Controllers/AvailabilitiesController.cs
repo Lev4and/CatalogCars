@@ -77,6 +77,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
             return Json(new
             {
                 results = (await _availabilitiesRequester.GetNamesAvailabilitiesAsync(searchString))
+                    .Append(searchString)
                     .Select(name => new
                     {
                         Id = name,

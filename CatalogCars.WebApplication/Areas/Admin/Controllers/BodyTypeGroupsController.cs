@@ -77,11 +77,12 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
             return Json(new
             {
                 results = (await _bodyTypeGroupsRequester.GetNamesBodyTypeGroupsAsync(searchString))
-                .Select(name => new
-                    {
-                        Id = name,
-                        Text = name
-                    })
+                    .Append(searchString)
+                    .Select(name => new
+                        {
+                            Id = name,
+                            Text = name
+                        })
             });
         }
     }

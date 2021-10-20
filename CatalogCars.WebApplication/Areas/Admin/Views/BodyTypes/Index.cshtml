@@ -42,7 +42,6 @@
         initSelectBodyTypeGroupsIds();
 
         setEventListenerOnClickPageLink();
-        setEventListenerOnClickResetFilters();
         setEventListenerOnClickApplyFilters();
 
         $('#table-card').on('DOMSubtreeModified', function () {
@@ -55,6 +54,17 @@
                 theme: 'bootstrap4',
                 placeholder: $(this).data('placeholder'),
                 allowClear: Boolean($(this).data('allow-clear')),
+                sorter: function (data) {
+                    return data.sort(function (a, b) {
+                        if (a.text > b.text) {
+                            return 1;
+                        }
+                        if (a.text < b.text) {
+                            return -1;
+                        }
+                        return 0;
+                    });
+                },
                 ajax: {
                     url: '/Admin/BodyTypes/Names',
                     type: 'post',
