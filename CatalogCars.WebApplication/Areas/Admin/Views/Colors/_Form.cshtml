@@ -1,0 +1,64 @@
+﻿@model ColorsViewModel
+<div class="card-body">
+    <div class="card-title">
+        <h4 class="mb-0">Фильтры</h4>
+    </div>
+    <hr />
+    <div class="form-body">
+        <form method="post" asp-area="Admin" asp-controller="Colors" asp-action="Index">
+            <input type="hidden" asp-for="@Model.Filters.NumberPage" />
+            <input type="hidden" asp-for="@Model.Pagination.NumberPage" />
+            <input type="hidden" asp-for="@Model.Pagination.ItemsPerPage" />
+            <input type="hidden" asp-for="@Model.Pagination.CountTotalItems" />
+            @for (int i = 0; i < Model.Filters.Limits.Count; i++)
+            {
+                @Html.HiddenFor(model => model.Filters.Limits[i])
+            }
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Показать по</label>
+                <div class="col-sm-10">
+                    <select class="form-control" asp-for="@Model.Filters.ItemsPerPage">
+                        @foreach (var limit in Model.Filters.Limits)
+                        {
+                            <option value="@limit">@limit</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            @for (int i = 0; i < Model.Filters.SortingOptions.Count; i++)
+            {
+                <input type="hidden" name="Model.Filters.SortingOptions[@i].Key" value="@Model.Filters.SortingOptions.ElementAt(i).Key" />
+                <input type="hidden" name="Model.Filters.SortingOptions[@i].Value" value="@Model.Filters.SortingOptions.ElementAt(i).Value" />
+            }
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Сортировать по</label>
+                <div class="col-sm-10">
+                    <select class="form-control" asp-for="@Model.Filters.SortingOption">
+                        @for (int i = 0; i < Model.Filters.SortingOptions.Count; i++)
+                        {
+                            <option value="@Model.Filters.SortingOptions.ElementAt(i).Key">
+                                @Model.Filters.SortingOptions.ElementAt(i).Value
+                            </option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Строка поиска</label>
+                <div class="col-sm-10">
+                    <select class="single-select" asp-for="@Model.Filters.SearchString">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-5">
+                    <input type="button" class="btn btn-light px-4" value="Применить" />
+                </div>
+                <div class="col-sm-5 d-flex justify-content-end">
+                    <input type="reset" class="btn btn-light px-4" value="Сбросить" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
