@@ -55,21 +55,7 @@
                     </table>
                 </div>
             </div>
-            <nav class="d-md-flex justify-content-between align-items-center border-top pt-3" aria-label="Page navigation example">
-                <div class="text-center text-md-left mb-3 mb-md-0 dataTables_info">
-                    @Model.Pagination.GetFormattedStringRange()
-                </div>
-                <ul class="pagination mb-0 pagination-shop justify-content-center justify-content-md-start">
-                    @foreach (var item in Model.Pagination.GeneratePagination())
-                    {
-                        <li class="paginate_button page-item @(Model.Pagination.NumberPage == item ? "active" : "")">
-                            <a class="page-link" data-number-page="@item">
-                                @item
-                            </a>
-                        </li>
-                    }
-                </ul>
-            </nav>
+            @await Html.PartialAsync("_Pagination", Model.Pagination)
         </div>
     </div>
 </div>

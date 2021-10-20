@@ -17,23 +17,26 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
             _bodyTypeGroupsRequester = new BodyTypeGroupsRequester();
         }
 
+        private async Task<Pagination> GetPaginationAsync(BodyTypeGroupsFilters filters)
+        {
+            return new Pagination()
+            {
+                NumberPage = filters.NumberPage,
+                ItemsPerPage = filters.ItemsPerPage,
+                CountTotalItems = await _bodyTypeGroupsRequester.GetCountBodyTypeGroupsAsync(filters)
+            };
+        }
+
         [HttpGet]
         [Route("~/Admin/BodyTypeGroups")]
         public async Task<IActionResult> Index()
         {
             var filters = new BodyTypeGroupsFilters();
 
-            var pagination = new Pagination()
-            {
-                NumberPage = filters.NumberPage,
-                ItemsPerPage = filters.ItemsPerPage,
-                CountTotalItems = await _bodyTypeGroupsRequester.GetCountBodyTypeGroupsAsync(filters)
-            };
-
             var viewModel = new BodyTypeGroupsViewModel()
             {
                 Filters = filters,
-                Pagination = pagination,
+                Pagination = await GetPaginationAsync(filters),
                 BodyTypeGroups = (await _bodyTypeGroupsRequester.GetBodyTypeGroupsAsync(filters)).ToList()
             };
 
@@ -45,11 +48,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         public async Task<PartialViewResult> Index([FromForm] BodyTypeGroupsViewModel viewModel)
         {
             viewModel.Filters.NumberPage = 1;
-
-            viewModel.Pagination.NumberPage = viewModel.Filters.NumberPage;
-            viewModel.Pagination.ItemsPerPage = viewModel.Filters.ItemsPerPage;
-            viewModel.Pagination.CountTotalItems = await _bodyTypeGroupsRequester.GetCountBodyTypeGroupsAsync(viewModel.Filters);
-
+            viewModel.Pagination = await GetPaginationAsync(viewModel.Filters);
             viewModel.BodyTypeGroups = (await _bodyTypeGroupsRequester.GetBodyTypeGroupsAsync(viewModel.Filters)).ToList();
 
             return PartialView("_Table", viewModel);
@@ -60,11 +59,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         public async Task<PartialViewResult> Index([FromForm] BodyTypeGroupsViewModel viewModel, [FromRoute] int page)
         {
             viewModel.Filters.NumberPage = page;
-
-            viewModel.Pagination.NumberPage = viewModel.Filters.NumberPage;
-            viewModel.Pagination.ItemsPerPage = viewModel.Filters.ItemsPerPage;
-            viewModel.Pagination.CountTotalItems = await _bodyTypeGroupsRequester.GetCountBodyTypeGroupsAsync(viewModel.Filters);
-
+            viewModel.Pagination = await GetPaginationAsync(viewModel.Filters);
             viewModel.BodyTypeGroups = (await _bodyTypeGroupsRequester.GetBodyTypeGroupsAsync(viewModel.Filters)).ToList();
 
             return PartialView("_Table", viewModel);

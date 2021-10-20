@@ -17,23 +17,26 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
             _availabilitiesRequester = new AvailabilitiesRequester();
         }
 
+        private async Task<Pagination> GetPaginationAsync(AvailabilitiesFilters filters)
+        {
+            return new Pagination()
+            {
+                NumberPage = filters.NumberPage,
+                ItemsPerPage = filters.ItemsPerPage,
+                CountTotalItems = await _availabilitiesRequester.GetCountAvailabilitiesAsync(filters)
+            };
+        }
+
         [HttpGet]
         [Route("~/Admin/Availabilities")]
         public async Task<IActionResult> Index()
         {
             var filters = new AvailabilitiesFilters();
 
-            var pagination = new Pagination()
-            {
-                NumberPage = filters.NumberPage,
-                ItemsPerPage = filters.ItemsPerPage,
-                CountTotalItems = await _availabilitiesRequester.GetCountAvailabilitiesAsync(filters)
-            };
-
             var viewModel = new AvailabilitiesViewModel()
             {
                 Filters = filters,
-                Pagination = pagination,
+                Pagination = await GetPaginationAsync(filters),
                 Availabilities = (await _availabilitiesRequester.GetAvailabilitiesAsync(filters)).ToList()
             };
 
@@ -45,11 +48,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         public async Task<PartialViewResult> Index([FromForm] AvailabilitiesViewModel viewModel)
         {
             viewModel.Filters.NumberPage = 1;
-
-            viewModel.Pagination.NumberPage = viewModel.Filters.NumberPage;
-            viewModel.Pagination.ItemsPerPage = viewModel.Filters.ItemsPerPage;
-            viewModel.Pagination.CountTotalItems = await _availabilitiesRequester.GetCountAvailabilitiesAsync(viewModel.Filters);
-
+            viewModel.Pagination = await GetPaginationAsync(viewModel.Filters);
             viewModel.Availabilities = (await _availabilitiesRequester.GetAvailabilitiesAsync(viewModel.Filters)).ToList();
 
             return PartialView("_Table", viewModel);
@@ -60,11 +59,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         public async Task<PartialViewResult> Index([FromForm] AvailabilitiesViewModel viewModel, [FromRoute] int page)
         {
             viewModel.Filters.NumberPage = page;
-
-            viewModel.Pagination.NumberPage = viewModel.Filters.NumberPage;
-            viewModel.Pagination.ItemsPerPage = viewModel.Filters.ItemsPerPage;
-            viewModel.Pagination.CountTotalItems = await _availabilitiesRequester.GetCountAvailabilitiesAsync(viewModel.Filters);
-
+            viewModel.Pagination = await GetPaginationAsync(viewModel.Filters);
             viewModel.Availabilities = (await _availabilitiesRequester.GetAvailabilitiesAsync(viewModel.Filters)).ToList();
 
             return PartialView("_Table", viewModel);
