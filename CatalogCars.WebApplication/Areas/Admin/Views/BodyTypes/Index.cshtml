@@ -42,6 +42,7 @@
         initSelectBodyTypeGroupsIds();
 
         setEventListenerOnClickPageLink();
+        setEventListenerOnClickResetLink();
         setEventListenerOnClickApplyFilters();
 
         $('#table-card').on('DOMSubtreeModified', function () {
@@ -51,6 +52,7 @@
         function initSearchString() {
             $('select[name="Filters.SearchString"]').select2({
                 width: '100%',
+                allowClear: true,
                 theme: 'bootstrap4',
                 placeholder: $(this).data('placeholder'),
                 allowClear: Boolean($(this).data('allow-clear')),
@@ -95,9 +97,17 @@
         function initSelectBodyTypeGroupsIds() {
             $('select[name="Filters.BodyTypeGroupsIds"]').select2({
                 width: '100%',
+                allowClear: true,
                 theme: 'bootstrap4',
                 placeholder: $(this).data('placeholder'),
                 allowClear: Boolean($(this).data('allow-clear')),
+            });
+        }
+
+        function setEventListenerOnClickResetLink() {
+            $('input[type="reset"][value="Сбросить"]').on('click', function (e) {
+                $('select[name="Filters.SearchString"]').val(null).trigger('change');
+                $('select[name="Filters.BodyTypeGroupsIds"]').val(null).trigger('change');
             });
         }
 

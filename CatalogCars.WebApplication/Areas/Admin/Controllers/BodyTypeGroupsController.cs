@@ -72,7 +72,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
             return Json(new
             {
                 results = (await _bodyTypeGroupsRequester.GetNamesBodyTypeGroupsAsync(searchString))
-                    .Append(searchString)
+                    .Append(searchString ?? "")
                     .Select(name => new
                         {
                             Id = name,

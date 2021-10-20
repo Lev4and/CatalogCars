@@ -74,7 +74,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
             return Json(new
             {
                 results = (await _colorsRequester.GetNamesColorsAsync(searchString))
-                    .Append(searchString)
+                    .Append(searchString ?? "")
                     .Select(name => new
                     {
                         Id = name,
