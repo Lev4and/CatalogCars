@@ -130,9 +130,9 @@
                             $.each(data.results, function (i, value) {
                                 options += '<option value="' + value.id + '">' + value.text + '</option>';
                             });
-                            $('#single-select-search-string').html();
-                            $('#single-select-search-string').html(options);
-                            $('#single-select-search-string').trigger('change');
+                            $('select[name="Filters.RegionsIds"]').html();
+                            $('select[name="Filters.RegionsIds"]').html(options);
+                            $('select[name="Filters.RegionsIds"]').trigger('change');
                         }
                     }
                 }

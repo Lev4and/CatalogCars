@@ -44,7 +44,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
             IQueryable<Mark> marks = _context.Marks
                 .Include(mark => mark.Logo)
-                .Where(mark => mark.Name.ToLower().Contains(filters.SearchString.ToLower()));
+                .Where(mark => EF.Functions.Like(mark.Name, $"%{filters.SearchString}%"));
 
             if(sorter != null)
             {

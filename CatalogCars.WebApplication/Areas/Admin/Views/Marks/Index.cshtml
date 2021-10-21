@@ -1,4 +1,4 @@
-﻿@model LocationsViewModel
+﻿@model MarksViewModel
 @section StylePage
 {
     <link rel="stylesheet" type="text/css" href="~/plugins/datatable/css/dataTables.bootstrap4.min.css" asp-append-version="true" />
@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="~/plugins/select2/css/select2-bootstrap4.css" asp-append-version="true" />
 }
 @{
-    ViewData["Title"] = "Локации";
+    ViewData["Title"] = "Марки";
 }
 <div class="page-wrapper">
     <div class="page-content-wrapper">
@@ -20,7 +20,7 @@
                             <li class="breadcrumb-item">
                                 <a asp-area="Admin" asp-controller="Home" asp-action="Index"><i class='bx bx-home-alt'></i></a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">Локации</li>
+                            <li class="breadcrumb-item active" aria-current="page">Марки</li>
                         </ol>
                     </nav>
                 </div>
@@ -39,7 +39,6 @@
     <script src="~/plugins/select2/js/select2.min.js" asp-append-version="true"></script>
     <script>
         initSearchString();
-        initSelectRegionsIds();
 
         setEventListenerOnClickPageLink();
         setEventListenerOnClickResetLink();
@@ -68,7 +67,7 @@
                     });
                 },
                 ajax: {
-                    url: '/Admin/Locations/Addresses',
+                    url: '/Admin/Marks/Names',
                     type: 'post',
                     data: function (obj) {
                         return { searchString: obj.term };
@@ -94,62 +93,16 @@
             });
         }
 
-        function initSelectRegionsIds() {
-            $('select[name="Filters.RegionsIds"]').select2({
-                width: '100%',
-                allowClear: true,
-                theme: 'bootstrap4',
-                placeholder: $(this).data('placeholder'),
-                allowClear: Boolean($(this).data('allow-clear')),
-                sorter: function (data) {
-                    return data.sort(function (a, b) {
-                        if (a.text > b.text) {
-                            return 1;
-                        }
-                        if (a.text < b.text) {
-                            return -1;
-                        }
-                        return 0;
-                    });
-                },
-                ajax: {
-                    url: '/Admin/Locations/Regions/Names',
-                    type: 'post',
-                    data: function (obj) {
-                        return { searchString: obj.term };
-                    },
-                    dataType: 'json',
-                    processResults: function (data, params) {
-                        return {
-                            results: data.results
-                        };
-                    },
-                    success: function (data) {
-                        if (data.results !== 'undefined') {
-                            let options = "";
-                            $.each(data.results, function (i, value) {
-                                options += '<option value="' + value.id + '">' + value.text + '</option>';
-                            });
-                            $('select[name="Filters.RegionsIds"]').html();
-                            $('select[name="Filters.RegionsIds"]').html(options);
-                            $('select[name="Filters.RegionsIds"]').trigger('change');
-                        }
-                    }
-                }
-            });
-        }
-
         function setEventListenerOnClickResetLink() {
             $('input[type="reset"][value="Сбросить"]').on('click', function (e) {
                 $('select[name="Filters.SearchString"]').val('').trigger('change');
-                $('select[name="Filters.RegionsIds"]').val(null).trigger('change');
             });
         }
 
         function setEventListenerOnClickApplyFilters() {
             $('input[type="button"][value="Применить"]').on('click', function (e) {
                 $.ajax({
-                    url: '/Admin/Locations',
+                    url: '/Admin/Marks',
                     method: 'POST',
                     data: $('form').serialize(),
                     success: function (data) {
@@ -164,7 +117,7 @@
             $('.page-link').each(function () {
                 $(this).on('click', function (e) {
                     $.ajax({
-                        url: `/Admin/Locations/page=${$(this).attr('data-number-page')}`,
+                        url: `/Admin/Marks/page=${$(this).attr('data-number-page')}`,
                         method: 'POST',
                         data: $('form').serialize(),
                         success: function (data) {
