@@ -9,7 +9,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorter
 
         public IQueryable<Entities.GearType> Sort(IQueryable<Entities.GearType> collection)
         {
-            return collection.OrderByDescending(item => item.RuName);
+            return collection.OrderBy(item => item.RuName);
         }
     }
 }
