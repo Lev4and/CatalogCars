@@ -14,6 +14,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
 
         IQueryable<string> GetNamesMarks(string searchString);
 
+        IQueryable<Mark> GetMarks();
+
         IQueryable<Mark> GetMarks(MarksFilters filters);
 
         IQueryable<PopularityMark> GetPopularityMark(Guid markId);

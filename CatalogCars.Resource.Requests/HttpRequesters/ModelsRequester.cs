@@ -78,6 +78,21 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             return new Entities.Model[0];
         }
 
+        public async Task<Entities.Model[]> GetModelsOfMarksAsync(Guid[] marksIds)
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetModelsOfMarksResponseAsync(marksIds);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<Entities.Model[]>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new Entities.Model[0];
+        }
+
         public async Task<Entities.Model[]> GetModelsOfMarksAsync(ModelsFilters filters)
         {
             var resultStream = await _responseLoader.GetStreamFromGetModelsOfMarksResponseAsync(filters);

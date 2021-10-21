@@ -35,10 +35,18 @@ namespace CatalogCars.Resource.Api.Controllers
         }
 
         [HttpGet]
+        [Route("{markId}")]
         [ProducesResponseType(typeof(Mark), 200)]
-        public IActionResult Index([FromQuery] Guid markId)
+        public IActionResult Index([FromRoute] Guid markId)
         {
             return Ok(_dataManager.Marks.GetMark(markId));
+        }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(Mark[]), 200)]
+        public IActionResult Index()
+        {
+            return Ok(_dataManager.Marks.GetMarks().ToArray());
         }
 
         [HttpPost]

@@ -1,6 +1,7 @@
 ﻿using CatalogCars.Model.Database.AnonymousTypes;
 using CatalogCars.Model.Database.AuxiliaryTypes;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CatalogCars.Model.Database.Repositories.Default.Abstract
@@ -14,6 +15,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
         IQueryable<string> GetNamesModels(string searchString);
 
         IQueryable<Entities.Model> GetModels(ModelsFilters filters);
+
+        IQueryable<Entities.Model> GetModelsOfMarks(List<Guid> marksIds);
 
         IQueryable<Entities.Model> GetModelsOfMarks(ModelsFilters filters);
 

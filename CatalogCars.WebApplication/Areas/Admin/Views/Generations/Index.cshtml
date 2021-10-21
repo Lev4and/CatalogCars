@@ -1,4 +1,4 @@
-﻿@model EngineTypesViewModel
+﻿@model GenerationsViewModel
 @section StylePage
 {
     <link rel="stylesheet" type="text/css" href="~/plugins/datatable/css/dataTables.bootstrap4.min.css" asp-append-version="true" />
@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="~/plugins/select2/css/select2-bootstrap4.css" asp-append-version="true" />
 }
 @{
-    ViewData["Title"] = "Типы двигателей";
+    ViewData["Title"] = "Поколения";
 }
 <div class="page-wrapper">
     <div class="page-content-wrapper">
@@ -20,7 +20,7 @@
                             <li class="breadcrumb-item">
                                 <a asp-area="Admin" asp-controller="Home" asp-action="Index"><i class='bx bx-home-alt'></i></a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">Типы двигателей</li>
+                            <li class="breadcrumb-item active" aria-current="page">Поколения</li>
                         </ol>
                     </nav>
                 </div>
@@ -39,6 +39,8 @@
     <script src="~/plugins/select2/js/select2.min.js" asp-append-version="true"></script>
     <script>
         initSearchString();
+        initSelectMarksIds();
+        initSelectModelsIds();
 
         setEventListenerOnClickPageLink();
         setEventListenerOnClickResetLink();
@@ -67,7 +69,7 @@
                     });
                 },
                 ajax: {
-                    url: '/Admin/EngineTypes/Names',
+                    url: '/Admin/Generations/Names',
                     type: 'post',
                     data: function (obj) {
                         return { searchString: obj.term };
@@ -93,16 +95,58 @@
             });
         }
 
+        function initSelectMarksIds() {
+            $('select[name="Filters.MarksIds"]').select2({
+                width: '100%',
+                allowClear: true,
+                theme: 'bootstrap4',
+                placeholder: $(this).data('placeholder'),
+                allowClear: Boolean($(this).data('allow-clear')),
+            });
+
+            $('select[name="Filters.MarksIds"]').on('change', function (e) {
+                var marksIds = $('select[name="Filters.MarksIds"]').val();
+
+                $.ajax({
+                    url: '/Admin/Generations/Models',
+                    method: 'POST',
+                    data: { marksIds: marksIds },
+                    success: function (data) {
+                        if (data !== 'undefined') {
+                            let options = "";
+                            $.each(data, function (i, value) {
+                                options += '<option value="' + value.id + '">' + value.mark.name + " " + value.name + '</option>';
+                            });
+                            $('select[name="Filters.ModelsIds"]').html();
+                            $('select[name="Filters.ModelsIds"]').html(options);
+                            $('select[name="Filters.ModelsIds"]').trigger('change');
+                        }
+                    }
+                });
+            });
+        }
+
+        function initSelectModelsIds() {
+            $('select[name="Filters.ModelsIds"]').select2({
+                width: '100%',
+                allowClear: true,
+                theme: 'bootstrap4',
+                placeholder: $(this).data('placeholder'),
+                allowClear: Boolean($(this).data('allow-clear')),
+            });
+        }
+
         function setEventListenerOnClickResetLink() {
             $('input[type="reset"][value="Сбросить"]').on('click', function (e) {
                 $('select[name="Filters.SearchString"]').val('').trigger('change');
+                $('select[name="Filters.MarksIds"]').val(null).trigger('change');
             });
         }
 
         function setEventListenerOnClickApplyFilters() {
             $('input[type="button"][value="Применить"]').on('click', function (e) {
                 $.ajax({
-                    url: '/Admin/EngineTypes',
+                    url: '/Admin/Generations',
                     method: 'POST',
                     data: $('form').serialize(),
                     success: function (data) {
@@ -117,7 +161,7 @@
             $('.page-link').each(function () {
                 $(this).on('click', function (e) {
                     $.ajax({
-                        url: `/Admin/EngineTypes/page=${$(this).attr('data-number-page')}`,
+                        url: `/Admin/Generations/page=${$(this).attr('data-number-page')}`,
                         method: 'POST',
                         data: $('form').serialize(),
                         success: function (data) {

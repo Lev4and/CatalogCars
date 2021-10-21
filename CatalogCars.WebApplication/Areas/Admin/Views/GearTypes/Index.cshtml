@@ -80,13 +80,13 @@
                     },
                     success: function (data) {
                         if (data.results !== 'undefined') {
-                            let options = "";
+                            let options = '<option value=""></option>';
                             $.each(data.results, function (i, value) {
                                 options += '<option value="' + value.id + '">' + value.text + '</option>';
                             });
-                            $('#single-select-search-string').html();
-                            $('#single-select-search-string').html(options);
-                            $('#single-select-search-string').trigger('change');
+                            $('select[name="Filters.SearchString"]').html();
+                            $('select[name="Filters.SearchString"]').html(options);
+                            $('select[name="Filters.SearchString"]').trigger('change');
                         }
                     }
                 }
@@ -95,7 +95,7 @@
 
         function setEventListenerOnClickResetLink() {
             $('input[type="reset"][value="Сбросить"]').on('click', function (e) {
-                $('select[name="Filters.SearchString"]').val(null).trigger('change');
+                $('select[name="Filters.SearchString"]').val('').trigger('change');
             });
         }
 

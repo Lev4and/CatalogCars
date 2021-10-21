@@ -48,6 +48,21 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             return new string[0];
         }
 
+        public async Task<Mark[]> GetMarksAsync()
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetMarksResponseAsync();
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<Mark[]>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new Mark[0];
+        }
+
         public async Task<Mark[]> GetMarksAsync(MarksFilters filters)
         {
             var resultStream = await _responseLoader.GetStreamFromGetMarksResponseAsync(filters);

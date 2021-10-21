@@ -26,6 +26,11 @@ namespace CatalogCars.Resource.Requests.HttpClients
                 Encoding.UTF8, "application/json"));
         }
 
+        public async Task<HttpResponseMessage> GetMarksAsync()
+        {
+            return await _client.GetAsync("");
+        }
+
         public async Task<HttpResponseMessage> GetMarksAsync(MarksFilters filters)
         {
             return await _client.PostAsync("", new StringContent(JsonConvert.SerializeObject(filters), 
@@ -34,7 +39,7 @@ namespace CatalogCars.Resource.Requests.HttpClients
 
         public async Task<HttpResponseMessage> GetMarkAsync(Guid markId)
         {
-            return await _client.GetAsync($"?markId={markId}");
+            return await _client.GetAsync($"{markId}");
         }
 
         public async Task<HttpResponseMessage> GetPopularityMark(Guid markId)

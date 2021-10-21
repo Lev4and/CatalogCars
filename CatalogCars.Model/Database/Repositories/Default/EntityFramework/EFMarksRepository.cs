@@ -84,5 +84,12 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .OrderBy(popularityMark => popularityMark.DateTime)
                 .AsNoTracking();
         }
+
+        public IQueryable<Mark> GetMarks()
+        {
+            return _context.Marks
+                .OrderBy(mark => mark.Name)
+                .AsNoTracking();
+        }
     }
 }

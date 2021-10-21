@@ -1,0 +1,69 @@
+﻿@model GenerationsViewModel
+<div class="card-body">
+    <div class="row">
+        <div class="col-sm-12 col-md-6 d-flex align-self-center">
+            <h4 class="mb-0">Поколения</h4>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="d-flex justify-content-end">
+                <a asp-area="Admin" asp-controller="Generations" asp-action="Save">
+                    <button class="btn btn-success m-1 px-5 radius-30">Добавить</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="table-responsive">
+        <div id="table_wrapper" class="dataTables_wrapper dt-bootstrap4">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="table" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Логотип марки</th>
+                                <th>Марка</th>
+                                <th>Модель</th>
+                                <th>Название</th>
+                                <th>Год</th>
+                                <th>Ценовой сегмент</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var generation in Model.Generations)
+                            {
+                                <tr>
+                                    <td>
+                                        <img width="32" height="32" src="@generation.Model.Mark.Logo.BigLogo" />
+                                    </td>
+                                    <td>@generation.Model.Mark.Name</td>
+                                    <td>@generation.Model.Name</td>
+                                    <td>@generation.Name</td>
+                                    <td>@generation.YearFrom</td>
+                                    <td>@generation.PriceSegment.RuName</td>
+                                    <td>
+                                        <div class="btn-group pull-right">
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Логотип марки</th>
+                                <th>Марка</th>
+                                <th>Модель</th>
+                                <th>Название</th>
+                                <th>Год</th>
+                                <th>Ценовой сегмент</th>
+                                <th>Действия</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            @await Html.PartialAsync("_Pagination", Model.Pagination)
+        </div>
+    </div>
+</div>

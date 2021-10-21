@@ -49,6 +49,14 @@ namespace CatalogCars.Resource.Api.Controllers
             return Ok(_dataManager.Models.GetModels(filters).ToArray());
         }
 
+        [HttpGet]
+        [Route("byMarksIds")]
+        [ProducesResponseType(typeof(Entities.Model[]), 200)]
+        public IActionResult ModelsOfMarks([FromQuery] Guid[] marksIds)
+        {
+            return Ok(_dataManager.Models.GetModelsOfMarks(marksIds.ToList()).ToArray());
+        }
+
         [HttpPost]
         [Route("byMarksIds")]
         [ProducesResponseType(typeof(Entities.Model[]), 200)]

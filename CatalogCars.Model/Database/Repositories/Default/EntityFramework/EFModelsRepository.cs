@@ -69,6 +69,16 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .AsNoTracking();
         }
 
+        public IQueryable<Entities.Model> GetModelsOfMarks(List<Guid> marksIds)
+        {
+            return _context.Models
+                .Include(model => model.Mark)
+                .Where(model => (marksIds.Count > 0 ? marksIds.Contains(model.MarkId) : false))
+                .OrderBy(model => model.Mark.Name)
+                    .ThenBy(model => model.Name)
+                .AsNoTracking();
+        }
+
         public IQueryable<string> GetNamesModels(string searchString)
         {
             return _context.Models
