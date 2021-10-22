@@ -16,7 +16,7 @@ namespace CatalogCars.Resource.Requests
         public BaseHubClient(string pathAndQueryUrl)
         {
             _connection = new HubConnectionBuilder()
-                .WithUrl($"{ServerUrl.LocalDebug}{pathAndQueryUrl}", (options) => 
+                .WithUrl($"{ServerUrl.Local}{pathAndQueryUrl}", (options) => 
                 {
                     options.HttpMessageHandlerFactory = (message) =>
                     {

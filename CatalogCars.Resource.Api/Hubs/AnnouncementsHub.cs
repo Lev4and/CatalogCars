@@ -5,6 +5,7 @@ using CatalogCars.Model.Parsers.AutoRu.JsonWorkers;
 using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,17 +26,31 @@ namespace CatalogCars.Resource.Api.Hubs
         {
             while (true)
             {
-                var headers = await _cookieWorker.GetHeadersAjaxRequestForCars(new RangeMileage(1100000, 0), new RangePrice(300000000, 0), 1, 1, 1);
-                var carsJson = await _jsonWorker.GetCars(headers, new RangeMileage(1100000, 0), new RangePrice(300000000, 0), 37, 1, 1);
-                var cars = JsonConvert.DeserializeObject<Result>(carsJson).Announcements.Where(announcement => 
-                    announcement.AdditionalInfo.UpdatedAt >= DateTime.Now.AddMinutes(-10)).ToArray();
+                var topDays = 1;
+                var pageSize = 37;
+                var currentTime = DateTime.Now.AddMinutes(-5);
+                var rangePrice = new RangePrice(300000000, 0);
+                var rangeMileage = new RangeMileage(1100000, 0);
 
-                if(cars.Length > 0)
+                var announcements = new List<Announcement>();
+
+                var headers = await _cookieWorker.GetHeadersAjaxRequestForCars(rangeMileage, rangePrice, 1, 1, 1);
+
+                var maxNumberPage = Convert.ToInt32(JsonConvert.DeserializeObject<dynamic>((await _jsonWorker.GetCars(headers,
+                        rangeMileage, rangePrice, pageSize, topDays, 1))).pagination.total_page_count);
+
+                for (int z = 1; z <= 1; z++)
                 {
-                    await Clients.All.SendAsync("Receive", cars);
+                    announcements.AddRange(JsonConvert.DeserializeObject<Result>(await _jsonWorker.GetCars(headers, 
+                        rangeMileage, rangePrice, pageSize, topDays, z)).Announcements.Where(announcement =>
+                            announcement.AdditionalInfo.CreatedAt >= currentTime).OrderBy(announcement => 
+                                announcement.AdditionalInfo.CreatedAt));
                 }
 
-                await Task.Delay(60000);
+                if(announcements.Count > 0)
+                {
+                    await Clients.All.SendAsync("Receive", announcements.ToArray());
+                }
             }
         }
     }

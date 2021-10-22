@@ -59,7 +59,7 @@ namespace CatalogCars.Model.Parsers.AutoRu.Types
             PriceTo = rangePrice.To;
             PriceFrom = rangePrice.From;
 
-            Sort = "cr_date-asc";
+            Sort = "cr_date-desc";
 
             Section = "all";
             Category = "cars";

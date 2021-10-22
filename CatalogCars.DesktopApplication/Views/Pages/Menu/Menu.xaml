@@ -131,7 +131,7 @@
                                             HorizontalContentAlignment="Left"
                                             Command="{Binding Path=AnnouncementsOnline}"
                                             Kind="Car"
-                                            Text="Auto.ru онлайн объявления" />
+                                            Text="Свежие объявления Auto.ru (онлайн мониторинг)" />
                                     </Grid>
                                     <Grid Grid.Row="2" Visibility="{Binding ElementName=MarksButton, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedVisibility}}">
                                         <uc:MenuButton

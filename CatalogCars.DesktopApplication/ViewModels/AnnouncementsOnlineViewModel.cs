@@ -1,7 +1,10 @@
-﻿using CatalogCars.Resource.Requests.HubClients;
+﻿using CatalogCars.Model.Converters.AutoRu;
+using CatalogCars.Resource.Requests.HubClients;
 using CatalogCars.Resource.Requests.HubEventArgs;
 using DevExpress.Mvvm;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using AutoRu = CatalogCars.Model.Converters.AutoRu;
@@ -22,6 +25,11 @@ namespace CatalogCars.DesktopApplication.ViewModels
         public ICommand Unloaded => new AsyncCommand(() =>
         {
             return UnloadedAsync();
+        });
+
+        public ICommand OnClickAnnouncement => new AsyncCommand<Announcement>((announcement) =>
+        {
+            return OpenAnnouncementAsync("");
         });
 
         public AnnouncementsOnlineViewModel()
@@ -45,13 +53,28 @@ namespace CatalogCars.DesktopApplication.ViewModels
             _announcementsHubClient.OnReceived -= (e) => OnReceived(e);
         }
 
+        private async Task OpenAnnouncementAsync(string saleId)
+        {
+            //var announcement = new Announcement();
+
+            //Process.Start($"https://www.auto.ru/{announcement.Category}/{announcement.Section}/{announcement.Vehicle.Mark.Name}/{announcement.Vehicle.Model.Name}/{announcement.SaleId}/");
+        }
+
         private void OnReceived(AnnouncementsHubEventArgs eventArgs)
         {
             if(eventArgs != null)
             {
                 if(eventArgs.Announcements != null)
                 {
-                    foreach(var announcement in eventArgs.Announcements)
+                    var announcements = eventArgs.Announcements.ToList();
+
+                    if (Announcements.Count > 0) 
+                    {
+                        announcements = announcements.Where(recentAnnouncement =>
+                            !Announcements.Any(announcement => announcement.SaleId == recentAnnouncement.SaleId)).ToList();
+                    }
+
+                    foreach (var announcement in announcements)
                     {
                         Announcements.Insert(0, announcement);
                     }
