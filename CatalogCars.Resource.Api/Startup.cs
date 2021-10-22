@@ -34,6 +34,7 @@ using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Tr
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Vendor;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.VinResolution;
 using CatalogCars.Model.Importers.HighPerformance;
+using CatalogCars.Resource.Api.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -362,6 +363,7 @@ namespace CatalogCars.Resource.Api
                     };
                 });
 
+            services.AddSignalR();
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder =>
@@ -400,6 +402,7 @@ namespace CatalogCars.Resource.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<AnnouncementsHub>("/autoRu/announcements/online");
             });
         }
     }

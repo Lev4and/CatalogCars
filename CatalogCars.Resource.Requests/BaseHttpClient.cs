@@ -13,9 +13,7 @@ namespace CatalogCars.Resource.Requests
 
         public BaseHttpClient(string pathAndQueryUrl)
         {
-            //_baseUrl = $"https://localhost:5001/api/{pathAndQueryUrl}";
-            //_baseUrl = $"https://localhost:44377/api/{pathAndQueryUrl}";
-            _baseUrl = $"http://resource.api.u1321851.plsk.regruhosting.ru/api/{pathAndQueryUrl}";
+            _baseUrl = $"{ServerUrl.LocalDebug}api/{pathAndQueryUrl}";
 
             _handler = new HttpClientHandler();
             _handler.AllowAutoRedirect = true;

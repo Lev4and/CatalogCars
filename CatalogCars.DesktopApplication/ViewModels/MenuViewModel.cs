@@ -31,6 +31,11 @@ namespace CatalogCars.DesktopApplication.ViewModels
             _menuPageService.ChangePage(new Pages.Announcements.Announcements());
         });
 
+        public ICommand AnnouncementsOnline => new DelegateCommand(() =>
+        {
+            _menuPageService.ChangePage(new Pages.Announcements.AnnouncementsOnline());
+        });
+
         public ICommand Marks => new DelegateCommand(() =>
         {
             _menuPageService.ChangePage(new Pages.Marks.Marks());

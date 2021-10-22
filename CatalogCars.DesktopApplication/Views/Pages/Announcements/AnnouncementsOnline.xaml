@@ -1,0 +1,505 @@
+﻿<Page
+    x:Class="CatalogCars.DesktopApplication.Views.Pages.Announcements.AnnouncementsOnline"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="clr-namespace:CatalogCars.DesktopApplication.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    xmlns:et="clr-namespace:CatalogCars.DesktopApplication.EventTriggers"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:local="clr-namespace:CatalogCars.DesktopApplication.Views.Pages.Announcements"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mdt="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:ta="clr-namespace:CatalogCars.DesktopApplication.TriggerActions"
+    Title="Auto.ru онлайн объявления"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Background="{StaticResource PageBackgroundBrush}"
+    DataContext="{Binding AnnouncementsOnlineViewModel, Source={StaticResource ViewModelLocator}}"
+    WindowTitle="CatalogCars - Auto.ru онлайн объявления"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <c:UrlToBitmapImage x:Key="UrlToBitmapImage" />
+        <c:ObjectCollectionToGuidCollection x:Key="ObjectCollectionToGuidCollection" />
+    </Page.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding Path=Loaded}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding Path=Unloaded}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid Margin="5">
+        <ListBox HorizontalContentAlignment="Stretch" ItemsSource="{Binding Path=Announcements, UpdateSourceTrigger=PropertyChanged}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid MinHeight="130">
+                        <Border
+                            BorderBrush="Black"
+                            BorderThickness="5"
+                            CornerRadius="10">
+                            <Grid Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="160" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid
+                                    Grid.Column="0"
+                                    Margin="10,0,5,0"
+                                    VerticalAlignment="Center">
+                                    <Border BorderBrush="Black" BorderThickness="1">
+                                        <Image Source="{Binding Path=Vehicle.Configuration.MainPhoto.Sizes.Wizardv3mr, Converter={StaticResource UrlToBitmapImage}}" Stretch="Uniform" />
+                                    </Border>
+                                </Grid>
+                                <Grid Grid.Column="1" Margin="5,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0" Margin="0,0,0,5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0" Margin="0,0,0,5">
+                                            <TextBlock
+                                                FontSize="18"
+                                                FontWeight="Bold"
+                                                TextWrapping="Wrap">
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0} {1} {2} {3}">
+                                                        <Binding Path="Vehicle.Mark.Name" StringFormat="{}{0}" />
+                                                        <Binding Path="Vehicle.Model.Name" StringFormat="{}{1}" />
+                                                        <Binding
+                                                            Path="Vehicle.Generation.Name"
+                                                            StringFormat="{}{2}"
+                                                            TargetNullValue="" />
+                                                        <Binding
+                                                            Path="Vehicle.Generation.YearFrom"
+                                                            StringFormat="{}{3}"
+                                                            TargetNullValue="" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Grid>
+                                        <Grid Grid.Row="1" Margin="0,5,0,0">
+                                            <TextBlock
+                                                FontSize="14"
+                                                Text="{Binding Path=Summary}"
+                                                TextWrapping="Wrap" />
+                                        </Grid>
+                                    </Grid>
+                                    <Grid Grid.Row="1" Margin="0,5,0,0">
+                                        <WrapPanel>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="CarPickup"
+                                                        ToolTip="Тип автомобильного кузова" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=Vehicle.Configuration.BodyType}" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="Engine"
+                                                        ToolTip="Тип двигателя" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=Vehicle.TechnicalParameters.EngineType}" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="CogOutline"
+                                                        ToolTip="Тип привода" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=Vehicle.TechnicalParameters.GearType}" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="CarShiftPattern"
+                                                        ToolTip="Тип передачи" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=Vehicle.TechnicalParameters.Transmission}" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="Steering"
+                                                        ToolTip="Рулевое колесо" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=Vehicle.SteeringWheel}" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="Engine"
+                                                        ToolTip="Мощность" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=Vehicle.TechnicalParameters.Power, StringFormat={}{0} л.с.}" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="Engine"
+                                                        ToolTip="Мощность в кВт" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=Vehicle.TechnicalParameters.PowerKvt, StringFormat={}{0} кВт}" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="Engine"
+                                                        ToolTip="Объём двигателя" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=Vehicle.TechnicalParameters.Displacement, StringFormat={}{0} л}" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="ArrowExpandVertical"
+                                                        ToolTip="Минимальный зазор" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=Vehicle.TechnicalParameters.ClearanceMin, StringFormat={}{0} мм}" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="Fuel"
+                                                        ToolTip="Расход топлива" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=Vehicle.TechnicalParameters.FuelRate, StringFormat={}{0:F2} л, TargetNullValue=Неизвестно}" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="Speedometer"
+                                                        ToolTip="Разгон" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=Vehicle.TechnicalParameters.Acceleration, StringFormat={}{0:F2} с}" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="Wrench"
+                                                        ToolTip="Битая ли?" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14">
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="TextBlock">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding State.IsBeaten}" Value="{x:Null}">
+                                                                        <Setter Property="Text" Value="Неизвестно" />
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding State.IsBeaten}" Value="True">
+                                                                        <Setter Property="Text" Value="Да" />
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding State.IsBeaten}" Value="False">
+                                                                        <Setter Property="Text" Value="Нет" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="AccountSupervisor"
+                                                        ToolTip="Кол-во владельцев" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=Documents.OwnersNumber, TargetNullValue=Неизвестно}" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="Counter"
+                                                        ToolTip="Пробег" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=State.Mileage, StringFormat={}{0:N0} км, ConverterCulture=ru-Ru}" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="CarDoor"
+                                                        ToolTip="Кол-во дверей" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=Vehicle.Configuration.DoorsCount, TargetNullValue=Неизвестно}" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="CarBack"
+                                                        ToolTip="Минимальный объём багажника" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=Vehicle.Configuration.TrunkVolumeMin, StringFormat={}{0:F2} л, TargetNullValue=Неизвестно}" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="CarBack"
+                                                        ToolTip="Максимальный объём багажника" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=Vehicle.Configuration.TrunkVolumeMax, StringFormat={}{0:F2} л, TargetNullValue=Неизвестно}" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="Cog"
+                                                        ToolTip="Производитель" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=Vehicle.Vendor}" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="MapMarker"
+                                                        ToolTip="Регион" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=Seller.Location.Region.Name}" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="TextBoxCheck"
+                                                        ToolTip="Статус" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=Status}" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="PackageVariant"
+                                                        ToolTip="Вид доступности" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=Availability}" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="FormatListChecks"
+                                                        ToolTip="Раздел" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=Section}" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="AccountTie"
+                                                        ToolTip="Тип продавца" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=SellerType}" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="CalendarClock"
+                                                        ToolTip="Дата публикации" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=AdditionalInfo.CreatedAt, StringFormat={}{0:dd-MM-yyyy HH:mm:ss}}" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="2.5,0">
+                                                    <mdt:PackIcon
+                                                        VerticalAlignment="Center"
+                                                        Kind="CalendarEdit"
+                                                        ToolTip="Дата обновления" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="2.5,0">
+                                                    <TextBlock FontSize="14" Text="{Binding Path=AdditionalInfo.UpdatedAt, StringFormat={}{0:dd-MM-yyyy HH:mm:ss}}" />
+                                                </Grid>
+                                            </Grid>
+                                        </WrapPanel>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Column="2" Margin="5,0,0,0">
+                                    <TextBlock
+                                        Margin="10,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="18"
+                                        FontWeight="Bold"
+                                        Text="{Binding Path=Price.Value, StringFormat={}{0:C2}, ConverterCulture=ru-Ru}" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Page>
