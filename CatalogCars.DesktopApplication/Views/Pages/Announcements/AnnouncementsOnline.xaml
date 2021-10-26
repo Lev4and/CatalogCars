@@ -68,7 +68,12 @@
             </Grid>
         </Grid>
         <Grid Grid.Row="1" Margin="0,5,0,0">
-            <ListBox HorizontalContentAlignment="Stretch" ItemsSource="{Binding Path=Announcements, UpdateSourceTrigger=PropertyChanged}">
+            <ListBox x:Name="AnnouncementsListBox" HorizontalContentAlignment="Stretch" ItemsSource="{Binding Path=Announcements, UpdateSourceTrigger=PropertyChanged}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=SelectedAnnouncementChanged}" CommandParameter="{Binding ElementName=AnnouncementsListBox, Path=SelectedValue}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid MinHeight="130" Cursor="Hand">

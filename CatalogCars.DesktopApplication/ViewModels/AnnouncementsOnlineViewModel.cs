@@ -27,9 +27,9 @@ namespace CatalogCars.DesktopApplication.ViewModels
             return UnloadedAsync();
         });
 
-        public ICommand OnClickAnnouncement => new AsyncCommand<Announcement>((announcement) =>
+        public ICommand SelectedAnnouncementChanged => new AsyncCommand<Announcement>((announcement) =>
         {
-            return OpenAnnouncementAsync("");
+            return OpenAnnouncementAsync(announcement);
         });
 
         public AnnouncementsOnlineViewModel()
@@ -53,14 +53,13 @@ namespace CatalogCars.DesktopApplication.ViewModels
             _announcementsHubClient.OnReceived -= (e) => OnReceived(e);
         }
 
-        private async Task OpenAnnouncementAsync(string saleId)
+        private async Task OpenAnnouncementAsync(Announcement announcement)
         {
-            //var announcement = new Announcement();
-
-            //Process.Start($"https://www.auto.ru/{announcement.Category}/{announcement.Section}/{announcement.Vehicle.Mark.Name}/{announcement.Vehicle.Model.Name}/{announcement.SaleId}/");
+            Process.Start(new ProcessStartInfo("cmd", $"/c start https://www.auto.ru/{announcement.Category}/{announcement.Section}/sale/" +
+                $"{announcement.Vehicle.Mark.Code}/{announcement.Vehicle.Model.Code}/{announcement.SaleId}/") { CreateNoWindow = true });
         }
 
-        private void OnReceived(AnnouncementsHubEventArgs eventArgs)
+        private async Task OnReceived(AnnouncementsHubEventArgs eventArgs)
         {
             if(eventArgs != null)
             {
@@ -79,6 +78,8 @@ namespace CatalogCars.DesktopApplication.ViewModels
                         Announcements.Insert(0, announcement);
                     }
                 }
+
+                await _announcementsHubClient.Send();
             }
         }
     }
