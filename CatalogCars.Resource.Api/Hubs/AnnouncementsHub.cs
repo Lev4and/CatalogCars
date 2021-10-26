@@ -45,10 +45,7 @@ namespace CatalogCars.Resource.Api.Hubs
                             announcement.AdditionalInfo.CreatedAt));
             }
 
-            if (announcements.Count > 0)
-            {
-                await Clients.Caller.SendAsync("Receive", announcements.ToArray());
-            }
+            await Clients.Caller.SendAsync("Receive", announcements.ToArray());
         }
     }
 }
