@@ -11,7 +11,9 @@ namespace CatalogCars.WebApplication.Models
         public GenerationsFilters Filters { get; set; }
 
         public List<Mark> Marks { get; set; }
-
+        
         public List<Generation> Generations { get; set; }
+
+        public List<PriceSegment> PriceSegments { get; set; }
     }
 }

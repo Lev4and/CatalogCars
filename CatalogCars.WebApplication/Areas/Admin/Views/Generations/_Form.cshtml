@@ -44,6 +44,30 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Ценовой сегмент</label>
+                <div class="col-sm-10">
+                    <select class="single-select" asp-for="@Model.Filters.PriceSegmentId">
+                        <option value="@null">Не имеет значения</option>
+                        @foreach (var priceSegment in Model.PriceSegments)
+                        {
+                            <option value="@priceSegment.Id">@priceSegment.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Год</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="number" min="@Model.Filters.RangeYearFrom.Min" max="@Model.Filters.RangeYearFrom.Max" step="1" asp-for="@Model.Filters.RangeYearFrom.From" />
+                </div>
+                <label class="col-sm-2 col-form-label text-center">
+                    -
+                </label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="number" min="@Model.Filters.RangeYearFrom.Min" max="@Model.Filters.RangeYearFrom.Max" step="1" asp-for="@Model.Filters.RangeYearFrom.To" />
+                </div>
+            </div>
+            <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Марки</label>
                 <div class="col-sm-10">
                     <select class="multiple-select" asp-for="@Model.Filters.MarksIds" multiple="multiple">
@@ -58,7 +82,6 @@
                 <label class="col-sm-2 col-form-label">Модели</label>
                 <div class="col-sm-10">
                     <select class="multiple-select" asp-for="@Model.Filters.ModelsIds" multiple="multiple">
-
                     </select>
                 </div>
             </div>

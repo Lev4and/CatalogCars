@@ -41,10 +41,12 @@
         initSearchString();
         initSelectMarksIds();
         initSelectModelsIds();
+        initSelectPriceSegments();
 
         setEventListenerOnClickPageLink();
         setEventListenerOnClickResetLink();
         setEventListenerOnClickApplyFilters();
+        setEventListenerOnChangeRangeYearFrom();
 
         $('#table-card').on('DOMSubtreeModified', function () {
             setEventListenerOnClickPageLink();
@@ -136,8 +138,19 @@
             });
         }
 
+        function initSelectPriceSegments() {
+            $('select[name="Filters.PriceSegmentId"]').select2({
+                width: '100%',
+                allowClear: true,
+                theme: 'bootstrap4',
+                placeholder: $(this).data('placeholder'),
+                allowClear: Boolean($(this).data('allow-clear')),
+            });
+        }
+
         function setEventListenerOnClickResetLink() {
             $('input[type="reset"][value="Сбросить"]').on('click', function (e) {
+                $('select[name="Filters.PriceSegmentId"]').val(null).trigger('change');
                 $('select[name="Filters.SearchString"]').val('').trigger('change');
                 $('select[name="Filters.MarksIds"]').val(null).trigger('change');
             });
@@ -154,6 +167,16 @@
                         $('#table-card').html(data);
                     }
                 });
+            });
+        }
+
+        function setEventListenerOnChangeRangeYearFrom() {
+            $('input[type="number"][name="Filters.RangeYearFrom.From"]').on('change', function (e) {
+                $('input[type="number"][name="Filters.RangeYearFrom.To"]').attr('min', $(this).val());
+            });
+
+            $('input[type="number"][name="Filters.RangeYearFrom.To"]').on('change', function (e) {
+                $('input[type="number"][name="Filters.RangeYearFrom.From"]').attr('max', $(this).val());
             });
         }
 

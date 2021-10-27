@@ -14,12 +14,14 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         private readonly MarksRequester _marksRequester;
         private readonly ModelsRequester _modelsRequester;
         private readonly GenerationsRequester _generationsRequester;
+        private readonly PriceSegmentsRequester _priceSegmentsRequester;
 
         public GenerationsController()
         {
             _marksRequester = new MarksRequester();
             _modelsRequester = new ModelsRequester();
             _generationsRequester = new GenerationsRequester();
+            _priceSegmentsRequester = new PriceSegmentsRequester();
         }
 
         private async Task<Pagination> GetPaginationAsync(GenerationsFilters filters)
@@ -36,14 +38,19 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         [Route("~/Admin/Generations")]
         public async Task<IActionResult> Index()
         {
-            var filters = new GenerationsFilters();
+            var filters = new GenerationsFilters() 
+            {
+                RangeYearFrom = new RangeYearFrom(await _generationsRequester.GetMaxYearFromGenerationAsync(), 
+                    await _generationsRequester.GetMinYearFromGenerationAsync())
+            };
 
             var viewModel = new GenerationsViewModel()
             {
                 Filters = filters,
                 Pagination = await GetPaginationAsync(filters),
                 Marks = (await _marksRequester.GetMarksAsync()).ToList(),
-                Generations = (await _generationsRequester.GetGenerationsAsync(filters)).ToList()
+                Generations = (await _generationsRequester.GetGenerationsAsync(filters)).ToList(),
+                PriceSegments = (await _priceSegmentsRequester.GetPriceSegmentsAsync()).ToList()
             };
 
             return View(viewModel);
