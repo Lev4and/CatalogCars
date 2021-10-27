@@ -8,74 +8,73 @@ using System.Threading.Tasks;
 namespace CatalogCars.WebApplication.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class LocationsController : Controller
+    public class SalonsController : Controller
     {
+        private readonly SalonsRequester _salonsRequester;
         private readonly RegionsRequester _regionsRequester;
-        private readonly LocationsRequester _locationsRequester;
 
-        public LocationsController()
+        public SalonsController()
         {
+            _salonsRequester = new SalonsRequester();
             _regionsRequester = new RegionsRequester();
-            _locationsRequester = new LocationsRequester();
         }
 
-        private async Task<Pagination> GetPaginationAsync(LocationsFilters filters)
+        private async Task<Pagination> GetPaginationAsync(SalonsFilters filters)
         {
             return new Pagination()
             {
                 NumberPage = filters.NumberPage,
                 ItemsPerPage = filters.ItemsPerPage,
-                CountTotalItems = await _locationsRequester.GetCountLocationsAsync(filters)
+                CountTotalItems = await _salonsRequester.GetCountSalonsAsync(filters)
             };
         }
 
         [HttpGet]
-        [Route("~/Admin/Locations")]
+        [Route("~/Admin/Salons")]
         public async Task<IActionResult> Index()
         {
-            var filters = new LocationsFilters();
+            var filters = new SalonsFilters(await _salonsRequester.GetMaxRegistrationDateSalonAsync(), 
+                await _salonsRequester.GetMinRegistrationDateSalonAsync());
 
-            var viewModel = new LocationsViewModel()
+            var viewModel = new SalonsViewModel()
             {
                 Filters = filters,
                 Pagination = await GetPaginationAsync(filters),
-                Locations = (await _locationsRequester.GetLocationsAsync(filters)).ToList()
+                Salons = (await _salonsRequester.GetSalonsAsync(filters)).ToList()
             };
 
             return View(viewModel);
         }
 
         [HttpPost]
-        [Route("~/Admin/Locations")]
-        public async Task<PartialViewResult> Index([FromForm] LocationsViewModel viewModel)
+        [Route("~/Admin/Salons")]
+        public async Task<PartialViewResult> Index([FromForm] SalonsViewModel viewModel)
         {
             viewModel.Filters.NumberPage = 1;
-
             viewModel.Pagination = await GetPaginationAsync(viewModel.Filters);
-            viewModel.Locations = (await _locationsRequester.GetLocationsAsync(viewModel.Filters)).ToList();
+            viewModel.Salons = (await _salonsRequester.GetSalonsAsync(viewModel.Filters)).ToList();
 
             return PartialView("_Table", viewModel);
         }
 
         [HttpPost]
-        [Route("~/Admin/Locations/page={page}")]
-        public async Task<PartialViewResult> Index([FromForm] LocationsViewModel viewModel, [FromRoute] int page)
+        [Route("~/Admin/Salons/page={page}")]
+        public async Task<PartialViewResult> Index([FromForm] SalonsViewModel viewModel, [FromRoute] int page)
         {
             viewModel.Filters.NumberPage = page;
-
             viewModel.Pagination = await GetPaginationAsync(viewModel.Filters);
-            viewModel.Locations = (await _locationsRequester.GetLocationsAsync(viewModel.Filters)).ToList();
+            viewModel.Salons = (await _salonsRequester.GetSalonsAsync(viewModel.Filters)).ToList();
 
             return PartialView("_Table", viewModel);
         }
 
         [HttpPost]
-        [Route("~/Admin/Locations/Addresses")]
+        [Route("~/Admin/Salons/Names")]
         public async Task<JsonResult> Names([FromForm] string searchString)
         {
             return Json(new
             {
-                results = (await _locationsRequester.GetNamesLocationsAsync(searchString))
+                results = (await _salonsRequester.GetNamesSalonsAsync(searchString))
                     .Append(searchString ?? "")
                     .Select(name => new
                     {
@@ -86,16 +85,16 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("~/Admin/Locations/Regions/Names")]
+        [Route("~/Admin/Salons/Regions/Names")]
         public async Task<JsonResult> RegionsNames([FromForm] string searchString)
         {
             return Json(new
             {
                 results = (await _regionsRequester.GetRegionsAsync(new RegionsFilters()
-                    {
-                        ItemsPerPage = 5,
-                        SearchString = searchString
-                    }))
+                {
+                    ItemsPerPage = 5,
+                    SearchString = searchString
+                }))
                     .Select(region => new
                     {
                         Id = region.Id,

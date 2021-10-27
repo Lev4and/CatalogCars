@@ -1,0 +1,67 @@
+﻿@model SalonsViewModel
+<div class="card-body">
+    <div class="row">
+        <div class="col-sm-12 col-md-6 d-flex align-self-center">
+            <h4 class="mb-0">Салоны</h4>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="d-flex justify-content-end">
+                <a asp-area="Admin" asp-controller="Salons" asp-action="Save">
+                    <button class="btn btn-success m-1 px-5 radius-30">Добавить</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="table-responsive">
+        <div id="table_wrapper" class="dataTables_wrapper dt-bootstrap4">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="table" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Наименование</th>
+                                <th>Официальный</th>
+                                <th>Фактический запас</th>
+                                <th>Программы лояльности</th>
+                                <th>Дата регистрации</th>
+                                <th>Адрес</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var salon in Model.Salons)
+                            {
+                            <tr>
+                                <td>@salon.Name</td>
+                                <td>@(salon.IsOfficial != null ? ((bool)salon.IsOfficial ? "Да" : "Нет") : "Неизвестен")</td>
+                                <td>@(salon.ActualStock != null ? ((bool)salon.ActualStock ? "Есть" : "Нету") : "Неизвестен")</td>
+                                <td>@(salon.LoyaltyProgram != null ? ((bool)salon.LoyaltyProgram ? "Есть" : "Нету") : "Неизвестна")</td>
+                                <td>@salon.RegistrationDate.ToString("dd-MM-yyyy HH:mm:ss")</td>
+                                <td>@salon.Location.Address</td>
+                                <td>
+                                    <div class="btn-group pull-right">
+
+                                    </div>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Наименование</th>
+                                <th>Официальный</th>
+                                <th>Фактический запас</th>
+                                <th>Программы лояльности</th>
+                                <th>Дата регистрации</th>
+                                <th>Адрес</th>
+                                <th>Действия</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            @await Html.PartialAsync("_Pagination", Model.Pagination)
+        </div>
+    </div>
+</div>

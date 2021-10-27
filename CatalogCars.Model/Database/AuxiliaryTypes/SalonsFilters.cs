@@ -33,6 +33,11 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
 
         public Dictionary<SortingOption, string> SortingOptions { get; set; }
 
+        public SalonsFilters()
+        {
+            Reset(DateTime.MaxValue, DateTime.MinValue);
+        }
+
         public SalonsFilters(DateTime toRegistrationDate, DateTime fromRegistrationDate)
         {
             Reset(toRegistrationDate, fromRegistrationDate);
