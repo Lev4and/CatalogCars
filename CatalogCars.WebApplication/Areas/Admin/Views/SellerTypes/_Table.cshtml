@@ -1,12 +1,12 @@
-﻿@model SectionsViewModel
+﻿@model SellerTypesViewModel
 <div class="card-body">
     <div class="row">
         <div class="col-sm-12 col-md-6 d-flex align-self-center">
-            <h4 class="mb-0">Разделы</h4>
+            <h4 class="mb-0">Типы продавцов</h4>
         </div>
         <div class="col-sm-12 col-md-6">
             <div class="d-flex justify-content-end">
-                <a asp-area="Admin" asp-controller="Sections" asp-action="Save">
+                <a asp-area="Admin" asp-controller="SellerTypes" asp-action="Save">
                     <button class="btn btn-success m-1 px-5 radius-30">Добавить</button>
                 </a>
             </div>
@@ -26,11 +26,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var section in Model.Sections)
+                            @foreach (var sellerType in Model.SellerTypes)
                             {
                                 <tr>
-                                    <td>@(section.Name)</td>
-                                    <td>@(section.RuName)</td>
+                                    <td>@sellerType.Name</td>
+                                    <td>@sellerType.RuName</td>
                                     <td>
                                         <div class="btn-group pull-right">
 
