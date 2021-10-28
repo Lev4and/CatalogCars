@@ -1,8 +1,10 @@
-﻿using CatalogCars.Model.Database.AuxiliaryTypes;
+﻿using CatalogCars.Model.Converters.AutoRu;
+using CatalogCars.Model.Database.AuxiliaryTypes;
 using CatalogCars.Resource.Requests.HttpRequesters;
 using DevExpress.Mvvm;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -127,6 +129,11 @@ namespace CatalogCars.DesktopApplication.ViewModels
         public ObservableCollection<Entities.SteeringWheel> SteeringWheels { get; set; }
 
         public ObservableCollection<Entities.BodyTypeGroup> BodyTypeGroups { get; set; }
+
+        public ICommand SelectedAnnouncementChanged => new AsyncCommand<Entities.Announcement>((announcement) =>
+        {
+            return OpenAnnouncementAsync(announcement);
+        });
 
         public ICommand BodyTypeGroupsScrollViewerChanged => new AsyncCommand<object>((obj) =>
         {
@@ -664,6 +671,13 @@ namespace CatalogCars.DesktopApplication.ViewModels
 
             BodyTypeGroups = new ObservableCollection<Entities.BodyTypeGroup>((await _bodyTypeGroupsRequester
                 .GetBodyTypeGroupsAsync(BodyTypeGroupsFilters)).ToList());
+        }
+
+        private async Task OpenAnnouncementAsync(Entities.Announcement announcement)
+        {
+            Process.Start(new ProcessStartInfo("cmd", $"/c start https://www.auto.ru/{announcement.Category.Name}/{announcement.Section.Name}/sale/" +
+                $"{announcement.Vehicle.Generation.Model.Mark.Code}/{announcement.Vehicle.Generation.Model.Code}/{announcement.SaleId}/")
+            { CreateNoWindow = true });
         }
 
         private async Task BodyTypeGroupsLoadAsync(ScrollChangedEventArgs eventArgs)

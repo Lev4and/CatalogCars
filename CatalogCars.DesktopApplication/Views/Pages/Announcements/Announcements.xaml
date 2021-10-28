@@ -1283,11 +1283,14 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
-                <ListBox HorizontalContentAlignment="Stretch" ItemsSource="{Binding Path=Announcements, UpdateSourceTrigger=PropertyChanged}">
+                <ListBox x:Name="AnnouncementsListBox" HorizontalContentAlignment="Stretch" ItemsSource="{Binding Path=Announcements, UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Triggers>
                         <et:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
                             <ta:CustomCommandAction Command="{Binding ScrollViewerChanged}" />
                         </et:RoutedEventTrigger>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding Path=SelectedAnnouncementChanged}" CommandParameter="{Binding ElementName=AnnouncementsListBox, Path=SelectedValue}" />
+                        </i:EventTrigger>
                     </i:Interaction.Triggers>
                     <ListBox.ItemTemplate>
                         <DataTemplate>

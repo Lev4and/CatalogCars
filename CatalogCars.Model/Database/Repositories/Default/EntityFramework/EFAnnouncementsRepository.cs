@@ -31,6 +31,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Include(announcement => announcement.Seller)
                     .ThenInclude(seller => seller.Location)
                         .ThenInclude(location => location.Region)
+                .Include(announcement => announcement.Category)
                 .Include(announcements => announcements.Section)
                 .Include(announcements => announcements.Vehicle)
                     .ThenInclude(vehicle => vehicle.Vendor)
