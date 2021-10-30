@@ -3,6 +3,7 @@ using CatalogCars.Model.Database.Entities;
 using CatalogCars.Model.Database.Repositories.Default.Abstract;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.ColorType;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,6 +18,23 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         {
             _context = context;
             _sorters = sorters;
+        }
+
+        public bool ContainsColorType(string name, string ruName)
+        {
+            return _context.ColorTypes.FirstOrDefault(colorType => colorType.Name == name ||
+                colorType.RuName == ruName) != null;
+        }
+
+        public void DeleteColorType(Guid id)
+        {
+            _context.ColorTypes.Remove(GetColorType(id));
+            _context.SaveChanges();
+        }
+
+        public ColorType GetColorType(Guid id)
+        {
+            return _context.ColorTypes.FirstOrDefault(colorType => colorType.Id == id);
         }
 
         public IQueryable<ColorType> GetColorTypes(ColorTypesFilters filters)
@@ -52,6 +70,41 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Select(colorType => colorType.RuName)
                 .Take(5)
                 .AsNoTracking();
+        }
+
+        public bool SaveColorType(ColorType colorType)
+        {
+            if(colorType.Id == default)
+            {
+                if(!ContainsColorType(colorType.Name, colorType.RuName))
+                {
+                    _context.SaveEntity(colorType, EntityState.Added);
+
+                    return true;
+                }
+            }
+            else
+            {
+                var currentVersion = GetColorType(colorType.Id);
+
+                if(currentVersion.Name != colorType.Name || currentVersion.RuName != colorType.RuName)
+                {
+                    if (!ContainsColorType(colorType.Name, colorType.RuName))
+                    {
+                        _context.SaveEntity(colorType, EntityState.Modified);
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    _context.SaveEntity(colorType, EntityState.Modified);
+
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
