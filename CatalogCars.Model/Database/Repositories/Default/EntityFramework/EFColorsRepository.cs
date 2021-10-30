@@ -3,6 +3,7 @@ using CatalogCars.Model.Database.Entities;
 using CatalogCars.Model.Database.Repositories.Default.Abstract;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Color;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,6 +18,22 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         {
             _context = context;
             _sorters = sorters;
+        }
+
+        public bool ContainsColor(string value)
+        {
+            return _context.Colors.FirstOrDefault(color => color.Value == value) != null;
+        }
+
+        public void DeleteColor(Guid id)
+        {
+            _context.Colors.Remove(GetColor(id));
+            _context.SaveChanges();
+        }
+
+        public Color GetColor(Guid id)
+        {
+            return _context.Colors.FirstOrDefault(color => color.Id == id);
         }
 
         public IQueryable<Color> GetColors(ColorsFilters filters)
@@ -52,6 +69,41 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Select(color => color.Value)
                 .Take(5)
                 .AsNoTracking();
+        }
+
+        public bool SaveColor(Color color)
+        {
+            if(color.Id == default)
+            {
+                if (!ContainsColor(color.Value))
+                {
+                    _context.SaveEntity(color, EntityState.Added);
+
+                    return true;
+                }
+            }
+            else
+            {
+                var currentVersion = GetColor(color.Id);
+
+                if(currentVersion.Value != color.Value)
+                {
+                    if (!ContainsColor(color.Value))
+                    {
+                        _context.SaveEntity(color, EntityState.Modified);
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    _context.SaveEntity(color, EntityState.Modified);
+
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
