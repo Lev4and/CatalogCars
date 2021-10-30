@@ -530,6 +530,12 @@ namespace CatalogCars.Model.Database
             return id;
         }
 
+        public void SaveEntity(object entity, EntityState state)
+        {
+            Entry(entity).State = state;
+            SaveChanges();
+        }
+
         public DataTable ExecuteQuery(string query, List<SqlParameter> sqlParameters)
         {
             var dataTable = new DataTable();

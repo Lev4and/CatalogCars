@@ -3,6 +3,7 @@ using CatalogCars.Model.Database.Entities;
 using CatalogCars.Model.Database.Repositories.Default.Abstract;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Availability;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,6 +18,18 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         {
             _context = context;
             _sorters = sorters;
+        }
+
+        public bool ContainsAvailability(string name, string ruName)
+        {
+            return _context.Availabilities.FirstOrDefault(availability =>
+                availability.Name == name || availability.RuName == ruName) != null;
+        }
+
+        public void DeleteAvailability(Guid id)
+        {
+            _context.Availabilities.Remove(GetAvailability(id));
+            _context.SaveChanges();
         }
 
         public IQueryable<Availability> GetAvailabilities(AvailabilitiesFilters filters)
@@ -43,6 +56,11 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .AsNoTracking();
         }
 
+        public Availability GetAvailability(Guid id)
+        {
+            return _context.Availabilities.FirstOrDefault(availability => availability.Id == id);
+        }
+
         public int GetCountAvailabilities(AvailabilitiesFilters filters)
         {
             return _context.Availabilities
@@ -58,6 +76,41 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Select(availability => availability.RuName)
                 .Take(5)
                 .AsNoTracking();
+        }
+
+        public bool SaveAvailability(Availability availability)
+        {
+            if(availability.Id == default)
+            {
+                if(!ContainsAvailability(availability.Name, availability.RuName))
+                {
+                    _context.SaveEntity(availability, EntityState.Added);
+
+                    return true;
+                }
+            }
+            else
+            {
+                var currentVersion = GetAvailability(availability.Id);
+
+                if(currentVersion.Name != availability.Name || currentVersion.RuName != availability.RuName)
+                {
+                    if (!ContainsAvailability(availability.Name, availability.RuName))
+                    {
+                        _context.SaveEntity(availability, EntityState.Modified);
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    _context.SaveEntity(availability, EntityState.Modified);
+
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

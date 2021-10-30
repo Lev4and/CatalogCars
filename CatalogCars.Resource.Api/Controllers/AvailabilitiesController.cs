@@ -2,6 +2,8 @@
 using CatalogCars.Model.Database.AuxiliaryTypes;
 using CatalogCars.Model.Database.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace CatalogCars.Resource.Api.Controllers
@@ -44,6 +46,47 @@ namespace CatalogCars.Resource.Api.Controllers
         public IActionResult Index([FromBody] AvailabilitiesFilters filters)
         {
             return Ok(_dataManager.Availabilities.GetAvailabilities(filters).ToArray());
+        }
+
+        [HttpGet("contains")]
+        [ProducesResponseType(typeof(bool), 200)]
+        public IActionResult Contains([FromQuery][Required] string name, [FromQuery][Required] string ruName)
+        {
+            return Ok(_dataManager.Availabilities.ContainsAvailability(name, ruName));
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(Availability), 200)]
+        public IActionResult Get([FromRoute] Guid id)
+        {
+            return Ok(_dataManager.Availabilities.GetAvailability(id));
+        }
+
+        [HttpPost("save")]
+        [ProducesResponseType(typeof(bool), 200)]
+        [ProducesResponseType(typeof(bool), 404)]
+        public IActionResult Add([FromBody] Availability availability)
+        {
+            if(availability.Id == default)
+            {
+                return Ok(_dataManager.Availabilities.SaveAvailability(availability));
+            }
+
+            return BadRequest(false);
+        }
+
+        [HttpPut("save")]
+        [ProducesResponseType(typeof(bool), 200)]
+        [ProducesResponseType(typeof(bool), 404)]
+        public IActionResult Update([FromBody] Availability availability)
+        {
+            if(availability.Id != default)
+            {
+                return Ok(_dataManager.Availabilities.SaveAvailability(availability));
+            }
+
+            return BadRequest(false);
         }
     }
 }
