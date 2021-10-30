@@ -3,6 +3,7 @@ using CatalogCars.Model.Database.Entities;
 using CatalogCars.Model.Database.Repositories.Default.Abstract;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.GearType;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,11 +20,28 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             _sorters = sorters;
         }
 
+        public bool ContainsGearType(string name, string ruName)
+        {
+            return _context.GearTypes.FirstOrDefault(gearType => gearType.Name == name ||
+                gearType.RuName == ruName) != null;
+        }
+
+        public void DeleteGearType(Guid id)
+        {
+            _context.GearTypes.Remove(GetGearType(id));
+            _context.SaveChanges();
+        }
+
         public int GetCountGearTypes(GearTypesFilters filters)
         {
             return _context.GearTypes
                 .Where(gearType => EF.Functions.Like(gearType.RuName, $"%{filters.SearchString}%"))
                 .Count();
+        }
+
+        public GearType GetGearType(Guid id)
+        {
+            return _context.GearTypes.FirstOrDefault(gearType => gearType.Id == id);
         }
 
         public IQueryable<GearType> GetGearTypes(GearTypesFilters filters)
@@ -58,6 +76,41 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Select(gearType => gearType.RuName)
                 .Take(5)
                 .AsNoTracking();
+        }
+
+        public bool SaveGearType(GearType gearType)
+        {
+            if(gearType.Id == default)
+            {
+                if(!ContainsGearType(gearType.Name, gearType.RuName))
+                {
+                    _context.SaveEntity(gearType, EntityState.Added);
+
+                    return true;
+                }
+            }
+            else
+            {
+                var currentVersion = GetGearType(gearType.Id);
+
+                if(currentVersion.Name != gearType.Name || currentVersion.RuName != gearType.RuName)
+                {
+                    if (!ContainsGearType(gearType.Name, gearType.RuName))
+                    {
+                        _context.SaveEntity(gearType, EntityState.Modified);
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    _context.SaveEntity(gearType, EntityState.Modified);
+
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
