@@ -3,6 +3,7 @@ using CatalogCars.Model.Database.Entities;
 using CatalogCars.Model.Database.Repositories.Default.Abstract;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.BodyType;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,6 +18,25 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         {
             _context = context;
             _sorters = sorters;
+        }
+
+        public bool ContainsBodyType(Guid bodyTypeGroupId, string name, string ruName)
+        {
+            return _context.BodyTypes.FirstOrDefault(bodyType => bodyType.BodyTypeGroupId == bodyTypeGroupId &&
+                (bodyType.Name == name || bodyType.RuName == ruName)) != null;
+        }
+
+        public void DeleteBodyType(Guid id)
+        {
+            _context.BodyTypes.Remove(GetBodyType(id));
+            _context.SaveChanges();
+        }
+
+        public BodyType GetBodyType(Guid id)
+        {
+            return _context.BodyTypes
+                .Include(bodyType => bodyType.BodyTypeGroup)
+                .FirstOrDefault(bodyType => bodyType.Id == id);
         }
 
         public IQueryable<BodyType> GetBodyTypes(BodyTypesFilters filters)
@@ -95,6 +115,42 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                     (bodyType.BodyTypeGroup.RuName != null ? bodyType.BodyTypeGroup.RuName +" - " : "") + bodyType.RuName)
                 .Take(5)
                 .AsNoTracking();
+        }
+
+        public bool SaveBodyType(BodyType bodyType)
+        {
+            if(bodyType.Id == default)
+            {
+                if(!ContainsBodyType(bodyType.BodyTypeGroupId, bodyType.Name, bodyType.RuName))
+                {
+                    _context.SaveEntity(bodyType, EntityState.Added);
+
+                    return true;
+                }
+            }
+            else
+            {
+                var currentVersion = GetBodyType(bodyType.Id);
+
+                if(currentVersion.BodyTypeGroupId != bodyType.BodyTypeGroupId || 
+                   currentVersion.Name != bodyType.Name  || currentVersion.RuName != bodyType.RuName)
+                {
+                    if (!ContainsBodyType(bodyType.BodyTypeGroupId, bodyType.Name, bodyType.RuName))
+                    {
+                        _context.SaveEntity(bodyType, EntityState.Modified);
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    _context.SaveEntity(bodyType, EntityState.Modified);
+
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

@@ -2,6 +2,8 @@
 using CatalogCars.Model.Database.AuxiliaryTypes;
 using CatalogCars.Model.Database.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace CatalogCars.Resource.Api.Controllers
@@ -51,6 +53,56 @@ namespace CatalogCars.Resource.Api.Controllers
         public IActionResult BodyTypesOfBodyTypeGroups([FromBody] BodyTypesFilters filters)
         {
             return Ok(_dataManager.BodyTypes.GetBodyTypesOfBodyTypeGroups(filters).ToArray());
+        }
+
+        [HttpGet("contains")]
+        [ProducesResponseType(typeof(bool), 200)]
+        public IActionResult Contains([FromQuery][Required] Guid bodyTypeGroupId, [FromQuery][Required] string name, [FromQuery][Required] string ruName)
+        {
+            return Ok(_dataManager.BodyTypes.ContainsBodyType(bodyTypeGroupId, name, ruName));
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(BodyType), 200)]
+        public IActionResult Get([FromRoute] Guid id)
+        {
+            return Ok(_dataManager.BodyTypes.GetBodyType(id));
+        }
+
+        [HttpPost("save")]
+        [ProducesResponseType(typeof(bool), 200)]
+        [ProducesResponseType(typeof(bool), 404)]
+        public IActionResult Add([FromBody] BodyType bodyType)
+        {
+            if(bodyType.Id == default)
+            {
+                return Ok(_dataManager.BodyTypes.SaveBodyType(bodyType));
+            }
+
+            return BadRequest(false);
+        }
+
+        [HttpPut("save")]
+        [ProducesResponseType(typeof(bool), 200)]
+        [ProducesResponseType(typeof(bool), 404)]
+        public IActionResult Update([FromBody] BodyType bodyType)
+        {
+            if (bodyType.Id != default)
+            {
+                return Ok(_dataManager.BodyTypes.SaveBodyType(bodyType));
+            }
+
+            return BadRequest(false);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete([FromRoute] Guid id)
+        {
+            _dataManager.BodyTypes.DeleteBodyType(id);
+
+            return Ok();
         }
     }
 }
