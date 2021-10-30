@@ -20,6 +20,26 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             _sorters = sorters;
         }
 
+        public bool ContainsCoordinate(Guid locationId, double latitude, double longitude)
+        {
+            return _context.Coordinates.FirstOrDefault(coordinate => coordinate.LocationId == locationId &&
+                coordinate.Latitude == latitude && coordinate.Longitude == longitude) != null;
+        }
+
+        public void DeleteCoordinate(Guid id)
+        {
+            _context.Coordinates.Remove(GetCoordinate(id));
+            _context.SaveChanges();
+        }
+
+        public Coordinate GetCoordinate(Guid id)
+        {
+            return _context.Coordinates
+                .Include(coordinate => coordinate.Location)
+                    .ThenInclude(location => location.Region)
+                .FirstOrDefault(coordinate => coordinate.Id == id);
+        }
+
         public IQueryable<Coordinate> GetCoordinates(CoordinatesFilters filters)
         {
             var sorter = _sorters.FirstOrDefault(sorter => sorter.SortingOption == filters.SortingOption);
@@ -79,6 +99,42 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                             coordinate.Latitude + " " + coordinate.Longitude + ")")
                 .Take(5)
                 .AsNoTracking();
+        }
+
+        public bool SaveCoordinate(Coordinate coordinate)
+        {
+            if(coordinate.Id == default)
+            {
+                if(!ContainsCoordinate(coordinate.LocationId, coordinate.Latitude, coordinate.Longitude))
+                {
+                    _context.SaveEntity(coordinate, EntityState.Added);
+
+                    return true;
+                }
+            }
+            else
+            {
+                var currentVersion = GetCoordinate(coordinate.Id);
+
+                if(currentVersion.LocationId != coordinate.LocationId || currentVersion.Latitude != coordinate.Latitude || 
+                    currentVersion.Longitude != coordinate.Longitude)
+                {
+                    if (!ContainsCoordinate(coordinate.LocationId, coordinate.Latitude, coordinate.Longitude))
+                    {
+                        _context.SaveEntity(coordinate, EntityState.Modified);
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    _context.SaveEntity(coordinate, EntityState.Modified);
+
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
