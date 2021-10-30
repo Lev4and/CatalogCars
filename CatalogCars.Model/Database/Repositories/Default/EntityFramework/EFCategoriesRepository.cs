@@ -3,6 +3,7 @@ using CatalogCars.Model.Database.Entities;
 using CatalogCars.Model.Database.Repositories.Default.Abstract;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Category;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,6 +18,18 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         {
             _context = context;
             _sorters = sorters;
+        }
+
+        public bool ContainsCategory(string name, string ruName)
+        {
+            return _context.Categories.FirstOrDefault(category => category.Name == name ||
+                category.RuName == ruName) != null;
+        }
+
+        public void DeleteCategory(Guid id)
+        {
+            _context.Categories.Remove(GetCategory(id));
+            _context.SaveChanges();
         }
 
         public IQueryable<Category> GetCategories(CategoriesFilters filters)
@@ -37,6 +50,11 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .AsNoTracking();
         }
 
+        public Category GetCategory(Guid id)
+        {
+            return _context.Categories.FirstOrDefault(category => category.Id == id);
+        }
+
         public int GetCountCategories(CategoriesFilters filters)
         {
             return _context.Categories
@@ -52,6 +70,41 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Select(category => category.RuName)
                 .Take(5)
                 .AsNoTracking();
+        }
+
+        public bool SaveCategory(Category category)
+        {
+            if(category.Id == default)
+            {
+                if(!ContainsCategory(category.Name, category.RuName))
+                {
+                    _context.SaveEntity(category, EntityState.Added);
+
+                    return true;
+                }
+            }
+            else
+            {
+                var currentVersion = GetCategory(category.Id);
+
+                if(currentVersion.Name != category.Name || currentVersion.RuName != category.RuName)
+                {
+                    if (!ContainsCategory(category.Name, category.RuName))
+                    {
+                        _context.SaveEntity(category, EntityState.Modified);
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    _context.SaveEntity(category, EntityState.Modified);
+
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
