@@ -88,5 +88,14 @@ namespace CatalogCars.Resource.Api.Controllers
 
             return BadRequest(false);
         }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete([FromRoute] Guid id)
+        {
+            _dataManager.Availabilities.DeleteAvailability(id);
+
+            return Ok();
+        }
     }
 }

@@ -3,6 +3,7 @@ using CatalogCars.Model.Database.Entities;
 using CatalogCars.Model.Database.Repositories.Default.Abstract;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.BodyTypeGroup;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,6 +18,23 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         {
             _context = context;
             _sorters = sorters;
+        }
+
+        public bool ContainsBodyTypeGroup(string autoClass, string ruName)
+        {
+            return _context.BodyTypeGroups.FirstOrDefault(bodyTypeGroup =>
+                bodyTypeGroup.AutoClass == autoClass && bodyTypeGroup.RuName == ruName) != null;
+        }
+
+        public void DeleteBodyTypeGroup(Guid id)
+        {
+            _context.BodyTypeGroups.Remove(GetBodyTypeGroup(id));
+            _context.SaveChanges();
+        }
+
+        public BodyTypeGroup GetBodyTypeGroup(Guid id)
+        {
+            return _context.BodyTypeGroups.FirstOrDefault(bodyTypeGroup => bodyTypeGroup.Id == id);
         }
 
         public IQueryable<BodyTypeGroup> GetBodyTypeGroups(BodyTypeGroupsFilters filters)
@@ -69,6 +87,41 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                     " - " + (bodyTypeGroup.RuName != null ? bodyTypeGroup.RuName : "Не указано"))
                 .Take(5)
                 .AsNoTracking();
+        }
+
+        public bool SaveBodyTypeGroup(BodyTypeGroup bodyTypeGroup)
+        {
+            if(bodyTypeGroup.Id == default)
+            {
+                if(!ContainsBodyTypeGroup(bodyTypeGroup.AutoClass, bodyTypeGroup.RuName))
+                {
+                    _context.SaveEntity(bodyTypeGroup, EntityState.Added);
+
+                    return true;
+                }
+            }
+            else
+            {
+                var currentVersion = GetBodyTypeGroup(bodyTypeGroup.Id);
+
+                if(currentVersion.AutoClass != bodyTypeGroup.AutoClass || currentVersion.RuName != bodyTypeGroup.RuName)
+                {
+                    if(!ContainsBodyTypeGroup(bodyTypeGroup.AutoClass, bodyTypeGroup.RuName))
+                    {
+                        _context.SaveEntity(bodyTypeGroup, EntityState.Modified);
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    _context.SaveEntity(bodyTypeGroup, EntityState.Modified);
+
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
