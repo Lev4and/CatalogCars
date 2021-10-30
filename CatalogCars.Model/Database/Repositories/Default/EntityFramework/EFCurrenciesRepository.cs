@@ -3,6 +3,7 @@ using CatalogCars.Model.Database.Entities;
 using CatalogCars.Model.Database.Repositories.Default.Abstract;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Currency;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,6 +18,17 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         {
             _context = context;
             _sorters = sorters;
+        }
+
+        public bool ContainsCurrency(string name)
+        {
+            return _context.Currencies.FirstOrDefault(currency => currency.Name == name) != null;
+        }
+
+        public void DeleteCurrency(Guid id)
+        {
+            _context.Currencies.Remove(GetCurrency(id));
+            _context.SaveChanges();
         }
 
         public int GetCountCurrencies(CurrenciesFilters filters)
@@ -53,6 +65,11 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .AsNoTracking();
         }
 
+        public Currency GetCurrency(Guid id)
+        {
+            return _context.Currencies.FirstOrDefault(currency => currency.Id == id);
+        }
+
         public IQueryable<string> GetNamesCurrencies(string searchString)
         {
             return _context.Currencies
@@ -62,6 +79,41 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Select(currency => currency.Name + " (" + currency.Designation + ")")
                 .Take(5)
                 .AsNoTracking();
+        }
+
+        public bool SaveCurrency(Currency currency)
+        {
+            if(currency.Id == default)
+            {
+                if (!ContainsCurrency(currency.Name))
+                {
+                    _context.SaveEntity(currency, EntityState.Added);
+
+                    return true;
+                }
+            }
+            else
+            {
+                var currentVersion = GetCurrency(currency.Id);
+
+                if(currentVersion.Name != currency.Name)
+                {
+                    if (!ContainsCurrency(currency.Name))
+                    {
+                        _context.SaveEntity(currency, EntityState.Modified);
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    _context.SaveEntity(currency, EntityState.Modified);
+
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
