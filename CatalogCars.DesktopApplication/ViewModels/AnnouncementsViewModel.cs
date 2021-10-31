@@ -42,6 +42,8 @@ namespace CatalogCars.DesktopApplication.ViewModels
         private readonly TechnicalParametersRequester _technicalParametersRequester;
         private readonly AnnouncementAdditionalInformationRequester _announcementAdditionalInformationRequester;
 
+        public string SearchStringRegions { get; set; }
+
         public Pagination Pagination { get; set; }
 
         public Pagination TagsPagination { get; set; }
@@ -53,8 +55,6 @@ namespace CatalogCars.DesktopApplication.ViewModels
         public Pagination ColorsPagination { get; set; }
 
         public Pagination VendorsPagination { get; set; }
-
-        public Pagination RegionsPagination { get; set; }
 
         public Pagination OptionsPagination { get; set; }
 
@@ -78,13 +78,13 @@ namespace CatalogCars.DesktopApplication.ViewModels
 
         public VendorsFilters VendorsFilters { get; set; }
 
-        public RegionsFilters RegionsFilters { get; set; }
-
         public OptionsFilters OptionsFilters { get; set; }
 
         public BodyTypesFilters BodyTypesFilters { get; set; }
 
         public GenerationsFilters GenerationsFilters { get; set; }
+        
+        public Entities.Announcement SelectedAnnouncement { get; set; }
 
         public BodyTypeGroupsFilters BodyTypeGroupsFilters { get; set; }
 
@@ -130,10 +130,6 @@ namespace CatalogCars.DesktopApplication.ViewModels
 
         public ObservableCollection<Entities.BodyTypeGroup> BodyTypeGroups { get; set; }
 
-        public ICommand SelectedAnnouncementChanged => new AsyncCommand<Entities.Announcement>((announcement) =>
-        {
-            return OpenAnnouncementAsync(announcement);
-        });
 
         public ICommand BodyTypeGroupsScrollViewerChanged => new AsyncCommand<object>((obj) =>
         {
@@ -148,11 +144,6 @@ namespace CatalogCars.DesktopApplication.ViewModels
         public ICommand BodyTypesScrollViewerChanged => new AsyncCommand<object>((obj) =>
         {
             return BodyTypesLoadAsync(obj as ScrollChangedEventArgs);
-        });
-
-        public ICommand RegionsScrollViewerChanged => new AsyncCommand<object>((obj) =>
-        {
-            return RegionsLoadAsync(obj as ScrollChangedEventArgs);
         });
 
         public ICommand OptionsScrollViewerChanged => new AsyncCommand<object>((obj) =>
@@ -195,10 +186,20 @@ namespace CatalogCars.DesktopApplication.ViewModels
             return SearchBodyTypesAsync();
         });
 
+        public ICommand SearchStringRegionsChanged => new AsyncCommand(() =>
+        {
+            return GetRegionsAsync();
+        });
+
         public ICommand SelectedCurrencyChanged => new AsyncCommand(() =>
         {
             return UpdateRangePriceAsync();
         });
+
+        public ICommand OpenLinkOnAnnouncement => new AsyncCommand(() =>
+        {
+            return OpenLinkOnOriginalAnnouncementAsync();
+        }, () => SelectedAnnouncement != null);
 
         public ICommand SelectedModelsChanged => new AsyncCommand(() =>
         {
@@ -340,16 +341,6 @@ namespace CatalogCars.DesktopApplication.ViewModels
             };
         }
 
-        private async Task ResetRegionsPaginationAsync()
-        {
-            RegionsPagination = new Pagination()
-            {
-                NumberPage = RegionsFilters.NumberPage,
-                ItemsPerPage = RegionsFilters.ItemsPerPage,
-                CountTotalItems = (await _regionsRequester.GetCountRegionsAsync(RegionsFilters))
-            };
-        }
-
         private async Task ResetBodyTypeGroupsPaginationAsync()
         {
             BodyTypeGroupsPagination = new Pagination()
@@ -387,7 +378,6 @@ namespace CatalogCars.DesktopApplication.ViewModels
             ModelsFilters = new ModelsFilters();
             ColorsFilters = new ColorsFilters();
             VendorsFilters = new VendorsFilters();
-            RegionsFilters = new RegionsFilters();
             OptionsFilters = new OptionsFilters();
             BodyTypesFilters = new BodyTypesFilters();
             GenerationsFilters = new GenerationsFilters();
@@ -523,7 +513,6 @@ namespace CatalogCars.DesktopApplication.ViewModels
             await ResetModelsPaginationAsync();
             await ResetColorsPaginationAsync();
             await ResetVendorsPaginationAsync();
-            await ResetRegionsPaginationAsync();
             await ResetOptionsPaginationAsync();
             await ResetBodyTypesPaginationAsync();
             await ResetGenerationsPaginationAsync();
@@ -536,7 +525,6 @@ namespace CatalogCars.DesktopApplication.ViewModels
             await SearchModelsAsync();
             await SearchColorsAsync();
             await SearchVendorsAsync();
-            await SearchRegionsAsync();
             await SearchOptionsAsync();
             await SearchBodyTypesAsync();
             await SearchGenerationsAsync();
@@ -558,6 +546,12 @@ namespace CatalogCars.DesktopApplication.ViewModels
         {
             NamesGenerations = new ObservableCollection<string>((await _generationsRequester
                 .GetNamesGenerationsAsync(Filters.SearchString)).ToList());
+        }
+
+        private async Task GetRegionsAsync()
+        {
+            Regions = new ObservableCollection<Entities.RegionInformation>((await _regionsRequester.GetRegionsAsync(new RegionsFilters() 
+                { ItemsPerPage = 5, SearchString = SearchStringRegions })).ToList());
         }
 
         private async Task SearchAsync()
@@ -642,16 +636,6 @@ namespace CatalogCars.DesktopApplication.ViewModels
                 .GetVendorsAsync(VendorsFilters)).ToList());
         }
 
-        private async Task SearchRegionsAsync()
-        {
-            RegionsFilters.ResetForSearch();
-
-            await ResetRegionsPaginationAsync();
-
-            Regions = new ObservableCollection<Entities.RegionInformation>((await _regionsRequester
-                .GetRegionsAsync(RegionsFilters)).ToList());
-        }
-
         private async Task SearchGenerationsAsync()
         {
             GenerationsFilters.ResetForSearch();
@@ -673,11 +657,11 @@ namespace CatalogCars.DesktopApplication.ViewModels
                 .GetBodyTypeGroupsAsync(BodyTypeGroupsFilters)).ToList());
         }
 
-        private async Task OpenAnnouncementAsync(Entities.Announcement announcement)
+        private async Task OpenLinkOnOriginalAnnouncementAsync()
         {
-            Process.Start(new ProcessStartInfo("cmd", $"/c start https://www.auto.ru/{announcement.Category.Name}/{announcement.Section.Name}/sale/" +
-                $"{announcement.Vehicle.Generation.Model.Mark.Code}/{announcement.Vehicle.Generation.Model.Code}/{announcement.SaleId}/")
-            { CreateNoWindow = true });
+            Process.Start(new ProcessStartInfo("cmd", $"/c start https://www.auto.ru/{SelectedAnnouncement.Category.Name}/{SelectedAnnouncement.Section.Name}/sale/" +
+                $"{SelectedAnnouncement.Vehicle.Generation.Model.Mark.Code}/{SelectedAnnouncement.Vehicle.Generation.Model.Code}/{SelectedAnnouncement.SaleId}/")
+                    { CreateNoWindow = true });
         }
 
         private async Task BodyTypeGroupsLoadAsync(ScrollChangedEventArgs eventArgs)
@@ -755,25 +739,6 @@ namespace CatalogCars.DesktopApplication.ViewModels
                     foreach (var option in options)
                     {
                         Options.Add(option);
-                    }
-                }
-            }
-        }
-
-        private async Task RegionsLoadAsync(ScrollChangedEventArgs eventArgs)
-        {
-            if ((int)(eventArgs.VerticalOffset / (eventArgs.ExtentHeight - eventArgs.ViewportHeight) * 100) >= 80)
-            {
-                if (RegionsPagination.NumberPage < RegionsPagination.MaxNumberPage)
-                {
-                    RegionsFilters.NumberPage += 1;
-                    RegionsPagination.NumberPage += 1;
-
-                    var regions = await _regionsRequester.GetRegionsAsync(RegionsFilters);
-
-                    foreach (var region in regions)
-                    {
-                        Regions.Add(region);
                     }
                 }
             }

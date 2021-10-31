@@ -363,7 +363,11 @@ namespace CatalogCars.Resource.Api
                     };
                 });
 
-            services.AddSignalR();
+            services.AddSignalR(options =>
+            {
+                options.MaximumReceiveMessageSize = 8388608;
+                options.EnableDetailedErrors = true;
+            });
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder =>

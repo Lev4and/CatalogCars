@@ -27,6 +27,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             IQueryable<Announcement> announcements = _context.Announcements
                 .Include(announcement => announcement.State)
                 .Include(announcement => announcement.Price)
+                .Include(announcement => announcement.Color)
                 .Include(announcement => announcement.Status)
                 .Include(announcement => announcement.Seller)
                     .ThenInclude(seller => seller.Location)
@@ -144,10 +145,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                     .Include(announcement => announcement.Vehicle)
                         .ThenInclude(vehicle => vehicle.Configuration)
                             .ThenInclude(vehicle => vehicle.Tags)
-                    .Where(announcement =>
-                        filters.TagsIds.All(tag => announcement.Vehicle.Configuration.Tags
-                            .Any(configurationTag => configurationTag.TagId == tag)) && filters.TagsIds.All(tag =>
-                                announcement.Tags.Any(announcementTag => announcementTag.TagId == tag)));
+                    .Where(announcement => announcement.Vehicle.Configuration.Tags.Where(tag =>
+                        filters.TagsIds.Contains(tag.TagId)).Count() == filters.TagsIds.Count ||
+                            announcement.Tags.Where(tag => filters.TagsIds.Contains(tag.TagId)).Count() == filters.TagsIds.Count);
             }
 
             if (filters.MarksIds.Count > 0)
@@ -180,20 +180,14 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                     filters.VendorsIds.Contains(announcement.Vehicle.VendorId));
             }
 
-            if (filters.RegionsIds.Count > 0)
-            {
-                announcements = announcements.Where(announcement =>
-                    filters.RegionsIds.Contains((Guid)announcement.Seller.Location.RegionId));
-            }
-
             if (filters.OptionsIds.Count > 0)
             {
                 announcements = announcements
                     .Include(announcement => announcement.Vehicle)
                         .ThenInclude(vehicle => vehicle.Complectation)
                             .ThenInclude(complectation => complectation.Options)
-                    .Where(announcement => filters.OptionsIds.All(option => announcement.Vehicle.Complectation.Options
-                        .Any(complectationOption => complectationOption.OptionId == option)));
+                    .Where(announcement => announcement.Vehicle.Complectation.Options.Where(option =>
+                        filters.OptionsIds.Contains(option.OptionId)).Count() == filters.OptionsIds.Count);
             }
 
             if (filters.BodyTypesIds.Count > 0)
@@ -207,6 +201,20 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 announcements = announcements.Where(announcement =>
                     filters.BodyTypeGroupsIds.Contains(announcement.Vehicle.Configuration
                         .BodyType.BodyTypeGroupId));
+            }
+
+            if(filters.Region != null)
+            {
+                if (filters.SearchRadius != filters.MaxSearchRadius)
+                {
+                    announcements = announcements.Where(announcement => 2 * 6371 * Math.Asin(Math.Sqrt(
+                        Math.Sin((announcement.Seller.Location.Region.Latitude * Math.PI / 180 - filters.Region.Latitude * Math.PI / 180) / 2) *
+                            Math.Sin((announcement.Seller.Location.Region.Latitude * Math.PI / 180 - filters.Region.Latitude * Math.PI / 180) / 2) +
+                                Math.Cos(filters.Region.Latitude * Math.PI / 180) *
+                                    Math.Cos(announcement.Seller.Location.Region.Latitude * Math.PI / 180) *
+                                        Math.Sin((announcement.Seller.Location.Region.Longitude * Math.PI / 180 - filters.Region.Longitude * Math.PI / 180) / 2) *
+                                            Math.Sin((announcement.Seller.Location.Region.Longitude * Math.PI / 180 - filters.Region.Longitude * Math.PI / 180) / 2))) <= filters.SearchRadius);
+                }
             }
 
             if (filters.RangePower.CheckСhanges())
@@ -324,6 +332,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                     .ThenInclude(vehicle => vehicle.Configuration)
                         .ThenInclude(configuration => configuration.BodyType)
                 .Include(announcement => announcement.Vehicle)
+                    .ThenInclude(vehicle => vehicle.Complectation)
+                        .ThenInclude(complectation => complectation.Options)
+                .Include(announcement => announcement.Vehicle)
                     .ThenInclude(vehicle => vehicle.TechnicalParameters)
                 .Include(announcement => announcement.Documents)
                     .ThenInclude(document => document.Pts)
@@ -406,15 +417,14 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
             if (filters.TagsIds.Count > 0)
             {
-                //announcements = announcements
-                //    .Include(announcement => announcement.Tags
-                //        .Where(tag => filters.TagsIds.Contains(tag.TagId)))
-                //    .Include(announcement => announcement.Vehicle)
-                //        .ThenInclude(vehicle => vehicle.Configuration)
-                //            .ThenInclude(vehicle => vehicle.Tags
-                //                .Where(tag => filters.TagsIds.Contains(tag.TagId)))
-                //    .Where(announcement => announcement.Vehicle.Configuration.Tags.Count > 0 &&
-                //            announcement.Tags.Count > 0);
+                announcements = announcements
+                    .Include(announcement => announcement.Tags)
+                    .Include(announcement => announcement.Vehicle)
+                        .ThenInclude(vehicle => vehicle.Configuration)
+                            .ThenInclude(vehicle => vehicle.Tags)
+                    .Where(announcement => announcement.Vehicle.Configuration.Tags.Where(tag =>
+                        filters.TagsIds.Contains(tag.TagId)).Count() == filters.TagsIds.Count ||
+                            announcement.Tags.Where(tag => filters.TagsIds.Contains(tag.TagId)).Count() == filters.TagsIds.Count);
             }
 
             if (filters.MarksIds.Count > 0)
@@ -447,20 +457,14 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                     filters.VendorsIds.Contains(announcement.Vehicle.VendorId));
             }
 
-            if (filters.RegionsIds.Count > 0)
-            {
-                announcements = announcements.Where(announcement =>
-                    filters.RegionsIds.Contains((Guid)announcement.Seller.Location.RegionId));
-            }
-
             if (filters.OptionsIds.Count > 0)
             {
-                //announcements = announcements
-                //    .Include(announcement => announcement.Vehicle)
-                //        .ThenInclude(vehicle => vehicle.Complectation)
-                //            .ThenInclude(complectation => complectation.Options)
-                //    .Where(announcement => filters.OptionsIds.All(option => announcement.Vehicle.Complectation.Options
-                //        .Any(complectationOption => complectationOption.OptionId == option)));
+                announcements = announcements
+                    .Include(announcement => announcement.Vehicle)
+                        .ThenInclude(vehicle => vehicle.Complectation)
+                            .ThenInclude(complectation => complectation.Options)
+                    .Where(announcement => announcement.Vehicle.Complectation.Options.Where(option =>
+                        filters.OptionsIds.Contains(option.OptionId)).Count() == filters.OptionsIds.Count);
             }
 
             if (filters.BodyTypesIds.Count > 0)
@@ -474,6 +478,20 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 announcements = announcements.Where(announcement =>
                     filters.BodyTypeGroupsIds.Contains(announcement.Vehicle.Configuration
                         .BodyType.BodyTypeGroupId));
+            }
+
+            if (filters.Region != null)
+            {
+                if(filters.SearchRadius != filters.MaxSearchRadius)
+                {
+                    announcements = announcements.Where(announcement => 2 * 6371 * Math.Asin(Math.Sqrt(
+                        Math.Sin((announcement.Seller.Location.Region.Latitude * Math.PI / 180 - filters.Region.Latitude * Math.PI / 180) / 2) *
+                            Math.Sin((announcement.Seller.Location.Region.Latitude * Math.PI / 180 - filters.Region.Latitude * Math.PI / 180) / 2) +
+                                Math.Cos(filters.Region.Latitude * Math.PI / 180) *
+                                    Math.Cos(announcement.Seller.Location.Region.Latitude * Math.PI / 180) *
+                                        Math.Sin((announcement.Seller.Location.Region.Longitude * Math.PI / 180 - filters.Region.Longitude * Math.PI / 180) / 2) *
+                                            Math.Sin((announcement.Seller.Location.Region.Longitude * Math.PI / 180 - filters.Region.Longitude * Math.PI / 180) / 2))) <= filters.SearchRadius);
+                }
             }
 
             if (filters.RangePower.CheckСhanges())

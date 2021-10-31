@@ -18,13 +18,13 @@ namespace CatalogCars.Resource.Requests.HubClients
             }));
         }
 
-        public async Task Send()
+        public async Task Send(Announcement[] announcements)
         {
             IsBusy = true;
 
             try
             {
-                await _connection.InvokeAsync("Send");
+                await _connection.InvokeAsync("Send", announcements);
             }
             catch (Exception ex)
             {

@@ -53,4 +53,8 @@
     <Style x:Key="BreakButtonStyle" TargetType="Button">
         <Setter Property="Template" Value="{StaticResource BreakButtonTemplate}" />
     </Style>
+
+    <Style x:Key="OpenInBrowserButtonStyle" TargetType="Button">
+        <Setter Property="Template" Value="{StaticResource OpenInBrowserButtonTemplate}" />
+    </Style>
 </ResourceDictionary>

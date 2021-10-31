@@ -7,6 +7,10 @@ namespace CatalogCars.DesktopApplication.ViewModels.Locators
     {
         private static ServiceProvider _provider;
 
+        public AnnouncementsOnlineSearchSaveViewModel AnnouncementsOnlineSearchSaveViewModel => _provider.GetRequiredService<AnnouncementsOnlineSearchSaveViewModel>();
+
+        public AnnouncementsOnlineSearchViewModel AnnouncementsOnlineSearchViewModel => _provider.GetRequiredService<AnnouncementsOnlineSearchViewModel>();
+
         public AnnouncementsOnlineViewModel AnnouncementsOnlineViewModel => _provider.GetRequiredService<AnnouncementsOnlineViewModel>();
 
         public AnnouncementsViewModel AnnouncementsViewModel => _provider.GetRequiredService<AnnouncementsViewModel>();
@@ -83,6 +87,8 @@ namespace CatalogCars.DesktopApplication.ViewModels.Locators
         {
             var services = new ServiceCollection();
 
+            services.AddTransient<AnnouncementsOnlineSearchSaveViewModel>();
+            services.AddTransient<AnnouncementsOnlineSearchViewModel>();
             services.AddTransient<AnnouncementsOnlineViewModel>();
             services.AddTransient<AnnouncementsViewModel>();
             services.AddTransient<AvailabilitiesViewModel>();

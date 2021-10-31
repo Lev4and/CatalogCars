@@ -43,7 +43,6 @@ namespace CatalogCars.DesktopApplication.ViewModels
             Announcements = new ObservableCollection<AutoRu.Announcement>();
 
             await _announcementsHubClient.Connect();
-            await _announcementsHubClient.Send();
         }
 
         private async Task UnloadedAsync()
@@ -67,19 +66,11 @@ namespace CatalogCars.DesktopApplication.ViewModels
                 {
                     var announcements = eventArgs.Announcements.ToList();
 
-                    if (Announcements.Count > 0) 
-                    {
-                        announcements = announcements.Where(recentAnnouncement =>
-                            !Announcements.Any(announcement => announcement.SaleId == recentAnnouncement.SaleId)).ToList();
-                    }
-
                     foreach (var announcement in announcements)
                     {
                         Announcements.Insert(0, announcement);
                     }
                 }
-
-                await _announcementsHubClient.Send();
             }
         }
     }

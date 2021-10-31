@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CatalogCars.Model.Database.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace CatalogCars.Model.Database.AuxiliaryTypes
@@ -12,6 +13,10 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
         public bool? IsOriginal { get; set; }
 
         public int NumberPage { get; set; }
+
+        public int MaxSearchRadius => 20100;
+
+        public int SearchRadius { get; set; }
 
         public int ItemsPerPage { get; set; }
 
@@ -40,6 +45,8 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
         public RangePower RangePower { get; set; }
 
         public RangePrice RangePrice { get; set; }
+
+        public RegionInformation Region { get; set; }
 
         public RangeMileage RangeMileage { get; set; }
 
@@ -104,6 +111,7 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
             IsBeaten = null;
             IsOriginal = null;
             NumberPage = 1;
+            SearchRadius = MaxSearchRadius;
             ItemsPerPage = 25;
             SearchString = "";
             SortingOption = SortingOption.Default;
@@ -126,6 +134,7 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
             BodyTypesIds = new List<Guid>();
             GenerationsIds = new List<Guid>();
             BodyTypeGroupsIds = new List<Guid>();
+            Region = null;
             RangePower = new RangePower(0, 0);
             RangePrice = new RangePrice(0, 0);
             RangeMileage = new RangeMileage(0, 0);

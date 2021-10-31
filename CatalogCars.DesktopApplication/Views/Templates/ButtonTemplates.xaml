@@ -258,4 +258,24 @@
                 Kind="TextBoxRemove" />
         </Button>
     </ControlTemplate>
+
+    <ControlTemplate x:Key="OpenInBrowserButtonTemplate" TargetType="Button">
+        <Button
+            x:Name="Button"
+            Width="40"
+            Height="40"
+            MaxWidth="{Binding ElementName=Button, Path=Width}"
+            MaxHeight="{Binding ElementName=Button, Path=Height}"
+            Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+            ToolTip="Открыть в браузере">
+            <mdt:PackIcon
+                Width="Auto"
+                Height="Auto"
+                MaxWidth="{Binding ElementName=Button, Path=Width}"
+                MaxHeight="{Binding ElementName=Button, Path=Height}"
+                Margin="5"
+                Foreground="Blue"
+                Kind="OpenInBrowser" />
+        </Button>
+    </ControlTemplate>
 </ResourceDictionary>

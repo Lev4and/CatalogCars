@@ -19,6 +19,9 @@
     DataContext="{Binding ColorsViewModel, Source={StaticResource ViewModelLocator}}"
     WindowTitle="CatalogCars - Цвета"
     mc:Ignorable="d">
+    <Page.Resources>
+        <c:HexNumberToSolidColorBrush x:Key="HexNumberToSolidColorBrush" />
+    </Page.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding Path=Loaded}" />
@@ -80,6 +83,33 @@
                             <i:InvokeCommandAction Command="{Binding Path=SearchStringChanged}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" Margin="0,0,5,0">
+                                    <Border
+                                        Width="25"
+                                        Height="25"
+                                        VerticalAlignment="Center"
+                                        BorderBrush="Black"
+                                        BorderThickness="1"
+                                        CornerRadius="12.5">
+                                        <Rectangle
+                                            Fill="{Binding Converter={StaticResource HexNumberToSolidColorBrush}}"
+                                            RadiusX="12.5"
+                                            RadiusY="12.5" />
+                                    </Border>
+                                </Grid>
+                                <Grid Grid.Column="1" Margin="5,0,0,0">
+                                    <TextBlock Text="{Binding}" />
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
                 </ComboBox>
             </Grid>
             <Grid Grid.Column="1" Margin="5,0,0,0">
@@ -188,20 +218,29 @@
                         <DataGridTemplateColumn Header="Значение">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=Value}">
-                                        <TextBlock.Style>
-                                            <Style TargetType="TextBlock">
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Value}" Value="{x:Null}">
-                                                        <Setter Property="Text" Value="Неизвестно" />
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Value}" Value="">
-                                                        <Setter Property="Text" Value="Неизвестно" />
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Column="0" Margin="0,0,5,0">
+                                            <Border
+                                                Width="25"
+                                                Height="25"
+                                                VerticalAlignment="Center"
+                                                BorderBrush="Black"
+                                                BorderThickness="1"
+                                                CornerRadius="12.5">
+                                                <Rectangle
+                                                    Fill="{Binding Path=Value, Converter={StaticResource HexNumberToSolidColorBrush}}"
+                                                    RadiusX="12.5"
+                                                    RadiusY="12.5" />
+                                            </Border>
+                                        </Grid>
+                                        <Grid Grid.Column="1" Margin="5,0,0,0">
+                                            <TextBlock VerticalAlignment="Center" Text="{Binding Path=Value}" />
+                                        </Grid>
+                                    </Grid>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

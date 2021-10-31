@@ -20,7 +20,9 @@
     WindowTitle="CatalogCars - Объявления"
     mc:Ignorable="d">
     <Page.Resources>
+        <c:TextToDouble x:Key="TextToDouble" />
         <c:UrlToBitmapImage x:Key="UrlToBitmapImage" />
+        <c:HexNumberToSolidColorBrush x:Key="HexNumberToSolidColorBrush" />
         <c:ObjectCollectionToGuidCollection x:Key="ObjectCollectionToGuidCollection" />
     </Page.Resources>
     <i:Interaction.Triggers>
@@ -43,6 +45,7 @@
             Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" Margin="0,0,5,0">
@@ -54,6 +57,19 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i:InvokeCommandAction Command="{Binding Path=Info}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </Grid>
+            <Grid Grid.Column="1" Margin="5,0">
+                <Button
+                    Width="50"
+                    Height="50"
+                    Command="{Binding Path=OpenLinkOnAnnouncement}"
+                    Style="{StaticResource OpenInBrowserButtonStyle}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding Path=OpenLinkOnAnnouncement}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
@@ -156,7 +172,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <Grid Grid.Row="1">
+                            <Grid Grid.Row="0">
                                 <ComboBox
                                     x:Name="SortingOptionsComboBox"
                                     mdt:HintAssist.HelperText="Укажите способ сортировки"
@@ -174,7 +190,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <Grid Grid.Row="1">
+                            <Grid Grid.Row="0">
                                 <ComboBox
                                     x:Name="WarrantyValuesComboBox"
                                     mdt:HintAssist.HelperText="Укажите наличие гарантии"
@@ -192,7 +208,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <Grid Grid.Row="1">
+                            <Grid Grid.Row="0">
                                 <ComboBox
                                     x:Name="IsBeatenValuesComboBox"
                                     mdt:HintAssist.HelperText="Укажите битая ли или нет"
@@ -210,7 +226,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <Grid Grid.Row="1">
+                            <Grid Grid.Row="0">
                                 <ComboBox
                                     x:Name="IsOriginalValuesComboBox"
                                     mdt:HintAssist.HelperText="Укажите является ли оригинальной ПТС"
@@ -228,7 +244,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <Grid Grid.Row="1">
+                            <Grid Grid.Row="0">
                                 <ComboBox
                                     x:Name="StatusesComboBox"
                                     mdt:HintAssist.HelperText="Укажите статус"
@@ -246,7 +262,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <Grid Grid.Row="1">
+                            <Grid Grid.Row="0">
                                 <ComboBox
                                     x:Name="SectionsComboBox"
                                     mdt:HintAssist.HelperText="Укажите раздел"
@@ -264,7 +280,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <Grid Grid.Row="1">
+                            <Grid Grid.Row="0">
                                 <ComboBox
                                     x:Name="CurrenciesComboBox"
                                     mdt:HintAssist.HelperText="Укажите валюту"
@@ -288,7 +304,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <Grid Grid.Row="1">
+                            <Grid Grid.Row="0">
                                 <ComboBox
                                     x:Name="GearTypesComboBox"
                                     mdt:HintAssist.HelperText="Укажите тип привода"
@@ -306,7 +322,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <Grid Grid.Row="1">
+                            <Grid Grid.Row="0">
                                 <ComboBox
                                     x:Name="EngineTypesComboBox"
                                     mdt:HintAssist.HelperText="Укажите тип двигателя"
@@ -324,7 +340,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <Grid Grid.Row="1">
+                            <Grid Grid.Row="0">
                                 <ComboBox
                                     x:Name="SellerTypesComboBox"
                                     mdt:HintAssist.HelperText="Укажите тип продавца"
@@ -342,7 +358,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <Grid Grid.Row="1">
+                            <Grid Grid.Row="0">
                                 <ComboBox
                                     x:Name="TransmissionsComboBox"
                                     mdt:HintAssist.HelperText="Укажите тип передач"
@@ -360,7 +376,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <Grid Grid.Row="1">
+                            <Grid Grid.Row="0">
                                 <ComboBox
                                     x:Name="AvailabilitiesComboBox"
                                     mdt:HintAssist.HelperText="Укажите вид доступности"
@@ -378,7 +394,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <Grid Grid.Row="1">
+                            <Grid Grid.Row="0">
                                 <ComboBox
                                     x:Name="SteeringWheelsComboBox"
                                     mdt:HintAssist.HelperText="Укажите рулевое колесо"
@@ -392,7 +408,76 @@
                                     ToolTip="{Binding ElementName=SteeringWheelsComboBox, Path=Text}" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="13" Margin="0,10,0,10">
+                        <Grid Grid.Row="13" Margin="0,5,0,10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="0,0,0,25">
+                                <ComboBox
+                                    x:Name="RegionsComboBox"
+                                    mdt:HintAssist.HelperText="Укажите регион"
+                                    mdt:HintAssist.Hint="Регион"
+                                    DisplayMemberPath="Name"
+                                    FontSize="14"
+                                    FontWeight="Medium"
+                                    IsEditable="True"
+                                    IsTextSearchEnabled="False"
+                                    ItemsSource="{Binding Path=Regions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    SelectedValue="{Binding Path=Filters.Region, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    Text="{Binding Path=SearchStringRegions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    ToolTip="{Binding ElementName=RegionsComboBox, Path=Text}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="KeyUp">
+                                            <i:InvokeCommandAction Command="{Binding Path=SearchStringRegionsChanged}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ComboBox>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="30" />
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0" Margin="0,0,0,5">
+                                    <TextBlock
+                                        FontSize="18"
+                                        FontWeight="Medium"
+                                        Text="Радиус поиска (км)"
+                                        TextAlignment="Center" />
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="75" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <Label
+                                            VerticalContentAlignment="Center"
+                                            Content="До:"
+                                            FontSize="14" />
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <Slider
+                                            VerticalAlignment="Center"
+                                            Maximum="{Binding Path=Filters.MaxSearchRadius, UpdateSourceTrigger=PropertyChanged}"
+                                            Minimum="0"
+                                            TickFrequency="1"
+                                            Value="{Binding Path=Filters.SearchRadius, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                    </Grid>
+                                    <Grid Grid.Column="2">
+                                        <TextBox
+                                            VerticalAlignment="Center"
+                                            VerticalContentAlignment="Center"
+                                            FontSize="14"
+                                            Text="{Binding Path=Filters.SearchRadius, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource TextToDouble}}"
+                                            TextAlignment="Right" />
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="14" Margin="0,10,0,10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -449,7 +534,7 @@
                                 </Expander>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="14" Margin="0,10,0,10">
+                        <Grid Grid.Row="15" Margin="0,10,0,10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -513,7 +598,7 @@
                                 </Expander>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="15" Margin="0,10,0,10">
+                        <Grid Grid.Row="16" Margin="0,10,0,10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -575,7 +660,7 @@
                                 </Expander>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="16" Margin="0,10,0,10">
+                        <Grid Grid.Row="17" Margin="0,10,0,10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -638,7 +723,7 @@
                                 </Expander>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="17" Margin="0,10,0,10">
+                        <Grid Grid.Row="18" Margin="0,10,0,10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -699,60 +784,6 @@
                                 </Expander>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="18" Margin="0,10,0,10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="1">
-                                <Expander
-                                    MaxHeight="400"
-                                    HorizontalAlignment="Stretch"
-                                    Background="#673AB7">
-                                    <Expander.Header>
-                                        <TextBlock
-                                            Padding="0"
-                                            FontSize="20"
-                                            FontWeight="Medium"
-                                            Foreground="White"
-                                            Text="Регионы" />
-                                    </Expander.Header>
-                                    <uc:XListBox
-                                        Height="150"
-                                        Background="White"
-                                        DisplayMemberPath="Name"
-                                        FontSize="14"
-                                        ItemsSource="{Binding Path=Regions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                        SelectedValuePath="Id"
-                                        SelectionMode="Multiple"
-                                        XSelectedItems="{Binding Path=Filters.RegionsIds, Converter={StaticResource ObjectCollectionToGuidCollection}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                        <i:Interaction.Triggers>
-                                            <et:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
-                                                <ta:CustomCommandAction Command="{Binding RegionsScrollViewerChanged}" />
-                                            </et:RoutedEventTrigger>
-                                        </i:Interaction.Triggers>
-                                        <ListBox.ItemContainerStyle>
-                                            <Style TargetType="{x:Type ListBoxItem}">
-                                                <Setter Property="Margin" Value="5" />
-                                                <Setter Property="Padding" Value="5" />
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                                            <CheckBox
-                                                                VerticalAlignment="Center"
-                                                                VerticalContentAlignment="Center"
-                                                                Focusable="False"
-                                                                IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource Mode=TemplatedParent}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                                                <ContentPresenter />
-                                                            </CheckBox>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Style>
-                                        </ListBox.ItemContainerStyle>
-                                    </uc:XListBox>
-                                </Expander>
-                            </Grid>
-                        </Grid>
                         <Grid Grid.Row="19" Margin="0,10,0,10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -796,7 +827,35 @@
                                                                 VerticalContentAlignment="Center"
                                                                 Focusable="False"
                                                                 IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource Mode=TemplatedParent}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                                                <ContentPresenter />
+                                                                <Grid>
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="Auto" />
+                                                                        <ColumnDefinition />
+                                                                    </Grid.ColumnDefinitions>
+                                                                    <Grid Grid.Column="0" Margin="0,0,5,0">
+                                                                        <Border
+                                                                            Width="15"
+                                                                            Height="15"
+                                                                            VerticalAlignment="Center"
+                                                                            BorderBrush="Black"
+                                                                            BorderThickness="1"
+                                                                            CornerRadius="7.5">
+                                                                            <Rectangle
+                                                                                Fill="{Binding Path=Value, Converter={StaticResource HexNumberToSolidColorBrush}}"
+                                                                                RadiusX="7.5"
+                                                                                RadiusY="7.5" />
+                                                                        </Border>
+                                                                    </Grid>
+                                                                    <Grid Grid.Column="1" Margin="5,0,0,0">
+                                                                        <TextBlock>
+                                                                            <TextBlock.Text>
+                                                                                <MultiBinding StringFormat="{}#FF{0}">
+                                                                                    <Binding Path="Value" />
+                                                                                </MultiBinding>
+                                                                            </TextBlock.Text>
+                                                                        </TextBlock>
+                                                                    </Grid>
+                                                                </Grid>
                                                             </CheckBox>
                                                         </ControlTemplate>
                                                     </Setter.Value>
@@ -1283,14 +1342,15 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
-                <ListBox x:Name="AnnouncementsListBox" HorizontalContentAlignment="Stretch" ItemsSource="{Binding Path=Announcements, UpdateSourceTrigger=PropertyChanged}">
+                <ListBox
+                    x:Name="AnnouncementsListBox"
+                    HorizontalContentAlignment="Stretch"
+                    ItemsSource="{Binding Path=Announcements, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedValue="{Binding Path=SelectedAnnouncement, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <i:Interaction.Triggers>
                         <et:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
                             <ta:CustomCommandAction Command="{Binding ScrollViewerChanged}" />
                         </et:RoutedEventTrigger>
-                        <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction Command="{Binding Path=SelectedAnnouncementChanged}" CommandParameter="{Binding ElementName=AnnouncementsListBox, Path=SelectedValue}" />
-                        </i:EventTrigger>
                     </i:Interaction.Triggers>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -1426,6 +1486,32 @@
                                                         </Grid>
                                                         <Grid Grid.Column="1" Margin="2.5,0">
                                                             <TextBlock FontSize="14" Text="{Binding Path=Vehicle.SteeringWheel.RuName}" />
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid Grid.Column="0" Margin="2.5,0">
+                                                            <mdt:PackIcon
+                                                                VerticalAlignment="Center"
+                                                                Kind="Palette"
+                                                                ToolTip="Цвет" />
+                                                        </Grid>
+                                                        <Grid Grid.Column="1" Margin="2.5,0">
+                                                            <Border
+                                                                Width="15"
+                                                                Height="15"
+                                                                VerticalAlignment="Center"
+                                                                BorderBrush="Black"
+                                                                BorderThickness="1"
+                                                                CornerRadius="7.5">
+                                                                <Rectangle
+                                                                    Fill="{Binding Path=Color.Value, Converter={StaticResource HexNumberToSolidColorBrush}}"
+                                                                    RadiusX="7.5"
+                                                                    RadiusY="7.5" />
+                                                            </Border>
                                                         </Grid>
                                                     </Grid>
                                                     <Grid>
