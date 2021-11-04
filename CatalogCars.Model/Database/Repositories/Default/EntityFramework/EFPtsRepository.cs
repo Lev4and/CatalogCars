@@ -18,10 +18,22 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Max(pts => pts.OwnersNumber);
         }
 
+        public int? GetMaxYear()
+        {
+            return _context.Pts
+                .Max(pts => pts.Year);
+        }
+
         public int? GetMinOwnersNumber()
         {
             return _context.Pts
                 .Min(pts => pts.OwnersNumber);
+        }
+
+        public int? GetMinYear()
+        {
+            return _context.Pts
+                .Min(pts => pts.Year);
         }
     }
 }

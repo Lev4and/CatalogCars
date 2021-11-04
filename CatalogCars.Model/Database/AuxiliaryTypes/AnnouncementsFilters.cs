@@ -42,6 +42,8 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
 
         public Guid? SteeringWheelId { get; set; }
 
+        public RangeYear RangeYear { get; set; }
+
         public RangePower RangePower { get; set; }
 
         public RangePrice RangePrice { get; set; }
@@ -135,6 +137,7 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
             GenerationsIds = new List<Guid>();
             BodyTypeGroupsIds = new List<Guid>();
             Region = null;
+            RangeYear = new RangeYear(0, 0);
             RangePower = new RangePower(0, 0);
             RangePrice = new RangePrice(0, 0);
             RangeMileage = new RangeMileage(0, 0);

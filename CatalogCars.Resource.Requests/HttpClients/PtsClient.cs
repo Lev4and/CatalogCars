@@ -11,6 +11,16 @@ namespace CatalogCars.Resource.Requests.HttpClients
 
         }
 
+        public async Task<HttpResponseMessage> GetMinYearAsync()
+        {
+            return await _client.PostAsync("minYear", new StringContent("", Encoding.UTF8, "application/json"));
+        }
+
+        public async Task<HttpResponseMessage> GetMaxYearAsync()
+        {
+            return await _client.PostAsync("maxYear", new StringContent("", Encoding.UTF8, "application/json"));
+        }
+
         public async Task<HttpResponseMessage> GetMinOwnersNumberAsync()
         {
             return await _client.PostAsync("minOwnersNumber", new StringContent("", Encoding.UTF8, "application/json"));

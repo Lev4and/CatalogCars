@@ -1,8 +1,6 @@
-﻿using CatalogCars.Model.Converters.AutoRu;
-using CatalogCars.Model.Database.AuxiliaryTypes;
+﻿using CatalogCars.Model.Database.AuxiliaryTypes;
 using CatalogCars.Resource.Requests.HttpRequesters;
 using DevExpress.Mvvm;
-using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -392,16 +390,18 @@ namespace CatalogCars.DesktopApplication.ViewModels
             Transmissions = new ObservableCollection<Entities.Transmission>((await _transmissionsRequester.GetTransmissionsAsync()).ToList());
             Availabilities = new ObservableCollection<Entities.Availability>((await _availabilitiesRequester.GetAvailabilitiesAsync()).ToList());
             SteeringWheels = new ObservableCollection<Entities.SteeringWheel>((await _steeringWheelsRequester.GetSteeringWheelsAsync()).ToList());
+            
+            Filters = new AnnouncementsFilters();
+
+            var minYear = await _ptsRequester.GetMinYearAsync();
+            var maxYear = await _ptsRequester.GetMaxYearAsync();
+
+            Filters.RangeYear.SetRange(minYear, maxYear);
 
             var maxPower = await _technicalParametersRequester.GetMaxPowerAsync();
             var minPower = await _technicalParametersRequester.GetMinPowerAsync();
 
-            Filters = new AnnouncementsFilters();
-
-            Filters.RangePower.Min = minPower;
-            Filters.RangePower.From = minPower;
-            Filters.RangePower.Max = maxPower;
-            Filters.RangePower.To = maxPower;
+            Filters.RangePower.SetRange(minPower, maxPower);
 
             //Filters.RangePower = new RangePower(maxPower, minPower);
 
@@ -411,102 +411,64 @@ namespace CatalogCars.DesktopApplication.ViewModels
             //var minPrice = await _pricesRequester.GetMinPriceAsync(Guid.Parse("2a43b864-bfc3-49ba-b54c-2ccf0bab0981"));
             //var maxPrice = await _pricesRequester.GetMaxPriceAsync(Guid.Parse("2a43b864-bfc3-49ba-b54c-2ccf0bab0981"));
 
-            Filters.RangePrice.Min = 0;
-            Filters.RangePrice.From = 0;
-            Filters.RangePrice.Max = 300000000;
-            Filters.RangePrice.To = 300000000;
+            Filters.RangePrice.SetRange(0, 300000000);
 
             //Filters.RangePrice = new RangePrice(300000000, 0);
 
             var minMileage = await _statesRequester.GetMinMileageAsync();
             var maxMileage = await _statesRequester.GetMaxMileageAsync();
 
-            Filters.RangeMileage.Min = minMileage;
-            Filters.RangeMileage.From = minMileage;
-            Filters.RangeMileage.Max = maxMileage;
-            Filters.RangeMileage.To = maxMileage;
+            Filters.RangeMileage.SetRange(minMileage, maxMileage);
 
             var minPowerKvt = await _technicalParametersRequester.GetMinPowerKvtAsync();
             var maxPowerKvt = await _technicalParametersRequester.GetMaxPowerKvtAsync();
 
-            Filters.RangePowerKvt.Min = minPowerKvt;
-            Filters.RangePowerKvt.From = minPowerKvt;
-            Filters.RangePowerKvt.Max = maxPowerKvt;
-            Filters.RangePowerKvt.To = maxPowerKvt;
+            Filters.RangePowerKvt.SetRange(minPowerKvt, maxPowerKvt);
 
             var minFuelRate = await _technicalParametersRequester.GetMinFuelRateAsync();
             var maxFuelRate = await _technicalParametersRequester.GetMaxFuelRateAsync();
 
-            Filters.RangeFuelRate.Min = minFuelRate;
-            Filters.RangeFuelRate.From = minFuelRate;
-            Filters.RangeFuelRate.Max = maxFuelRate;
-            Filters.RangeFuelRate.To = maxFuelRate;
+            Filters.RangeFuelRate.SetRange(minFuelRate, maxFuelRate);
 
             var minCreatedAt = await _announcementAdditionalInformationRequester.GetMinCreatedAtAsync();
             var maxCreatedAt = await _announcementAdditionalInformationRequester.GetMaxCreatedAtAsync();
 
-            Filters.RangeCreatedAt.Min = minCreatedAt;
-            Filters.RangeCreatedAt.From = minCreatedAt;
-            Filters.RangeCreatedAt.Max = maxCreatedAt;
-            Filters.RangeCreatedAt.To = maxCreatedAt;
+            Filters.RangeCreatedAt.SetRange(minCreatedAt, maxCreatedAt);
 
             var minDoorsCount = await _configurationsRequester.GetMinDoorsCountAsync();
             var maxDoorsCount = await _configurationsRequester.GetMaxDoorsCountAsync();
 
-            Filters.RangeDoorsCount.Min = minDoorsCount;
-            Filters.RangeDoorsCount.From = minDoorsCount;
-            Filters.RangeDoorsCount.Max = maxDoorsCount;
-            Filters.RangeDoorsCount.To = maxDoorsCount;
+            Filters.RangeDoorsCount.SetRange(minDoorsCount, maxDoorsCount);
 
             var minOwnersNumber = await _ptsRequester.GetMinOwnersNumberAsync();
             var maxOwnersNumber = await _ptsRequester.GetMaxOwnersNumberAsync();
 
-            Filters.RangeOwnersNumber.Min = minOwnersNumber;
-            Filters.RangeOwnersNumber.From = minOwnersNumber;
-            Filters.RangeOwnersNumber.Max = maxOwnersNumber;
-            Filters.RangeOwnersNumber.To = maxOwnersNumber;
+            Filters.RangeOwnersNumber.SetRange(minOwnersNumber, maxOwnersNumber);
 
             var minAcceleration = await _technicalParametersRequester.GetMinAccelerationAsync();
             var maxAcceleration = await _technicalParametersRequester.GetMaxAccelerationAsync();
 
-            Filters.RangeAcceleration.Min = minAcceleration;
-            Filters.RangeAcceleration.From = minAcceleration;
-            Filters.RangeAcceleration.Max = maxAcceleration;
-            Filters.RangeAcceleration.To = maxAcceleration;
+            Filters.RangeAcceleration.SetRange(minAcceleration, maxAcceleration);
 
             var minDisplacement = await _technicalParametersRequester.GetMinDisplacementAsync();
             var maxDisplacement = await _technicalParametersRequester.GetMaxDisplacementAsync();
 
-            Filters.RangeDisplacement.Min = minDisplacement;
-            Filters.RangeDisplacement.From = minDisplacement;
-            Filters.RangeDisplacement.Max = maxDisplacement;
-            Filters.RangeDisplacement.To = maxDisplacement;
+            Filters.RangeDisplacement.SetRange(minDisplacement, maxDisplacement);
 
             var minClearanceMin = await _technicalParametersRequester.GetMinClearanceMinAsync();
             var maxClearanceMin = await _technicalParametersRequester.GetMaxClearanceMinAsync();
 
-            Filters.RangeClearanceMin.Min = minClearanceMin;
-            Filters.RangeClearanceMin.From = minClearanceMin;
-            Filters.RangeClearanceMin.Max = maxClearanceMin;
-            Filters.RangeClearanceMin.To = maxClearanceMin;
+            Filters.RangeClearanceMin.SetRange(minClearanceMin, maxClearanceMin);
 
             var minTrunkVolumeMin = await _configurationsRequester.GetMinTrunkVolumeMinAsync();
             var maxTrunkVolumeMin = await _configurationsRequester.GetMaxTrunkVolumeMinAsync();
 
-            Filters.RangeTrunkVolumeMin.Min = minTrunkVolumeMin;
-            Filters.RangeTrunkVolumeMin.From = minTrunkVolumeMin;
-            Filters.RangeTrunkVolumeMin.Max = maxTrunkVolumeMin;
-            Filters.RangeTrunkVolumeMin.To = maxTrunkVolumeMin;
+            Filters.RangeTrunkVolumeMin.SetRange(minTrunkVolumeMin, maxTrunkVolumeMin);
 
             var minTrunkVolumeMax = await _configurationsRequester.GetMinTrunkVolumeMaxAsync();
             var maxTrunkVolumeMax = await _configurationsRequester.GetMaxTrunkVolumeMaxAsync();
 
-            Filters.RangeTrunkVolumeMax.Min = minTrunkVolumeMax;
-            Filters.RangeTrunkVolumeMax.From = minTrunkVolumeMax;
-            Filters.RangeTrunkVolumeMax.Max = maxTrunkVolumeMax;
-            Filters.RangeTrunkVolumeMax.To = maxTrunkVolumeMax;
-
-            Filters.RangeTrunkVolumeMax = new RangeTrunkVolume(maxTrunkVolumeMax, minTrunkVolumeMax);
+            Filters.RangeTrunkVolumeMax.SetRange(minTrunkVolumeMax, maxTrunkVolumeMax);
 
             await ResetTagsPaginationAsync();
             await ResetMarksPaginationAsync();

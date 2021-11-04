@@ -127,48 +127,8 @@
                 FontWeight="Medium"
                 Header="Фильтры">
                 <ScrollViewer HorizontalScrollBarVisibility="Disabled">
-                    <Grid Margin="5,0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid Grid.Row="0" Margin="0,0,0,20">
+                    <StackPanel Margin="5,0">
+                        <Grid Margin="0,0,0,20">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -186,7 +146,7 @@
                                     ToolTip="{Binding ElementName=SortingOptionsComboBox, Path=Text}" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="1" Margin="0,5,0,20">
+                        <Grid Margin="0,5,0,20">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -204,7 +164,7 @@
                                     ToolTip="{Binding ElementName=WarrantyValuesComboBox, Path=Text}" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="2" Margin="0,5,0,20">
+                        <Grid Margin="0,5,0,20">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -222,7 +182,7 @@
                                     ToolTip="{Binding ElementName=IsBeatenValuesComboBox, Path=Text}" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="3" Margin="0,5,0,20">
+                        <Grid Margin="0,5,0,20">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -240,7 +200,7 @@
                                     ToolTip="{Binding ElementName=IsOriginalValuesComboBox, Path=Text}" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="4" Margin="0,5,0,20">
+                        <Grid Margin="0,5,0,20">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -258,7 +218,7 @@
                                     ToolTip="{Binding ElementName=StatusesComboBox, Path=Text}" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="5" Margin="0,5,0,20">
+                        <Grid Margin="0,5,0,20">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -276,7 +236,7 @@
                                     ToolTip="{Binding ElementName=SectionsComboBox, Path=Text}" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="6" Margin="0,5,0,20">
+                        <Grid Margin="0,5,0,20">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -300,7 +260,7 @@
                                 </ComboBox>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="7" Margin="0,5,0,20">
+                        <Grid Margin="0,5,0,20">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -318,7 +278,7 @@
                                     ToolTip="{Binding ElementName=GearTypesComboBox, Path=Text}" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="8" Margin="0,5,0,20">
+                        <Grid Margin="0,5,0,20">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -336,7 +296,7 @@
                                     ToolTip="{Binding ElementName=EngineTypesComboBox, Path=Text}" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="9" Margin="0,5,0,20">
+                        <Grid Margin="0,5,0,20">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -354,7 +314,7 @@
                                     ToolTip="{Binding ElementName=SellerTypesComboBox, Path=Text}" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="10" Margin="0,5,0,20">
+                        <Grid Margin="0,5,0,20">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -372,7 +332,7 @@
                                     ToolTip="{Binding ElementName=TransmissionsComboBox, Path=Text}" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="11" Margin="0,5,0,20">
+                        <Grid Margin="0,5,0,20">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -390,7 +350,7 @@
                                     ToolTip="{Binding ElementName=AvailabilitiesComboBox, Path=Text}" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="12" Margin="0,5,0,20">
+                        <Grid Margin="0,5,0,20">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -408,7 +368,7 @@
                                     ToolTip="{Binding ElementName=SteeringWheelsComboBox, Path=Text}" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="13" Margin="0,5,0,10">
+                        <Grid Margin="0,5,0,10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -477,7 +437,7 @@
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="14" Margin="0,10,0,10">
+                        <Grid Margin="0,10,0,10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -534,7 +494,7 @@
                                 </Expander>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="15" Margin="0,10,0,10">
+                        <Grid Margin="0,10,0,10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -598,7 +558,7 @@
                                 </Expander>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="16" Margin="0,10,0,10">
+                        <Grid Margin="0,10,0,10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -652,7 +612,7 @@
                                 </Expander>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="17" Margin="0,10,0,10">
+                        <Grid Margin="0,10,0,10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -715,7 +675,7 @@
                                 </Expander>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="18" Margin="0,10,0,10">
+                        <Grid Margin="0,10,0,10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -776,7 +736,7 @@
                                 </Expander>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="19" Margin="0,10,0,10">
+                        <Grid Margin="0,10,0,10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -858,7 +818,7 @@
                                 </Expander>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="20" Margin="0,10,0,10">
+                        <Grid Margin="0,10,0,10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -912,7 +872,7 @@
                                 </Expander>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="21" Margin="0,10,0,10">
+                        <Grid Margin="0,10,0,10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -966,7 +926,7 @@
                                 </Expander>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="22" Margin="0,10,0,10">
+                        <Grid Margin="0,10,0,10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -1020,7 +980,28 @@
                                 </Expander>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="23" Margin="0,5">
+                        <Grid Margin="0,5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="0,0,0,5">
+                                <TextBlock
+                                    FontSize="18"
+                                    Text="Год выпуска"
+                                    TextAlignment="Center" />
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <uc:DoubleSlider
+                                    BeginValue="{Binding Path=Filters.RangeYear.From, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    EndValue="{Binding Path=Filters.RangeYear.To, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    IsSnapToTickEnabled="True"
+                                    MaxValue="{Binding Path=Filters.RangeYear.Max, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    MinValue="{Binding Path=Filters.RangeYear.Min, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    TickFrequency="1" />
+                            </Grid>
+                        </Grid>
+                        <Grid Margin="0,5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -1041,7 +1022,7 @@
                                     TickFrequency="1" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="24" Margin="0,5">
+                        <Grid Margin="0,5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -1063,7 +1044,7 @@
                                     TickFrequency="10000" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="25" Margin="0,5">
+                        <Grid Margin="0,5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -1084,7 +1065,7 @@
                                     TickFrequency="1000" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="26" Margin="0,5">
+                        <Grid Margin="0,5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -1105,7 +1086,7 @@
                                     TickFrequency="1" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="27" Margin="0,5">
+                        <Grid Margin="0,5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -1126,7 +1107,7 @@
                                     TickFrequency="0.1" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="28" Margin="0,5">
+                        <Grid Margin="0,5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -1145,7 +1126,7 @@
                                     MinSelectedDate="{Binding Path=Filters.RangeCreatedAt.Min, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="29" Margin="0,5">
+                        <Grid Margin="0,5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -1166,7 +1147,7 @@
                                     TickFrequency="1" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="30" Margin="0,5">
+                        <Grid Margin="0,5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -1187,7 +1168,7 @@
                                     TickFrequency="1" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="31" Margin="0,5">
+                        <Grid Margin="0,5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -1208,7 +1189,7 @@
                                     TickFrequency="0.1" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="32" Margin="0,5">
+                        <Grid Margin="0,5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -1229,7 +1210,7 @@
                                     TickFrequency="1" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="33" Margin="0,0,0,5">
+                        <Grid Margin="0,0,0,5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -1250,7 +1231,7 @@
                                     TickFrequency="1" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="34" Margin="0,0,0,5">
+                        <Grid Margin="0,0,0,5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -1271,7 +1252,7 @@
                                     TickFrequency="0.1" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="35" Margin="0,0,0,5">
+                        <Grid Margin="0,0,0,5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -1292,7 +1273,7 @@
                                     TickFrequency="0.1" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="36" Margin="0,10,0,10">
+                        <Grid Margin="0,10,0,10">
                             <Button
                                 VerticalAlignment="Center"
                                 mdt:ButtonAssist.CornerRadius="0"
@@ -1307,7 +1288,7 @@
                                 </i:Interaction.Triggers>
                             </Button>
                         </Grid>
-                        <Grid Grid.Row="37" Margin="0,5,0,0">
+                        <Grid Margin="0,5,0,0">
                             <Button
                                 VerticalAlignment="Center"
                                 mdt:ButtonAssist.CornerRadius="0"
@@ -1322,7 +1303,7 @@
                                 </i:Interaction.Triggers>
                             </Button>
                         </Grid>
-                    </Grid>
+                    </StackPanel>
                 </ScrollViewer>
             </GroupBox>
         </Grid>

@@ -67,6 +67,14 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
 
         public abstract bool CheckСhanges();
 
+        public void SetRange(T min, T max)
+        {
+            Min = min;
+            From = min;
+            Max = max;
+            To = max;
+        }
+
         public void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

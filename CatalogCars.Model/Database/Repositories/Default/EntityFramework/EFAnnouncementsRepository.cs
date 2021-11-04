@@ -217,6 +217,13 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 }
             }
 
+            if (filters.RangeYear.CheckСhanges())
+            {
+                announcements = announcements.Where(announcement =>
+                    announcement.Documents.Pts.Year >= filters.RangeYear.From &&
+                        announcement.Documents.Pts.Year <= filters.RangeYear.To);
+            }
+
             if (filters.RangePower.CheckСhanges())
             {
                 announcements = announcements.Where(announcement =>
@@ -492,6 +499,13 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                                         Math.Sin((announcement.Seller.Location.Region.Longitude * Math.PI / 180 - filters.Region.Longitude * Math.PI / 180) / 2) *
                                             Math.Sin((announcement.Seller.Location.Region.Longitude * Math.PI / 180 - filters.Region.Longitude * Math.PI / 180) / 2))) <= filters.SearchRadius);
                 }
+            }
+
+            if (filters.RangeYear.CheckСhanges())
+            {
+                announcements = announcements.Where(announcement =>
+                    announcement.Documents.Pts.Year >= filters.RangeYear.From &&
+                        announcement.Documents.Pts.Year <= filters.RangeYear.To);
             }
 
             if (filters.RangePower.CheckСhanges())

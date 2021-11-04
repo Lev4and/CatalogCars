@@ -15,6 +15,20 @@ namespace CatalogCars.Resource.Api.Controllers
             _dataManager = dataManager;
         }
 
+        [HttpPost("minYear")]
+        [ProducesResponseType(typeof(int?), 200)]
+        public IActionResult MinYear()
+        {
+            return Ok(_dataManager.Pts.GetMinYear());
+        }
+
+        [HttpPost("maxYear")]
+        [ProducesResponseType(typeof(int?), 200)]
+        public IActionResult MaxYear()
+        {
+            return Ok(_dataManager.Pts.GetMaxYear());
+        }
+
         [HttpPost("minOwnersNumber")]
         [ProducesResponseType(typeof(int?), 200)]
         public IActionResult MinOwnersNumber()

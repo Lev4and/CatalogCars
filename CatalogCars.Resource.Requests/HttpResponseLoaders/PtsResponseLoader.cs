@@ -13,6 +13,16 @@ namespace CatalogCars.Resource.Requests.HttpResponseLoaders
             _client = new PtsClient();
         }
 
+        public async Task<Stream> GetStreamFromGetMinYearResponseAsync()
+        {
+            return await GetStreamFromResponseAsync(await _client.GetMinYearAsync());
+        }
+
+        public async Task<Stream> GetStreamFromGetMaxYearResponseAsync()
+        {
+            return await GetStreamFromResponseAsync(await _client.GetMaxYearAsync());
+        }
+
         public async Task<Stream> GetStreamFromGetMinOwnersNumberResponseAsync()
         {
             return await GetStreamFromResponseAsync(await _client.GetMinOwnersNumberAsync());

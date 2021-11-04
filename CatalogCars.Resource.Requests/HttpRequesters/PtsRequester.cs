@@ -14,6 +14,36 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             _responseLoader = new PtsResponseLoader();
         }
 
+        public async Task<int?> GetMinYearAsync()
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetMinYearResponseAsync();
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<int?>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return null;
+        }
+
+        public async Task<int?> GetMaxYearAsync()
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetMaxYearResponseAsync();
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<int?>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return null;
+        }
+
         public async Task<int?> GetMinOwnersNumberAsync()
         {
             var resultStream = await _responseLoader.GetStreamFromGetMinOwnersNumberResponseAsync();
