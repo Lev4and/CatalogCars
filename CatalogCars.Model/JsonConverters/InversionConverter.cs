@@ -17,7 +17,7 @@ namespace CatalogCars.Model.JsonConverters
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            writer.WriteValue(Convert.ToBoolean(value));
         }
     }
 }
