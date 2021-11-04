@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using CatalogCars.Model.JsonConverters;
+using Newtonsoft.Json;
 
 namespace CatalogCars.Model.Converters.AutoRu
 {
     public class State
     {
         [JsonProperty("state_not_beaten")]
+        [JsonConverter(typeof(InversionConverter))]
         public bool IsBeaten { get; set; }
 
         [JsonProperty("mileage")]
