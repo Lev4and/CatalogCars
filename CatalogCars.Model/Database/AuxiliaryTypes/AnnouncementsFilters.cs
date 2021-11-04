@@ -171,7 +171,17 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
             {
                 { SortingOption.Default, "Сортировка по умолчанию" },
                 { SortingOption.ByAscendingName, "Сортировка по названию: от А до Я" },
-                { SortingOption.ByDescendingName, "Сортировка по названию: от Я до А" }
+                { SortingOption.ByDescendingName, "Сортировка по названию: от Я до А" },
+                { SortingOption.ByAscendingCreationDate, "Сортировка по возрастанию даты публикации" },
+                { SortingOption.ByDescendingCreationDate, "Сортировка по убыванию даты публикации" },
+                { SortingOption.ByAscendingUpdateDate, "Сортировка по возрастанию даты обновления" },
+                { SortingOption.ByDescendingUpdateDate, "Сортировка по убыванию даты обновления" },
+                { SortingOption.ByAscendingPrice, "Сортировка по возрастанию стоимости" },
+                { SortingOption.ByDescendingPrice, "Сортировка по убыванию стоимости" },
+                { SortingOption.ByAscendingYear, "Сортировка по возрастанию года выпуска" },
+                { SortingOption.ByDescendingYear, "Сортировка по убыванию года выпуска" },
+                { SortingOption.ByAscendingMileage, "Сортировка по возрастанию пробега" },
+                { SortingOption.ByDescendingMileage, "Сортировка по убыванию пробега" }
             };
         }
 

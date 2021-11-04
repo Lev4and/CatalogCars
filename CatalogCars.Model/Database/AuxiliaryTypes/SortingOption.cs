@@ -20,6 +20,16 @@
         ByAscendingYearFrom,
         ByDescendingYearFrom,
         ByAscendingRegistrationDate,
-        ByDescendingRegistrationDate
+        ByDescendingRegistrationDate,
+        ByAscendingCreationDate,
+        ByDescendingCreationDate,
+        ByAscendingUpdateDate,
+        ByDescendingUpdateDate,
+        ByAscendingPrice,
+        ByDescendingPrice,
+        ByAscendingYear,
+        ByDescendingYear,
+        ByAscendingMileage,
+        ByDescendingMileage
     }
 }

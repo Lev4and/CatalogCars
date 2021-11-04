@@ -70,8 +70,18 @@ namespace CatalogCars.Resource.Api
 
             #region Сортировщики
             services.AddTransient<IAnnouncementsSorter, DefaultAnnouncementsSorter>();
+            services.AddTransient<IAnnouncementsSorter, ByAscendingYearAnnouncementsSorter>();
             services.AddTransient<IAnnouncementsSorter, ByAscendingNameAnnouncementsSorter>();
+            services.AddTransient<IAnnouncementsSorter, ByDescendingYearAnnouncementsSorter>();
             services.AddTransient<IAnnouncementsSorter, ByDescendingNameAnnouncementsSorter>();
+            services.AddTransient<IAnnouncementsSorter, ByAscendingPriceAnnouncementsSorter>();
+            services.AddTransient<IAnnouncementsSorter, ByDescendingPriceAnnouncementsSorter>();
+            services.AddTransient<IAnnouncementsSorter, ByAscendingMileageAnnouncementsSorter>();
+            services.AddTransient<IAnnouncementsSorter, ByDescendingMileageAnnouncementsSorter>();
+            services.AddTransient<IAnnouncementsSorter, ByAscendingUpdateDateAnnouncementsSorter>();
+            services.AddTransient<IAnnouncementsSorter, ByDescendingUpdateDateAnnouncementsSorter>();
+            services.AddTransient<IAnnouncementsSorter, ByAscendingCreationDateAnnouncementsSorter>();
+            services.AddTransient<IAnnouncementsSorter, ByDescendingCreationDateAnnouncementsSorter>();
 
             services.AddTransient<IAvailabilitiesSorter, DefaultAvailabilitiesSorter>();
             services.AddTransient<IAvailabilitiesSorter, ByAscendingNameAvailabilitiesSorter>();
