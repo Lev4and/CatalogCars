@@ -22,6 +22,7 @@
     <Page.Resources>
         <c:TextToDouble x:Key="TextToDouble" />
         <c:GenerationToTitle x:Key="GenerationToTitle" />
+        <c:UnixTimeToLocalTime x:Key="UnixTimeToLocalTime" />
         <c:HexNumberToSolidColorBrush x:Key="HexNumberToSolidColorBrush" />
         <c:ObjectCollectionToGuidCollection x:Key="ObjectCollectionToGuidCollection" />
     </Page.Resources>
@@ -1120,10 +1121,10 @@
                             </Grid>
                             <Grid Grid.Row="1">
                                 <uc:DoubleDatePicker
-                                    BeginSelectedDate="{Binding Path=Filters.RangeCreatedAt.From, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                    EndSelectedDate="{Binding Path=Filters.RangeCreatedAt.To, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                    MaxSelectedDate="{Binding Path=Filters.RangeCreatedAt.Max, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                    MinSelectedDate="{Binding Path=Filters.RangeCreatedAt.Min, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                    BeginSelectedDate="{Binding Path=Filters.RangeCreatedAt.From, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource UnixTimeToLocalTime}}"
+                                    EndSelectedDate="{Binding Path=Filters.RangeCreatedAt.To, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource UnixTimeToLocalTime}}"
+                                    MaxSelectedDate="{Binding Path=Filters.RangeCreatedAt.Max, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource UnixTimeToLocalTime}}"
+                                    MinSelectedDate="{Binding Path=Filters.RangeCreatedAt.Min, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource UnixTimeToLocalTime}}" />
                             </Grid>
                         </Grid>
                         <Grid Margin="0,5">

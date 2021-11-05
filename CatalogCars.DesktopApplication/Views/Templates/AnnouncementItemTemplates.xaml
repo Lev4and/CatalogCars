@@ -9,6 +9,7 @@
     <c:GenerationToTitle x:Key="GenerationToTitle" />
     <c:AccelerationToBool x:Key="AccelerationToBool" />
     <c:ClearanceMinToBool x:Key="ClearanceMinToBool" />
+    <c:UnixTimeToLocalTime x:Key="UnixTimeToLocalTime" />
     <c:HexNumberToSolidColorBrush x:Key="HexNumberToSolidColorBrush" />
     <DataTemplate x:Key="AnnouncementListBoxItemDataTemplate">
         <Grid MinHeight="130">
@@ -496,7 +497,7 @@
                                             ToolTip="Дата публикации" />
                                     </Grid>
                                     <Grid Grid.Column="1" Margin="2.5,0,5,0">
-                                        <TextBlock FontSize="14" Text="{Binding Path=AdditionalInformation.CreatedAt, StringFormat={}{0:dd-MM-yyyy HH:mm:ss}}" />
+                                        <TextBlock FontSize="14" Text="{Binding Path=AdditionalInformation.CreatedAt, StringFormat={}{0:dd-MM-yyyy HH:mm:ss}, Converter={StaticResource UnixTimeToLocalTime}}" />
                                     </Grid>
                                 </Grid>
                                 <Grid>
@@ -511,7 +512,7 @@
                                             ToolTip="Дата обновления" />
                                     </Grid>
                                     <Grid Grid.Column="1" Margin="2.5,0,5,0">
-                                        <TextBlock FontSize="14" Text="{Binding Path=AdditionalInformation.UpdatedAt, StringFormat={}{0:dd-MM-yyyy HH:mm:ss}}" />
+                                        <TextBlock FontSize="14" Text="{Binding Path=AdditionalInformation.UpdatedAt, StringFormat={}{0:dd-MM-yyyy HH:mm:ss}, Converter={StaticResource UnixTimeToLocalTime}}" />
                                     </Grid>
                                 </Grid>
                             </WrapPanel>
@@ -1016,7 +1017,7 @@
                                             ToolTip="Дата публикации" />
                                     </Grid>
                                     <Grid Grid.Column="1" Margin="2.5,0,5,0">
-                                        <TextBlock FontSize="14" Text="{Binding Path=AdditionalInfo.CreatedAt, StringFormat={}{0:dd-MM-yyyy HH:mm:ss}}" />
+                                        <TextBlock FontSize="14" Text="{Binding Path=AdditionalInfo.CreatedAt, StringFormat={}{0:dd-MM-yyyy HH:mm:ss}, Converter={StaticResource UnixTimeToLocalTime}}" />
                                     </Grid>
                                 </Grid>
                                 <Grid>
@@ -1031,7 +1032,7 @@
                                             ToolTip="Дата обновления" />
                                     </Grid>
                                     <Grid Grid.Column="1" Margin="2.5,0,5,0">
-                                        <TextBlock FontSize="14" Text="{Binding Path=AdditionalInfo.UpdatedAt, StringFormat={}{0:dd-MM-yyyy HH:mm:ss}}" />
+                                        <TextBlock FontSize="14" Text="{Binding Path=AdditionalInfo.UpdatedAt, StringFormat={}{0:dd-MM-yyyy HH:mm:ss}, Converter={StaticResource UnixTimeToLocalTime}}" />
                                     </Grid>
                                 </Grid>
                             </WrapPanel>

@@ -10,7 +10,7 @@ namespace CatalogCars.Model.JsonConverters
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            writer.WriteValue((Convert.ToDateTime(value) - _epoch).TotalMilliseconds);
+            writer.WriteValue((Convert.ToDateTime(value).ToUniversalTime() - _epoch).TotalMilliseconds);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -20,7 +20,7 @@ namespace CatalogCars.Model.JsonConverters
                 return null;
             }
 
-            return _epoch.AddTicks(long.Parse(reader.Value.ToString()) * 10000).ToLocalTime();
+            return _epoch.AddTicks(long.Parse(reader.Value.ToString()) * 10000).ToUniversalTime();
         }
     }
 }

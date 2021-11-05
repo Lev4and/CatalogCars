@@ -87,7 +87,7 @@ namespace CatalogCars.DesktopApplication.ViewModels
 
                     var announcements = JsonConvert.DeserializeObject<Result>(await _jsonWorker.GetCars(headers,
                         rangeMileage, rangePrice, pageSize, topDays, 1)).Announcements.Where(announcement =>
-                            announcement.AdditionalInfo.CreatedAt >= DateTime.Now.AddMinutes(-5) &&
+                            announcement.AdditionalInfo.CreatedAt >= DateTime.Now.ToUniversalTime().AddMinutes(-5) &&
                                 (Announcements.Count > 0 ? Announcements.All(a => a.SaleId !=
                                     announcement.SaleId) : true)).ToList();
 

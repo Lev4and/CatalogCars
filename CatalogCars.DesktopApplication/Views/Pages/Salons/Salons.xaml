@@ -20,6 +20,7 @@
     WindowTitle="CatalogCars - Салоны"
     mc:Ignorable="d">
     <Page.Resources>
+        <c:UnixTimeToLocalTime x:Key="UnixTimeToLocalTime" />
         <c:ObjectCollectionToGuidCollection x:Key="ObjectCollectionToGuidCollection" />
     </Page.Resources>
     <i:Interaction.Triggers>
@@ -260,10 +261,10 @@
                             </Grid>
                             <Grid Grid.Row="1" Margin="0,2.5,0,0">
                                 <uc:DoubleDatePicker
-                                    BeginSelectedDate="{Binding Path=Filters.RangeRegistrationDate.From, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                    EndSelectedDate="{Binding Path=Filters.RangeRegistrationDate.To, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                    MaxSelectedDate="{Binding Path=MaxRegistrationDateSalon, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                    MinSelectedDate="{Binding Path=MinRegistrationDateSalon, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                    BeginSelectedDate="{Binding Path=Filters.RangeRegistrationDate.From, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource UnixTimeToLocalTime}}"
+                                    EndSelectedDate="{Binding Path=Filters.RangeRegistrationDate.To, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource UnixTimeToLocalTime}}"
+                                    MaxSelectedDate="{Binding Path=MaxRegistrationDateSalon, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource UnixTimeToLocalTime}}"
+                                    MinSelectedDate="{Binding Path=MinRegistrationDateSalon, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource UnixTimeToLocalTime}}" />
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="6" Margin="0,10,0,10">
@@ -399,7 +400,7 @@
                         <DataGridTemplateColumn Header="Дата регистрации">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=RegistrationDate, StringFormat={}{0:dd-MM-yyyy}}" />
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=RegistrationDate, StringFormat={}{0:dd-MM-yyyy}, Converter={StaticResource UnixTimeToLocalTime}}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
