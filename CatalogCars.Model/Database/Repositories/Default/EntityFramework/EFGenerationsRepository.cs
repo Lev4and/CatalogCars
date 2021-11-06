@@ -3,6 +3,7 @@ using CatalogCars.Model.Database.Entities;
 using CatalogCars.Model.Database.Repositories.Default.Abstract;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Generation;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,6 +18,18 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         {
             _context = context;
             _sorters = sorters;
+        }
+
+        public bool ContainsGeneration(Guid modelId, int? yearFrom, string name)
+        {
+            return _context.Generations.FirstOrDefault(generation =>
+                generation.ModelId == modelId && generation.YearFrom == yearFrom && generation.Name == name) != null;
+        }
+
+        public void DeleteGeneration(Guid id)
+        {
+            _context.Generations.Remove(GetGeneration(id));
+            _context.SaveChanges();
         }
 
         public int GetCountGenerations(GenerationsFilters filters)
@@ -43,6 +56,15 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Where(generation => (filters.ModelsIds.Count > 0 ?
                     filters.ModelsIds.Contains(generation.ModelId) : false))
                 .Count();
+        }
+
+        public Generation GetGeneration(Guid id)
+        {
+            return _context.Generations
+                .Include(generation => generation.Model)
+                    .ThenInclude(model => model.Mark)
+                        .ThenInclude(mark => mark.Logo)
+                .FirstOrDefault(generation => generation.Id == id);
         }
 
         public IQueryable<Generation> GetGenerations(GenerationsFilters filters)
@@ -119,6 +141,42 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                         generation.YearFrom : ""))
                 .Take(5)
                 .AsNoTracking();
+        }
+
+        public bool SaveGeneration(Generation generation)
+        {
+            if(generation.Id == default)
+            {
+                if(!ContainsGeneration(generation.ModelId, generation.YearFrom, generation.Name))
+                {
+                    _context.SaveEntity(generation, EntityState.Added);
+
+                    return true;
+                }
+            }
+            else
+            {
+                var currentVersion = GetGeneration(generation.Id);
+
+                if(currentVersion.ModelId != generation.ModelId || currentVersion.YearFrom != generation.YearFrom || 
+                    currentVersion.Name != generation.Name)
+                {
+                    if (!ContainsGeneration(generation.ModelId, generation.YearFrom, generation.Name))
+                    {
+                        _context.SaveEntity(generation, EntityState.Modified);
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    _context.SaveEntity(generation, EntityState.Modified);
+
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

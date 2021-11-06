@@ -2,6 +2,8 @@
 using CatalogCars.Model.Database.AuxiliaryTypes;
 using CatalogCars.Model.Database.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace CatalogCars.Resource.Api.Controllers
@@ -65,6 +67,56 @@ namespace CatalogCars.Resource.Api.Controllers
         public IActionResult Names([FromBody] string searchString)
         {
             return Ok(_dataManager.Generations.GetNamesGenerations(searchString).ToArray());
+        }
+
+        [HttpGet("contains")]
+        [ProducesResponseType(typeof(bool), 200)]
+        public IActionResult Contains([FromQuery][Required] Guid modelId, [FromQuery] int? yearFrom, [FromQuery] string name)
+        {
+            return Ok(_dataManager.Generations.ContainsGeneration(modelId, yearFrom, name));
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(GearType), 200)]
+        public IActionResult Get([FromRoute] Guid id)
+        {
+            return Ok(_dataManager.Generations.GetGeneration(id));
+        }
+
+        [HttpPost("save")]
+        [ProducesResponseType(typeof(bool), 200)]
+        [ProducesResponseType(typeof(bool), 404)]
+        public IActionResult Add([FromBody] Generation generation)
+        {
+            if (generation.Id == default)
+            {
+                return Ok(_dataManager.Generations.SaveGeneration(generation));
+            }
+
+            return BadRequest(false);
+        }
+
+        [HttpPut("save")]
+        [ProducesResponseType(typeof(bool), 200)]
+        [ProducesResponseType(typeof(bool), 404)]
+        public IActionResult Update([FromBody] Generation generation)
+        {
+            if (generation.Id != default)
+            {
+                return Ok(_dataManager.Generations.SaveGeneration(generation));
+            }
+
+            return BadRequest(false);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete([FromRoute] Guid id)
+        {
+            _dataManager.Generations.DeleteGeneration(id);
+
+            return Ok();
         }
     }
 }
