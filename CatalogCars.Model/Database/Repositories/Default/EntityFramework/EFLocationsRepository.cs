@@ -20,6 +20,20 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             _sorters = sorters;
         }
 
+        public bool ContainsLocation(double latitude, double longitude)
+        {
+            return _context.Locations
+                .Include(location => location.Coordinate)
+                .FirstOrDefault(location => location.Coordinate.Latitude == latitude &&
+                    location.Coordinate.Longitude == longitude) != null;
+        }
+
+        public void DeleteLocation(Guid id)
+        {
+            _context.Locations.Remove(GetLocation(id));
+            _context.SaveChanges();
+        }
+
         public int GetCountLocations(LocationsFilters filters)
         {
             return _context.Locations
@@ -29,6 +43,14 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                         location.Address : ""), $"%{filters.SearchString}%") && 
                             (filters.RegionsIds.Count > 0 ? filters.RegionsIds.Contains((Guid)location.RegionId) : true))
                 .Count();
+        }
+
+        public Location GetLocation(Guid id)
+        {
+            return _context.Locations
+                .Include(location => location.Region)
+                .Include(location => location.Coordinate)
+                .FirstOrDefault(location => location.Id == id);
         }
 
         public IQueryable<Location> GetLocations(LocationsFilters filters)
@@ -67,6 +89,42 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                     location.Region.Name) : "") + (location.Address != null ? location.Address : ""))
                 .Take(5)
                 .AsNoTracking();
+        }
+
+        public bool SaveLocation(Location location)
+        {
+            if(location.Id == default)
+            {
+                if(!ContainsLocation(location.Coordinate.Latitude, location.Coordinate.Longitude))
+                {
+                    _context.SaveEntity(location, EntityState.Added);
+
+                    return true;
+                }
+            }
+            else
+            {
+                var currentVersion = GetLocation(location.Id);
+
+                if(currentVersion.Coordinate.Latitude == location.Coordinate.Latitude ||
+                    currentVersion.Coordinate.Longitude == location.Coordinate.Longitude)
+                {
+                    if (!ContainsLocation(location.Coordinate.Latitude, location.Coordinate.Longitude))
+                    {
+                        _context.SaveEntity(location, EntityState.Modified);
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    _context.SaveEntity(location, EntityState.Modified);
+
+                    return true;
+                }
+            }
+
+            return true;
         }
     }
 }

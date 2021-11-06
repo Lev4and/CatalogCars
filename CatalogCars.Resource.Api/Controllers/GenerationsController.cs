@@ -78,7 +78,7 @@ namespace CatalogCars.Resource.Api.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        [ProducesResponseType(typeof(GearType), 200)]
+        [ProducesResponseType(typeof(Generation), 200)]
         public IActionResult Get([FromRoute] Guid id)
         {
             return Ok(_dataManager.Generations.GetGeneration(id));
