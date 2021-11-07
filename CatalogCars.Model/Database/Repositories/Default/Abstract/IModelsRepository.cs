@@ -8,9 +8,15 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
 {
     public interface IModelsRepository
     {
+        bool ContainsModel(Guid markId, string name);
+
+        bool SaveModel(Entities.Model model);
+
         int GetCountModels(ModelsFilters filters);
 
         int GetCountModelsOfMarks(ModelsFilters filters);
+
+        Entities.Model GetModel(Guid id);
 
         IQueryable<string> GetNamesModels(string searchString);
 
@@ -21,5 +27,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
         IQueryable<Entities.Model> GetModelsOfMarks(ModelsFilters filters);
 
         IQueryable<PopularityModels> GetPopularityModelsOfMark(Guid markId);
+
+        void DeleteModel(Guid id);
     }
 }

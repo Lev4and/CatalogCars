@@ -20,6 +20,17 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             _sorters = sorters;
         }
 
+        public bool ContainsModel(Guid markId, string name)
+        {
+            return _context.Models.FirstOrDefault(model => model.MarkId == markId && model.Name == name) != null;
+        }
+
+        public void DeleteModel(Guid id)
+        {
+            _context.Models.Remove(GetModel(id));
+            _context.SaveChanges();
+        }
+
         public int GetCountModels(ModelsFilters filters)
         {
             return _context.Models
@@ -34,6 +45,14 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             return _context.Models
                 .Where(model => (filters.MarksIds.Count > 0 ? filters.MarksIds.Contains(model.MarkId) : false))
                 .Count();
+        }
+
+        public Entities.Model GetModel(Guid id)
+        {
+            return _context.Models
+                .Include(model => model.Mark)
+                    .ThenInclude(mark => mark.Logo)
+                .FirstOrDefault(model => model.Id == id);
         }
 
         public IQueryable<Entities.Model> GetModels(ModelsFilters filters)
@@ -106,6 +125,44 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 })
                 .OrderByDescending(popularityModels => popularityModels.Count)
                 .AsNoTracking();
+        }
+
+        public bool SaveModel(Entities.Model model)
+        {
+            if(model.Id == default)
+            {
+                if (!ContainsModel(model.MarkId, model.Name))
+                {
+                    _context.Entry(model).State = EntityState.Added;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+            }
+            else
+            {
+                var currentVersion = GetModel(model.Id);
+
+                if(currentVersion.MarkId != model.MarkId || currentVersion.Name != model.Name)
+                {
+                    if (!ContainsModel(model.MarkId, model.Name))
+                    {
+                        _context.Entry(model).State = EntityState.Modified;
+                        _context.SaveChanges();
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    _context.Entry(model).State = EntityState.Modified;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

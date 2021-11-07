@@ -3,6 +3,7 @@ using CatalogCars.Model.Database.AnonymousTypes;
 using CatalogCars.Model.Database.AuxiliaryTypes;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Entities = CatalogCars.Model.Database.Entities;
 
@@ -71,6 +72,100 @@ namespace CatalogCars.Resource.Api.Controllers
         public IActionResult PopularityModelsOfMark([FromQuery] Guid markId)
         {
             return Ok(_dataManager.Models.GetPopularityModelsOfMark(markId).ToArray());
+        }
+
+        [HttpGet("contains")]
+        [ProducesResponseType(typeof(bool), 200)]
+        public IActionResult Contains([FromQuery][Required] Guid markId, [FromQuery][Required] string name)
+        {
+            return Ok(_dataManager.Models.ContainsModel(markId, name));
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(Entities.Model), 200)]
+        public IActionResult Get([FromRoute] Guid id)
+        {
+            return Ok(_dataManager.Models.GetModel(id));
+        }
+
+        [HttpPost("save")]
+        [ProducesResponseType(typeof(SaveResult<Guid>), 200)]
+        [ProducesResponseType(typeof(SaveResult<object>), 404)]
+        public IActionResult Add([FromBody] Entities.Model model)
+        {
+            if (model.Id == default)
+            {
+                if (_dataManager.Models.SaveModel(model))
+                {
+                    return Ok(new SaveResult<Guid>()
+                    {
+                        Result = model.Id,
+                        Status = SaveResultStatus.Success,
+                        Message = "Успешное добавление новой записи"
+                    });
+                }
+                else
+                {
+                    return BadRequest(new SaveResult<object>()
+                    {
+                        Result = null,
+                        Status = SaveResultStatus.Failure,
+                        Message = "Запись с такими данными уже существует"
+                    });
+                }
+            }
+
+            return BadRequest(new SaveResult<object>()
+            {
+                Result = null,
+                Status = SaveResultStatus.Failure,
+                Message = "Идентификатор должен иметь значение по умолчанию"
+            });
+        }
+
+        [HttpPut("save")]
+        [ProducesResponseType(typeof(SaveResult<Guid>), 200)]
+        [ProducesResponseType(typeof(SaveResult<object>), 404)]
+        public IActionResult Update([FromBody] Entities.Model model)
+        {
+            if (model.Id != default)
+            {
+                if (_dataManager.Models.SaveModel(model))
+                {
+                    return Ok(new SaveResult<Guid>()
+                    {
+                        Result = model.Id,
+                        Status = SaveResultStatus.Success,
+                        Message = "Успешное добавление новой записи"
+                    });
+                }
+                else
+                {
+                    return BadRequest(new SaveResult<object>()
+                    {
+                        Result = null,
+                        Status = SaveResultStatus.Failure,
+                        Message = "Запись с такими данными уже существует"
+                    });
+                }
+            }
+
+            return BadRequest(new SaveResult<object>()
+            {
+                Result = null,
+                Status = SaveResultStatus.Failure,
+                Message = "Идентификатор не должен иметь значение по умолчанию"
+            });
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete([FromRoute] Guid id)
+        {
+            _dataManager.Models.DeleteModel(id);
+
+            return Ok();
         }
     }
 }
