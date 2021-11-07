@@ -22,7 +22,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
         public bool ContainsOption(string name, string ruName)
         {
-            return _context.Options.FirstOrDefault(option => option.Name == name && 
+            return _context.Options.FirstOrDefault(option => option.Name == name || 
                 option.RuName == ruName) != null;
         }
 
@@ -88,7 +88,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             {
                 var currentVersion = GetOption(option.Id);
 
-                if(currentVersion.Name != option.Name)
+                if(currentVersion.Name != option.Name || currentVersion.RuName != option.RuName)
                 {
                     if (!ContainsOption(option.Name, option.RuName))
                     {
