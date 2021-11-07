@@ -91,5 +91,54 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .OrderBy(mark => mark.Name)
                 .AsNoTracking();
         }
+
+        public bool ContainsMark(string name)
+        {
+            return _context.Marks.FirstOrDefault(mark => mark.Name == name) != null;
+        }
+
+        public bool SaveMark(Mark mark)
+        {
+            if(mark.Id == default)
+            {
+                if (!ContainsMark(mark.Name))
+                {
+                    _context.Entry(mark).State = EntityState.Added;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+            }
+            else
+            {
+                var currentVersion = GetMark(mark.Id);
+
+                if(currentVersion.Name != mark.Name)
+                {
+                    if (!ContainsMark(mark.Name))
+                    {
+                        _context.Entry(mark).State = EntityState.Modified;
+                        _context.SaveChanges();
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    _context.Entry(mark).State = EntityState.Modified;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public void DeleteMark(Guid id)
+        {
+            _context.Marks.Remove(GetMark(id));
+            _context.SaveChanges();
+        }
     }
 }

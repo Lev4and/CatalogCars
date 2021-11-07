@@ -8,6 +8,10 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
 {
     public interface IMarksRepository
     {
+        bool ContainsMark(string name);
+
+        bool SaveMark(Mark mark);
+
         int GetCountMarks(MarksFilters filters);
 
         Mark GetMark(Guid markId);
@@ -19,5 +23,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
         IQueryable<Mark> GetMarks(MarksFilters filters);
 
         IQueryable<PopularityMark> GetPopularityMark(Guid markId);
+
+        void DeleteMark(Guid id);
     }
 }
