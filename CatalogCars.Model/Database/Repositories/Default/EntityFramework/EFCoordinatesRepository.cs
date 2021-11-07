@@ -107,7 +107,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             {
                 if(!ContainsCoordinate(coordinate.LocationId, coordinate.Latitude, coordinate.Longitude))
                 {
-                    _context.SaveEntity(coordinate, EntityState.Added);
+                    _context.Entry(coordinate).State = EntityState.Added;
+                    _context.SaveChanges();
 
                     return true;
                 }
@@ -121,14 +122,16 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 {
                     if (!ContainsCoordinate(coordinate.LocationId, coordinate.Latitude, coordinate.Longitude))
                     {
-                        _context.SaveEntity(coordinate, EntityState.Modified);
+                        _context.Entry(coordinate).State = EntityState.Modified;
+                        _context.SaveChanges();
 
                         return true;
                     }
                 }
                 else
                 {
-                    _context.SaveEntity(coordinate, EntityState.Modified);
+                    _context.Entry(coordinate).State = EntityState.Modified;
+                    _context.SaveChanges();
 
                     return true;
                 }

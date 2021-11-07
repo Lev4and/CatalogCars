@@ -78,7 +78,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             {
                 if(!ContainsColorType(colorType.Name, colorType.RuName))
                 {
-                    _context.SaveEntity(colorType, EntityState.Added);
+                    _context.Entry(colorType).State = EntityState.Added;
+                    _context.SaveChanges();
 
                     return true;
                 }
@@ -91,14 +92,16 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 {
                     if (!ContainsColorType(colorType.Name, colorType.RuName))
                     {
-                        _context.SaveEntity(colorType, EntityState.Modified);
+                        _context.Entry(colorType).State = EntityState.Modified;
+                        _context.SaveChanges();
 
                         return true;
                     }
                 }
                 else
                 {
-                    _context.SaveEntity(colorType, EntityState.Modified);
+                    _context.Entry(colorType).State = EntityState.Modified;
+                    _context.SaveChanges();
 
                     return true;
                 }

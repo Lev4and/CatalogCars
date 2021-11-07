@@ -84,7 +84,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             {
                 if(!ContainsGearType(gearType.Name, gearType.RuName))
                 {
-                    _context.SaveEntity(gearType, EntityState.Added);
+                    _context.Entry(gearType).State = EntityState.Added;
+                    _context.SaveChanges();
 
                     return true;
                 }
@@ -97,14 +98,16 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 {
                     if (!ContainsGearType(gearType.Name, gearType.RuName))
                     {
-                        _context.SaveEntity(gearType, EntityState.Modified);
+                        _context.Entry(gearType).State = EntityState.Modified;
+                        _context.SaveChanges();
 
                         return true;
                     }
                 }
                 else
                 {
-                    _context.SaveEntity(gearType, EntityState.Modified);
+                    _context.Entry(gearType).State = EntityState.Modified;
+                    _context.SaveChanges();
 
                     return true;
                 }

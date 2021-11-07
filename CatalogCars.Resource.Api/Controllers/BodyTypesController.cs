@@ -71,29 +71,73 @@ namespace CatalogCars.Resource.Api.Controllers
         }
 
         [HttpPost("save")]
-        [ProducesResponseType(typeof(bool), 200)]
-        [ProducesResponseType(typeof(bool), 404)]
+        [ProducesResponseType(typeof(SaveResult<Guid>), 200)]
+        [ProducesResponseType(typeof(SaveResult<object>), 404)]
         public IActionResult Add([FromBody] BodyType bodyType)
         {
-            if(bodyType.Id == default)
+            if (bodyType.Id == default)
             {
-                return Ok(_dataManager.BodyTypes.SaveBodyType(bodyType));
+                if (_dataManager.BodyTypes.SaveBodyType(bodyType))
+                {
+                    return Ok(new SaveResult<Guid>()
+                    {
+                        Result = bodyType.Id,
+                        Status = SaveResultStatus.Success,
+                        Message = "Успешное добавление новой записи"
+                    });
+                }
+                else
+                {
+                    return BadRequest(new SaveResult<object>()
+                    {
+                        Result = null,
+                        Status = SaveResultStatus.Failure,
+                        Message = "Запись с такими данными уже существует"
+                    });
+                }
             }
 
-            return BadRequest(false);
+            return BadRequest(new SaveResult<object>()
+            {
+                Result = null,
+                Status = SaveResultStatus.Failure,
+                Message = "Идентификатор должен иметь значение по умолчанию"
+            });
         }
 
         [HttpPut("save")]
-        [ProducesResponseType(typeof(bool), 200)]
-        [ProducesResponseType(typeof(bool), 404)]
+        [ProducesResponseType(typeof(SaveResult<Guid>), 200)]
+        [ProducesResponseType(typeof(SaveResult<object>), 404)]
         public IActionResult Update([FromBody] BodyType bodyType)
         {
             if (bodyType.Id != default)
             {
-                return Ok(_dataManager.BodyTypes.SaveBodyType(bodyType));
+                if (_dataManager.BodyTypes.SaveBodyType(bodyType))
+                {
+                    return Ok(new SaveResult<Guid>()
+                    {
+                        Result = bodyType.Id,
+                        Status = SaveResultStatus.Success,
+                        Message = "Успешное добавление новой записи"
+                    });
+                }
+                else
+                {
+                    return BadRequest(new SaveResult<object>()
+                    {
+                        Result = null,
+                        Status = SaveResultStatus.Failure,
+                        Message = "Запись с такими данными уже существует"
+                    });
+                }
             }
 
-            return BadRequest(false);
+            return BadRequest(new SaveResult<object>()
+            {
+                Result = null,
+                Status = SaveResultStatus.Failure,
+                Message = "Идентификатор не должен иметь значение по умолчанию"
+            });
         }
 
         [HttpDelete]

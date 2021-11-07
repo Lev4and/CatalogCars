@@ -149,7 +149,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             {
                 if(!ContainsGeneration(generation.ModelId, generation.YearFrom, generation.Name))
                 {
-                    _context.SaveEntity(generation, EntityState.Added);
+                    _context.Entry(generation).State = EntityState.Added;
+                    _context.SaveChanges();
 
                     return true;
                 }
@@ -163,14 +164,16 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 {
                     if (!ContainsGeneration(generation.ModelId, generation.YearFrom, generation.Name))
                     {
-                        _context.SaveEntity(generation, EntityState.Modified);
+                        _context.Entry(generation).State = EntityState.Modified;
+                        _context.SaveChanges();
 
                         return true;
                     }
                 }
                 else
                 {
-                    _context.SaveEntity(generation, EntityState.Modified);
+                    _context.Entry(generation).State = EntityState.Modified;
+                    _context.SaveChanges();
 
                     return true;
                 }

@@ -123,7 +123,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             {
                 if(!ContainsBodyType(bodyType.BodyTypeGroupId, bodyType.Name, bodyType.RuName))
                 {
-                    _context.SaveEntity(bodyType, EntityState.Added);
+                    _context.Entry(bodyType).State = EntityState.Added;
+                    _context.SaveChanges();
 
                     return true;
                 }
@@ -137,14 +138,16 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 {
                     if (!ContainsBodyType(bodyType.BodyTypeGroupId, bodyType.Name, bodyType.RuName))
                     {
-                        _context.SaveEntity(bodyType, EntityState.Modified);
+                        _context.Entry(bodyType).State = EntityState.Modified;
+                        _context.SaveChanges();
 
                         return true;
                     }
                 }
                 else
                 {
-                    _context.SaveEntity(bodyType, EntityState.Modified);
+                    _context.Entry(bodyType).State = EntityState.Modified;
+                    _context.SaveChanges();
 
                     return true;
                 }

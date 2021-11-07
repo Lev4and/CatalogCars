@@ -87,7 +87,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             {
                 if (!ContainsCurrency(currency.Name))
                 {
-                    _context.SaveEntity(currency, EntityState.Added);
+                    _context.Entry(currency).State = EntityState.Added;
+                    _context.SaveChanges();
 
                     return true;
                 }
@@ -100,14 +101,16 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 {
                     if (!ContainsCurrency(currency.Name))
                     {
-                        _context.SaveEntity(currency, EntityState.Modified);
+                        _context.Entry(currency).State = EntityState.Modified;
+                        _context.SaveChanges();
 
                         return true;
                     }
                 }
                 else
                 {
-                    _context.SaveEntity(currency, EntityState.Modified);
+                    _context.Entry(currency).State = EntityState.Modified;
+                    _context.SaveChanges();
 
                     return true;
                 }

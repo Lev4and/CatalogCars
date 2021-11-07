@@ -84,7 +84,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             {
                 if(!ContainsEngineType(engineType.Name, engineType.RuName))
                 {
-                    _context.SaveEntity(engineType, EntityState.Added);
+                    _context.Entry(engineType).State = EntityState.Added;
+                    _context.SaveChanges();
 
                     return true;
                 }
@@ -97,14 +98,16 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 {
                     if (!ContainsEngineType(engineType.Name, engineType.RuName))
                     {
-                        _context.SaveEntity(engineType, EntityState.Modified);
+                        _context.Entry(engineType).State = EntityState.Modified;
+                        _context.SaveChanges();
 
                         return true;
                     }
                 }
                 else
                 {
-                    _context.SaveEntity(engineType, EntityState.Modified);
+                    _context.Entry(engineType).State = EntityState.Modified;
+                    _context.SaveChanges();
 
                     return true;
                 }
