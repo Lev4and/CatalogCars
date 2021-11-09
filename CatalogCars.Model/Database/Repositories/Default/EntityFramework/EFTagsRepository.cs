@@ -3,6 +3,7 @@ using CatalogCars.Model.Database.Entities;
 using CatalogCars.Model.Database.Repositories.Default.Abstract;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Tag;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,6 +18,18 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         {
             _context = context;
             _sorters = sorters;
+        }
+
+        public bool ContainsTag(string name, string ruName)
+        {
+            return _context.Tags.FirstOrDefault(tag => tag.Name == name ||
+                tag.RuName == ruName) != null;
+        }
+
+        public void DeleteTag(Guid id)
+        {
+            _context.Tags.Remove(GetTag(id));
+            _context.SaveChanges();
         }
 
         public int GetCountTags(TagsFilters filters)
@@ -36,6 +49,11 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .AsNoTracking();
         }
 
+        public Tag GetTag(Guid id)
+        {
+            return _context.Tags.FirstOrDefault(tag => tag.Id == id);
+        }
+
         public IQueryable<Tag> GetTags(TagsFilters filters)
         {
             var sorter = _sorters.FirstOrDefault(sorter => sorter.SortingOption == filters.SortingOption);
@@ -52,6 +70,44 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Skip((filters.NumberPage - 1) * filters.ItemsPerPage)
                 .Take(filters.ItemsPerPage)
                 .AsNoTracking();
+        }
+
+        public bool SaveTag(Tag tag)
+        {
+            if (tag.Id == default)
+            {
+                if (!ContainsTag(tag.Name, tag.RuName))
+                {
+                    _context.Entry(tag).State = EntityState.Added;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+            }
+            else
+            {
+                var currentVersion = GetTag(tag.Id);
+
+                if (currentVersion.Name != tag.Name || currentVersion.RuName != tag.RuName)
+                {
+                    if (!ContainsTag(tag.Name, tag.RuName))
+                    {
+                        _context.Entry(tag).State = EntityState.Modified;
+                        _context.SaveChanges();
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    _context.Entry(tag).State = EntityState.Modified;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
