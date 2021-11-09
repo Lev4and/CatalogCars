@@ -3,6 +3,7 @@ using CatalogCars.Model.Database.Entities;
 using CatalogCars.Model.Database.Repositories.Default.Abstract;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.SellerType;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,6 +18,18 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         {
             _context = context;
             _sorters = sorters;
+        }
+
+        public bool ContainsSellerType(string name, string ruName)
+        {
+            return _context.SellerTypes.FirstOrDefault(sellerType => sellerType.Name == name ||
+                sellerType.RuName == ruName) != null;
+        }
+
+        public void DeleteSellerType(Guid id)
+        {
+            _context.SellerTypes.Remove(GetSellerType(id));
+            _context.SaveChanges();
         }
 
         public int GetCountSellerTypes(SellerTypesFilters filters)
@@ -34,6 +47,11 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Select(sellerType => sellerType.RuName)
                 .Take(5)
                 .AsNoTracking();
+        }
+
+        public SellerType GetSellerType(Guid id)
+        {
+            return _context.SellerTypes.FirstOrDefault(sellerType => sellerType.Id == id);
         }
 
         public IQueryable<SellerType> GetSellerTypes(SellerTypesFilters filters)
@@ -58,6 +76,44 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         {
             return _context.SellerTypes
                 .AsNoTracking();
+        }
+
+        public bool SaveSellerType(SellerType sellerType)
+        {
+            if(sellerType.Id == default)
+            {
+                if (!ContainsSellerType(sellerType.Name, sellerType.RuName))
+                {
+                    _context.Entry(sellerType).State = EntityState.Added;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+            }
+            else
+            {
+                var currentVersion = GetSellerType(sellerType.Id);
+
+                if (currentVersion.Name != sellerType.Name || currentVersion.RuName != sellerType.RuName)
+                {
+                    if (!ContainsSellerType(sellerType.Name, sellerType.RuName))
+                    {
+                        _context.Entry(sellerType).State = EntityState.Modified;
+                        _context.SaveChanges();
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    _context.Entry(sellerType).State = EntityState.Modified;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
