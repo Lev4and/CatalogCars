@@ -53,7 +53,7 @@ namespace CatalogCars.Resource.Api.Controllers
         [ProducesResponseType(typeof(Vendor), 200)]
         public IActionResult Get([FromRoute] Guid id)
         {
-            return Ok(_dataManager.Transmissions.GetTransmission(id));
+            return Ok(_dataManager.Vendors.GetVendor(id));
         }
 
         [HttpPost("save")]
