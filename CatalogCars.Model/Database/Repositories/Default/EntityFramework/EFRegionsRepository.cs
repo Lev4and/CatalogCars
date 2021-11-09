@@ -20,6 +20,17 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             _sorters = sorters;
         }
 
+        public bool ContainsRegion(string stringId)
+        {
+            return _context.Regions.FirstOrDefault(region => region.StringId == stringId) != null;
+        }
+
+        public void DeleteRegion(Guid id)
+        {
+            _context.Regions.Remove(GetRegion(id));
+            _context.SaveChanges();
+        }
+
         public int GetCountRegions(RegionsFilters filters)
         {
             return _context.Regions
@@ -35,6 +46,11 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Select(region => region.Name)
                 .Take(5)
                 .AsNoTracking();
+        }
+
+        public RegionInformation GetRegion(Guid id)
+        {
+            return _context.Regions.FirstOrDefault(region => region.Id == id);
         }
 
         public IQueryable<RegionInformation> GetRegions(RegionsFilters filters)
@@ -53,6 +69,44 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Skip((filters.NumberPage - 1) * filters.ItemsPerPage)
                 .Take(filters.ItemsPerPage)
                 .AsNoTracking();
+        }
+
+        public bool SaveRegion(RegionInformation region)
+        {
+            if(region.Id == default)
+            {
+                if (!ContainsRegion(region.StringId))
+                {
+                    _context.Entry(region).State = EntityState.Added;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+            }
+            else
+            {
+                var currentVersion = GetRegion(region.Id);
+
+                if(currentVersion.StringId != region.StringId)
+                {
+                    if (!ContainsRegion(region.StringId))
+                    {
+                        _context.Entry(region).State = EntityState.Modified;
+                        _context.SaveChanges();
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    _context.Entry(region).State = EntityState.Modified;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
