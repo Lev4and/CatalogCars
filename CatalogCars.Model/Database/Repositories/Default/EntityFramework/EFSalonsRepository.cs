@@ -20,6 +20,17 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             _sorters = sorters;
         }
 
+        public bool ContainsSalon(Guid locationId, string name)
+        {
+            return _context.Salons.FirstOrDefault(salon => salon.LocationId == locationId && salon.Name == name) != null;
+        }
+
+        public void DeleteSalon(Guid id)
+        {
+            _context.Salons.Remove(GetSalon(id));
+            _context.SaveChanges();
+        }
+
         public int GetCountSalons(SalonsFilters filters)
         {
             return _context.Salons
@@ -57,6 +68,16 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .AsNoTracking();
         }
 
+        public Salon GetSalon(Guid id)
+        {
+            return _context.Salons
+                .Include(salon => salon.Phones)
+                    .ThenInclude(phone => phone.Phone)
+                .Include(salon => salon.Location)
+                    .ThenInclude(location => location.Region)
+                .FirstOrDefault(salon => salon.Id == id);
+        }
+
         public IQueryable<Salon> GetSalons(SalonsFilters filters)
         {
             var sorter = _sorters.FirstOrDefault(sorter => sorter.SortingOption == filters.SortingOption);
@@ -81,6 +102,44 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Skip((filters.NumberPage - 1) * filters.ItemsPerPage)
                 .Take(filters.ItemsPerPage)
                 .AsNoTracking();
+        }
+
+        public bool SaveSalon(Salon salon)
+        {
+            if (salon.Id == default)
+            {
+                if (!ContainsSalon(salon.LocationId, salon.Name))
+                {
+                    _context.Entry(salon).State = EntityState.Added;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+            }
+            else
+            {
+                var currentVersion = GetSalon(salon.Id);
+
+                if (currentVersion.LocationId != salon.LocationId || currentVersion.Name != salon.Name)
+                {
+                    if (!ContainsSalon(salon.LocationId, salon.Name))
+                    {
+                        _context.Entry(salon).State = EntityState.Modified;
+                        _context.SaveChanges();
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    _context.Entry(salon).State = EntityState.Modified;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

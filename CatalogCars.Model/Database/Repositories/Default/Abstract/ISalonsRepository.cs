@@ -7,7 +7,13 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
 {
     public interface ISalonsRepository
     {
+        bool ContainsSalon(Guid locationId, string name);
+
+        bool SaveSalon(Salon salon);
+
         int GetCountSalons(SalonsFilters filters);
+
+        Salon GetSalon(Guid id);
 
         DateTime GetMinRegistrationDate();
 
@@ -16,5 +22,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
         IQueryable<string> GetNamesSalons(string searchString);
 
         IQueryable<Salon> GetSalons(SalonsFilters filters);
+
+        void DeleteSalon(Guid id);
     }
 }
