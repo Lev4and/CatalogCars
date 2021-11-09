@@ -3,6 +3,7 @@ using CatalogCars.Model.Database.Entities;
 using CatalogCars.Model.Database.Repositories.Default.Abstract;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Vendor;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,6 +18,18 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         {
             _context = context;
             _sorters = sorters;
+        }
+
+        public bool ContainsVendor(string name, string ruName)
+        {
+            return _context.Vendors.FirstOrDefault(vendor => vendor.Name == name ||
+                vendor.RuName == ruName) != null;
+        }
+
+        public void DeleteVendor(Guid id)
+        {
+            _context.Vendors.Remove(GetVendor(id));
+            _context.SaveChanges();
         }
 
         public int GetCountVendors(VendorsFilters filters)
@@ -36,6 +49,11 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .AsNoTracking();
         }
 
+        public Vendor GetVendor(Guid id)
+        {
+            return _context.Vendors.FirstOrDefault(vendor => vendor.Id == id);
+        }
+
         public IQueryable<Vendor> GetVendors(VendorsFilters filters)
         {
             var sorter = _sorters.FirstOrDefault(sorter => sorter.SortingOption == filters.SortingOption);
@@ -52,6 +70,44 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Skip((filters.NumberPage - 1) * filters.ItemsPerPage)
                 .Take(filters.ItemsPerPage)
                 .AsNoTracking();
+        }
+
+        public bool SaveVendor(Vendor vendor)
+        {
+            if (vendor.Id == default)
+            {
+                if (!ContainsVendor(vendor.Name, vendor.RuName))
+                {
+                    _context.Entry(vendor).State = EntityState.Added;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+            }
+            else
+            {
+                var currentVersion = GetVendor(vendor.Id);
+
+                if (currentVersion.Name != vendor.Name || currentVersion.RuName != vendor.RuName)
+                {
+                    if (!ContainsVendor(vendor.Name, vendor.RuName))
+                    {
+                        _context.Entry(vendor).State = EntityState.Modified;
+                        _context.SaveChanges();
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    _context.Entry(vendor).State = EntityState.Modified;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
