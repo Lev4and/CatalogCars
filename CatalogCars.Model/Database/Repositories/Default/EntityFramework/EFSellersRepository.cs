@@ -20,6 +20,18 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             _sorters = sorters;
         }
 
+        public bool ContainsSeller(Guid locationId)
+        {
+            return _context.Sellers.FirstOrDefault(seller => 
+                seller.LocationId == locationId) != null;
+        }
+
+        public void DeleteSeller(Guid id)
+        {
+            _context.Sellers.Remove(GetSeller(id));
+            _context.SaveChanges();
+        }
+
         public int GetCountSellers(SellersFilters filters)
         {
             return _context.Sellers
@@ -38,6 +50,16 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Select(seller => seller.Name)
                 .Take(5)
                 .AsNoTracking();
+        }
+
+        public Seller GetSeller(Guid id)
+        {
+            return _context.Sellers
+                .Include(seller => seller.Phones)
+                    .ThenInclude(phone => phone.Phone)
+                .Include(seller => seller.Location)
+                    .ThenInclude(location => location.Region)
+                .FirstOrDefault(seller => seller.Id == id);
         }
 
         public IQueryable<Seller> GetSellers(SellersFilters filters)
@@ -59,6 +81,44 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Skip((filters.NumberPage - 1) * filters.ItemsPerPage)
                 .Take(filters.ItemsPerPage)
                 .AsNoTracking();
+        }
+
+        public bool SaveSeller(Seller seller)
+        {
+            if (seller.Id == default)
+            {
+                if (!ContainsSeller(seller.LocationId))
+                {
+                    _context.Entry(seller).State = EntityState.Added;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+            }
+            else
+            {
+                var currentVersion = GetSeller(seller.Id);
+
+                if (currentVersion.LocationId != seller.LocationId)
+                {
+                    if (!ContainsSeller(seller.LocationId))
+                    {
+                        _context.Entry(seller).State = EntityState.Modified;
+                        _context.SaveChanges();
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    _context.Entry(seller).State = EntityState.Modified;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

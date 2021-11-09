@@ -2,6 +2,8 @@
 using CatalogCars.Model.Database.AuxiliaryTypes;
 using CatalogCars.Model.Database.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace CatalogCars.Resource.Api.Controllers
@@ -37,6 +39,100 @@ namespace CatalogCars.Resource.Api.Controllers
         public IActionResult Index([FromBody] SellersFilters filters)
         {
             return Ok(_dataManager.Sellers.GetSellers(filters).ToArray());
+        }
+
+        [HttpGet("contains")]
+        [ProducesResponseType(typeof(bool), 200)]
+        public IActionResult Contains([FromQuery][Required] Guid locationId)
+        {
+            return Ok(_dataManager.Sellers.ContainsSeller(locationId));
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(Seller), 200)]
+        public IActionResult Get([FromRoute] Guid id)
+        {
+            return Ok(_dataManager.Sellers.GetSeller(id));
+        }
+
+        [HttpPost("save")]
+        [ProducesResponseType(typeof(SaveResult<Guid>), 200)]
+        [ProducesResponseType(typeof(SaveResult<object>), 404)]
+        public IActionResult Add([FromBody] Seller seller)
+        {
+            if (seller.Id == default)
+            {
+                if (_dataManager.Sellers.SaveSeller(seller))
+                {
+                    return Ok(new SaveResult<Guid>()
+                    {
+                        Result = seller.Id,
+                        Status = SaveResultStatus.Success,
+                        Message = "Успешное добавление новой записи"
+                    });
+                }
+                else
+                {
+                    return BadRequest(new SaveResult<object>()
+                    {
+                        Result = null,
+                        Status = SaveResultStatus.Failure,
+                        Message = "Запись с такими данными уже существует"
+                    });
+                }
+            }
+
+            return BadRequest(new SaveResult<object>()
+            {
+                Result = null,
+                Status = SaveResultStatus.Failure,
+                Message = "Идентификатор должен иметь значение по умолчанию"
+            });
+        }
+
+        [HttpPut("save")]
+        [ProducesResponseType(typeof(SaveResult<Guid>), 200)]
+        [ProducesResponseType(typeof(SaveResult<object>), 404)]
+        public IActionResult Update([FromBody] Seller seller)
+        {
+            if (seller.Id != default)
+            {
+                if (_dataManager.Sellers.SaveSeller(seller))
+                {
+                    return Ok(new SaveResult<Guid>()
+                    {
+                        Result = seller.Id,
+                        Status = SaveResultStatus.Success,
+                        Message = "Успешное добавление новой записи"
+                    });
+                }
+                else
+                {
+                    return BadRequest(new SaveResult<object>()
+                    {
+                        Result = null,
+                        Status = SaveResultStatus.Failure,
+                        Message = "Запись с такими данными уже существует"
+                    });
+                }
+            }
+
+            return BadRequest(new SaveResult<object>()
+            {
+                Result = null,
+                Status = SaveResultStatus.Failure,
+                Message = "Идентификатор не должен иметь значение по умолчанию"
+            });
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete([FromRoute] Guid id)
+        {
+            _dataManager.Sellers.DeleteSeller(id);
+
+            return Ok();
         }
     }
 }

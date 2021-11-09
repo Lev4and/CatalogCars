@@ -13,12 +13,12 @@ namespace CatalogCars.Resource.Api.Controllers
     [Produces("application/json")]
     public class ImportController : Controller
     {
-        private readonly IHubContext<AnnouncementsHub> _announcementshubContext;
+        private readonly IHubContext<AnnouncementsHub> _announcementsHubContext;
         private readonly AnnouncementImporter _importer;
 
-        public ImportController(IHubContext<AnnouncementsHub> announcementshubContext, AnnouncementImporter importer)
+        public ImportController(IHubContext<AnnouncementsHub> announcementsHubContext, AnnouncementImporter importer)
         {
-            _announcementshubContext = announcementshubContext;
+            _announcementsHubContext = announcementsHubContext;
             _importer = importer;
         }
 
@@ -26,7 +26,7 @@ namespace CatalogCars.Resource.Api.Controllers
         [ProducesResponseType(typeof(Guid), 200)]
         public async Task<IActionResult> Index(Announcement announcement)
         {
-            await _announcementshubContext.Clients.All.SendAsync("Receive", new Announcement[1] { announcement });
+            await _announcementsHubContext.Clients.All.SendAsync("Receive", new Announcement[1] { announcement });
 
             return Ok(_importer.Import(announcement));
         }
