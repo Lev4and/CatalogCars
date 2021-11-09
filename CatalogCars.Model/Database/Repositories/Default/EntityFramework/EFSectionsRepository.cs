@@ -3,6 +3,7 @@ using CatalogCars.Model.Database.Entities;
 using CatalogCars.Model.Database.Repositories.Default.Abstract;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Section;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,6 +18,18 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         {
             _context = context;
             _sorters = sorters;
+        }
+
+        public bool ContainsSection(string name, string ruName)
+        {
+            return _context.Sections.FirstOrDefault(section => section.Name == name ||
+                section.RuName == ruName) != null;
+        }
+
+        public void DeleteSection(Guid id)
+        {
+            _context.Sections.Remove(GetSection(id));
+            _context.SaveChanges();
         }
 
         public int GetCountSections(SectionsFilters filters)
@@ -34,6 +47,11 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Select(section => section.RuName)
                 .Take(5)
                 .AsNoTracking();
+        }
+
+        public Section GetSection(Guid id)
+        {
+            return _context.Sections.FirstOrDefault(section => section.Id == id);
         }
 
         public IQueryable<Section> GetSections(SectionsFilters filters)
@@ -58,6 +76,44 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         {
             return _context.Sections
                 .AsNoTracking();
+        }
+
+        public bool SaveSection(Section section)
+        {
+            if (section.Id == default)
+            {
+                if (!ContainsSection(section.Name, section.RuName))
+                {
+                    _context.Entry(section).State = EntityState.Added;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+            }
+            else
+            {
+                var currentVersion = GetSection(section.Id);
+
+                if (currentVersion.Name != section.Name || currentVersion.RuName != section.RuName)
+                {
+                    if (!ContainsSection(section.Name, section.RuName))
+                    {
+                        _context.Entry(section).State = EntityState.Modified;
+                        _context.SaveChanges();
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    _context.Entry(section).State = EntityState.Modified;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
