@@ -3,6 +3,7 @@ using CatalogCars.Model.Database.Entities;
 using CatalogCars.Model.Database.Repositories.Default.Abstract;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.SteeringWheel;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,6 +18,18 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         {
             _context = context;
             _sorters = sorters;
+        }
+
+        public bool ContainsSteeringWheel(string name, string ruName)
+        {
+            return _context.SteeringWheels.FirstOrDefault(steeringWheel => steeringWheel.Name == name ||
+                steeringWheel.RuName == ruName) != null;
+        }
+
+        public void DeleteSteeringWheel(Guid id)
+        {
+            _context.SteeringWheels.Remove(GetSteeringWheel(id));
+            _context.SaveChanges();
         }
 
         public int GetCountSteeringWheels(SteeringWheelsFilters filters)
@@ -34,6 +47,11 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Select(steeringWheel => steeringWheel.RuName)
                 .Take(5)
                 .AsNoTracking();
+        }
+
+        public SteeringWheel GetSteeringWheel(Guid id)
+        {
+            return _context.SteeringWheels.FirstOrDefault(steeringWheel => steeringWheel.Id == id);
         }
 
         public IQueryable<SteeringWheel> GetSteeringWheels(SteeringWheelsFilters filters)
@@ -58,6 +76,44 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         {
             return _context.SteeringWheels
                 .AsNoTracking();
+        }
+
+        public bool SaveSteeringWheel(SteeringWheel steeringWheel)
+        {
+            if (steeringWheel.Id == default)
+            {
+                if (!ContainsSteeringWheel(steeringWheel.Name, steeringWheel.RuName))
+                {
+                    _context.Entry(steeringWheel).State = EntityState.Added;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+            }
+            else
+            {
+                var currentVersion = GetSteeringWheel(steeringWheel.Id);
+
+                if (currentVersion.Name != steeringWheel.Name || currentVersion.RuName != steeringWheel.RuName)
+                {
+                    if (!ContainsSteeringWheel(steeringWheel.Name, steeringWheel.RuName))
+                    {
+                        _context.Entry(steeringWheel).State = EntityState.Modified;
+                        _context.SaveChanges();
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    _context.Entry(steeringWheel).State = EntityState.Modified;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
