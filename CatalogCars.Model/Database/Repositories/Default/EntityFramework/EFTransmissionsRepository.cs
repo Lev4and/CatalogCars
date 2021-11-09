@@ -3,6 +3,7 @@ using CatalogCars.Model.Database.Entities;
 using CatalogCars.Model.Database.Repositories.Default.Abstract;
 using CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorters.Transmission;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,6 +18,18 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         {
             _context = context;
             _sorters = sorters;
+        }
+
+        public bool ContainsTransmission(string name, string ruName)
+        {
+            return _context.Transmissions.FirstOrDefault(transmission => transmission.Name == name ||
+                transmission.RuName == ruName) != null;
+        }
+
+        public void DeleteTransmission(Guid id)
+        {
+            _context.Transmissions.Remove(GetTransmission(id));
+            _context.SaveChanges();
         }
 
         public int GetCountTransmissions(TransmissionsFilters filters)
@@ -34,6 +47,11 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .Select(transmission => transmission.RuName)
                 .Take(5)
                 .AsNoTracking();
+        }
+
+        public Transmission GetTransmission(Guid id)
+        {
+            return _context.Transmissions.FirstOrDefault(transmission => transmission.Id == id);
         }
 
         public IQueryable<Transmission> GetTransmissions(TransmissionsFilters filters)
@@ -58,6 +76,44 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         {
             return _context.Transmissions
                 .AsNoTracking();
+        }
+
+        public bool SaveTransmission(Transmission transmission)
+        {
+            if (transmission.Id == default)
+            {
+                if (!ContainsTransmission(transmission.Name, transmission.RuName))
+                {
+                    _context.Entry(transmission).State = EntityState.Added;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+            }
+            else
+            {
+                var currentVersion = GetTransmission(transmission.Id);
+
+                if (currentVersion.Name != transmission.Name || currentVersion.RuName != transmission.RuName)
+                {
+                    if (!ContainsTransmission(transmission.Name, transmission.RuName))
+                    {
+                        _context.Entry(transmission).State = EntityState.Modified;
+                        _context.SaveChanges();
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    _context.Entry(transmission).State = EntityState.Modified;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
