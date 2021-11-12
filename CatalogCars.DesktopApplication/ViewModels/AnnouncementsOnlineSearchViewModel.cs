@@ -6,6 +6,7 @@ using CatalogCars.Resource.Requests.HubClients;
 using DevExpress.Mvvm;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -89,10 +90,10 @@ namespace CatalogCars.DesktopApplication.ViewModels
                     var headers = await _cookieWorker.GetHeadersAjaxRequestForCars(rangeMileage, rangePrice, 1, 1, 1);
 
                     var announcements = JsonConvert.DeserializeObject<Result>(await _jsonWorker.GetCars(headers,
-                        rangeMileage, rangePrice, pageSize, topDays, 1)).Announcements.Where(announcement =>
+                        rangeMileage, rangePrice, pageSize, topDays, 1))?.Announcements.Where(announcement =>
                             announcement.AdditionalInfo.CreatedAt >= DateTime.Now.ToUniversalTime().AddMinutes(-5) &&
                                 (Announcements.Count > 0 ? Announcements.All(a => a.SaleId !=
-                                    announcement.SaleId) : true)).ToList();
+                                    announcement.SaleId) : true)).ToList() ?? new List<Announcement>();
 
                     if (announcements.Count > 0)
                     {
