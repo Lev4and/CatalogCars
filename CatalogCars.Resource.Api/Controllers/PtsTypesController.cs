@@ -57,7 +57,7 @@ namespace CatalogCars.Resource.Api.Controllers
         }
 
         [HttpPost("save")]
-        [ProducesResponseType(typeof(SaveResult<Guid>), 200)]
+        [ProducesResponseType(typeof(SaveResult<object>), 200)]
         [ProducesResponseType(typeof(SaveResult<object>), 404)]
         public IActionResult Add([FromBody] PtsType ptsType)
         {
@@ -65,7 +65,7 @@ namespace CatalogCars.Resource.Api.Controllers
             {
                 if (_dataManager.PtsTypes.SavePtsType(ptsType))
                 {
-                    return Ok(new SaveResult<Guid>()
+                    return Ok(new SaveResult<object>()
                     {
                         Result = ptsType.Id,
                         Status = SaveResultStatus.Success,
@@ -92,7 +92,7 @@ namespace CatalogCars.Resource.Api.Controllers
         }
 
         [HttpPut("save")]
-        [ProducesResponseType(typeof(SaveResult<Guid>), 200)]
+        [ProducesResponseType(typeof(SaveResult<object>), 200)]
         [ProducesResponseType(typeof(SaveResult<object>), 404)]
         public IActionResult Update([FromBody] PtsType ptsType)
         {
@@ -100,7 +100,7 @@ namespace CatalogCars.Resource.Api.Controllers
             {
                 if (_dataManager.PtsTypes.SavePtsType(ptsType))
                 {
-                    return Ok(new SaveResult<Guid>()
+                    return Ok(new SaveResult<object>()
                     {
                         Result = ptsType.Id,
                         Status = SaveResultStatus.Success,

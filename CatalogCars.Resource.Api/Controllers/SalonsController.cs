@@ -71,7 +71,7 @@ namespace CatalogCars.Resource.Api.Controllers
         }
 
         [HttpPost("save")]
-        [ProducesResponseType(typeof(SaveResult<Guid>), 200)]
+        [ProducesResponseType(typeof(SaveResult<object>), 200)]
         [ProducesResponseType(typeof(SaveResult<object>), 404)]
         public IActionResult Add([FromBody] Salon salon)
         {
@@ -79,7 +79,7 @@ namespace CatalogCars.Resource.Api.Controllers
             {
                 if (_dataManager.Salons.SaveSalon(salon))
                 {
-                    return Ok(new SaveResult<Guid>()
+                    return Ok(new SaveResult<object>()
                     {
                         Result = salon.Id,
                         Status = SaveResultStatus.Success,
@@ -106,7 +106,7 @@ namespace CatalogCars.Resource.Api.Controllers
         }
 
         [HttpPut("save")]
-        [ProducesResponseType(typeof(SaveResult<Guid>), 200)]
+        [ProducesResponseType(typeof(SaveResult<object>), 200)]
         [ProducesResponseType(typeof(SaveResult<object>), 404)]
         public IActionResult Update([FromBody] Salon salon)
         {
@@ -114,7 +114,7 @@ namespace CatalogCars.Resource.Api.Controllers
             {
                 if (_dataManager.Salons.SaveSalon(salon))
                 {
-                    return Ok(new SaveResult<Guid>()
+                    return Ok(new SaveResult<object>()
                     {
                         Result = salon.Id,
                         Status = SaveResultStatus.Success,

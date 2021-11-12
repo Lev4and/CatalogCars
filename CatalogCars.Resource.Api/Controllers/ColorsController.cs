@@ -57,7 +57,7 @@ namespace CatalogCars.Resource.Api.Controllers
         }
 
         [HttpPost("save")]
-        [ProducesResponseType(typeof(SaveResult<Guid>), 200)]
+        [ProducesResponseType(typeof(SaveResult<object>), 200)]
         [ProducesResponseType(typeof(SaveResult<object>), 404)]
         public IActionResult Add([FromBody] Color color)
         {
@@ -65,7 +65,7 @@ namespace CatalogCars.Resource.Api.Controllers
             {
                 if (_dataManager.Colors.SaveColor(color))
                 {
-                    return Ok(new SaveResult<Guid>()
+                    return Ok(new SaveResult<object>()
                     {
                         Result = color.Id,
                         Status = SaveResultStatus.Success,
@@ -92,7 +92,7 @@ namespace CatalogCars.Resource.Api.Controllers
         }
 
         [HttpPut("save")]
-        [ProducesResponseType(typeof(SaveResult<Guid>), 200)]
+        [ProducesResponseType(typeof(SaveResult<object>), 200)]
         [ProducesResponseType(typeof(SaveResult<object>), 404)]
         public IActionResult Update([FromBody] Color color)
         {
@@ -100,7 +100,7 @@ namespace CatalogCars.Resource.Api.Controllers
             {
                 if (_dataManager.Colors.SaveColor(color))
                 {
-                    return Ok(new SaveResult<Guid>()
+                    return Ok(new SaveResult<object>()
                     {
                         Result = color.Id,
                         Status = SaveResultStatus.Success,

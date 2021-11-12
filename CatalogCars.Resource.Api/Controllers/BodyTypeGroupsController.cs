@@ -64,7 +64,7 @@ namespace CatalogCars.Resource.Api.Controllers
         }
 
         [HttpPost("save")]
-        [ProducesResponseType(typeof(SaveResult<Guid>), 200)]
+        [ProducesResponseType(typeof(SaveResult<object>), 200)]
         [ProducesResponseType(typeof(SaveResult<object>), 404)]
         public IActionResult Add([FromBody] BodyTypeGroup bodyTypeGroup)
         {
@@ -72,7 +72,7 @@ namespace CatalogCars.Resource.Api.Controllers
             {
                 if (_dataManager.BodyTypeGroups.SaveBodyTypeGroup(bodyTypeGroup))
                 {
-                    return Ok(new SaveResult<Guid>()
+                    return Ok(new SaveResult<object>()
                     {
                         Result = bodyTypeGroup.Id,
                         Status = SaveResultStatus.Success,
@@ -99,7 +99,7 @@ namespace CatalogCars.Resource.Api.Controllers
         }
 
         [HttpPut("save")]
-        [ProducesResponseType(typeof(SaveResult<Guid>), 200)]
+        [ProducesResponseType(typeof(SaveResult<object>), 200)]
         [ProducesResponseType(typeof(SaveResult<object>), 404)]
         public IActionResult Update([FromBody] BodyTypeGroup bodyTypeGroup)
         {
@@ -107,7 +107,7 @@ namespace CatalogCars.Resource.Api.Controllers
             {
                 if (_dataManager.BodyTypeGroups.SaveBodyTypeGroup(bodyTypeGroup))
                 {
-                    return Ok(new SaveResult<Guid>()
+                    return Ok(new SaveResult<object>()
                     {
                         Result = bodyTypeGroup.Id,
                         Status = SaveResultStatus.Success,

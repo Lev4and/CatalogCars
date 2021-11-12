@@ -57,7 +57,7 @@ namespace CatalogCars.Resource.Api.Controllers
         }
 
         [HttpPost("save")]
-        [ProducesResponseType(typeof(SaveResult<Guid>), 200)]
+        [ProducesResponseType(typeof(SaveResult<object>), 200)]
         [ProducesResponseType(typeof(SaveResult<object>), 404)]
         public IActionResult Add([FromBody] VinResolution vinResolution)
         {
@@ -65,7 +65,7 @@ namespace CatalogCars.Resource.Api.Controllers
             {
                 if (_dataManager.VinResolutions.SaveVinResolution(vinResolution))
                 {
-                    return Ok(new SaveResult<Guid>()
+                    return Ok(new SaveResult<object>()
                     {
                         Result = vinResolution.Id,
                         Status = SaveResultStatus.Success,
@@ -92,7 +92,7 @@ namespace CatalogCars.Resource.Api.Controllers
         }
 
         [HttpPut("save")]
-        [ProducesResponseType(typeof(SaveResult<Guid>), 200)]
+        [ProducesResponseType(typeof(SaveResult<object>), 200)]
         [ProducesResponseType(typeof(SaveResult<object>), 404)]
         public IActionResult Update([FromBody] VinResolution vinResolution)
         {
@@ -100,7 +100,7 @@ namespace CatalogCars.Resource.Api.Controllers
             {
                 if (_dataManager.VinResolutions.SaveVinResolution(vinResolution))
                 {
-                    return Ok(new SaveResult<Guid>()
+                    return Ok(new SaveResult<object>()
                     {
                         Result = vinResolution.Id,
                         Status = SaveResultStatus.Success,

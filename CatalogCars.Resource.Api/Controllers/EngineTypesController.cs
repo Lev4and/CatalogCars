@@ -64,7 +64,7 @@ namespace CatalogCars.Resource.Api.Controllers
         }
 
         [HttpPost("save")]
-        [ProducesResponseType(typeof(SaveResult<Guid>), 200)]
+        [ProducesResponseType(typeof(SaveResult<object>), 200)]
         [ProducesResponseType(typeof(SaveResult<object>), 404)]
         public IActionResult Add([FromBody] EngineType engineType)
         {
@@ -72,7 +72,7 @@ namespace CatalogCars.Resource.Api.Controllers
             {
                 if (_dataManager.EngineTypes.SaveEngineType(engineType))
                 {
-                    return Ok(new SaveResult<Guid>()
+                    return Ok(new SaveResult<object>()
                     {
                         Result = engineType.Id,
                         Status = SaveResultStatus.Success,
@@ -99,7 +99,7 @@ namespace CatalogCars.Resource.Api.Controllers
         }
 
         [HttpPut("save")]
-        [ProducesResponseType(typeof(SaveResult<Guid>), 200)]
+        [ProducesResponseType(typeof(SaveResult<object>), 200)]
         [ProducesResponseType(typeof(SaveResult<object>), 404)]
         public IActionResult Update([FromBody] EngineType engineType)
         {
@@ -107,7 +107,7 @@ namespace CatalogCars.Resource.Api.Controllers
             {
                 if (_dataManager.EngineTypes.SaveEngineType(engineType))
                 {
-                    return Ok(new SaveResult<Guid>()
+                    return Ok(new SaveResult<object>()
                     {
                         Result = engineType.Id,
                         Status = SaveResultStatus.Success,
