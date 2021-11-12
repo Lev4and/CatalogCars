@@ -91,5 +91,70 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
 
             return new Salon[0];
         }
+
+        public async Task<bool> ContainsSalonAsync(Guid locationId, string name)
+        {
+            var resultStream = await _responseLoader.GetStreamFromContainsSalonResponseAsync(locationId, name);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<bool>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return false;
+        }
+
+        public async Task<Salon> GetSalonAsync(Guid id)
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetSalonResponseAsync(id);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<Salon>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new Salon();
+        }
+
+        public async Task<SaveResult<object>> AddSalonAsync(Salon salon)
+        {
+            var resultStream = await _responseLoader.GetStreamFromAddSalonResponseAsync(salon);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task<SaveResult<object>> UpdateSalonAsync(Salon salon)
+        {
+            var resultStream = await _responseLoader.GetStreamFromUpdateSalonResponseAsync(salon);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task DeleteSalonAsync(Guid id)
+        {
+            await _responseLoader.GetStreamFromDeleteSalonResponseAsync(id);
+        }
     }
 }

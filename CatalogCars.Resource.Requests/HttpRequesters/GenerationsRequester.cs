@@ -2,6 +2,7 @@
 using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpResponseLoaders;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -119,6 +120,71 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             }
 
             return new string[0];
+        }
+
+        public async Task<bool> ContainsGenerationAsync(Guid modelId, int? yearFrom = null, string name = null)
+        {
+            var resultStream = await _responseLoader.GetStreamFromContainsGenerationResponseAsync(modelId, yearFrom, name);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<bool>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return false;
+        }
+
+        public async Task<Generation> GetGenerationAsync(Guid id)
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetGenerationResponseAsync(id);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<Generation>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new Generation();
+        }
+
+        public async Task<SaveResult<object>> AddGenerationAsync(Generation Generation)
+        {
+            var resultStream = await _responseLoader.GetStreamFromAddGenerationResponseAsync(Generation);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task<SaveResult<object>> UpdateGenerationAsync(Generation Generation)
+        {
+            var resultStream = await _responseLoader.GetStreamFromUpdateGenerationResponseAsync(Generation);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task DeleteGenerationAsync(Guid id)
+        {
+            await _responseLoader.GetStreamFromDeleteGenerationResponseAsync(id);
         }
     }
 }

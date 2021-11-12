@@ -2,6 +2,7 @@
 using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpResponseLoaders;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -74,6 +75,71 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             }
 
             return new Currency[0];
+        }
+
+        public async Task<bool> ContainsCurrencyAsync(string name)
+        {
+            var resultStream = await _responseLoader.GetStreamFromContainsCurrencyResponseAsync(name);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<bool>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return false;
+        }
+
+        public async Task<Currency> GetCurrencyAsync(Guid id)
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetCurrencyResponseAsync(id);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<Currency>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new Currency();
+        }
+
+        public async Task<SaveResult<object>> AddCurrencyAsync(Currency currency)
+        {
+            var resultStream = await _responseLoader.GetStreamFromAddCurrencyResponseAsync(currency);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task<SaveResult<object>> UpdateCurrencyAsync(Currency currency)
+        {
+            var resultStream = await _responseLoader.GetStreamFromUpdateCurrencyResponseAsync(currency);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task DeleteCurrencyAsync(Guid id)
+        {
+            await _responseLoader.GetStreamFromDeleteCurrencyResponseAsync(id);
         }
     }
 }

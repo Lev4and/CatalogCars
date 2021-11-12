@@ -1,4 +1,5 @@
 ﻿using CatalogCars.Model.Database.AuxiliaryTypes;
+using CatalogCars.Model.Database.Entities;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
@@ -45,6 +46,28 @@ namespace CatalogCars.Resource.Requests.HttpClients
         public async Task<HttpResponseMessage> GetPopularityMark(Guid markId)
         {
             return await _client.GetAsync($"popularityMark/?markId={markId}");
+        }
+
+        public async Task<HttpResponseMessage> ContainsMarkAsync(string name)
+        {
+            return await _client.GetAsync($"contains?name={name}");
+        }
+
+        public async Task<HttpResponseMessage> AddMarkAsync(Mark mark)
+        {
+            return await _client.PostAsync("save", new StringContent(JsonConvert.SerializeObject(mark),
+                Encoding.UTF8, "application/json"));
+        }
+
+        public async Task<HttpResponseMessage> UpdateMarkAsync(Mark mark)
+        {
+            return await _client.PutAsync("save", new StringContent(JsonConvert.SerializeObject(mark),
+                Encoding.UTF8, "application/json"));
+        }
+
+        public async Task<HttpResponseMessage> DeleteMarkAsync(Guid id)
+        {
+            return await _client.DeleteAsync($"{id}");
         }
     }
 }

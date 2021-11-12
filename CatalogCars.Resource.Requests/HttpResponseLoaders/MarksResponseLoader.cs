@@ -1,4 +1,5 @@
 ﻿using CatalogCars.Model.Database.AuxiliaryTypes;
+using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpClients;
 using System;
 using System.IO;
@@ -43,6 +44,26 @@ namespace CatalogCars.Resource.Requests.HttpResponseLoaders
         public async Task<Stream> GetStreamFromGetPopularityMarkResponseAsync(Guid markId)
         {
             return await GetStreamFromResponseAsync(await _client.GetPopularityMark(markId));
+        }
+
+        public async Task<Stream> GetStreamFromContainsMarkResponseAsync(string name)
+        {
+            return await GetStreamFromResponseAsync(await _client.ContainsMarkAsync(name));
+        }
+
+        public async Task<Stream> GetStreamFromAddMarkResponseAsync(Mark mark)
+        {
+            return await GetStreamFromResponseAsync(await _client.AddMarkAsync(mark));
+        }
+
+        public async Task<Stream> GetStreamFromUpdateMarkResponseAsync(Mark mark)
+        {
+            return await GetStreamFromResponseAsync(await _client.UpdateMarkAsync(mark));
+        }
+
+        public async Task<Stream> GetStreamFromDeleteMarkResponseAsync(Guid id)
+        {
+            return await GetStreamFromResponseAsync(await _client.DeleteMarkAsync(id));
         }
     }
 }

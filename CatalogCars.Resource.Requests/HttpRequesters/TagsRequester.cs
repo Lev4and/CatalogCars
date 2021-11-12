@@ -2,6 +2,7 @@
 using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpResponseLoaders;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -59,6 +60,71 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             }
 
             return new Tag[0];
+        }
+
+        public async Task<bool> ContainsTagAsync(string name, string ruName)
+        {
+            var resultStream = await _responseLoader.GetStreamFromContainsTagResponseAsync(name, ruName);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<bool>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return false;
+        }
+
+        public async Task<Tag> GetTagAsync(Guid id)
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetTagResponseAsync(id);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<Tag>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new Tag();
+        }
+
+        public async Task<SaveResult<object>> AddTagAsync(Tag tag)
+        {
+            var resultStream = await _responseLoader.GetStreamFromAddTagResponseAsync(tag);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task<SaveResult<object>> UpdateTagAsync(Tag tag)
+        {
+            var resultStream = await _responseLoader.GetStreamFromUpdateTagResponseAsync(tag);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task DeleteTagAsync(Guid id)
+        {
+            await _responseLoader.GetStreamFromDeleteTagResponseAsync(id);
         }
     }
 }

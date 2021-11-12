@@ -1,5 +1,7 @@
 ﻿using CatalogCars.Model.Database.AuxiliaryTypes;
+using CatalogCars.Model.Database.Entities;
 using Newtonsoft.Json;
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +31,33 @@ namespace CatalogCars.Resource.Requests.HttpClients
         {
             return await _client.PostAsync("", new StringContent(JsonConvert.SerializeObject(filters),
                 Encoding.UTF8, "application/json"));
+        }
+
+        public async Task<HttpResponseMessage> ContainsOptionAsync(string name, string ruName)
+        {
+            return await _client.GetAsync($"contains?name={name}&ruName={ruName}");
+        }
+
+        public async Task<HttpResponseMessage> GetOptionAsync(Guid id)
+        {
+            return await _client.GetAsync($"{id}");
+        }
+
+        public async Task<HttpResponseMessage> AddOptionAsync(Option option)
+        {
+            return await _client.PostAsync("save", new StringContent(JsonConvert.SerializeObject(option),
+                Encoding.UTF8, "application/json"));
+        }
+
+        public async Task<HttpResponseMessage> UpdateOptionAsync(Option option)
+        {
+            return await _client.PutAsync("save", new StringContent(JsonConvert.SerializeObject(option),
+                Encoding.UTF8, "application/json"));
+        }
+
+        public async Task<HttpResponseMessage> DeleteOptionAsync(Guid id)
+        {
+            return await _client.DeleteAsync($"{id}");
         }
     }
 }

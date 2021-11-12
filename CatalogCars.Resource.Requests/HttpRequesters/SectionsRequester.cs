@@ -2,6 +2,7 @@
 using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpResponseLoaders;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -74,6 +75,71 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             }
 
             return new Section[0];
+        }
+
+        public async Task<bool> ContainsSectionAsync(string name, string ruName)
+        {
+            var resultStream = await _responseLoader.GetStreamFromContainsSectionResponseAsync(name, ruName);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<bool>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return false;
+        }
+
+        public async Task<Section> GetSectionAsync(Guid id)
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetSectionResponseAsync(id);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<Section>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new Section();
+        }
+
+        public async Task<SaveResult<object>> AddSectionAsync(Section section)
+        {
+            var resultStream = await _responseLoader.GetStreamFromAddSectionResponseAsync(section);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task<SaveResult<object>> UpdateSectionAsync(Section section)
+        {
+            var resultStream = await _responseLoader.GetStreamFromUpdateSectionResponseAsync(section);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task DeleteSectionAsync(Guid id)
+        {
+            await _responseLoader.GetStreamFromDeleteSectionResponseAsync(id);
         }
     }
 }

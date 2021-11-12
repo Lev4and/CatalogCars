@@ -2,6 +2,7 @@
 using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpResponseLoaders;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -74,6 +75,71 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             }
 
             return new Status[0];
+        }
+
+        public async Task<bool> ContainsStatusAsync(string name, string ruName)
+        {
+            var resultStream = await _responseLoader.GetStreamFromContainsStatusResponseAsync(name, ruName);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<bool>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return false;
+        }
+
+        public async Task<Status> GetStatusAsync(Guid id)
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetStatusResponseAsync(id);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<Status>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new Status();
+        }
+
+        public async Task<SaveResult<object>> AddStatusAsync(Status status)
+        {
+            var resultStream = await _responseLoader.GetStreamFromAddStatusResponseAsync(status);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task<SaveResult<object>> UpdateStatusAsync(Status status)
+        {
+            var resultStream = await _responseLoader.GetStreamFromUpdateStatusResponseAsync(status);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task DeleteStatusAsync(Guid id)
+        {
+            await _responseLoader.GetStreamFromDeleteStatusResponseAsync(id);
         }
     }
 }

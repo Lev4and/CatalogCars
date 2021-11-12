@@ -122,5 +122,70 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
 
             return new PopularityModels[0];
         }
+
+        public async Task<bool> ContainsModelAsync(Guid markId, string name)
+        {
+            var resultStream = await _responseLoader.GetStreamFromContainsModelResponseAsync(markId, name);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<bool>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return false;
+        }
+
+        public async Task<Entities.Model> GetModelAsync(Guid id)
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetModelResponseAsync(id);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<Entities.Model>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new Entities.Model();
+        }
+
+        public async Task<SaveResult<object>> AddModelAsync(Entities.Model model)
+        {
+            var resultStream = await _responseLoader.GetStreamFromAddModelResponseAsync(model);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task<SaveResult<object>> UpdateModelAsync(Entities.Model model)
+        {
+            var resultStream = await _responseLoader.GetStreamFromUpdateModelResponseAsync(model);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task DeleteModelAsync(Guid id)
+        {
+            await _responseLoader.GetStreamFromDeleteModelResponseAsync(id);
+        }
     }
 }

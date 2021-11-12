@@ -2,6 +2,7 @@
 using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpResponseLoaders;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -74,6 +75,71 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             }
 
             return new BodyTypeGroup[0];
+        }
+
+        public async Task<bool> ContainsBodyTypeGroupAsync(string autoClass, string ruName)
+        {
+            var resultStream = await _responseLoader.GetStreamFromContainsBodyTypeGroupResponseAsync(autoClass, ruName);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<bool>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return false;
+        }
+
+        public async Task<BodyTypeGroup> GetBodyTypeGroupAsync(Guid id)
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetBodyTypeGroupResponseAsync(id);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<BodyTypeGroup>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new BodyTypeGroup();
+        }
+
+        public async Task<SaveResult<object>> AddBodyTypeGroupAsync(BodyTypeGroup bodyTypeGroup)
+        {
+            var resultStream = await _responseLoader.GetStreamFromAddBodyTypeGroupResponseAsync(bodyTypeGroup);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task<SaveResult<object>> UpdateBodyTypeGroupAsync(BodyTypeGroup bodyTypeGroup)
+        {
+            var resultStream = await _responseLoader.GetStreamFromUpdateBodyTypeGroupResponseAsync(bodyTypeGroup);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task DeleteBodyTypeGroupAsync(Guid id)
+        {
+            await _responseLoader.GetStreamFromDeleteBodyTypeGroupResponseAsync(id);
         }
     }
 }

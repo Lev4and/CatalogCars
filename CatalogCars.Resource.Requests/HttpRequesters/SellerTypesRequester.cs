@@ -2,6 +2,7 @@
 using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpResponseLoaders;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -74,6 +75,71 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             }
 
             return new SellerType[0];
+        }
+
+        public async Task<bool> ContainsSellerTypeAsync(string name, string ruName)
+        {
+            var resultStream = await _responseLoader.GetStreamFromContainsSellerTypeResponseAsync(name, ruName);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<bool>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return false;
+        }
+
+        public async Task<SellerType> GetSellerTypeAsync(Guid id)
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetSellerTypeResponseAsync(id);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SellerType>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SellerType();
+        }
+
+        public async Task<SaveResult<object>> AddSellerTypeAsync(SellerType sellerType)
+        {
+            var resultStream = await _responseLoader.GetStreamFromAddSellerTypeResponseAsync(sellerType);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task<SaveResult<object>> UpdateSellerTypeAsync(SellerType sellerType)
+        {
+            var resultStream = await _responseLoader.GetStreamFromUpdateSellerTypeResponseAsync(sellerType);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task DeleteSellerTypeAsync(Guid id)
+        {
+            await _responseLoader.GetStreamFromDeleteSellerTypeResponseAsync(id);
         }
     }
 }

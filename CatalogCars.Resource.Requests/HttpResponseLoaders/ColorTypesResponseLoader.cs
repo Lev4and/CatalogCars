@@ -1,5 +1,7 @@
 ﻿using CatalogCars.Model.Database.AuxiliaryTypes;
+using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpClients;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -27,6 +29,31 @@ namespace CatalogCars.Resource.Requests.HttpResponseLoaders
         public async Task<Stream> GetStreamFromGetColorTypesResponseAsync(ColorTypesFilters filters)
         {
             return await GetStreamFromResponseAsync(await _client.GetColorTypesAsync(filters));
+        }
+
+        public async Task<Stream> GetStreamFromContainsColorTypeResponseAsync(string name, string ruName)
+        {
+            return await GetStreamFromResponseAsync(await _client.ContainsColorTypeAsync(name, ruName));
+        }
+
+        public async Task<Stream> GetStreamFromGetColorTypeResponseAsync(Guid id)
+        {
+            return await GetStreamFromResponseAsync(await _client.GetColorTypeAsync(id));
+        }
+
+        public async Task<Stream> GetStreamFromAddColorTypeResponseAsync(ColorType colorType)
+        {
+            return await GetStreamFromResponseAsync(await _client.AddColorTypeAsync(colorType));
+        }
+
+        public async Task<Stream> GetStreamFromUpdateColorTypeResponseAsync(ColorType colorType)
+        {
+            return await GetStreamFromResponseAsync(await _client.UpdateColorTypeAsync(colorType));
+        }
+
+        public async Task<Stream> GetStreamFromDeleteColorTypeResponseAsync(Guid id)
+        {
+            return await GetStreamFromResponseAsync(await _client.DeleteColorTypeAsync(id));
         }
     }
 }

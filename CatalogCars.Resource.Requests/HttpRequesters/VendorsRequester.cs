@@ -2,6 +2,7 @@
 using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpResponseLoaders;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -59,6 +60,71 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             }
 
             return new Vendor[0];
+        }
+
+        public async Task<bool> ContainsVendorAsync(string name, string ruName)
+        {
+            var resultStream = await _responseLoader.GetStreamFromContainsVendorResponseAsync(name, ruName);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<bool>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return false;
+        }
+
+        public async Task<Vendor> GetVendorAsync(Guid id)
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetVendorResponseAsync(id);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<Vendor>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new Vendor();
+        }
+
+        public async Task<SaveResult<object>> AddVendorAsync(Vendor vendor)
+        {
+            var resultStream = await _responseLoader.GetStreamFromAddVendorResponseAsync(vendor);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task<SaveResult<object>> UpdateVendorAsync(Vendor vendor)
+        {
+            var resultStream = await _responseLoader.GetStreamFromUpdateVendorResponseAsync(vendor);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task DeleteVendorAsync(Guid id)
+        {
+            await _responseLoader.GetStreamFromDeleteVendorResponseAsync(id);
         }
     }
 }

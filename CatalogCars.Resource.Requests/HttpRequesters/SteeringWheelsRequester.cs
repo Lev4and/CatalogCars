@@ -2,6 +2,7 @@
 using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpResponseLoaders;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -74,6 +75,71 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             }
 
             return new SteeringWheel[0];
+        }
+
+        public async Task<bool> ContainsSteeringWheelAsync(string name, string ruName)
+        {
+            var resultStream = await _responseLoader.GetStreamFromContainsSteeringWheelResponseAsync(name, ruName);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<bool>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return false;
+        }
+
+        public async Task<SteeringWheel> GetSteeringWheelAsync(Guid id)
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetSteeringWheelResponseAsync(id);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SteeringWheel>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SteeringWheel();
+        }
+
+        public async Task<SaveResult<object>> AddSteeringWheelAsync(SteeringWheel steeringWheel)
+        {
+            var resultStream = await _responseLoader.GetStreamFromAddSteeringWheelResponseAsync(steeringWheel);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task<SaveResult<object>> UpdateSteeringWheelAsync(SteeringWheel steeringWheel)
+        {
+            var resultStream = await _responseLoader.GetStreamFromUpdateSteeringWheelResponseAsync(steeringWheel);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task DeleteSteeringWheelAsync(Guid id)
+        {
+            await _responseLoader.GetStreamFromDeleteSteeringWheelResponseAsync(id);
         }
     }
 }

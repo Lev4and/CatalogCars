@@ -2,6 +2,7 @@
 using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpResponseLoaders;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -59,6 +60,71 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             }
 
             return new Location[0];
+        }
+
+        public async Task<bool> ContainsLocationAsync(double latitude, double longitude)
+        {
+            var resultStream = await _responseLoader.GetStreamFromContainsLocationResponseAsync(latitude, longitude);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<bool>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return false;
+        }
+
+        public async Task<Location> GetLocationAsync(Guid id)
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetLocationResponseAsync(id);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<Location>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new Location();
+        }
+
+        public async Task<SaveResult<object>> AddLocationAsync(Location location)
+        {
+            var resultStream = await _responseLoader.GetStreamFromAddLocationResponseAsync(location);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task<SaveResult<object>> UpdateLocationAsync(Location location)
+        {
+            var resultStream = await _responseLoader.GetStreamFromUpdateLocationResponseAsync(location);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task DeleteLocationAsync(Guid id)
+        {
+            await _responseLoader.GetStreamFromDeleteLocationResponseAsync(id);
         }
     }
 }

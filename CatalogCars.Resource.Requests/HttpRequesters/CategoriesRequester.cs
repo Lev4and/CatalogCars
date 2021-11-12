@@ -3,10 +3,7 @@ using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpResponseLoaders;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CatalogCars.Resource.Requests.HttpRequesters
@@ -63,6 +60,71 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             }
 
             return new Category[0];
+        }
+
+        public async Task<bool> ContainsCategoryAsync(string name, string ruName)
+        {
+            var resultStream = await _responseLoader.GetStreamFromContainsCategoryResponseAsync(name, ruName);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<bool>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return false;
+        }
+
+        public async Task<Category> GetCategoryAsync(Guid id)
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetCategoryResponseAsync(id);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<Category>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new Category();
+        }
+
+        public async Task<SaveResult<object>> AddCategoryAsync(Category category)
+        {
+            var resultStream = await _responseLoader.GetStreamFromAddCategoryResponseAsync(category);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task<SaveResult<object>> UpdateCategoryAsync(Category category)
+        {
+            var resultStream = await _responseLoader.GetStreamFromUpdateCategoryResponseAsync(category);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task DeleteCategoryAsync(Guid id)
+        {
+            await _responseLoader.GetStreamFromDeleteCategoryResponseAsync(id);
         }
     }
 }

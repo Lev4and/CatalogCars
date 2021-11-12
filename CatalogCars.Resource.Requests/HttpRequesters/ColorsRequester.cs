@@ -2,6 +2,7 @@
 using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpResponseLoaders;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -59,6 +60,71 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             }
 
             return new Color[0];
+        }
+
+        public async Task<bool> ContainsColorAsync(string value)
+        {
+            var resultStream = await _responseLoader.GetStreamFromContainsColorResponseAsync(value);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<bool>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return false;
+        }
+
+        public async Task<Color> GetColorAsync(Guid id)
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetColorResponseAsync(id);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<Color>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new Color();
+        }
+
+        public async Task<SaveResult<object>> AddColorAsync(Color color)
+        {
+            var resultStream = await _responseLoader.GetStreamFromAddColorResponseAsync(color);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task<SaveResult<object>> UpdateColorAsync(Color color)
+        {
+            var resultStream = await _responseLoader.GetStreamFromUpdateColorResponseAsync(color);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task DeleteColorAsync(Guid id)
+        {
+            await _responseLoader.GetStreamFromDeleteColorResponseAsync(id);
         }
     }
 }

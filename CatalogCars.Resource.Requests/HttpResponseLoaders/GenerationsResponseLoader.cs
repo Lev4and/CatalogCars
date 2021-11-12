@@ -1,5 +1,7 @@
 ﻿using CatalogCars.Model.Database.AuxiliaryTypes;
+using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpClients;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -47,6 +49,31 @@ namespace CatalogCars.Resource.Requests.HttpResponseLoaders
         public async Task<Stream> GetStreamFromGetNamesGenerationsResponseAsync(string searchString)
         {
             return await GetStreamFromResponseAsync(await _client.GetNamesGenerationsAsync(searchString));
+        }
+
+        public async Task<Stream> GetStreamFromContainsGenerationResponseAsync(Guid modelId, int? yearFrom = null, string name = null)
+        {
+            return await GetStreamFromResponseAsync(await _client.ContainsGenerationAsync(modelId, yearFrom, name));
+        }
+
+        public async Task<Stream> GetStreamFromGetGenerationResponseAsync(Guid id)
+        {
+            return await GetStreamFromResponseAsync(await _client.GetGenerationAsync(id));
+        }
+
+        public async Task<Stream> GetStreamFromAddGenerationResponseAsync(Generation generation)
+        {
+            return await GetStreamFromResponseAsync(await _client.AddGenerationAsync(generation));
+        }
+
+        public async Task<Stream> GetStreamFromUpdateGenerationResponseAsync(Generation generation)
+        {
+            return await GetStreamFromResponseAsync(await _client.UpdateGenerationAsync(generation));
+        }
+
+        public async Task<Stream> GetStreamFromDeleteGenerationResponseAsync(Guid id)
+        {
+            return await GetStreamFromResponseAsync(await _client.DeleteGenerationAsync(id));
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Entities = CatalogCars.Model.Database.Entities;
 
 namespace CatalogCars.Resource.Requests.HttpClients
 {
@@ -53,6 +54,33 @@ namespace CatalogCars.Resource.Requests.HttpClients
         public async Task<HttpResponseMessage> GetPopularityModelsOfMark(Guid markId)
         {
             return await _client.GetAsync($"byMark/popularityModels/?markId={markId}");
+        }
+
+        public async Task<HttpResponseMessage> ContainsModelAsync(Guid markId, string name)
+        {
+            return await _client.GetAsync($"contains?markId={markId}&name={name}");
+        }
+
+        public async Task<HttpResponseMessage> GetModelAsync(Guid id)
+        {
+            return await _client.GetAsync($"{id}");
+        }
+
+        public async Task<HttpResponseMessage> AddModelAsync(Entities.Model model)
+        {
+            return await _client.PostAsync("save", new StringContent(JsonConvert.SerializeObject(model),
+                Encoding.UTF8, "application/json"));
+        }
+
+        public async Task<HttpResponseMessage> UpdateModelAsync(Entities.Model model)
+        {
+            return await _client.PutAsync("save", new StringContent(JsonConvert.SerializeObject(model),
+                Encoding.UTF8, "application/json"));
+        }
+
+        public async Task<HttpResponseMessage> DeleteModelAsync(Guid id)
+        {
+            return await _client.DeleteAsync($"{id}");
         }
     }
 }

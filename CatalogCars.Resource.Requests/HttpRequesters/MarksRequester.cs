@@ -107,5 +107,55 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
 
             return new PopularityMark[0];
         }
+
+        public async Task<bool> ContainsMarkAsync(string name)
+        {
+            var resultStream = await _responseLoader.GetStreamFromContainsMarkResponseAsync(name);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<bool>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return false;
+        }
+
+        public async Task<SaveResult<object>> AddMarkAsync(Mark mark)
+        {
+            var resultStream = await _responseLoader.GetStreamFromAddMarkResponseAsync(mark);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task<SaveResult<object>> UpdateMarkAsync(Mark mark)
+        {
+            var resultStream = await _responseLoader.GetStreamFromUpdateMarkResponseAsync(mark);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<SaveResult<object>>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new SaveResult<object>();
+        }
+
+        public async Task DeleteMarkAsync(Guid id)
+        {
+            await _responseLoader.GetStreamFromDeleteMarkResponseAsync(id);
+        }
     }
 }

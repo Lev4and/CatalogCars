@@ -1,5 +1,7 @@
 ﻿using CatalogCars.Model.Database.AuxiliaryTypes;
+using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpClients;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -32,6 +34,31 @@ namespace CatalogCars.Resource.Requests.HttpResponseLoaders
         public async Task<Stream> GetStreamFromGetSectionsResponseAsync(SectionsFilters filters)
         {
             return await GetStreamFromResponseAsync(await _client.GetSectionsAsync(filters));
+        }
+
+        public async Task<Stream> GetStreamFromContainsSectionResponseAsync(string name, string ruName)
+        {
+            return await GetStreamFromResponseAsync(await _client.ContainsSectionAsync(name, ruName));
+        }
+
+        public async Task<Stream> GetStreamFromGetSectionResponseAsync(Guid id)
+        {
+            return await GetStreamFromResponseAsync(await _client.GetSectionAsync(id));
+        }
+
+        public async Task<Stream> GetStreamFromAddSectionResponseAsync(Section section)
+        {
+            return await GetStreamFromResponseAsync(await _client.AddSectionAsync(section));
+        }
+
+        public async Task<Stream> GetStreamFromUpdateSectionResponseAsync(Section section)
+        {
+            return await GetStreamFromResponseAsync(await _client.UpdateSectionAsync(section));
+        }
+
+        public async Task<Stream> GetStreamFromDeleteSectionResponseAsync(Guid id)
+        {
+            return await GetStreamFromResponseAsync(await _client.DeleteSectionAsync(id));
         }
     }
 }
