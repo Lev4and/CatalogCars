@@ -15,10 +15,7 @@ namespace CatalogCars.Resource.Requests
         {
             if (response != null)
             {
-                if (response.IsSuccessStatusCode)
-                {
-                    return await response.Content.ReadAsStreamAsync();
-                }
+                return await response.Content.ReadAsStreamAsync();
             }
 
             return null;
