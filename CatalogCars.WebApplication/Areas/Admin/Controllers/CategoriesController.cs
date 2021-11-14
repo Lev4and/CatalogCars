@@ -1,7 +1,9 @@
 ﻿using CatalogCars.Model.Database.AuxiliaryTypes;
+using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpRequesters;
 using CatalogCars.WebApplication.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -81,6 +83,58 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
                         Text = name
                     })
             });
+        }
+
+        [HttpGet]
+        [Route("~/Admin/Categories/Add")]
+        public IActionResult Add()
+        {
+            return View("Edit", new Category());
+        }
+
+
+        [Route("~/Admin/Categories/{id}/Edit")]
+        public async Task<IActionResult> Edit([FromRoute] Guid id)
+        {
+            return View("Edit", await _categoriesRequester.GetCategoryAsync(id));
+        }
+
+        [HttpPost]
+        [Route("~/Admin/Categories/Save")]
+        public async Task<IActionResult> Save([FromForm] Category viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var saveResult = new SaveResult<object>();
+
+                if (viewModel.Id == default)
+                {
+                    saveResult = await _categoriesRequester.AddCategoryAsync(viewModel);
+                }
+                else
+                {
+                    saveResult = await _categoriesRequester.UpdateCategoryAsync(viewModel);
+                }
+
+                if (saveResult.Status == SaveResultStatus.Success)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                ModelState.AddModelError("Name", saveResult.Message);
+                ModelState.AddModelError("RuName", saveResult.Message);
+            }
+
+            return View("Edit", viewModel);
+        }
+
+        [HttpGet]
+        [Route("~/Admin/Categories/{id}/Delete")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            await _categoriesRequester.DeleteCategoryAsync(id);
+
+            return RedirectToAction("Index");
         }
     }
 }
