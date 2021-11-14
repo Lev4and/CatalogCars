@@ -63,9 +63,9 @@ namespace CatalogCars.Resource.Api.Controllers
             return Ok(_dataManager.Transmissions.GetTransmission(id));
         }
 
-        [HttpPost("save")]
+        [HttpPost("add")]
         [ProducesResponseType(typeof(SaveResult<object>), 200)]
-        [ProducesResponseType(typeof(SaveResult<object>), 404)]
+        [ProducesResponseType(typeof(SaveResult<object>), 400)]
         public IActionResult Add([FromBody] Transmission transmission)
         {
             if (transmission.Id == default)
@@ -98,9 +98,9 @@ namespace CatalogCars.Resource.Api.Controllers
             });
         }
 
-        [HttpPut("save")]
+        [HttpPut("update")]
         [ProducesResponseType(typeof(SaveResult<object>), 200)]
-        [ProducesResponseType(typeof(SaveResult<object>), 404)]
+        [ProducesResponseType(typeof(SaveResult<object>), 400)]
         public IActionResult Update([FromBody] Transmission transmission)
         {
             if (transmission.Id != default)
@@ -133,9 +133,8 @@ namespace CatalogCars.Resource.Api.Controllers
             });
         }
 
-        [HttpDelete]
-        [Route("{id}")]
-        public IActionResult Delete([FromRoute] Guid id)
+        [HttpDelete("delete")]
+        public IActionResult Delete([FromQuery][Required] Guid id)
         {
             _dataManager.Transmissions.DeleteTransmission(id);
 

@@ -50,19 +50,19 @@ namespace CatalogCars.Resource.Requests.HttpClients
 
         public async Task<HttpResponseMessage> AddEngineTypeAsync(EngineType engineType)
         {
-            return await _client.PostAsync("save", new StringContent(JsonConvert.SerializeObject(engineType),
+            return await _client.PostAsync("add", new StringContent(JsonConvert.SerializeObject(engineType),
                 Encoding.UTF8, "application/json"));
         }
 
         public async Task<HttpResponseMessage> UpdateEngineTypeAsync(EngineType engineType)
         {
-            return await _client.PutAsync("save", new StringContent(JsonConvert.SerializeObject(engineType),
+            return await _client.PutAsync("update", new StringContent(JsonConvert.SerializeObject(engineType),
                 Encoding.UTF8, "application/json"));
         }
 
         public async Task<HttpResponseMessage> DeleteEngineTypeAsync(Guid id)
         {
-            return await _client.DeleteAsync($"{id}");
+            return await _client.DeleteAsync($"delete?id={id}");
         }
     }
 }

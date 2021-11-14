@@ -52,7 +52,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
         public Category GetCategory(Guid id)
         {
-            return _context.Categories.FirstOrDefault(category => category.Id == id);
+            return _context.Categories
+                .AsNoTracking()
+                .FirstOrDefault(category => category.Id == id);
         }
 
         public int GetCountCategories(CategoriesFilters filters)

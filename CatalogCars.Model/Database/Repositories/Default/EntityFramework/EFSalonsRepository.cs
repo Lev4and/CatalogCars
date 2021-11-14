@@ -75,6 +75,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                     .ThenInclude(phone => phone.Phone)
                 .Include(salon => salon.Location)
                     .ThenInclude(location => location.Region)
+                .AsNoTracking()
                 .FirstOrDefault(salon => salon.Id == id);
         }
 

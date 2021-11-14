@@ -50,7 +50,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
         public RegionInformation GetRegion(Guid id)
         {
-            return _context.Regions.FirstOrDefault(region => region.Id == id);
+            return _context.Regions
+                .AsNoTracking()
+                .FirstOrDefault(region => region.Id == id);
         }
 
         public IQueryable<RegionInformation> GetRegions(RegionsFilters filters)

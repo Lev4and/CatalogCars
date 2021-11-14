@@ -51,7 +51,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
         public Section GetSection(Guid id)
         {
-            return _context.Sections.FirstOrDefault(section => section.Id == id);
+            return _context.Sections
+                .AsNoTracking()
+                .FirstOrDefault(section => section.Id == id);
         }
 
         public IQueryable<Section> GetSections(SectionsFilters filters)

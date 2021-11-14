@@ -50,19 +50,19 @@ namespace CatalogCars.Resource.Requests.HttpClients
 
         public async Task<HttpResponseMessage> AddBodyTypeGroupAsync(BodyTypeGroup bodyTypeGroup)
         {
-            return await _client.PostAsync("save", new StringContent(JsonConvert.SerializeObject(bodyTypeGroup),
+            return await _client.PostAsync("add", new StringContent(JsonConvert.SerializeObject(bodyTypeGroup),
                 Encoding.UTF8, "application/json"));
         }
 
         public async Task<HttpResponseMessage> UpdateBodyTypeGroupAsync(BodyTypeGroup bodyTypeGroup)
         {
-            return await _client.PutAsync("save", new StringContent(JsonConvert.SerializeObject(bodyTypeGroup),
+            return await _client.PutAsync("update", new StringContent(JsonConvert.SerializeObject(bodyTypeGroup),
                 Encoding.UTF8, "application/json"));
         }
 
         public async Task<HttpResponseMessage> DeleteBodyTypeGroupAsync(Guid id)
         {
-            return await _client.DeleteAsync($"{id}");
+            return await _client.DeleteAsync($"delete?id={id}");
         }
     }
 }

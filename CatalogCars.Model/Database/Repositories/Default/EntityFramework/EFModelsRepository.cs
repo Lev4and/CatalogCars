@@ -52,6 +52,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             return _context.Models
                 .Include(model => model.Mark)
                     .ThenInclude(mark => mark.Logo)
+                .AsNoTracking()
                 .FirstOrDefault(model => model.Id == id);
         }
 

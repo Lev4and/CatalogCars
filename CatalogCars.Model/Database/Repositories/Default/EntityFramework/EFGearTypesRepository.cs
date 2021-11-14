@@ -41,7 +41,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
         public GearType GetGearType(Guid id)
         {
-            return _context.GearTypes.FirstOrDefault(gearType => gearType.Id == id);
+            return _context.GearTypes
+                .AsNoTracking()
+                .FirstOrDefault(gearType => gearType.Id == id);
         }
 
         public IQueryable<GearType> GetGearTypes(GearTypesFilters filters)

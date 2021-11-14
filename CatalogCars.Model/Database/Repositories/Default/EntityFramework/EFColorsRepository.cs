@@ -33,7 +33,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
         public Color GetColor(Guid id)
         {
-            return _context.Colors.FirstOrDefault(color => color.Id == id);
+            return _context.Colors
+                .AsNoTracking()
+                .FirstOrDefault(color => color.Id == id);
         }
 
         public IQueryable<Color> GetColors(ColorsFilters filters)

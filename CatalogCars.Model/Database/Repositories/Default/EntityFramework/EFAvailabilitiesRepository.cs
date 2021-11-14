@@ -58,7 +58,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
         public Availability GetAvailability(Guid id)
         {
-            return _context.Availabilities.FirstOrDefault(availability => availability.Id == id);
+            return _context.Availabilities
+                .AsNoTracking()
+                .FirstOrDefault(availability => availability.Id == id);
         }
 
         public int GetCountAvailabilities(AvailabilitiesFilters filters)
@@ -94,7 +96,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             {
                 var currentVersion = GetAvailability(availability.Id);
 
-                if(currentVersion.Name != availability.Name || currentVersion.RuName != availability.RuName)
+                if(currentVersion.Name != availability.Name)
                 {
                     if (!ContainsAvailability(availability.Name, availability.RuName))
                     {

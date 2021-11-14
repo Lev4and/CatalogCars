@@ -51,7 +51,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
         public PtsType GetPtsType(Guid id)
         {
-            return _context.PtsTypes.FirstOrDefault(ptsType => ptsType.Id == id);
+            return _context.PtsTypes
+                .AsNoTracking()
+                .FirstOrDefault(ptsType => ptsType.Id == id);
         }
 
         public IQueryable<PtsType> GetPtsTypes(PtsTypesFilters filters)

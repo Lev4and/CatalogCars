@@ -50,7 +50,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
         public Phone GetPhone(Guid id)
         {
-            return _context.Phones.FirstOrDefault(phone => phone.Id == id);
+            return _context.Phones
+                .AsNoTracking()
+                .FirstOrDefault(phone => phone.Id == id);
         }
 
         public IQueryable<Phone> GetPhones(PhonesFilters filters)

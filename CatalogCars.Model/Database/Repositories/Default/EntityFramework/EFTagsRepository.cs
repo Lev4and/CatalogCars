@@ -51,7 +51,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
         public Tag GetTag(Guid id)
         {
-            return _context.Tags.FirstOrDefault(tag => tag.Id == id);
+            return _context.Tags
+                .AsNoTracking()
+                .FirstOrDefault(tag => tag.Id == id);
         }
 
         public IQueryable<Tag> GetTags(TagsFilters filters)

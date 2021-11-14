@@ -51,7 +51,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
         public VinResolution GetVinResolution(Guid id)
         {
-            return _context.VinResolutions.FirstOrDefault(vinResolution => vinResolution.Id == id);
+            return _context.VinResolutions
+                .AsNoTracking()
+                .FirstOrDefault(vinResolution => vinResolution.Id == id);
         }
 
         public IQueryable<VinResolution> GetVinResolutions(VinResolutionsFilters filters)

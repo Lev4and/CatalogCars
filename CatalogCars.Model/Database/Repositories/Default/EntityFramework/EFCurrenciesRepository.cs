@@ -67,7 +67,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
         public Currency GetCurrency(Guid id)
         {
-            return _context.Currencies.FirstOrDefault(currency => currency.Id == id);
+            return _context.Currencies
+                .AsNoTracking()
+                .FirstOrDefault(currency => currency.Id == id);
         }
 
         public IQueryable<string> GetNamesCurrencies(string searchString)

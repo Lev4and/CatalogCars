@@ -51,7 +51,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
         public PhotoClass GetPhotoClass(Guid id)
         {
-            return _context.PhotoClasses.FirstOrDefault(photoClass => photoClass.Id == id);
+            return _context.PhotoClasses
+                .AsNoTracking()
+                .FirstOrDefault(photoClass => photoClass.Id == id);
         }
 
         public IQueryable<PhotoClass> GetPhotoClasses(PhotoClassesFilters filters)

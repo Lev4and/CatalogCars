@@ -50,19 +50,19 @@ namespace CatalogCars.Resource.Requests.HttpClients
 
         public async Task<HttpResponseMessage> AddCurrencyAsync(Currency currency)
         {
-            return await _client.PostAsync("save", new StringContent(JsonConvert.SerializeObject(currency),
+            return await _client.PostAsync("add", new StringContent(JsonConvert.SerializeObject(currency),
                 Encoding.UTF8, "application/json"));
         }
 
         public async Task<HttpResponseMessage> UpdateCurrencyAsync(Currency currency)
         {
-            return await _client.PutAsync("save", new StringContent(JsonConvert.SerializeObject(currency),
+            return await _client.PutAsync("update", new StringContent(JsonConvert.SerializeObject(currency),
                 Encoding.UTF8, "application/json"));
         }
 
         public async Task<HttpResponseMessage> DeleteCurrencyAsync(Guid id)
         {
-            return await _client.DeleteAsync($"{id}");
+            return await _client.DeleteAsync($"delete?id={id}");
         }
     }
 }

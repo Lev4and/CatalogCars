@@ -51,7 +51,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
         public Option GetOption(Guid id)
         {
-            return _context.Options.FirstOrDefault(option => option.Id == id);
+            return _context.Options
+                .AsNoTracking()
+                .FirstOrDefault(option => option.Id == id);
         }
 
         public IQueryable<Option> GetOptions(OptionsFilters filters)

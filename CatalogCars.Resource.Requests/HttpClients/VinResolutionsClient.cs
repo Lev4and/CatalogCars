@@ -45,19 +45,19 @@ namespace CatalogCars.Resource.Requests.HttpClients
 
         public async Task<HttpResponseMessage> AddVinResolutionAsync(VinResolution vinResolution)
         {
-            return await _client.PostAsync("save", new StringContent(JsonConvert.SerializeObject(vinResolution),
+            return await _client.PostAsync("add", new StringContent(JsonConvert.SerializeObject(vinResolution),
                 Encoding.UTF8, "application/json"));
         }
 
         public async Task<HttpResponseMessage> UpdateVinResolutionAsync(VinResolution vinResolution)
         {
-            return await _client.PutAsync("save", new StringContent(JsonConvert.SerializeObject(vinResolution),
+            return await _client.PutAsync("update", new StringContent(JsonConvert.SerializeObject(vinResolution),
                 Encoding.UTF8, "application/json"));
         }
 
         public async Task<HttpResponseMessage> DeleteVinResolutionAsync(Guid id)
         {
-            return await _client.DeleteAsync($"{id}");
+            return await _client.DeleteAsync($"delete?id={id}");
         }
     }
 }

@@ -34,7 +34,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
         public BodyTypeGroup GetBodyTypeGroup(Guid id)
         {
-            return _context.BodyTypeGroups.FirstOrDefault(bodyTypeGroup => bodyTypeGroup.Id == id);
+            return _context.BodyTypeGroups
+                .AsNoTracking()
+                .FirstOrDefault(bodyTypeGroup => bodyTypeGroup.Id == id);
         }
 
         public IQueryable<BodyTypeGroup> GetBodyTypeGroups(BodyTypeGroupsFilters filters)

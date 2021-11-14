@@ -51,7 +51,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
         public SteeringWheel GetSteeringWheel(Guid id)
         {
-            return _context.SteeringWheels.FirstOrDefault(steeringWheel => steeringWheel.Id == id);
+            return _context.SteeringWheels
+                .AsNoTracking()
+                .FirstOrDefault(steeringWheel => steeringWheel.Id == id);
         }
 
         public IQueryable<SteeringWheel> GetSteeringWheels(SteeringWheelsFilters filters)

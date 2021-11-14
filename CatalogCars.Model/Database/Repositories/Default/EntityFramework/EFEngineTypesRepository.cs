@@ -41,7 +41,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
         public EngineType GetEngineType(Guid id)
         {
-            return _context.EngineTypes.FirstOrDefault(engineType => engineType.Id == id);
+            return _context.EngineTypes
+                .AsNoTracking()
+                .FirstOrDefault(engineType => engineType.Id == id);
         }
 
         public IQueryable<EngineType> GetEngineTypes(EngineTypesFilters filters)

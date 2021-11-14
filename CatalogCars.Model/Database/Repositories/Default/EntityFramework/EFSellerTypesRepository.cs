@@ -51,7 +51,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
         public SellerType GetSellerType(Guid id)
         {
-            return _context.SellerTypes.FirstOrDefault(sellerType => sellerType.Id == id);
+            return _context.SellerTypes
+                .AsNoTracking()
+                .FirstOrDefault(sellerType => sellerType.Id == id);
         }
 
         public IQueryable<SellerType> GetSellerTypes(SellerTypesFilters filters)

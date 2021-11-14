@@ -51,7 +51,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
         public Vendor GetVendor(Guid id)
         {
-            return _context.Vendors.FirstOrDefault(vendor => vendor.Id == id);
+            return _context.Vendors
+                .AsNoTracking()
+                .FirstOrDefault(vendor => vendor.Id == id);
         }
 
         public IQueryable<Vendor> GetVendors(VendorsFilters filters)

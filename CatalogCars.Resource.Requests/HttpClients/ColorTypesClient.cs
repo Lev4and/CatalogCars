@@ -45,19 +45,19 @@ namespace CatalogCars.Resource.Requests.HttpClients
 
         public async Task<HttpResponseMessage> AddColorTypeAsync(ColorType ColorType)
         {
-            return await _client.PostAsync("save", new StringContent(JsonConvert.SerializeObject(ColorType),
+            return await _client.PostAsync("add", new StringContent(JsonConvert.SerializeObject(ColorType),
                 Encoding.UTF8, "application/json"));
         }
 
         public async Task<HttpResponseMessage> UpdateColorTypeAsync(ColorType ColorType)
         {
-            return await _client.PutAsync("save", new StringContent(JsonConvert.SerializeObject(ColorType),
+            return await _client.PutAsync("update", new StringContent(JsonConvert.SerializeObject(ColorType),
                 Encoding.UTF8, "application/json"));
         }
 
         public async Task<HttpResponseMessage> DeleteColorTypeAsync(Guid id)
         {
-            return await _client.DeleteAsync($"{id}");
+            return await _client.DeleteAsync($"delete?id={id}");
         }
     }
 }

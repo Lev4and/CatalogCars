@@ -50,19 +50,19 @@ namespace CatalogCars.Resource.Requests.HttpClients
 
         public async Task<HttpResponseMessage> AddSectionAsync(Section section)
         {
-            return await _client.PostAsync("save", new StringContent(JsonConvert.SerializeObject(section),
+            return await _client.PostAsync("add", new StringContent(JsonConvert.SerializeObject(section),
                 Encoding.UTF8, "application/json"));
         }
 
         public async Task<HttpResponseMessage> UpdateSectionAsync(Section section)
         {
-            return await _client.PutAsync("save", new StringContent(JsonConvert.SerializeObject(section),
+            return await _client.PutAsync("update", new StringContent(JsonConvert.SerializeObject(section),
                 Encoding.UTF8, "application/json"));
         }
 
         public async Task<HttpResponseMessage> DeleteSectionAsync(Guid id)
         {
-            return await _client.DeleteAsync($"{id}");
+            return await _client.DeleteAsync($"delete?id={id}");
         }
     }
 }

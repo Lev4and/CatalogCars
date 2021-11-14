@@ -84,9 +84,9 @@ namespace CatalogCars.Resource.Api.Controllers
             return Ok(_dataManager.Generations.GetGeneration(id));
         }
 
-        [HttpPost("save")]
+        [HttpPost("add")]
         [ProducesResponseType(typeof(SaveResult<object>), 200)]
-        [ProducesResponseType(typeof(SaveResult<object>), 404)]
+        [ProducesResponseType(typeof(SaveResult<object>), 400)]
         public IActionResult Add([FromBody] Generation generation)
         {
             if (generation.Id == default)
@@ -119,9 +119,9 @@ namespace CatalogCars.Resource.Api.Controllers
             });
         }
 
-        [HttpPut("save")]
+        [HttpPut("update")]
         [ProducesResponseType(typeof(SaveResult<object>), 200)]
-        [ProducesResponseType(typeof(SaveResult<object>), 404)]
+        [ProducesResponseType(typeof(SaveResult<object>), 400)]
         public IActionResult Update([FromBody] Generation generation)
         {
             if (generation.Id != default)
@@ -154,9 +154,8 @@ namespace CatalogCars.Resource.Api.Controllers
             });
         }
 
-        [HttpDelete]
-        [Route("{id}")]
-        public IActionResult Delete([FromRoute] Guid id)
+        [HttpDelete("delete")]
+        public IActionResult Delete([FromQuery][Required] Guid id)
         {
             _dataManager.Generations.DeleteGeneration(id);
 

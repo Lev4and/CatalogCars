@@ -50,19 +50,19 @@ namespace CatalogCars.Resource.Requests.HttpClients
 
         public async Task<HttpResponseMessage> AddSellerTypeAsync(SellerType sellerType)
         {
-            return await _client.PostAsync("save", new StringContent(JsonConvert.SerializeObject(sellerType),
+            return await _client.PostAsync("add", new StringContent(JsonConvert.SerializeObject(sellerType),
                 Encoding.UTF8, "application/json"));
         }
 
         public async Task<HttpResponseMessage> UpdateSellerTypeAsync(SellerType sellerType)
         {
-            return await _client.PutAsync("save", new StringContent(JsonConvert.SerializeObject(sellerType),
+            return await _client.PutAsync("update", new StringContent(JsonConvert.SerializeObject(sellerType),
                 Encoding.UTF8, "application/json"));
         }
 
         public async Task<HttpResponseMessage> DeleteSellerTypeAsync(Guid id)
         {
-            return await _client.DeleteAsync($"{id}");
+            return await _client.DeleteAsync($"delete?id={id}");
         }
     }
 }

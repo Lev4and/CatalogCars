@@ -51,7 +51,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
         public PriceSegment GetPriceSegment(Guid id)
         {
-            return _context.PriceSegments.FirstOrDefault(priceSegment => priceSegment.Id == id);
+            return _context.PriceSegments
+                .AsNoTracking()
+                .FirstOrDefault(priceSegment => priceSegment.Id == id);
         }
 
         public IQueryable<PriceSegment> GetPriceSegments()

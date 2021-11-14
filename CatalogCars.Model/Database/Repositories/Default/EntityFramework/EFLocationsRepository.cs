@@ -50,6 +50,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             return _context.Locations
                 .Include(location => location.Region)
                 .Include(location => location.Coordinate)
+                .AsNoTracking()
                 .FirstOrDefault(location => location.Id == id);
         }
 

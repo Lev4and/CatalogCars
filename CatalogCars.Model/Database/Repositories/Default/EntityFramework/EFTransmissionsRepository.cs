@@ -51,7 +51,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
         public Transmission GetTransmission(Guid id)
         {
-            return _context.Transmissions.FirstOrDefault(transmission => transmission.Id == id);
+            return _context.Transmissions
+                .AsNoTracking()
+                .FirstOrDefault(transmission => transmission.Id == id);
         }
 
         public IQueryable<Transmission> GetTransmissions(TransmissionsFilters filters)

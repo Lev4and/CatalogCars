@@ -56,9 +56,9 @@ namespace CatalogCars.Resource.Api.Controllers
             return Ok(_dataManager.Coordinates.GetCoordinate(id));
         }
 
-        [HttpPost("save")]
+        [HttpPost("add")]
         [ProducesResponseType(typeof(SaveResult<object>), 200)]
-        [ProducesResponseType(typeof(SaveResult<object>), 404)]
+        [ProducesResponseType(typeof(SaveResult<object>), 400)]
         public IActionResult Add([FromBody] Coordinate coordinate)
         {
             if (coordinate.Id == default)
@@ -91,9 +91,9 @@ namespace CatalogCars.Resource.Api.Controllers
             });
         }
 
-        [HttpPut("save")]
+        [HttpPut("update")]
         [ProducesResponseType(typeof(SaveResult<object>), 200)]
-        [ProducesResponseType(typeof(SaveResult<object>), 404)]
+        [ProducesResponseType(typeof(SaveResult<object>), 400)]
         public IActionResult Update([FromBody] Coordinate coordinate)
         {
             if (coordinate.Id != default)
@@ -126,9 +126,8 @@ namespace CatalogCars.Resource.Api.Controllers
             });
         }
 
-        [HttpDelete]
-        [Route("{id}")]
-        public IActionResult Delete([FromRoute] Guid id)
+        [HttpDelete("delete")]
+        public IActionResult Delete([FromQuery][Required] Guid id)
         {
             _dataManager.Coordinates.DeleteCoordinate(id);
 

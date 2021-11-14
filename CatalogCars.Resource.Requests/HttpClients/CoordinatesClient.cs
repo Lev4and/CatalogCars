@@ -45,19 +45,19 @@ namespace CatalogCars.Resource.Requests.HttpClients
 
         public async Task<HttpResponseMessage> AddCoordinateAsync(Coordinate coordinate)
         {
-            return await _client.PostAsync("save", new StringContent(JsonConvert.SerializeObject(coordinate),
+            return await _client.PostAsync("add", new StringContent(JsonConvert.SerializeObject(coordinate),
                 Encoding.UTF8, "application/json"));
         }
 
         public async Task<HttpResponseMessage> UpdateCoordinateAsync(Coordinate coordinate)
         {
-            return await _client.PutAsync("save", new StringContent(JsonConvert.SerializeObject(coordinate),
+            return await _client.PutAsync("update", new StringContent(JsonConvert.SerializeObject(coordinate),
                 Encoding.UTF8, "application/json"));
         }
 
         public async Task<HttpResponseMessage> DeleteCoordinateAsync(Guid id)
         {
-            return await _client.DeleteAsync($"{id}");
+            return await _client.DeleteAsync($"delete?id={id}");
         }
     }
 }

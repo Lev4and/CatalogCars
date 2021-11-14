@@ -36,6 +36,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         {
             return _context.BodyTypes
                 .Include(bodyType => bodyType.BodyTypeGroup)
+                .AsNoTracking()
                 .FirstOrDefault(bodyType => bodyType.Id == id);
         }
 

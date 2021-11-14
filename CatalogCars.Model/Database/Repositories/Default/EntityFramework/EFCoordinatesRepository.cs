@@ -37,6 +37,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             return _context.Coordinates
                 .Include(coordinate => coordinate.Location)
                     .ThenInclude(location => location.Region)
+                .AsNoTracking()
                 .FirstOrDefault(coordinate => coordinate.Id == id);
         }
 

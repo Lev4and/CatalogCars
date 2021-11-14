@@ -51,7 +51,9 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
         public Status GetStatus(Guid id)
         {
-            return _context.Statuses.FirstOrDefault(status => status.Id == id);
+            return _context.Statuses
+                .AsNoTracking()
+                .FirstOrDefault(status => status.Id == id);
         }
 
         public IQueryable<Status> GetStatuses(StatusesFilters filters)
