@@ -30,7 +30,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("~/Admin/Availabilities")]
+        [Route("~/[area]/[controller]")]
         public async Task<IActionResult> Index()
         {
             var filters = new AvailabilitiesFilters();
@@ -46,7 +46,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("~/Admin/Availabilities")]
+        [Route("~/[area]/[controller]")]
         public async Task<PartialViewResult> Index([FromForm] AvailabilitiesViewModel viewModel)
         {
             viewModel.Filters.NumberPage = 1;
@@ -57,7 +57,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("~/Admin/Availabilities/page={page}")]
+        [Route("~/[area]/[controller]/page={page}")]
         public async Task<PartialViewResult> Index([FromForm] AvailabilitiesViewModel viewModel, [FromRoute] int page)
         {
             viewModel.Filters.NumberPage = page;
@@ -68,7 +68,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("~/Admin/Availabilities/Names")]
+        [Route("~/[area]/[controller]/[action]")]
         public async Task<JsonResult> Names([FromForm] string searchString)
         {
             return Json(new
@@ -84,21 +84,21 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("~/Admin/Availabilities/Add")]
+        [Route("~/[area]/[controller]/[action]")]
         public IActionResult Add()
         {
             return View("Edit", new Availability());
         }
 
 
-        [Route("~/Admin/Availabilities/{id}/Edit")]
+        [Route("~/[area]/[controller]/{id}/[action]")]
         public async Task<IActionResult> Edit([FromRoute] Guid id)
         {
             return View("Edit", await _availabilitiesRequester.GetAvailabilityAsync(id));
         }
 
         [HttpPost]
-        [Route("~/Admin/Availabilities/Save")]
+        [Route("~/[area]/[controller]/[action]")]
         public async Task<IActionResult> Save([FromForm] Availability viewModel)
         {
             if (ModelState.IsValid)
@@ -127,7 +127,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("~/Admin/Availabilities/{id}/Delete")]
+        [Route("~/[area]/[controller]/{id}/[action]")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             await _availabilitiesRequester.DeleteAvailabilityAsync(id);

@@ -1,7 +1,7 @@
-﻿@model Category
+﻿@model BodyTypeGroup
 @{
-    ViewData["Section"] = "Категории";
-    ViewData["Title"] = "Сохранение категории";
+    ViewData["Section"] = "Классификация автомобильных кузовов";
+    ViewData["Title"] = "Сохранение классификации автомобильного кузова";
 }
 <div class="page-wrapper">
     <div class="page-content-wrapper">
@@ -15,7 +15,7 @@
                                 <a asp-area="Admin" asp-controller="Home" asp-action="Index"><i class='bx bx-home-alt'></i></a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a asp-area="Admin" asp-controller="Categories" asp-action="Index">@ViewData["Section"]</a>
+                                <a asp-area="Admin" asp-controller="BodyTypeGroups" asp-action="Index">@ViewData["Section"]</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
                         </ol>
@@ -29,19 +29,26 @@
                     </div>
                     <hr />
                     <div class="form-body">
-                        <form method="post" asp-area="Admin" asp-controller="Categories" asp-action="Save">
+                        <form method="post" asp-area="Admin" asp-controller="BodyTypeGroups" asp-action="Save">
                             @Html.HiddenFor(model => model.Id)
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">@Html.DisplayNameFor(model => model.AutoClass)</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" asp-for="AutoClass">
+                                    <span class="invalid-feedback" style="display: block;" asp-validation-for="AutoClass"></span>
+                                </div>
+                            </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">@Html.DisplayNameFor(model => model.Name)</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" asp-for="Name" required>
+                                    <input type="text" class="form-control" asp-for="Name">
                                     <span class="invalid-feedback" style="display: block;" asp-validation-for="Name"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">@Html.DisplayNameFor(model => model.RuName)</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" asp-for="RuName" required>
+                                    <input type="text" class="form-control" asp-for="RuName">
                                     <span class="invalid-feedback" style="display: block;" asp-validation-for="RuName"></span>
                                 </div>
                             </div>

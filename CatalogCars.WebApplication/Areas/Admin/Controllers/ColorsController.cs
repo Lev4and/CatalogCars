@@ -30,7 +30,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("~/Admin/Colors")]
+        [Route("~/[area]/[controller]")]
         public async Task<IActionResult> Index()
         {
             var filters = new ColorsFilters();
@@ -46,7 +46,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("~/Admin/Colors")]
+        [Route("~/[area]/[controller]")]
         public async Task<PartialViewResult> Index([FromForm] ColorsViewModel viewModel)
         {
             viewModel.Filters.NumberPage = 1;
@@ -58,7 +58,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("~/Admin/Colors/page={page}")]
+        [Route("~/[area]/[controller]/page={page}")]
         public async Task<PartialViewResult> Index([FromForm] ColorsViewModel viewModel, [FromRoute] int page)
         {
             viewModel.Filters.NumberPage = page;
@@ -70,7 +70,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("~/Admin/Colors/Names")]
+        [Route("~/[area]/[controller]/[action]")]
         public async Task<JsonResult> Names([FromForm] string searchString)
         {
             return Json(new
@@ -86,21 +86,21 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("~/Admin/Colors/Add")]
+        [Route("~/[area]/[controller]/[action]")]
         public IActionResult Add()
         {
             return View("Edit", new Color());
         }
 
 
-        [Route("~/Admin/Colors/{id}/Edit")]
+        [Route("~/[area]/[controller]/{id}/[action]")]
         public async Task<IActionResult> Edit([FromRoute] Guid id)
         {
             return View("Edit", await _colorsRequester.GetColorAsync(id));
         }
 
         [HttpPost]
-        [Route("~/Admin/Colors/Save")]
+        [Route("~/[area]/[controller]/[action]")]
         public async Task<IActionResult> Save([FromForm] Color viewModel)
         {
             if (ModelState.IsValid)
@@ -128,7 +128,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("~/Admin/Colors/{id}/Delete")]
+        [Route("~/[area]/[controller]/{id}/[action]")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             await _colorsRequester.DeleteColorAsync(id);

@@ -1,6 +1,6 @@
 ﻿@model Availability
 @{
-    ViewData["Category"] = "Виды доступности";
+    ViewData["Section"] = "Виды доступности";
     ViewData["Title"] = "Сохранение вида доступности";
 }
 <div class="page-wrapper">
@@ -15,7 +15,7 @@
                                 <a asp-area="Admin" asp-controller="Home" asp-action="Index"><i class='bx bx-home-alt'></i></a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a asp-area="Admin" asp-controller="Availabilities" asp-action="Index">@ViewData["Category"]</a>
+                                <a asp-area="Admin" asp-controller="Availabilities" asp-action="Index">@ViewData["Section"]</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
                         </ol>
