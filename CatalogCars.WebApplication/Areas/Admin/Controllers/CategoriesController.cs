@@ -70,7 +70,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("~/[area]/[controller]/[area]")]
+        [Route("~/[area]/[controller]/[action]")]
         public async Task<JsonResult> Names([FromForm] string searchString)
         {
             return Json(new
@@ -86,21 +86,21 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("~/[area]/[controller]/[area]")]
+        [Route("~/[area]/[controller]/[action]")]
         public IActionResult Add()
         {
             return View("Edit", new Category());
         }
 
 
-        [Route("~/[area]/[controller]/{id}/[area]")]
+        [Route("~/[area]/[controller]/{id}/[action]")]
         public async Task<IActionResult> Edit([FromRoute] Guid id)
         {
             return View("Edit", await _categoriesRequester.GetCategoryAsync(id));
         }
 
         [HttpPost]
-        [Route("~/[area]/[controller]/[area]")]
+        [Route("~/[area]/[controller]/[action]")]
         public async Task<IActionResult> Save([FromForm] Category viewModel)
         {
             if (ModelState.IsValid)
@@ -129,7 +129,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("~/[area]/[controller]/{id}/[area]")]
+        [Route("~/[area]/[controller]/{id}/[action]")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             await _categoriesRequester.DeleteCategoryAsync(id);

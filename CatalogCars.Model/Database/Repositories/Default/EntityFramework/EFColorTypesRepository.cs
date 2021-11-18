@@ -90,7 +90,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             {
                 var currentVersion = GetColorType(colorType.Id);
 
-                if(currentVersion.Name != colorType.Name || currentVersion.RuName != colorType.RuName)
+                if(currentVersion.Name != colorType.Name)
                 {
                     if (!ContainsColorType(colorType.Name, colorType.RuName))
                     {

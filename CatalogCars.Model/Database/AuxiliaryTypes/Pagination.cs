@@ -67,7 +67,7 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
                 }
             }
 
-            return $"Показаны {from}-{to} из {CountTotalItems} {Declension.DeclensionByNumeral(CountTotalItems, new string[3] { "результата", "результатов", "результатов" }, false)}";
+            return $"Показаны {from} - {to} из {CountTotalItems} {Declension.DeclensionByNumeral(CountTotalItems, new string[3] { "результата", "результатов", "результатов" }, false)}";
         }
 
         public List<int> GeneratePagination()
