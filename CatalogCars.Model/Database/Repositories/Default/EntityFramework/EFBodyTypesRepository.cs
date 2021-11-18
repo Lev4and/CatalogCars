@@ -135,7 +135,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 var currentVersion = GetBodyType(bodyType.Id);
 
                 if(currentVersion.BodyTypeGroupId != bodyType.BodyTypeGroupId || 
-                   currentVersion.Name != bodyType.Name  || currentVersion.RuName != bodyType.RuName)
+                   currentVersion.Name != bodyType.Name)
                 {
                     if (!ContainsBodyType(bodyType.BodyTypeGroupId, bodyType.Name, bodyType.RuName))
                     {

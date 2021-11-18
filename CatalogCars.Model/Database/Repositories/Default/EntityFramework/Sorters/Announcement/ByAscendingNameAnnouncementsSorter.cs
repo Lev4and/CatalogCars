@@ -9,7 +9,10 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework.Sorter
 
         public IQueryable<Entities.Announcement> Sort(IQueryable<Entities.Announcement> collection)
         {
-            return collection.OrderBy(item => item.Vehicle.Generation.Name);
+            return collection
+                .OrderBy(item => item.Vehicle.Generation.Model.Mark.Name)
+                    .ThenBy(item => item.Vehicle.Generation.Model.Name)
+                        .ThenBy(item => item.Vehicle.Generation.Name);
         }
     }
 }
