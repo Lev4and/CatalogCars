@@ -90,7 +90,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             {
                 var currentVersion = GetOption(option.Id);
 
-                if(currentVersion.Name != option.Name || currentVersion.RuName != option.RuName)
+                if(currentVersion.Name != option.Name)
                 {
                     if (!ContainsOption(option.Name, option.RuName))
                     {
