@@ -23,7 +23,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
         public bool ContainsPriceSegment(string name, string ruName)
         {
             return _context.PriceSegments.FirstOrDefault(priceSegment => priceSegment.Name == name ||
-                priceSegment.RuName == priceSegment.RuName) != null;
+                priceSegment.RuName == ruName) != null;
         }
 
         public void DeletePriceSegment(Guid id)
@@ -97,7 +97,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             {
                 var currentVersion = GetPriceSegment(priceSegment.Id);
 
-                if(currentVersion.Name != priceSegment.Name || currentVersion.RuName != priceSegment.RuName)
+                if(currentVersion.Name != priceSegment.Name)
                 {
                     if (!ContainsPriceSegment(priceSegment.Name, priceSegment.RuName))
                     {
