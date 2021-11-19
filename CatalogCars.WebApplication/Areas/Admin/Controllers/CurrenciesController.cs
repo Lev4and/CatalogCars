@@ -1,7 +1,9 @@
 ﻿using CatalogCars.Model.Database.AuxiliaryTypes;
+using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpRequesters;
 using CatalogCars.WebApplication.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,7 +30,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("~/Admin/Currencies")]
+        [Route("~/[area]/[controller]")]
         public async Task<IActionResult> Index()
         {
             var filters = new CurrenciesFilters();
@@ -44,7 +46,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("~/Admin/Currencies")]
+        [Route("~/[area]/[controller]")]
         public async Task<PartialViewResult> Index([FromForm] CurrenciesViewModel viewModel)
         {
             viewModel.Filters.NumberPage = 1;
@@ -56,7 +58,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("~/Admin/Currencies/page={page}")]
+        [Route("~/[area]/[controller]/page={page}")]
         public async Task<PartialViewResult> Index([FromForm] CurrenciesViewModel viewModel, [FromRoute] int page)
         {
             viewModel.Filters.NumberPage = page;
@@ -68,7 +70,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("~/Admin/Currencies/Names")]
+        [Route("~/[area]/[controller]/[action]")]
         public async Task<JsonResult> Names([FromForm] string searchString)
         {
             return Json(new
@@ -81,6 +83,57 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
                         Text = name
                     })
             });
+        }
+
+        [HttpGet]
+        [Route("~/[area]/[controller]/[action]")]
+        public IActionResult Add()
+        {
+            return View("Edit", new Currency());
+        }
+
+
+        [Route("~/[area]/[controller]/{id}/[action]")]
+        public async Task<IActionResult> Edit([FromRoute] Guid id)
+        {
+            return View("Edit", await _currenciesRequester.GetCurrencyAsync(id));
+        }
+
+        [HttpPost]
+        [Route("~/[area]/[controller]/[action]")]
+        public async Task<IActionResult> Save([FromForm] Currency viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var saveResult = new SaveResult<object>();
+
+                if (viewModel.Id == default)
+                {
+                    saveResult = await _currenciesRequester.AddCurrencyAsync(viewModel);
+                }
+                else
+                {
+                    saveResult = await _currenciesRequester.UpdateCurrencyAsync(viewModel);
+                }
+
+                if (saveResult.Status == SaveResultStatus.Success)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                ModelState.AddModelError("Name", saveResult.Message);
+            }
+
+            return View("Edit", viewModel);
+        }
+
+        [HttpGet]
+        [Route("~/[area]/[controller]/{id}/[action]")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            await _currenciesRequester.DeleteCurrencyAsync(id);
+
+            return RedirectToAction("Index");
         }
     }
 }
