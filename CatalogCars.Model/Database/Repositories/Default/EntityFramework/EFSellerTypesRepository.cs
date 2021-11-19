@@ -96,7 +96,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             {
                 var currentVersion = GetSellerType(sellerType.Id);
 
-                if (currentVersion.Name != sellerType.Name || currentVersion.RuName != sellerType.RuName)
+                if (currentVersion.Name != sellerType.Name)
                 {
                     if (!ContainsSellerType(sellerType.Name, sellerType.RuName))
                     {
