@@ -90,7 +90,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             {
                 var currentVersion = GetPhotoClass(photoClass.Id);
 
-                if(currentVersion.Name != photoClass.Name || currentVersion.RuName != photoClass.RuName)
+                if(currentVersion.Name != photoClass.Name)
                 {
                     if (!ContainsPhotoClass(photoClass.Name, photoClass.RuName))
                     {

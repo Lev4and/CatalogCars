@@ -6,7 +6,7 @@
         </div>
         <div class="col-sm-12 col-md-6">
             <div class="d-flex justify-content-end">
-                <a asp-area="Admin" asp-controller="PhotoClasses" asp-action="Save">
+                <a asp-area="Admin" asp-controller="PhotoClasses" asp-action="Add">
                     <button class="btn btn-success m-1 px-5 radius-30">Добавить</button>
                 </a>
             </div>
@@ -33,7 +33,27 @@
                                     <td>@photoClass.RuName</td>
                                     <td>
                                         <div class="btn-group pull-right">
+                                            <a asp-area="Admin" asp-controller="PhotoClasses" asp-action="Info" asp-route-id="@photoClass.Id">
+                                                <button class="btn btn-sm btn-default">
+                                                    <span class="fa fa-info">
 
+                                                    </span>
+                                                </button>
+                                            </a>
+                                            <a asp-area="Admin" asp-controller="PhotoClasses" asp-action="Edit" asp-route-id="@photoClass.Id">
+                                                <button class="btn btn-sm btn-default">
+                                                    <span class="fa fa-edit">
+
+                                                    </span>
+                                                </button>
+                                            </a>
+                                            <a asp-area="Admin" asp-controller="PhotoClasses" asp-action="Delete" asp-route-id="@photoClass.Id">
+                                                <button class="btn btn-sm btn-default">
+                                                    <span class="fa fa-trash">
+
+                                                    </span>
+                                                </button>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
