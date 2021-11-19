@@ -96,7 +96,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             {
                 var currentVersion = GetGearType(gearType.Id);
 
-                if(currentVersion.Name != gearType.Name || currentVersion.RuName != gearType.RuName)
+                if(currentVersion.Name != gearType.Name)
                 {
                     if (!ContainsGearType(gearType.Name, gearType.RuName))
                     {
