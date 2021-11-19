@@ -90,7 +90,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             {
                 var currentVersion = GetPtsType(ptsType.Id);
 
-                if(currentVersion.Name != ptsType.Name || currentVersion.RuName != ptsType.RuName)
+                if(currentVersion.Name != ptsType.Name)
                 {
                     if (!ContainsPtsType(ptsType.Name, ptsType.RuName))
                     {
