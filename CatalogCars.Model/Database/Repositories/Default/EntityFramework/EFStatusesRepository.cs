@@ -96,7 +96,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             {
                 var currentVersion = GetStatus(status.Id);
 
-                if (currentVersion.Name != status.Name || currentVersion.RuName != status.RuName)
+                if (currentVersion.Name != status.Name)
                 {
                     if (!ContainsStatus(status.Name, status.RuName))
                     {
