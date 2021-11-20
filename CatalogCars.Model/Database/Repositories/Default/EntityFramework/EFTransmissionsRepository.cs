@@ -96,7 +96,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             {
                 var currentVersion = GetTransmission(transmission.Id);
 
-                if (currentVersion.Name != transmission.Name || currentVersion.RuName != transmission.RuName)
+                if (currentVersion.Name != transmission.Name)
                 {
                     if (!ContainsTransmission(transmission.Name, transmission.RuName))
                     {
