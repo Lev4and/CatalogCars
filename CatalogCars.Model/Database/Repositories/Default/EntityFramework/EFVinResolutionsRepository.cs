@@ -90,7 +90,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             {
                 var currentVersion = GetVinResolution(vinResolution.Id);
 
-                if (currentVersion.Name != vinResolution.Name || currentVersion.RuName != vinResolution.RuName)
+                if (currentVersion.Name != vinResolution.Name)
                 {
                     if (!ContainsVinResolution(vinResolution.Name, vinResolution.RuName))
                     {
