@@ -90,7 +90,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             {
                 var currentVersion = GetVendor(vendor.Id);
 
-                if (currentVersion.Name != vendor.Name || currentVersion.RuName != vendor.RuName)
+                if (currentVersion.Name != vendor.Name)
                 {
                     if (!ContainsVendor(vendor.Name, vendor.RuName))
                     {
