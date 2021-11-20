@@ -90,7 +90,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             {
                 var currentVersion = GetTag(tag.Id);
 
-                if (currentVersion.Name != tag.Name || currentVersion.RuName != tag.RuName)
+                if (currentVersion.Name != tag.Name)
                 {
                     if (!ContainsTag(tag.Name, tag.RuName))
                     {
