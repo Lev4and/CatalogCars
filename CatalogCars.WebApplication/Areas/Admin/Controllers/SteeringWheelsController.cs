@@ -1,4 +1,5 @@
 ﻿using CatalogCars.Model.Database.AuxiliaryTypes;
+using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpRequesters;
 using CatalogCars.WebApplication.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -31,7 +32,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("~/Admin/SteeringWheels")]
+        [Route("~/[area]/[controller]")]
         public async Task<IActionResult> Index()
         {
             var filters = new SteeringWheelsFilters();
@@ -47,7 +48,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("~/Admin/SteeringWheels")]
+        [Route("~/[area]/[controller]")]
         public async Task<PartialViewResult> Index([FromForm] SteeringWheelsViewModel viewModel)
         {
             viewModel.Filters.NumberPage = 1;
@@ -58,7 +59,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("~/Admin/SteeringWheels/page={page}")]
+        [Route("~/[area]/[controller]/page={page}")]
         public async Task<PartialViewResult> Index([FromForm] SteeringWheelsViewModel viewModel, [FromRoute] int page)
         {
             viewModel.Filters.NumberPage = page;
@@ -69,7 +70,7 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("~/Admin/SteeringWheels/Names")]
+        [Route("~/[area]/[controller]/[action]")]
         public async Task<JsonResult> Names([FromForm] string searchString)
         {
             return Json(new
@@ -82,6 +83,58 @@ namespace CatalogCars.WebApplication.Areas.Admin.Controllers
                         Text = name
                     })
             });
+        }
+
+        [HttpGet]
+        [Route("~/[area]/[controller]/[action]")]
+        public IActionResult Add()
+        {
+            return View("Edit", new SteeringWheel());
+        }
+
+
+        [Route("~/[area]/[controller]/{id}/[action]")]
+        public async Task<IActionResult> Edit([FromRoute] Guid id)
+        {
+            return View("Edit", await _steeringWheelsRequester.GetSteeringWheelAsync(id));
+        }
+
+        [HttpPost]
+        [Route("~/[area]/[controller]/[action]")]
+        public async Task<IActionResult> Save([FromForm] SteeringWheel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var saveResult = new SaveResult<object>();
+
+                if (viewModel.Id == default)
+                {
+                    saveResult = await _steeringWheelsRequester.AddSteeringWheelAsync(viewModel);
+                }
+                else
+                {
+                    saveResult = await _steeringWheelsRequester.UpdateSteeringWheelAsync(viewModel);
+                }
+
+                if (saveResult.Status == SaveResultStatus.Success)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                ModelState.AddModelError("Name", saveResult.Message);
+                ModelState.AddModelError("RuName", saveResult.Message);
+            }
+
+            return View("Edit", viewModel);
+        }
+
+        [HttpGet]
+        [Route("~/[area]/[controller]/{id}/[action]")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            await _steeringWheelsRequester.DeleteSteeringWheelAsync(id);
+
+            return RedirectToAction("Index");
         }
     }
 }

@@ -96,7 +96,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             {
                 var currentVersion = GetSteeringWheel(steeringWheel.Id);
 
-                if (currentVersion.Name != steeringWheel.Name || currentVersion.RuName != steeringWheel.RuName)
+                if (currentVersion.Name != steeringWheel.Name)
                 {
                     if (!ContainsSteeringWheel(steeringWheel.Name, steeringWheel.RuName))
                     {
