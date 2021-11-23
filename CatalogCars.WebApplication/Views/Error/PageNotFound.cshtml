@@ -1,0 +1,37 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Страница не найдена";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    @await Html.PartialAsync("_Title")
+    @await Html.PartialAsync("_Metatags")
+    @await Html.PartialAsync("_Icons")
+    @await Html.PartialAsync("_PageLoadingStyles")
+    @await Html.PartialAsync("_PageLoadingScripts")
+    @await Html.PartialAsync("_Styles")
+</head>
+<!-- Body -->
+<body class="bg-dark">
+    @await Html.PartialAsync("_LoadingSpinner")
+    <main class="page-wrapper">
+        <!-- Page content -->
+        <section class="d-flex align-items-center position-relative min-vh-100 py-5">
+            <!-- Bg overlay --><span class="position-absolute top-50 start-50 translate-middle zindex-1 rounded-circle mt-sm-0 mt-n5" style="width: 50vw; height: 50vw; background-color: rgba(83, 74, 117, 0.3); filter: blur(6.4vw);"></span>
+            <!-- Overlay content -->
+            <div class="container d-flex justify-content-center position-relative zindex-5 text-center">
+                <div class="col-lg-8 col-md-10 col-12 px-0">
+                    <h1 class="display-1 mb-lg-5 mb-4 text-light">Oops!</h1>
+                    <div class="ratio ratio-16x9 mx-auto mb-lg-5 mb-4 py-4" style="max-width: 556px;">
+                        <lottie-player class="py-4" src="json/animation-car-finder-404.json" background="transparent" speed="1" loop autoplay></lottie-player>
+                    </div>
+                    <p class="h2 mb-lg-5 mb-4 pb-2 text-light">The requested page doesn’t exist</p><a class="btn btn-lg btn-primary w-sm-auto w-100 mb-3 me-sm-4" asp-area="" asp-controller="Home" asp-action="Index">Go to homepage</a><a class="btn btn-lg btn-outline-light w-sm-auto w-100 mb-3" href="#">Contact us</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    @await Html.PartialAsync("_BackToTop")
+    @await Html.PartialAsync("_Scripts")
+</body>
+</html>

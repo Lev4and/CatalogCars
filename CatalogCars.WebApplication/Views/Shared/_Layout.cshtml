@@ -6,12 +6,14 @@
     @await Html.PartialAsync("_Icons")
     @if (IsSectionDefined("StylePage"))
     {
-        @await RenderSectionAsync("StylePage");
+        @await RenderSectionAsync("StylePage")
     }
     @if (IsSectionDefined("ScriptPage"))
     {
         @await RenderSectionAsync("ScriptPage")
     }
+    @await Html.PartialAsync("_PageLoadingStyles")
+    @await Html.PartialAsync("_PageLoadingScripts")
     @await Html.PartialAsync("_Styles")
 </head>
 <!-- Body -->
