@@ -1,0 +1,76 @@
+{
+  "_from": "filepond-plugin-image-resize@2.0.10",
+  "_id": "filepond-plugin-image-resize@2.0.10",
+  "_inBundle": false,
+  "_integrity": "sha512-irX+J275u8Ph1KcciCeSQmxeFjbu0+co5XVCkiwdSNnz6KiqrCKN7RXTvEbdgSdDzyi5omr2oP1rKWps5L1RsQ==",
+  "_location": "/filepond-plugin-image-resize",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "filepond-plugin-image-resize@2.0.10",
+    "name": "filepond-plugin-image-resize",
+    "escapedName": "filepond-plugin-image-resize",
+    "rawSpec": "2.0.10",
+    "saveSpec": null,
+    "fetchSpec": "2.0.10"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/filepond-plugin-image-resize/-/filepond-plugin-image-resize-2.0.10.tgz",
+  "_shasum": "23c1ac8956191d7dd6750565db9cf47a7dc9cfd0",
+  "_spec": "filepond-plugin-image-resize@2.0.10",
+  "_where": "/Users/rokaux/Sites/finder",
+  "author": {
+    "name": "PQINA",
+    "url": "https://pqina.nl/"
+  },
+  "browser": "dist/filepond-plugin-image-resize.js",
+  "browserslist": [
+    "last 1 version and not Explorer 10",
+    "Explorer 11",
+    "iOS >= 9",
+    "Android >= 4.4"
+  ],
+  "bugs": {
+    "url": "https://github.com/pqina/filepond-plugin-image-resize/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Image Resize Plugin for FilePond",
+  "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "rollup": "^1.7.0",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-commonjs": "^9.2.1",
+    "rollup-plugin-license": "^0.8.1",
+    "rollup-plugin-node-resolve": "^4.0.1",
+    "rollup-plugin-prettier": "^0.6.0",
+    "rollup-plugin-terser": "^4.0.4"
+  },
+  "files": [
+    "dist",
+    "types/*.d.ts"
+  ],
+  "homepage": "https://pqina.nl/filepond/",
+  "license": "MIT",
+  "main": "dist/filepond-plugin-image-resize.js",
+  "module": "dist/filepond-plugin-image-resize.esm.js",
+  "name": "filepond-plugin-image-resize",
+  "peerDependencies": {
+    "filepond": ">=3.x <5.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pqina/filepond-plugin-image-resize.git"
+  },
+  "scripts": {
+    "build": "npx rollup -c",
+    "start": "npx rollup -c -w"
+  },
+  "types": "types/index.d.ts",
+  "version": "2.0.10"
+}

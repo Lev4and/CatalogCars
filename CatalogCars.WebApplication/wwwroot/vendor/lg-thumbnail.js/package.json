@@ -1,0 +1,85 @@
+{
+  "_from": "lg-thumbnail.js",
+  "_id": "lg-thumbnail.js@1.2.0",
+  "_inBundle": false,
+  "_integrity": "sha512-qmNFbjLv1spCf3sB8HRX9vW8UtKcgq7qJIg10jLqCozSquhTJwSPUb5vyPgl3cZpgLFjRMiOpIRgBjGrX4inNQ==",
+  "_location": "/lg-thumbnail.js",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "lg-thumbnail.js",
+    "name": "lg-thumbnail.js",
+    "escapedName": "lg-thumbnail.js",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/lg-thumbnail.js/-/lg-thumbnail.js-1.2.0.tgz",
+  "_shasum": "863bda569ee868229a4f80152e4c026a4c47f686",
+  "_spec": "lg-thumbnail.js",
+  "_where": "/Users/rokaux/Sites/finder",
+  "author": {
+    "name": "Sachin N",
+    "email": "sachi77n@gmail.com",
+    "url": "https://github.com/sachinchoolur"
+  },
+  "bugs": {
+    "url": "https://github.com/sachinchoolur/lg-thumbnail.js/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {},
+  "deprecated": false,
+  "description": "Thumbnail module for lightgallery.",
+  "devDependencies": {
+    "babel-cli": "^6.5.1",
+    "babel-core": "^6.5.2",
+    "babel-plugin-transform-es2015-modules-umd": "^6.5.0",
+    "babel-plugin-transform-object-assign": "^6.8.0",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-es2015-loose": "^7.0.0",
+    "babelify": "^7.2.0",
+    "bannerify": "^1.0.1",
+    "browserify": "^13.0.0",
+    "install": "^0.4.4",
+    "jshint": "^2.9.2",
+    "uglify-js": "^2.4.24",
+    "watchify": "^3.4.0"
+  },
+  "homepage": "http://sachinchoolur.github.io/lg-thumbnail.js",
+  "keywords": [
+    "gallery",
+    "lightbox",
+    "image",
+    "youtube",
+    "vimeo",
+    "dailymotion",
+    "html5 videos",
+    "thumbnails",
+    "zoom",
+    "fullscreen",
+    "responsive",
+    "touch",
+    "drag"
+  ],
+  "license": "GPLv3",
+  "main": "dist/lg-thumbnail.js",
+  "name": "lg-thumbnail.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sachinchoolur/lg-thumbnail.js.git"
+  },
+  "scripts": {
+    "build": "npm run lint && npm run build-debug && npm run build-min",
+    "build-debug": "browserify src/lg-thumbnail.js -s LgThumbnail -t [babelify] -p [bannerify --file .banner ] -o dist/lg-thumbnail.js",
+    "build-min": "uglifyjs dist/lg-thumbnail.js --comments '/@license/' -m screw_ie8=true -c screw_ie8=true,unused=false -o dist/lg-thumbnail.min.js",
+    "build-watch": "watchify src/lg-thumbnail.js -s LgThumbnail -t [babelify] -o dist/lg-thumbnail.js -v",
+    "dev": "watchify src/lg-thumbnail.js -s LgThumbnail -t [babelify] -o ../lg/lightgallery.js/lightgallery/js/lg-thumbnail.js -v",
+    "lint": "jshint src"
+  },
+  "version": "1.2.0"
+}

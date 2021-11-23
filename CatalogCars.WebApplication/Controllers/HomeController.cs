@@ -15,7 +15,7 @@ namespace CatalogCars.WebApplication.Controllers
         [Route("~/")]
         public IActionResult Index()
         {
-            return Redirect("~/Admin");
+            return View();
         }
     }
 }

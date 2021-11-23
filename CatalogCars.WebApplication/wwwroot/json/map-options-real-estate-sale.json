@@ -1,0 +1,48 @@
+{
+  "mapLayer": "https://api.maptiler.com/maps/pastel/{z}/{x}/{y}.png?key=5vRQzd34MMsINEyeKPIs",
+  "scrollWheelZoom": false,
+  "coordinates": [40.708, -73.997],
+  "zoom": 15,
+  "markers": [
+    {
+      "coordinates": [40.72, -73.996],
+      "className": "custom-marker-dot",
+      "popup": "<a href='real-estate-single.html' class='d-block'><img src='../img/real-estate/catalog/18.jpg' src='Image'></a><div class='card-body position-relative pb-3'><h4 class='mb-1 fs-xs fw-normal text-uppercase text-primary'>For sale</h4><h3 class='h6 mb-1 fs-sm'><a href='real-estate-single.html' class='nav-link stretched-link'>Ellis Studio | 40 sq.m</a></h3><p class='mt-0 mb-2 fs-xs text-muted'>365 Broome Street, NY 11105</p><div class='fs-sm fw-bold'><i class='fi-cash me-2 fs-base align-middle opacity-70'></i>$50,000</div></div><div class='card-footer d-flex align-items-center justify-content-center mx-2 pt-2 text-nowrap'><span class='d-inline-block px-2 fs-sm'>3<i class='fi-bed ms-1 fs-base text-muted'></i></span><span class='d-inline-block px-2 fs-sm'>2<i class='fi-bath ms-1 fs-base text-muted'></i></span><span class='d-inline-block px-2 fs-sm'>1<i class='fi-car ms-1 fs-base text-muted'></i></span></div>"
+    },
+    {
+      "coordinates": [40.7225, -73.998],
+      "className": "custom-marker-dot",
+      "popup": "<a href='real-estate-single.html' class='d-block'><img src='../img/real-estate/catalog/19.jpg' src='Image'></a><div class='card-body position-relative pb-3'><h4 class='mb-1 fs-xs fw-normal text-uppercase text-primary'>For sale</h4><h3 class='h6 mb-1 fs-sm'><a href='real-estate-single.html' class='nav-link stretched-link'>Country House | 120 sq.m</a></h3><p class='mt-0 mb-2 fs-xs text-muted'>72 Crosby Street, NY 11105</p><div class='fs-sm fw-bold'><i class='fi-cash me-2 fs-base align-middle opacity-70'></i>$162,000</div></div><div class='card-footer d-flex align-items-center justify-content-center mx-2 pt-2 text-nowrap'><span class='d-inline-block px-2 fs-sm'>2<i class='fi-bed ms-1 fs-base text-muted'></i></span><span class='d-inline-block px-2 fs-sm'>1<i class='fi-bath ms-1 fs-base text-muted'></i></span><span class='d-inline-block px-2 fs-sm'>1<i class='fi-car ms-1 fs-base text-muted'></i></span></div>"
+    },
+    {
+      "coordinates": [40.723, -73.990],
+      "className": "custom-marker-dot",
+      "popup": "<a href='real-estate-single.html' class='d-block'><img src='../img/real-estate/catalog/20.jpg' src='Image'></a><div class='card-body position-relative pb-3'><h4 class='mb-1 fs-xs fw-normal text-uppercase text-primary'>For sale</h4><h3 class='h6 mb-1 fs-sm'><a href='real-estate-single.html' class='nav-link stretched-link'>Condo | 70 sq.m</a></h3><p class='mt-0 mb-2 fs-xs text-muted'>143 E-Houston Street, NY 11105</p><div class='fs-sm fw-bold'><i class='fi-cash me-2 fs-base align-middle opacity-70'></i>$85,000</div></div><div class='card-footer d-flex align-items-center justify-content-center mx-2 pt-2 text-nowrap'><span class='d-inline-block px-2 fs-sm'>2<i class='fi-bed ms-1 fs-base text-muted'></i></span><span class='d-inline-block px-2 fs-sm'>1<i class='fi-bath ms-1 fs-base text-muted'></i></span><span class='d-inline-block px-2 fs-sm'>1<i class='fi-car ms-1 fs-base text-muted'></i></span></div>"
+    },
+    {
+      "coordinates": [40.7176, -74],
+      "className": "custom-marker-dot",
+      "popup": "<a href='real-estate-single.html' class='d-block'><img src='../img/real-estate/catalog/21.jpg' src='Image'></a><div class='card-body position-relative pb-3'><h4 class='mb-1 fs-xs fw-normal text-uppercase text-primary'>For sale</h4><h3 class='h6 mb-1 fs-sm'><a href='real-estate-single.html' class='nav-link stretched-link'>Luxury Rental Villa | 180 sq.m</a></h3><p class='mt-0 mb-2 fs-xs text-muted'>109 Walker Street, NY 11105</p><div class='fs-sm fw-bold'><i class='fi-cash me-2 fs-base align-middle opacity-70'></i>$300,500</div></div><div class='card-footer d-flex align-items-center justify-content-center mx-2 pt-2 text-nowrap'><span class='d-inline-block px-2 fs-sm'>4<i class='fi-bed ms-1 fs-base text-muted'></i></span><span class='d-inline-block px-2 fs-sm'>2<i class='fi-bath ms-1 fs-base text-muted'></i></span><span class='d-inline-block px-2 fs-sm'>2<i class='fi-car ms-1 fs-base text-muted'></i></span></div>"
+    },
+    {
+      "coordinates": [40.7279, -74],
+      "className": "custom-marker-dot",
+      "popup": "<a href='real-estate-single.html' class='d-block'><img src='../img/real-estate/catalog/22.jpg' src='Image'></a><div class='card-body position-relative pb-3'><h4 class='mb-1 fs-xs fw-normal text-uppercase text-primary'>For sale</h4><h3 class='h6 mb-1 fs-sm'><a href='real-estate-single.html' class='nav-link stretched-link'>Cottage | 120 sq.m</a></h3><p class='mt-0 mb-2 fs-xs text-muted'>180 Thompson Street, NY 11105</p><div class='fs-sm fw-bold'><i class='fi-cash me-2 fs-base align-middle opacity-70'></i>$184,000</div></div><div class='card-footer d-flex align-items-center justify-content-center mx-2 pt-2 text-nowrap'><span class='d-inline-block px-2 fs-sm'>3<i class='fi-bed ms-1 fs-base text-muted'></i></span><span class='d-inline-block px-2 fs-sm'>1<i class='fi-bath ms-1 fs-base text-muted'></i></span><span class='d-inline-block px-2 fs-sm'>1<i class='fi-car ms-1 fs-base text-muted'></i></span></div>"
+    },
+    {
+      "coordinates": [40.7282, -73.996],
+      "className": "custom-marker-dot",
+      "popup": "<a href='real-estate-single.html' class='d-block'><img src='../img/real-estate/catalog/23.jpg' src='Image'></a><div class='card-body position-relative pb-3'><h4 class='mb-1 fs-xs fw-normal text-uppercase text-primary'>For sale</h4><h3 class='h6 mb-1 fs-sm'><a href='real-estate-single.html' class='nav-link stretched-link'>Modern House | 170 sq.m</a></h3><p class='mt-0 mb-2 fs-xs text-muted'>561 West 3rd Street, NY 11105</p><div class='fs-sm fw-bold'><i class='fi-cash me-2 fs-base align-middle opacity-70'></i>$620,400</div></div><div class='card-footer d-flex align-items-center justify-content-center mx-2 pt-2 text-nowrap'><span class='d-inline-block px-2 fs-sm'>5<i class='fi-bed ms-1 fs-base text-muted'></i></span><span class='d-inline-block px-2 fs-sm'>2<i class='fi-bath ms-1 fs-base text-muted'></i></span><span class='d-inline-block px-2 fs-sm'>2<i class='fi-car ms-1 fs-base text-muted'></i></span></div>"
+    },
+    {
+      "coordinates": [40.7264, -73.994],
+      "className": "custom-marker-dot",
+      "popup": "<a href='real-estate-single.html' class='d-block'><img src='../img/real-estate/catalog/24.jpg' src='Image'></a><div class='card-body position-relative pb-3'><h4 class='mb-1 fs-xs fw-normal text-uppercase text-primary'>For sale</h4><h3 class='h6 mb-1 fs-sm'><a href='real-estate-single.html' class='nav-link stretched-link'>Duplex with Garage | 200 sq.m</a></h3><p class='mt-0 mb-2 fs-xs text-muted'>19 Bond Street, NY 11105</p><div class='fs-sm fw-bold'><i class='fi-cash me-2 fs-base align-middle opacity-70'></i>From $200,670</div></div><div class='card-footer d-flex align-items-center justify-content-center mx-2 pt-2 text-nowrap'><span class='d-inline-block px-2 fs-sm'>4<i class='fi-bed ms-1 fs-base text-muted'></i></span><span class='d-inline-block px-2 fs-sm'>2<i class='fi-bath ms-1 fs-base text-muted'></i></span><span class='d-inline-block px-2 fs-sm'>3<i class='fi-car ms-1 fs-base text-muted'></i></span></div>"
+    },
+    {
+      "coordinates": [40.724, -74.001],
+      "className": "custom-marker-dot",
+      "popup": "<a href='real-estate-single.html' class='d-block'><img src='../img/real-estate/catalog/25.jpg' src='Image'></a><div class='card-body position-relative pb-3'><h4 class='mb-1 fs-xs fw-normal text-uppercase text-primary'>For sale</h4><h3 class='h6 mb-1 fs-sm'><a href='real-estate-single.html' class='nav-link stretched-link'>Studio | 40 sq.m</a></h3><p class='mt-0 mb-2 fs-xs text-muted'>138 Spring Street, NY 11105</p><div class='fs-sm fw-bold'><i class='fi-cash me-2 fs-base align-middle opacity-70'></i>$92,000</div></div><div class='card-footer d-flex align-items-center justify-content-center mx-2 pt-2 text-nowrap'><span class='d-inline-block px-2 fs-sm'>1<i class='fi-bed ms-1 fs-base text-muted'></i></span><span class='d-inline-block px-2 fs-sm'>1<i class='fi-bath ms-1 fs-base text-muted'></i></span><span class='d-inline-block px-2 fs-sm'>1<i class='fi-car ms-1 fs-base text-muted'></i></span></div>"
+    }
+  ]
+}

@@ -13,7 +13,7 @@ namespace CatalogCars.Resource.Requests
 
         public BaseHttpClient(string pathAndQueryUrl)
         {
-            _baseUrl = $"{ServerUrl.Local}api/{pathAndQueryUrl}";
+            _baseUrl = $"{ServerUrl.Global}api/{pathAndQueryUrl}";
 
             _handler = new HttpClientHandler();
             _handler.AllowAutoRedirect = true;

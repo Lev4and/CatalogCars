@@ -1,1 +1,30 @@
-﻿
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    @await Html.PartialAsync("_Title")
+    @await Html.PartialAsync("_Metatags")
+    @await Html.PartialAsync("_Icons")
+    @if (IsSectionDefined("StylePage"))
+    {
+        @await RenderSectionAsync("StylePage");
+    }
+    @if (IsSectionDefined("ScriptPage"))
+    {
+        @await RenderSectionAsync("ScriptPage")
+    }
+    @await Html.PartialAsync("_Styles")
+</head>
+<!-- Body -->
+<body class="bg-dark">
+    @await Html.PartialAsync("_LoadingSpinner")
+    <main class="page-wrapper">
+        @await Html.PartialAsync("_SignInModal")
+        @await Html.PartialAsync("_SignUpModal")
+        @await Html.PartialAsync("_Navbar")
+        @RenderBody()
+    </main>
+    @await Html.PartialAsync("_Footer")
+    @await Html.PartialAsync("_BackToTop")
+    @await Html.PartialAsync("_Scripts")
+</body>
+</html>
