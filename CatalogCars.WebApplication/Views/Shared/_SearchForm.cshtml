@@ -3,8 +3,8 @@
     <div class="container pt-5">
         <div class="row pt-lg-4 pt-xl-5">
             <div class="col-lg-4 col-md-5 pt-3 pt-md-4 pt-lg-5">
-                <h1 class="display-4 text-light pb-2 mb-4 me-md-n5">Easy way to find the right car</h1>
-                <p class="fs-lg text-light opacity-70">Finder is a leading digital marketplace for the automotive industry that connects car shoppers with sellers. </p>
+                <h1 class="display-4 text-light pb-2 mb-4 me-md-n5">Простой способ найти нужную машину</h1>
+                <p class="fs-lg text-light opacity-70">CatalogCars - это ведущий цифровой рынок для автомобильной промышленности, который соединяет покупателей автомобилей с продавцами.</p>
             </div>
             <div class="col-lg-8 col-md-7 pt-md-5"><img class="d-block mt-4 ms-auto" src="~/img/car-finder/home/hero-img.png" width="800" alt="Car"></div>
         </div>
@@ -12,8 +12,8 @@
     <div class="container mt-4 mt-sm-3 mt-lg-n3 pb-5 mb-md-4">
         <!-- Tabs -->
         <ul class="nav nav-tabs nav-tabs-light mb-4">
-            <li class="nav-item"><a class="nav-link active" href="#">New</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Used</a></li>
+            <li class="nav-item"><a class="nav-link active" href="#">Новые</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">С пробегом</a></li>
         </ul>
         <!-- Form group -->
         <form class="form-group form-group-light d-block">
@@ -21,13 +21,13 @@
                 <div class="col-lg-2">
                     <div class="input-group border-end-lg border-light">
                         <span class="input-group-text text-muted ps-2 ps-sm-3"><i class="fi-search"></i></span>
-                        <input class="form-control" type="text" name="keywords" placeholder="Keywords...">
+                        <input class="form-control" type="text" name="keywords" placeholder="Ключевые слова...">
                     </div>
                 </div>
                 <hr class="hr-light d-lg-none my-2">
                 <div class="col-lg-2 col-md-3 col-sm-6">
                     <div class="dropdown border-end-sm border-light" data-bs-toggle="select">
-                        <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown"><i class="fi-list me-2"></i><span class="dropdown-toggle-label">Make</span></button>
+                        <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown"><i class="fi-list me-2"></i><span class="dropdown-toggle-label">Марка</span></button>
                         <input type="hidden" name="make">
                         <ul class="dropdown-menu dropdown-menu-dark">
                             <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Acura</span></a></li>
@@ -43,7 +43,7 @@
                 <hr class="hr-light d-sm-none my-2">
                 <div class="col-lg-2 col-md-3 col-sm-6">
                     <div class="dropdown border-end-md border-light" data-bs-toggle="select">
-                        <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown"><i class="fi-list me-2"></i><span class="dropdown-toggle-label">Model</span></button>
+                        <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown"><i class="fi-list me-2"></i><span class="dropdown-toggle-label">Модель</span></button>
                         <input type="hidden" name="model">
                         <ul class="dropdown-menu dropdown-menu-dark">
                             <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Altima</span></a></li>
@@ -60,7 +60,7 @@
                 <hr class="hr-light d-md-none my-2">
                 <div class="col-lg-2 col-md-3 col-sm-6">
                     <div class="dropdown border-end-sm border-light" data-bs-toggle="select">
-                        <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown"><i class="fi-car fs-lg me-2"></i><span class="dropdown-toggle-label">Body type</span></button>
+                        <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown"><i class="fi-car fs-lg me-2"></i><span class="dropdown-toggle-label">Тип кузова</span></button>
                         <input type="hidden" name="type">
                         <ul class="dropdown-menu dropdown-menu-dark">
                             <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Compact</span></a></li>
@@ -77,7 +77,7 @@
                 <hr class="hr-light d-sm-none my-2">
                 <div class="col-lg-2 col-md-3 col-sm-6">
                     <div class="dropdown" data-bs-toggle="select">
-                        <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown"><i class="fi-map-pin me-2"></i><span class="dropdown-toggle-label">Location</span></button>
+                        <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown"><i class="fi-map-pin me-2"></i><span class="dropdown-toggle-label">Регион</span></button>
                         <input type="hidden" name="location">
                         <ul class="dropdown-menu dropdown-menu-dark">
                             <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Dallas</span></a></li>
@@ -92,7 +92,7 @@
                 </div>
                 <hr class="hr-light d-lg-none my-2">
                 <div class="col-lg-2">
-                    <button class="btn btn-primary w-100" type="submit">Search</button>
+                    <button class="btn btn-primary w-100" type="submit">Найти</button>
                 </div>
             </div>
         </form>

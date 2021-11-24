@@ -1,73 +1,36 @@
 ﻿<!-- Navbar -->
 <header class="navbar navbar-expand-lg navbar-dark fixed-top" data-scroll-header>
     <div class="container">
-        <a class="navbar-brand me-3 me-xl-4" href="car-finder-home.html"><img class="d-block" src="~/img/logo/logo-light.svg" width="116" alt="Finder"></a>
-        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><a class="btn btn-link btn-light btn-sm d-none d-lg-block order-lg-3" href="#signin-modal" data-bs-toggle="modal"><i class="fi-user me-2"></i>Sign in</a><a class="btn btn-primary btn-sm ms-2 order-lg-3" href="car-finder-sell-car.html"><i class="fi-plus me-2"></i>Sell car</a>
+        <a class="navbar-brand me-3 me-xl-4" asp-area="" asp-controller="Home" asp-action="Index">
+            <img class="d-block" src="~/images/logo.png" width="32" alt="CatalogCars">
+        </a>
+        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="btn btn-link btn-light btn-sm d-none d-lg-block order-lg-3" href="#signin-modal" data-bs-toggle="modal">
+            <i class="fi-user me-2"></i> Войти
+        </a>
+        <a class="btn btn-primary btn-sm ms-2 order-lg-3" href="car-finder-sell-car.html">
+            <i class="fi-plus me-2"></i>
+            Продать машину
+        </a>
         <div class="collapse navbar-collapse order-lg-2" id="navbarNav">
             <ul class="navbar-nav navbar-nav-scroll" style="max-height: 35rem;">
-                <!-- Demos switcher -->
-                <li class="nav-item dropdown py-2 me-lg-2">
-                    <a class="nav-link dropdown-toggle align-items-center border-end-lg border-light py-1 pe-lg-4" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false"><i class="fi-layers me-2"></i>Demos</a>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" href="real-estate-home.html"><i class="fi-building fs-base me-2"></i>Real Estate Demo</a></li>
-                        <li class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="car-finder-home.html"><i class="fi-car fs-base me-2"></i>Car Finder Demo</a></li>
-                        <li class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="job-board-home-v1.html"><i class="fi-briefcase fs-base me-2"></i>Job Board Demo</a></li>
-                        <li class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="city-guide-home-v1.html"><i class="fi-map-pin fs-base me-2"></i>City Guide Demo</a></li>
-                        <li class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="index.html"><i class="fi-home fs-base me-2"></i>Main Page</a></li>
-                        <li><a class="dropdown-item" href="components/typography.html"><i class="fi-list fs-base me-2"></i>Components</a></li>
-                        <li><a class="dropdown-item" href="docs/dev-setup.html"><i class="fi-file fs-base me-2"></i>Documentation</a></li>
-                    </ul>
-                </li>
                 <!-- Menu items -->
-                <li class="nav-item active"><a class="nav-link" href="car-finder-home.html">Home</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Catalog</a>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" href="car-finder-catalog-list.html">List View</a></li>
-                        <li><a class="dropdown-item" href="car-finder-catalog-grid.html">Grid View</a></li>
-                        <li><a class="dropdown-item" href="car-finder-single.html">Car Single Page</a></li>
-                    </ul>
+                <li class="nav-item active">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" href="car-finder-account-info.html">Personal Info</a></li>
-                        <li><a class="dropdown-item" href="car-finder-account-security.html">Password &amp; Security</a></li>
-                        <li><a class="dropdown-item" href="car-finder-account-cars.html">My Cars</a></li>
-                        <li><a class="dropdown-item" href="car-finder-account-wishlist.html">Wishlist</a></li>
-                        <li><a class="dropdown-item" href="car-finder-account-reviews.html">Reviews</a></li>
-                        <li><a class="dropdown-item" href="car-finder-account-notifications.html">Notifications</a></li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link">Каталог</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Vendor</a>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" href="car-finder-sell-car.html">Sell Car</a></li>
-                        <li><a class="dropdown-item" href="car-finder-promotion.html">Ad Promotion Page</a></li>
-                        <li><a class="dropdown-item" href="car-finder-vendor.html">Vendor Page</a></li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link">Производители</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" href="car-finder-about.html">About</a></li>
-                        <li class="dropdown">
-                            <a class="dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Blog</a>
-                            <ul class="dropdown-menu dropdown-menu-dark">
-                                <li><a class="dropdown-item" href="car-finder-blog.html">Blog Grid</a></li>
-                                <li><a class="dropdown-item" href="car-finder-blog-single.html">Single Post</a></li>
-                            </ul>
-                        </li>
-                        <li><a class="dropdown-item" href="car-finder-contacts.html">Contacts</a></li>
-                        <li><a class="dropdown-item" href="car-finder-help-center.html">Help Center</a></li>
-                        <li><a class="dropdown-item" href="car-finder-404.html">404 Not Found</a></li>
-                    </ul>
+                <li class="nav-item d-lg-none">
+                    <a class="nav-link" href="#signin-modal" data-bs-toggle="modal">
+                        <i class="fi-user me-2"></i> Войти
+                    </a>
                 </li>
-                <li class="nav-item d-lg-none"><a class="nav-link" href="#signin-modal" data-bs-toggle="modal"><i class="fi-user me-2"></i>Sign in</a></li>
             </ul>
         </div>
     </div>
