@@ -1,13 +1,21 @@
 ﻿@{
     ViewData["Title"] = "Главная";
 }
+@section StylePage
+{
+    <link rel="stylesheet" media="screen" href="~/vendor/nouislider/dist/nouislider.min.css" asp-append-version="true" />
+}
 <!-- Page content -->
 @await Html.PartialAsync("_SearchForm")
 @await Html.PartialAsync("_BodyTypeSelection")
 @await Html.PartialAsync("_TopOffers")
-@await Html.PartialAsync("_Brands")
+@await Component.InvokeAsync(typeof(BrandsCarousel))
 @await Html.PartialAsync("_Features")
 @await Html.PartialAsync("_LatestCars")
 @await Html.PartialAsync("_CTA")
 @await Html.PartialAsync("_MobileAppCTA")
 @await Html.PartialAsync("_LatestNews")
+@section ScriptPage
+{
+    <script src="~/vendor/nouislider/dist/nouislider.min.js" asp-append-version="true"></script>
+}

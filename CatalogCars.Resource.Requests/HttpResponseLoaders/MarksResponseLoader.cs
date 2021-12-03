@@ -65,5 +65,10 @@ namespace CatalogCars.Resource.Requests.HttpResponseLoaders
         {
             return await GetStreamFromResponseAsync(await _client.DeleteMarkAsync(id));
         }
+
+        public async Task<Stream> GetStreamFromGetPopularMarksResponseAsync()
+        {
+            return await GetStreamFromResponseAsync(await _client.GetPopularMarksAsync());
+        }
     }
 }

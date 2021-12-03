@@ -148,5 +148,12 @@ namespace CatalogCars.Resource.Api.Controllers
 
             return Ok();
         }
+
+        [HttpGet("popularMarks")]
+        [ProducesResponseType(typeof(PopularMark[]), 200)]
+        public IActionResult PopularMarks()
+        {
+            return Ok(_dataManager.Marks.GetPopularMarks().ToArray());
+        }
     }
 }

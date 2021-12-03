@@ -30,6 +30,8 @@
         ByAscendingYear,
         ByDescendingYear,
         ByAscendingMileage,
-        ByDescendingMileage
+        ByDescendingMileage,
+        ByAscendingCountAnnouncements,
+        ByDescendingCountAnnouncements
     }
 }

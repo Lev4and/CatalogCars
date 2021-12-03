@@ -157,5 +157,20 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
         {
             await _responseLoader.GetStreamFromDeleteMarkResponseAsync(id);
         }
+
+        public async Task<PopularMark[]> GetPopularMarksAsync()
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetPopularMarksResponseAsync();
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<PopularMark[]>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new PopularMark[0];
+        }
     }
 }

@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="bundleconfig.json" />
     <Content Remove="wwwroot\images\logo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="bundleconfig.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="bundleconfig.json" />
     <None Include="wwwroot\images\logo.ico" />
   </ItemGroup>
 

@@ -4,17 +4,15 @@
     @await Html.PartialAsync("_Title")
     @await Html.PartialAsync("_Metatags")
     @await Html.PartialAsync("_Icons")
+    @await Html.PartialAsync("_PageLoadingStyles")
+    @await Html.PartialAsync("_PageLoadingScripts")
+    @await Html.PartialAsync("_Styles")
     @if (IsSectionDefined("StylePage"))
     {
         @await RenderSectionAsync("StylePage")
     }
-    @if (IsSectionDefined("ScriptPage"))
-    {
-        @await RenderSectionAsync("ScriptPage")
-    }
-    @await Html.PartialAsync("_PageLoadingStyles")
-    @await Html.PartialAsync("_PageLoadingScripts")
-    @await Html.PartialAsync("_Styles")
+    <!-- Main Theme Styles + Bootstrap -->
+    <link rel="stylesheet" media="screen" href="~/css/theme.min.css" asp-append-version="true">
 </head>
 <!-- Body -->
 <body class="bg-dark">
@@ -28,5 +26,12 @@
     @await Html.PartialAsync("_Footer")
     @await Html.PartialAsync("_BackToTop")
     @await Html.PartialAsync("_Scripts")
+    @if (IsSectionDefined("ScriptPage"))
+    {
+        @await RenderSectionAsync("ScriptPage")
+    }
+
+    <!-- Main theme script -->
+    <script src="~/js/theme.min.js" asp-append-version="true"></script>
 </body>
 </html>

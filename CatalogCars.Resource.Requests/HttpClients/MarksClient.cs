@@ -69,5 +69,10 @@ namespace CatalogCars.Resource.Requests.HttpClients
         {
             return await _client.DeleteAsync($"delete?id={id}");
         }
+
+        public async Task<HttpResponseMessage> GetPopularMarksAsync()
+        {
+            return await _client.GetAsync($"popularMarks");
+        }
     }
 }

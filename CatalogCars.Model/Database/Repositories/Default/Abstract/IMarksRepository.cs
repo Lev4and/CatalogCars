@@ -22,6 +22,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
 
         IQueryable<Mark> GetMarks(MarksFilters filters);
 
+        IQueryable<PopularMark> GetPopularMarks();
+
         IQueryable<PopularityMark> GetPopularityMark(Guid markId);
 
         void DeleteMark(Guid id);

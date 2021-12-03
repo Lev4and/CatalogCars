@@ -141,5 +141,29 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
             _context.Marks.Remove(GetMark(id));
             _context.SaveChanges();
         }
+
+        public IQueryable<PopularMark> GetPopularMarks()
+        {
+            return _context.VehicleInformation
+                .Include(vehicleInformation => vehicleInformation.Generation)
+                    .ThenInclude(generation => generation.Model)
+                        .ThenInclude(model => model.Mark)
+                            .ThenInclude(mark => mark.Logo)
+                .GroupBy(vehicleInformation => new 
+                {
+                    vehicleInformation.Generation.Model.Mark.Id,
+                    vehicleInformation.Generation.Model.Mark.Name,
+                    vehicleInformation.Generation.Model.Mark.Logo.BigLogo 
+                })
+                .Select(group => new PopularMark
+                {
+                    Id = group.Key.Id,
+                    Name = group.Key.Name,
+                    Logo = group.Key.BigLogo,
+                    Count = group.Count()
+                })
+                .OrderByDescending(popularMark => popularMark.Count)
+                .AsNoTracking();
+        }
     }
 }
