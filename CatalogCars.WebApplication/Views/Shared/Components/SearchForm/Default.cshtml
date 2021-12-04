@@ -11,8 +11,8 @@
         <div class="col-lg-5">
             <div class="input-group border-end-lg border-light dropdown">
                 <span class="input-group-text text-muted ps-2 ps-sm-3"><i class="fi-search"></i></span>
-                <input class="form-control dropdown-toggle" type="text" asp-for="@Model.Generations" placeholder="Ключевые слова..." >
-                <div class="dropdown-menu w-100">
+                <input class="form-control dropdown-toggle" type="search" asp-for="@Model.Generations" placeholder="Ключевые слова..." data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                <div id="dropdownMenuSearchGenerations" class="dropdown-menu w-100">
 
                 </div>
             </div>
@@ -21,8 +21,8 @@
         <div class="col-lg-5 col-md-6 col-sm-12">
             <div class="input-group border-end-lg border-light dropdown">
                 <span class="input-group-text text-muted ps-2 ps-sm-3"><i class="fi-map-pin"></i></span>
-                <input class="form-control dropdown-toggle" type="text" asp-for="@Model.Regions" placeholder="Регион" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" />
-                <div class="dropdown-menu w-100">
+                <input class="form-control dropdown-toggle" type="search" asp-for="@Model.Regions" placeholder="Регион" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" />
+                <div id="dropdownMenuSearchRegions" class="dropdown-menu w-100">
 
                 </div>
             </div>

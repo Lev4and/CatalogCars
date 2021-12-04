@@ -18,4 +18,51 @@
 @section ScriptPage
 {
     <script src="~/vendor/nouislider/dist/nouislider.min.js" asp-append-version="true"></script>
+    <script type="text/javascript" asp-append-version="true">
+        $('input[type="search"][name="Generations"]').on('input', function (e) {
+            $.ajax({
+                url: '/Generations',
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify($(this).val()),
+                success: function (data) {
+                    $('#dropdownMenuSearchGenerations').html();
+                    $('#dropdownMenuSearchGenerations').html(data.map(generation => {
+                        return `<a class="dropdown-item">${generation}</a>`;
+                    }).join(''));
+
+                    $('#dropdownMenuSearchGenerations').children('a.dropdown-item').each(function () {
+                        $(this).on('click', function () {
+                            $('input[type="search"][name="Generations"]').val($(this).text());
+                        });
+                    });
+                }
+            });
+        });
+
+        $('input[type="search"][name="Regions"]').on('input', function (e) {
+            $.ajax({
+                url: '/Regions',
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify($(this).val()),
+                success: function (data) {
+                    $('#dropdownMenuSearchRegions').html();
+                    $('#dropdownMenuSearchRegions').html(data.map(region => {
+                        return `<a class="dropdown-item">${region}</a>`;
+                    }).join(''));
+
+                    $('#dropdownMenuSearchRegions').children('a.dropdown-item').each(function () {
+                        $(this).on('click', function () {
+                            $('input[type="search"][name="Regions"]').val($(this).text());
+                        });
+                    });
+                }
+            });
+        });
+    </script>
 }

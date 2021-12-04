@@ -12,7 +12,7 @@ namespace CatalogCars.WebApplication.Components
 
         public IViewComponentResult Invoke()
         {
-            return View("Default", new SearchFormViewModel());
+            return View("Default", new SearchFormViewModel() { Regions = "", Generations = "" } );
         }
     }
 }

@@ -2,8 +2,8 @@
 {
     public class SearchFormViewModel
     {
-        public string Regions => "";
+        public string Regions { get; set; }
 
-        public string Generations => "";
+        public string Generations { get; set; }
     }
 }
