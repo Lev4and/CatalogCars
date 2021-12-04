@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace CatalogCars.WebApplication.Components
 {
-    public class BrandsCarousel : ViewComponent
+    public class Brands : ViewComponent
     {
         private readonly MarksRequester _marksRequester;
 
-        public BrandsCarousel()
+        public Brands()
         {
             _marksRequester = new MarksRequester();
         }

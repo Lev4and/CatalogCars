@@ -1,0 +1,17 @@
+﻿@model List<PopularMark>
+<!-- Brands -->
+<section class="container py-2 py-sm-3">
+    <div class="d-sm-flex align-items-center justify-content-between mb-3 mb-sm-4 pb-sm-2">
+        <h2 class="h3 text-light mb-2 mb-sm-0">Популярные марки автомобилей</h2>
+    </div>
+    <div class="row g-2 g-sm-4">
+        @foreach (var mark in Model)
+        {
+            <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2">
+                <a class="opacity-40 opacity-transition d-table mx-auto" href="#">
+                    <img src="@mark.Logo" width="86" alt="@mark.Name">
+                </a>
+            </div>
+        }
+    </div>
+</section>
