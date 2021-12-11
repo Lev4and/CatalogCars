@@ -56,6 +56,13 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .AsNoTracking();
         }
 
+        public IQueryable<Color> GetColors()
+        {
+            return _context.Colors
+                .OrderBy(color => color.Value)
+                .AsNoTracking();
+        }
+
         public int GetCountColors(ColorsFilters filters)
         {
             return _context.Colors

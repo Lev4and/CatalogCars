@@ -3,6 +3,7 @@ using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpResponseLoaders;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -50,6 +51,21 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
         public async Task<Generation[]> GetGenerationsAsync(GenerationsFilters filters)
         {
             var resultStream = await _responseLoader.GetStreamFromGetGenerationsResponseAsync(filters);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<Generation[]>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new Generation[0];
+        }
+
+        public async Task<Generation[]> GetGenerationsOfModelsAsync(List<Guid> modelsIds)
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetGenerationsOfModelsResponseAsync(modelsIds);
 
             if (resultStream != null)
             {

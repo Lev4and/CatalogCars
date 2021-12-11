@@ -17,6 +17,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
 
         IQueryable<string> GetNamesVendors(string searchString);
 
+        IQueryable<Vendor> GetVendors();
+
         IQueryable<Vendor> GetVendors(VendorsFilters filters);
 
         void DeleteVendor(Guid id);

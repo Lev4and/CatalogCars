@@ -1,0 +1,84 @@
+﻿@model CatalogViewModel
+<!-- Breadcrumb -->
+<nav class="mb-3 pt-md-2 pt-lg-4" aria-label="Breadcrumb">
+    <ol class="breadcrumb breadcrumb-light">
+        <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">Главная</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Каталог</li>
+    </ol>
+</nav>
+<!-- Page title -->
+<div class="d-flex align-items-center justify-content-between pb-4 mb-2">
+    <h1 class="text-light me-3 mb-0">Каталог</h1>
+    <div class="text-light"><i class="fi-car fs-lg me-2"></i><span class="align-middle">@Model.Pagination.GetFormattedStringCountItems()</span></div>
+</div>
+<div class="row">
+    @foreach (var announcement in Model.Announcements)
+    {
+        <!-- Item -->
+        <div class="col-sm-6 mb-4">
+            <div class="card card-light card-hover h-100">
+                <div class="tns-carousel-wrapper card-img-top card-img-hover">
+                    <a class="img-overlay" href="car-finder-single.html"></a>
+                    <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                        <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist"><i class="fi-heart"></i></button>
+                    </div>
+                    <div class="tns-carousel-inner">
+                        <img src="@announcement.Vehicle.Configuration.MainPhoto.Cattouch" alt="Image">
+                        @foreach (var photo in announcement.State.Photos)
+                        {
+                            <img src="@photo.ThumbM" alt="Image">
+                        }
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between pb-1">
+                        <span class="fs-sm text-light me-3">@announcement.Documents.Pts.Year</span>
+                        <div class="form-check form-check-light">
+                            <input class="form-check-input" type="checkbox" id="compare1">
+                            <label class="form-check-label fs-sm" for="compare1">Compare</label>
+                        </div>
+                    </div>
+                    <h3 class="h6 mb-1"><a class="nav-link-light" href="car-finder-single.html">@announcement.Vehicle.Generation.Model.Mark.Name @announcement.Vehicle.Generation.Model.Name @announcement.Vehicle.Generation.Name</a></h3>
+                    <div class="text-primary fw-bold mb-1">@announcement.Price.Value.ToString("C2")</div>
+                    <div class="fs-sm text-light opacity-70"><i class="fi-map-pin me-1"></i>@announcement.Seller.Location.Region.Name</div>
+                    <div class="border-top border-light mt-3 pt-3">
+                        <div class="row g-2">
+                            <div class="col me-sm-1">
+                                <div class="bg-dark rounded text-center w-100 h-100 p-2"><i class="fi-dashboard d-block h4 text-light mb-0 mx-center"></i><span class="fs-xs text-light">278K mi</span></div>
+                            </div>
+                            <div class="col me-sm-1">
+                                <div class="bg-dark rounded text-center w-100 h-100 p-2"><i class="fi-gearbox d-block h4 text-light mb-0 mx-center"></i><span class="fs-xs text-light">Manual</span></div>
+                            </div>
+                            <div class="col">
+                                <div class="bg-dark rounded text-center w-100 h-100 p-2"><i class="fi-petrol d-block h4 text-light mb-0 mx-center"></i><span class="fs-xs text-light">Diesel</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<!-- Pagination -->
+<div class="d-flex align-items-center justify-content-center py-2">
+    <nav aria-label="Pagination">
+        <ul class="pagination pagination-light mb-0">
+            @foreach (var item in Model.Pagination.GeneratePagination())
+            {
+                <li class="page-item @(Model.Filters.NumberPage == item ? "active" : "")" @(Model.Filters.NumberPage == item ? "aria-current=\"page\"" : "") data-page-number="@item">
+                    @if (Model.Filters.NumberPage == item)
+                    {
+                        <span class="page-link">
+                            @item
+                            <span class="visually-hidden">(current)</span>
+                        </span>
+                    }
+                    else
+                    {
+                        <a class="page-link" href="#">@item</a>
+                    }
+                </li>
+            }
+        </ul>
+    </nav>
+</div>

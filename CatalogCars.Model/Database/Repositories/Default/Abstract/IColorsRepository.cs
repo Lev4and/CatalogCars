@@ -17,6 +17,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
 
         IQueryable<string> GetNamesColors(string searchString);
 
+        IQueryable<Color> GetColors();
+
         IQueryable<Color> GetColors(ColorsFilters filters);
 
         void DeleteColor(Guid id);

@@ -26,6 +26,11 @@ namespace CatalogCars.Resource.Requests.HttpResponseLoaders
             return await GetStreamFromResponseAsync(await _client.GetNamesTagsAsync(searchString));
         }
 
+        public async Task<Stream> GetStreamFromGetTagsResponseAsync()
+        {
+            return await GetStreamFromResponseAsync(await _client.GetTagsAsync());
+        }
+
         public async Task<Stream> GetStreamFromGetTagsResponseAsync(TagsFilters filters)
         {
             return await GetStreamFromResponseAsync(await _client.GetTagsAsync(filters));

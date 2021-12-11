@@ -34,6 +34,13 @@ namespace CatalogCars.Resource.Api.Controllers
             return Ok(_dataManager.Options.GetNamesOptions(searchString).ToArray());
         }
 
+        [HttpGet]
+        [ProducesResponseType(typeof(Option[]), 200)]
+        public IActionResult Index()
+        {
+            return Ok(_dataManager.Options.GetOptions().ToArray());
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(Option[]), 200)]
         public IActionResult Index([FromBody] OptionsFilters filters)

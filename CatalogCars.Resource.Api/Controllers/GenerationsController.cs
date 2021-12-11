@@ -3,6 +3,7 @@ using CatalogCars.Model.Database.AuxiliaryTypes;
 using CatalogCars.Model.Database.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -39,6 +40,13 @@ namespace CatalogCars.Resource.Api.Controllers
         public IActionResult Index([FromBody] GenerationsFilters filters)
         {
             return Ok(_dataManager.Generations.GetGenerations(filters).ToArray());
+        }
+
+        [HttpGet("byModelsIds")]
+        [ProducesResponseType(typeof(Generation[]), 200)]
+        public IActionResult GenerationsByModelsIds([FromQuery(Name = "modelId")] List<Guid> modelsIds)
+        {
+            return Ok(_dataManager.Generations.GetGenerationsOfModels(modelsIds).ToArray());
         }
 
         [HttpPost("byModelsIds")]

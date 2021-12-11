@@ -2,6 +2,8 @@
 using CatalogCars.Model.Database.Entities;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +39,12 @@ namespace CatalogCars.Resource.Requests.HttpClients
         {
             return await _client.PostAsync("", new StringContent(JsonConvert.SerializeObject(filters),
                 Encoding.UTF8, "application/json"));
+        }
+
+        public async Task<HttpResponseMessage> GetBodyTypesOfBodyTypeGroupsAsync(List<Guid> bodyTypeGroupsIds)
+        {
+            return await _client.GetAsync($"byBodyTypeGroupsIds?" +
+                $"{string.Join('&', bodyTypeGroupsIds.Select(bodyTypeGroupId => $"bodyTypeGroupId={bodyTypeGroupId}"))}");
         }
 
         public async Task<HttpResponseMessage> GetBodyTypesOfBodyTypeGroupsAsync(BodyTypesFilters filters)

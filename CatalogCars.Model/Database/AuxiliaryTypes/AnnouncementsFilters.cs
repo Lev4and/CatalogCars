@@ -1,105 +1,154 @@
 ﻿using CatalogCars.Model.Database.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace CatalogCars.Model.Database.AuxiliaryTypes
 {
     public class AnnouncementsFilters : IFilters
     {
+        [DisplayName("Гарантия")]
         public bool? Warranty { get; set; }
 
+        [DisplayName("Битая ли?")]
         public bool? IsBeaten { get; set; }
 
+        [DisplayName("Оригинальный ПТС")]
         public bool? IsOriginal { get; set; }
 
+        [DisplayName("Номер страницы")]
         public int NumberPage { get; set; }
 
+        [DisplayName("Максимальный радиус поиска")]
         public int MaxSearchRadius => 20100;
 
+        [DisplayName("Зона поиска (км)")]
         public int SearchRadius { get; set; }
 
+        [DisplayName("Показывать по")]
         public int ItemsPerPage { get; set; }
 
+        [DisplayName("Строка поиска")]
         public string SearchString { get; set; }
 
+        [DisplayName("Сортировать по")]
         public SortingOption SortingOption { get; set; }
 
+        [DisplayName("Статус")]
         public Guid? StatusId { get; set; }
 
+        [DisplayName("Раздел")]
         public Guid? SectionId { get; set; }
 
+        [DisplayName("Валюта")]
         public Guid? CurrencyId { get; set; }
 
+        [DisplayName("Тип привода")]
         public Guid? GearTypeId { get; set; }
 
+        [DisplayName("Тип двигателя")]
         public Guid? EngineTypeId { get; set; }
 
+        [DisplayName("Тип продавца")]
         public Guid? SellerTypeId { get; set; }
 
+        [DisplayName("Трансмиссия")]
         public Guid? TransmissionId { get; set; }
 
+        [DisplayName("Вид доступности")]
         public Guid? AvailabilityId { get; set; }
 
+        [DisplayName("Вид рулевого колеса")]
         public Guid? SteeringWheelId { get; set; }
 
+        [DisplayName("Год выпуска")]
         public RangeYear RangeYear { get; set; }
 
+        [DisplayName("Мощность")]
         public RangePower RangePower { get; set; }
 
+        [DisplayName("Стоимость")]
         public RangePrice RangePrice { get; set; }
 
+        [DisplayName("Регион")]
         public RegionInformation Region { get; set; }
 
+        [DisplayName("Пробег")]
         public RangeMileage RangeMileage { get; set; }
 
+        [DisplayName("Мощность кВт")]
         public RangePowerKvt RangePowerKvt { get; set; }
 
+        [DisplayName("Расход топлива")]
         public RangeFuelRate RangeFuelRate { get; set; }
 
+        [DisplayName("Дата публикации")]
         public RangeCreatedAt RangeCreatedAt { get; set; }
 
+        [DisplayName("Кол-во дверей")]
         public RangeDoorsCount RangeDoorsCount { get; set; }
 
+        [DisplayName("Кол-во владельцев")]
         public RangeOwnersNumber RangeOwnersNumber { get; set; }
 
+        [DisplayName("Разгон до 100 Км/ч (сек)")]
         public RangeAcceleration RangeAcceleration { get; set; }
 
+        [DisplayName("Объём двигателя")]
         public RangeDisplacement RangeDisplacement { get; set; }
 
+        [DisplayName("Минимальный зазор")]
         public RangeClearanceMin RangeClearanceMin { get; set; }
 
+        [DisplayName("Объём багажника (MIN)")]
         public RangeTrunkVolume RangeTrunkVolumeMin { get; set; }
 
+        [DisplayName("Объём багажника (MAX)")]
         public RangeTrunkVolume RangeTrunkVolumeMax { get; set; }
 
+        [DisplayName("Лимиты")]
         public List<int> Limits { get; set; }
 
+        [DisplayName("Теги")]
         public List<Guid> TagsIds { get; set; }
 
+        [DisplayName("Марки")]
         public List<Guid> MarksIds { get; set; }
 
+        [DisplayName("Модели")]
         public List<Guid> ModelsIds { get; set; }
 
+        [DisplayName("Цвета")]
         public List<Guid> ColorsIds { get; set; }
 
+        [DisplayName("Производители")]
         public List<Guid> VendorsIds { get; set; }
 
+        [DisplayName("Регионы")]
         public List<Guid> RegionsIds { get; set; }
 
+        [DisplayName("Опции")]
         public List<Guid> OptionsIds { get; set; }
 
+        [DisplayName("Типы кузова")]
         public List<Guid> BodyTypesIds { get; set; }
 
+        [DisplayName("Поколения")]
         public List<Guid> GenerationsIds { get; set; }
 
+        [DisplayName("Классы кузова")]
         public List<Guid> BodyTypeGroupsIds { get; set; }
 
+        [DisplayName("Значения гарантии")]
         public Dictionary<bool?, string> WarrantyValues { get; set; }
 
+        [DisplayName("Значения состояния автомобиля")]
         public Dictionary<bool?, string> IsBeatenValues { get; set; }
 
+        [DisplayName("Значения оригинальности ПТС")]
         public Dictionary<bool?, string> IsOriginalValues { get; set; }
 
+        [DisplayName("Типы сортировки")]
         public Dictionary<SortingOption, string> SortingOptions { get; set; } 
 
         public AnnouncementsFilters()

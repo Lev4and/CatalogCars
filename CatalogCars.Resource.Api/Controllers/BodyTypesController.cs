@@ -3,6 +3,7 @@ using CatalogCars.Model.Database.AuxiliaryTypes;
 using CatalogCars.Model.Database.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -46,6 +47,13 @@ namespace CatalogCars.Resource.Api.Controllers
         public IActionResult Index([FromBody] BodyTypesFilters filters)
         {
             return Ok(_dataManager.BodyTypes.GetBodyTypes(filters).ToArray());
+        }
+
+        [HttpGet("byBodyTypeGroupsIds")]
+        [ProducesResponseType(typeof(BodyType[]), 200)]
+        public IActionResult BodyTypesOfBodyTypeGroups([FromQuery(Name = "bodyTypeGroupId")] List<Guid> bodyTypeGroupsIds)
+        {
+            return Ok(_dataManager.BodyTypes.GetBodyTypesOfBodyTypeGroups(bodyTypeGroupsIds).ToArray());
         }
 
         [HttpPost("byBodyTypeGroupsIds")]

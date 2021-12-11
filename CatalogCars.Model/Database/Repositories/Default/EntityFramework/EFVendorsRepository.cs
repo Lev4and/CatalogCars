@@ -74,6 +74,13 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .AsNoTracking();
         }
 
+        public IQueryable<Vendor> GetVendors()
+        {
+            return _context.Vendors
+                .OrderBy(vendor => vendor.RuName)
+                .AsNoTracking();
+        }
+
         public bool SaveVendor(Vendor vendor)
         {
             if (vendor.Id == default)

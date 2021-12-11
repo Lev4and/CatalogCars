@@ -43,6 +43,11 @@ namespace CatalogCars.Model.Database.AuxiliaryTypes
             return result;
         }
 
+        public string GetFormattedStringCountItems()
+        {
+            return $"{CountTotalItems.ToString("N0")} {Declension.DeclensionByNumeral(CountTotalItems, new string[3] { "результата", "результатов", "результатов" }, false)}";
+        }
+
         public string GetFormattedStringRange()
         {
             var from = 0;

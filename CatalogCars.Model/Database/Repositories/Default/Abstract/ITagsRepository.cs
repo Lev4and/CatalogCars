@@ -17,6 +17,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
 
         IQueryable<string> GetNamesTags(string searchString);
 
+        IQueryable<Tag> GetTags();
+
         IQueryable<Tag> GetTags(TagsFilters filters);
 
         void DeleteTag(Guid id);

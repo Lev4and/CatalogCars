@@ -24,13 +24,16 @@
         @RenderBody()
     </main>
     @await Html.PartialAsync("_Footer")
+    @if (IsSectionDefined("SidebarToggleButton"))
+    {
+        @await RenderSectionAsync("SidebarToggleButton")
+    }
     @await Html.PartialAsync("_BackToTop")
     @await Html.PartialAsync("_Scripts")
     @if (IsSectionDefined("ScriptPage"))
     {
         @await RenderSectionAsync("ScriptPage")
     }
-
     <!-- Main theme script -->
     <script src="~/js/theme.min.js" asp-append-version="true"></script>
 </body>

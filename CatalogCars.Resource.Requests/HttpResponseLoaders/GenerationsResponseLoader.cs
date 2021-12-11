@@ -2,6 +2,7 @@
 using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpClients;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -29,6 +30,11 @@ namespace CatalogCars.Resource.Requests.HttpResponseLoaders
         public async Task<Stream> GetStreamFromGetGenerationsResponseAsync(GenerationsFilters filters)
         {
             return await GetStreamFromResponseAsync(await _client.GetGenerationsAsync(filters));
+        }
+
+        public async Task<Stream> GetStreamFromGetGenerationsOfModelsResponseAsync(List<Guid> modelsIds)
+        {
+            return await GetStreamFromResponseAsync(await _client.GetGenerationsOfModelsAsync(modelsIds));
         }
 
         public async Task<Stream> GetStreamFromGetGenerationsByModelsIdsResponseAsync(GenerationsFilters filters)

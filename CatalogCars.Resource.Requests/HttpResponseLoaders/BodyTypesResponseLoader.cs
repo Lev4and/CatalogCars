@@ -2,6 +2,7 @@
 using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpClients;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -34,6 +35,11 @@ namespace CatalogCars.Resource.Requests.HttpResponseLoaders
         public async Task<Stream> GetStreamFromGetBodyTypesResponseAsync(BodyTypesFilters filters)
         {
             return await GetStreamFromResponseAsync(await _client.GetBodyTypesAsync(filters));
+        }
+
+        public async Task<Stream> GetStreamFromGetBodyTypesOfBodyTypeGroupsResponseAsync(List<Guid> bodyTypeGroupsIds)
+        {
+            return await GetStreamFromResponseAsync(await _client.GetBodyTypesOfBodyTypeGroupsAsync(bodyTypeGroupsIds));
         }
 
         public async Task<Stream> GetStreamFromGetBodyTypesOfBodyTypeGroupsResponseAsync(BodyTypesFilters filters)

@@ -378,6 +378,7 @@ namespace CatalogCars.Resource.Api
                 options.MaximumReceiveMessageSize = 8388608;
                 options.EnableDetailedErrors = true;
             });
+
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder =>
@@ -408,8 +409,8 @@ namespace CatalogCars.Resource.Api
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
+            app.UseCors();
 
             app.UseAuthorization();
 

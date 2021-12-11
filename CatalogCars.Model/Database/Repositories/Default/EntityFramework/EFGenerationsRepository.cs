@@ -115,6 +115,20 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .AsNoTracking();
         }
 
+        public IQueryable<Generation> GetGenerationsOfModels(List<Guid> modelsIds)
+        {
+            return _context.Generations
+                .Include(generation => generation.Model)
+                    .ThenInclude(model => model.Mark)
+                .Where(generation => (modelsIds.Count > 0 ?
+                    modelsIds.Contains(generation.ModelId) : false))
+                .OrderBy(generation => generation.Model.Mark.Name)
+                    .ThenBy(generation => generation.Model.Name)
+                        .ThenBy(generation => generation.YearFrom)
+                            .ThenBy(generation => generation.Name)
+                .AsNoTracking();
+        }
+
         public int? GetMaxYearFromGeneration()
         {
             return _context.Generations.Max(generation => generation.YearFrom);

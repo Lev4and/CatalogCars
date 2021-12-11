@@ -26,6 +26,7 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
 
             IQueryable<Announcement> announcements = _context.Announcements
                 .Include(announcement => announcement.State)
+                    .ThenInclude(state => state.Photos)
                 .Include(announcement => announcement.Price)
                 .Include(announcement => announcement.Color)
                 .Include(announcement => announcement.Status)

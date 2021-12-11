@@ -34,6 +34,13 @@ namespace CatalogCars.Resource.Api.Controllers
             return Ok(_dataManager.Tags.GetNamesTags(searchString).ToArray());
         }
 
+        [HttpGet]
+        [ProducesResponseType(typeof(Tag[]), 200)]
+        public IActionResult Index()
+        {
+            return Ok(_dataManager.Tags.GetTags().ToArray());
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(Tag[]), 200)]
         public IActionResult Index([FromBody] TagsFilters filters)

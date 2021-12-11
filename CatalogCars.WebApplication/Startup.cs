@@ -1,5 +1,7 @@
+using CatalogCars.WebApplication.Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -17,6 +19,24 @@ namespace CatalogCars.WebApplication
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.Configure<CookiePolicyOptions>(options =>
+            //{
+            //    options.CheckConsentNeeded = context => true;
+            //    options.MinimumSameSitePolicy = SameSiteMode.None;
+            //    options.OnAppendCookie = cookieContext =>
+            //      CheckSameSite(cookieContext.Context, cookieContext.CookieOptions);
+            //    options.OnDeleteCookie = cookieContext =>
+            //      CheckSameSite(cookieContext.Context, cookieContext.CookieOptions);
+            //});
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder =>
+                    builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+            });
+
             services.AddControllersWithViews();
         }
 
@@ -45,9 +65,11 @@ namespace CatalogCars.WebApplication
             });
 
             app.UseHttpsRedirection();
+            //app.UseCookiePolicy();
+            //app.UseAuthentication();
             app.UseStaticFiles();
-
             app.UseRouting();
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {
@@ -60,5 +82,18 @@ namespace CatalogCars.WebApplication
                     pattern: "Admin/{controller=Home}/{action=Index}/{id?}");
             });
         }
+
+        //private void CheckSameSite(HttpContext httpContext, CookieOptions options)
+        //{
+        //    if (options.SameSite == SameSiteMode.None)
+        //    {
+        //        var userAgent = httpContext.Request.Headers["User-Agent"].ToString();
+
+        //        if (BrowserDetection.DisallowsSameSiteNone(userAgent))
+        //        {
+        //            options.SameSite = (SameSiteMode)(-1);
+        //        }
+        //    }
+        //}
     }
 }

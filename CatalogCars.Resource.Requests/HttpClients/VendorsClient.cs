@@ -27,6 +27,11 @@ namespace CatalogCars.Resource.Requests.HttpClients
                 Encoding.UTF8, "application/json"));
         }
 
+        public async Task<HttpResponseMessage> GetVendorsAsync()
+        {
+            return await _client.GetAsync("");
+        }
+
         public async Task<HttpResponseMessage> GetVendorsAsync(VendorsFilters filters)
         {
             return await _client.PostAsync("", new StringContent(JsonConvert.SerializeObject(filters),

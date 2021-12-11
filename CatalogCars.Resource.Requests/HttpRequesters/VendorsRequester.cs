@@ -47,6 +47,21 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             return new string[0];
         }
 
+        public async Task<Vendor[]> GetVendorsAsync()
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetVendorsResponseAsync();
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<Vendor[]>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new Vendor[0];
+        }
+
         public async Task<Vendor[]> GetVendorsAsync(VendorsFilters filters)
         {
             var resultStream = await _responseLoader.GetStreamFromGetVendorsResponseAsync(filters);

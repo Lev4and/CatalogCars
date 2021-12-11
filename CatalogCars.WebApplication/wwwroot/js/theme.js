@@ -236,14 +236,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           valueMinInput = rangeSliderWidget[i].querySelector('.range-slider-value-min'),
           valueMaxInput = rangeSliderWidget[i].querySelector('.range-slider-value-max');
       var options = {
-        dataStartMin: parseInt(rangeSliderWidget[i].dataset.startMin, 10),
-        dataStartMax: parseInt(rangeSliderWidget[i].dataset.startMax, 10),
-        dataMin: parseInt(rangeSliderWidget[i].dataset.min, 10),
-        dataMax: parseInt(rangeSliderWidget[i].dataset.max, 10),
-        dataStep: parseInt(rangeSliderWidget[i].dataset.step, 10)
+        dataStartMin: parseFloat(rangeSliderWidget[i].dataset.startMin, 10),
+        dataStartMax: parseFloat(rangeSliderWidget[i].dataset.startMax, 10),
+        dataMin: parseFloat(rangeSliderWidget[i].dataset.min, 10),
+        dataMax: parseFloat(rangeSliderWidget[i].dataset.max, 10),
+        dataStep: parseFloat(rangeSliderWidget[i].dataset.step, 10)
       };
       var start = options.dataStartMax ? [options.dataStartMin, options.dataStartMax] : [options.dataStartMin],
-          connect = options.dataStartMax ? true : 'lower';
+      connect = options.dataStartMax ? true : 'lower';
       noUiSlider.create(rangeSlider, {
         start: start,
         connect: connect,
@@ -255,10 +255,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         },
         format: {
           to: function to(value) {
-            return parseInt(value, 10);
+            return value;
           },
           from: function from(value) {
-            return Number(value);
+            return value;
           }
         }
       });
@@ -267,11 +267,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         if (handle) {
           if (valueMaxInput) {
-            valueMaxInput.value = Math.round(value);
+            valueMaxInput.value = value;
           }
         } else {
           if (valueMinInput) {
-            valueMinInput.value = Math.round(value);
+            valueMinInput.value = value;
           }
         }
       });

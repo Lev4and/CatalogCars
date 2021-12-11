@@ -3,6 +3,7 @@ using CatalogCars.Model.Database.Entities;
 using CatalogCars.Resource.Requests.HttpResponseLoaders;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -65,6 +66,21 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
         public async Task<BodyType[]> GetBodyTypesAsync(BodyTypesFilters filters)
         {
             var resultStream = await _responseLoader.GetStreamFromGetBodyTypesResponseAsync(filters);
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<BodyType[]>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new BodyType[0];
+        }
+
+        public async Task<BodyType[]> GetBodyTypesOfBodyTypeGroupsAsync(List<Guid> bodyTypeGroupsIds)
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetBodyTypesOfBodyTypeGroupsResponseAsync(bodyTypeGroupsIds);
 
             if (resultStream != null)
             {

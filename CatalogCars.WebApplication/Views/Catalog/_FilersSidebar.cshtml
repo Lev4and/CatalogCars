@@ -1,0 +1,571 @@
+﻿@model CatalogViewModel
+<div class="offcanvas offcanvas-start offcanvas-collapse bg-dark" id="filters-sidebar">
+    <div class="offcanvas-header bg-transparent d-flex d-lg-none align-items-center">
+        <h2 class="h5 text-light mb-0">Фильтры</h2>
+        <button class="btn-close btn-close-white" type="button" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body py-lg-4">
+        <form id="form" method="post" asp-area="" asp-controller="Catalog" asp-action="Index">
+            @Html.HiddenFor(model => model.Filters.NumberPage)
+            @Html.HiddenFor(model => model.Filters.SearchString)
+            @Html.HiddenFor(model => model.Filters.MaxSearchRadius)
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.ItemsPerPage)</h3>
+                <select class="form-select form-select-light mb-2" asp-for="@Model.Filters.ItemsPerPage">
+                    @foreach (var limit in Model.Filters.Limits)
+                    {
+                        <option value="@limit">@limit</option>
+                    }
+                </select>
+            </div>
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.SortingOption)</h3>
+                <select class="form-select form-select-light mb-2" asp-for="@Model.Filters.SortingOption">
+                    @foreach (var option in Model.Filters.SortingOptions)
+                    {
+                        <option value="@option.Key">@option.Value</option>
+                    }
+                </select>
+            </div>
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.Warranty)</h3>
+                <select class="form-select form-select-light mb-2" asp-for="@Model.Filters.Warranty">
+                    <option value="@null">Не имеет значения</option>
+                    @foreach (var warranty in Model.Filters.WarrantyValues)
+                    {
+                        <option value="@warranty.Key">@warranty.Value</option>
+                    }
+                </select>
+            </div>
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.IsBeaten)</h3>
+                <select class="form-select form-select-light mb-2" asp-for="@Model.Filters.IsBeaten">
+                    <option value="@null">Не имеет значения</option>
+                    @foreach (var isBeaten in Model.Filters.IsBeatenValues)
+                    {
+                        <option value="@isBeaten.Key">@isBeaten.Value</option>
+                    }
+                </select>
+            </div>
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.IsOriginal)</h3>
+                <select class="form-select form-select-light mb-2" asp-for="@Model.Filters.IsOriginal">
+                    <option value="@null">Не имеет значения</option>
+                    @foreach (var isOriginal in Model.Filters.IsOriginalValues)
+                    {
+                        <option value="@isOriginal.Key">@isOriginal.Value</option>
+                    }
+                </select>
+            </div>
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.StatusId)</h3>
+                <select class="form-select form-select-light mb-2" asp-for="@Model.Filters.StatusId">
+                    <option value="@null">Не имеет значения</option>
+                    @foreach (var status in Model.Statuses)
+                    {
+                        <option value="@status.Id">@status.RuName</option>
+                    }
+                </select>
+            </div>
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.SectionId)</h3>
+                <select class="form-select form-select-light mb-2" asp-for="@Model.Filters.SectionId">
+                    <option value="@null">Не имеет значения</option>
+                    @foreach (var section in Model.Sections)
+                    {
+                        <option value="@(section.Id)">@(section.RuName)</option>
+                    }
+                </select>
+            </div>
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.GearTypeId)</h3>
+                <select class="form-select form-select-light mb-2" asp-for="@Model.Filters.GearTypeId">
+                    <option value="@null">Не имеет значения</option>
+                    @foreach (var gearType in Model.GearTypes)
+                    {
+                        <option value="@gearType.Id">@gearType.RuName</option>
+                    }
+                </select>
+            </div>
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.EngineTypeId)</h3>
+                <select class="form-select form-select-light mb-2" asp-for="@Model.Filters.EngineTypeId">
+                    <option value="@null">Не имеет значения</option>
+                    @foreach (var engineType in Model.EngineTypes)
+                    {
+                        <option value="@engineType.Id">@engineType.RuName</option>
+                    }
+                </select>
+            </div>
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.SellerTypeId)</h3>
+                <select class="form-select form-select-light mb-2" asp-for="@Model.Filters.SellerTypeId">
+                    <option value="@null">Не имеет значения</option>
+                    @foreach (var sellerType in Model.SellerTypes)
+                    {
+                        <option value="@sellerType.Id">@sellerType.RuName</option>
+                    }
+                </select>
+            </div>
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.TransmissionId)</h3>
+                <select class="form-select form-select-light mb-2" asp-for="@Model.Filters.TransmissionId">
+                    <option value="@null">Не имеет значения</option>
+                    @foreach (var transmission in Model.Transmissions)
+                    {
+                        <option value="@transmission.Id">@transmission.RuName</option>
+                    }
+                </select>
+            </div>
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.AvailabilityId)</h3>
+                <select class="form-select form-select-light mb-2" asp-for="@Model.Filters.AvailabilityId">
+                    <option value="@null">Не имеет значения</option>
+                    @foreach (var availability in Model.Availabilities)
+                    {
+                        <option value="@availability.Id">@availability.RuName</option>
+                    }
+                </select>
+            </div>
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.SteeringWheelId)</h3>
+                <select class="form-select form-select-light mb-2" asp-for="@Model.Filters.SteeringWheelId">
+                    <option value="@null">Не имеет значения</option>
+                    @foreach (var steeringWheel in Model.SteeringWheels)
+                    {
+                        <option value="@steeringWheel.Id">@steeringWheel.RuName</option>
+                    }
+                </select>
+            </div>
+            @*@Html.HiddenFor(model => model.Filters.Region.Id)
+            @Html.HiddenFor(model => model.Filters.Region.Name)
+            @Html.HiddenFor(model => model.Filters.Region.Latitude)
+            @Html.HiddenFor(model => model.Filters.Region.Longitude)*@
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.Region)</h3>
+                <input class="form-control form-control-light dropdown-toggle" type="search" name="Regions" placeholder="Регион" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" />
+                <div id="dropdownMenuSearchRegions" class="dropdown-menu w-100">
+
+                </div>
+            </div>
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.SearchRadius)</h3>
+                <div class="range-slider range-slider-light mb-3" data-start-min="@Model.Filters.SearchRadius" data-min="0" data-max="@Model.Filters.MaxSearchRadius" data-step="1">
+                    <div class="range-slider-ui"></div>
+                    <div class="d-flex justify-content-center">
+                        <div class="w-50 pe-2">
+                            <input class="form-control form-control-light range-slider-value-min" type="number" min="0" max="@Model.Filters.MaxSearchRadius" step="1" asp-for="@Model.Filters.SearchRadius">
+                        </div>
+                        <div class="w-25 pe-2 d-flex align-items-center justify-content-center">
+                            <span>км.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.MarksIds)</h3>
+                <div class="overflow-auto" data-simplebar data-simplebar-auto-hide="false" data-simplebar-inverse style="height: 11rem;">
+                    @foreach (var mark in Model.Marks)
+                    {
+                        <div class="form-check form-check-light">
+                            <input class="form-check-input" type="checkbox" value="@mark.Id" id="@mark.Id" name="Filters.MarksIds[]" @(Model.Filters.MarksIds.Contains(mark.Id) ? "checked" : "")>
+                            <label class="form-check-label fs-sm" for="@mark.Id">@mark.Name</label>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.ModelsIds)</h3>
+                <div class="overflow-auto" data-simplebar data-simplebar-auto-hide="false" data-simplebar-inverse style="height: 11rem;">
+                    @foreach (var model in Model.Models)
+                    {
+                        <div class="form-check form-check-light">
+                            <input class="form-check-input" type="checkbox" value="@(model.Id)" id="@(model.Id)" name="Filters.ModelsIds[]" @(Model.Filters.ModelsIds.Contains(model.Id) ? "checked" : "")>
+                            <label class="form-check-label fs-sm" for="@(model.Id)">@(model.Mark.Name) @(model.Name)</label>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.GenerationsIds)</h3>
+                <div class="overflow-auto" data-simplebar data-simplebar-auto-hide="false" data-simplebar-inverse style="height: 11rem;">
+                    @foreach (var generation in Model.Generations)
+                    {
+                        <div class="form-check form-check-light">
+                            <input class="form-check-input" type="checkbox" value="@generation.Id" id="@generation.Id" name="Filters.GenerationsIds[]" @(Model.Filters.GenerationsIds.Contains(generation.Id) ? "checked" : "")>
+                            <label class="form-check-label fs-sm" for="@generation.Id">@generation.Model.Mark.Name @generation.Model.Name @generation.Name</label>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.BodyTypeGroupsIds)</h3>
+                <div class="overflow-auto" data-simplebar data-simplebar-auto-hide="false" data-simplebar-inverse style="height: 11rem;">
+                    @foreach (var bodyTypeGroup in Model.BodyTypeGroups)
+                    {
+                        <div class="form-check form-check-light">
+                            <input class="form-check-input" type="checkbox" value="@bodyTypeGroup.Id" id="@bodyTypeGroup.Id" name="Filters.BodyTypeGroupsIds[]" @(Model.Filters.BodyTypeGroupsIds.Contains(bodyTypeGroup.Id) ? "checked" : "")>
+                            <label class="form-check-label fs-sm" for="@bodyTypeGroup.Id">@bodyTypeGroup.RuName</label>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.BodyTypesIds)</h3>
+                <div class="overflow-auto" data-simplebar data-simplebar-auto-hide="false" data-simplebar-inverse style="height: 11rem;">
+                    @foreach (var bodyType in Model.BodyTypes)
+                    {
+                        <div class="form-check form-check-light">
+                            <input class="form-check-input" type="checkbox" value="@bodyType.Id" id="@bodyType.Id" name="Filters.BodyTypesIds[]" @(Model.Filters.BodyTypesIds.Contains(bodyType.Id) ? "checked" : "")>
+                            <label class="form-check-label fs-sm" for="@bodyType.Id">@bodyType.BodyTypeGroup.RuName - @bodyType.RuName</label>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.ColorsIds)</h3>
+                <div class="overflow-auto" data-simplebar data-simplebar-auto-hide="false" data-simplebar-inverse style="height: 11rem;">
+                    @foreach (var color in Model.Colors)
+                    {
+                        <div class="form-check form-check-light">
+                            <input class="form-check-input" type="checkbox" value="@color.Id" id="@color.Id" name="Filters.ColorsIds[]" @(Model.Filters.ColorsIds.Contains(color.Id) ? "checked" : "")>
+                            <img width="25" height="25" style="background-color: #@color.Value;" />
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.VendorsIds)</h3>
+                <div class="overflow-auto" data-simplebar data-simplebar-auto-hide="false" data-simplebar-inverse style="height: 11rem;">
+                    @foreach (var vendor in Model.Vendors)
+                    {
+                        <div class="form-check form-check-light">
+                            <input class="form-check-input" type="checkbox" value="@vendor.Id" id="@vendor.Id" name="Filters.VendorsIds[]" @(Model.Filters.VendorsIds.Contains(vendor.Id) ? "checked" : "")>
+                            <label class="form-check-label fs-sm" for="@vendor.Id">@vendor.RuName</label>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.TagsIds)</h3>
+                <div class="overflow-auto" data-simplebar data-simplebar-auto-hide="false" data-simplebar-inverse style="height: 11rem;">
+                    @foreach (var tag in Model.Tags)
+                    {
+                        <div class="form-check form-check-light">
+                            <input class="form-check-input" type="checkbox" value="@tag.Id" id="@tag.Id" name="Filters.TagsIds[]" @(Model.Filters.TagsIds.Contains(tag.Id) ? "checked" : "")>
+                            <label class="form-check-label fs-sm" for="@tag.Id">@tag.RuName</label>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.OptionsIds)</h3>
+                <div class="overflow-auto" data-simplebar data-simplebar-auto-hide="false" data-simplebar-inverse style="height: 11rem;">
+                    @foreach (var option in Model.Options)
+                    {
+                        <div class="form-check form-check-light">
+                            <input class="form-check-input" type="checkbox" value="@option.Id" id="@option.Id" name="Filters.OptionsIds[]" @(Model.Filters.OptionsIds.Contains(option.Id) ? "checked" : "")>
+                            <label class="form-check-label fs-sm" for="@option.Id">@option.RuName</label>
+                        </div>
+                    }
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.Filters.RangeYear.Min)
+            @Html.HiddenFor(model => model.Filters.RangeYear.Max)
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.RangeYear)</h3>
+                <div class="range-slider range-slider-light" data-start-min="@Model.Filters.RangeYear.From" data-start-max="@Model.Filters.RangeYear.To" data-min="@Model.Filters.RangeYear.Min" data-max="@Model.Filters.RangeYear.Max" data-step="1">
+                    <div class="range-slider-ui"></div>
+                    <div class="d-flex align-items-center">
+                        <div class="w-50 pe-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-min" type="number" min="@Model.Filters.RangeYear.Min" max="@Model.Filters.RangeYear.Max" step="1" asp-for="@Model.Filters.RangeYear.From">
+                            </div>
+                        </div>
+                        <div class="text-muted">&mdash;</div>
+                        <div class="w-50 ps-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-max" type="number" min="@Model.Filters.RangeYear.Min" max="@Model.Filters.RangeYear.Max" step="1" asp-for="@Model.Filters.RangeYear.To">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.Filters.RangePower.Min)
+            @Html.HiddenFor(model => model.Filters.RangePower.Max)
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.RangePower)</h3>
+                <div class="range-slider range-slider-light" data-start-min="@Model.Filters.RangePower.From" data-start-max="@Model.Filters.RangePower.To" data-min="@Model.Filters.RangePower.Min" data-max="@Model.Filters.RangePower.Max" data-step="1">
+                    <div class="range-slider-ui"></div>
+                    <div class="d-flex align-items-center">
+                        <div class="w-50 pe-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-min" type="number" min="@Model.Filters.RangePower.Min" max="@Model.Filters.RangePower.Max" step="1" asp-for="@Model.Filters.RangePower.From">
+                            </div>
+                        </div>
+                        <div class="text-muted">&mdash;</div>
+                        <div class="w-50 ps-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-max" type="number" min="@Model.Filters.RangePower.Min" max="@Model.Filters.RangePower.Max" step="1" asp-for="@Model.Filters.RangePower.To">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.Filters.RangePrice.Min)
+            @Html.HiddenFor(model => model.Filters.RangePrice.Max)
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.RangePrice)</h3>
+                <div class="range-slider range-slider-light" data-start-min="@Model.Filters.RangePrice.From" data-start-max="@Model.Filters.RangePrice.To" data-min="@Model.Filters.RangePrice.Min" data-max="@Model.Filters.RangePrice.Max" data-step="1">
+                    <div class="range-slider-ui"></div>
+                    <div class="d-flex align-items-center">
+                        <div class="w-50 pe-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-min" type="number" min="@Model.Filters.RangePrice.Min" max="@Model.Filters.RangePrice.Max" step="1" asp-for="@Model.Filters.RangePrice.From">
+                            </div>
+                        </div>
+                        <div class="text-muted">&mdash;</div>
+                        <div class="w-50 ps-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-max" type="number" min="@Model.Filters.RangePrice.Min" max="@Model.Filters.RangePrice.Max" step="1" asp-for="@Model.Filters.RangePrice.To">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.Filters.RangeMileage.Min)
+            @Html.HiddenFor(model => model.Filters.RangeMileage.Max)
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.RangeMileage)</h3>
+                <div class="range-slider range-slider-light" data-start-min="@Model.Filters.RangeMileage.From" data-start-max="@Model.Filters.RangeMileage.To" data-min="@Model.Filters.RangeMileage.Min" data-max="@Model.Filters.RangeMileage.Max" data-step="1">
+                    <div class="range-slider-ui"></div>
+                    <div class="d-flex align-items-center">
+                        <div class="w-50 pe-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-min" type="number" min="@Model.Filters.RangeMileage.Min" max="@Model.Filters.RangeMileage.Max" step="1" asp-for="@Model.Filters.RangeMileage.From">
+                            </div>
+                        </div>
+                        <div class="text-muted">&mdash;</div>
+                        <div class="w-50 ps-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-max" type="number" min="@Model.Filters.RangeMileage.Min" max="@Model.Filters.RangeMileage.Max" step="1" asp-for="@Model.Filters.RangeMileage.To">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.Filters.RangePowerKvt.Min)
+            @Html.HiddenFor(model => model.Filters.RangePowerKvt.Max)
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.RangePowerKvt)</h3>
+                <div class="range-slider range-slider-light" data-start-min="@Model.Filters.RangePowerKvt.From" data-start-max="@Model.Filters.RangePowerKvt.To" data-min="@Model.Filters.RangePowerKvt.Min" data-max="@Model.Filters.RangePowerKvt.Max" data-step="1">
+                    <div class="range-slider-ui"></div>
+                    <div class="d-flex align-items-center">
+                        <div class="w-50 pe-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-min" type="number" min="@Model.Filters.RangePowerKvt.Min" max="@Model.Filters.RangePowerKvt.Max" step="1" asp-for="@Model.Filters.RangePowerKvt.From">
+                            </div>
+                        </div>
+                        <div class="text-muted">&mdash;</div>
+                        <div class="w-50 ps-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-max" type="number" min="@Model.Filters.RangePowerKvt.Min" max="@Model.Filters.RangePowerKvt.Max" step="1" asp-for="@Model.Filters.RangePowerKvt.To">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.Filters.RangeFuelRate.Min)
+            @Html.HiddenFor(model => model.Filters.RangeFuelRate.Max)
+            @Html.HiddenFor(model => model.Filters.RangeFuelRate.From)
+            @Html.HiddenFor(model => model.Filters.RangeFuelRate.To)
+            @*<div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.RangeFuelRate)</h3>
+                <div class="range-slider range-slider-light" data-start-min="@Model.Filters.RangeFuelRate.From" data-start-max="@Model.Filters.RangeFuelRate.To" data-min="@Model.Filters.RangeFuelRate.Min" data-max="@Model.Filters.RangeFuelRate.Max" data-step="0.01">
+                    <div class="range-slider-ui"></div>
+                    <div class="d-flex align-items-center">
+                        <div class="w-50 pe-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-min" type="number" min="@Model.Filters.RangeFuelRate.Min" max="@Model.Filters.RangeFuelRate.Max" step="0.01" asp-for="@Model.Filters.RangeFuelRate.From">
+                            </div>
+                        </div>
+                        <div class="text-muted">&mdash;</div>
+                        <div class="w-50 ps-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-max" type="number" min="@Model.Filters.RangeFuelRate.Min" max="@Model.Filters.RangeFuelRate.Max" step="0.01" asp-for="@Model.Filters.RangeFuelRate.To">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+            @Html.HiddenFor(model => model.Filters.RangeCreatedAt.From)
+            @Html.HiddenFor(model => model.Filters.RangeCreatedAt.To)
+            @Html.HiddenFor(model => model.Filters.RangeCreatedAt.Min)
+            @Html.HiddenFor(model => model.Filters.RangeCreatedAt.Max)
+            @*<div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.RangeCreatedAt)</h3>
+                    <input class="form-control date-picker mb-2" type="text" placeholder="От" name="Filters.RangeCreatedAt.From" data-datepicker-options='{"altInput": false, "altFormat": "d-m-Y", "dateFormat": "d-m-Y", "minDate": "@Model.Filters.RangeCreatedAt.Min.ToString("dd-MM-yyyy")", "maxDate": "@Model.Filters.RangeCreatedAt.Max.ToString("dd-MM-yyyy")"}' data-linked-input="#end-date">
+                    <input class="form-control date-picker mb-1" type="text" placeholder="До" name="Filters.RangeCreatedAt.To" data-datepicker-options='{"altInput": false, "altFormat": "d-m-Y", "dateFormat": "d-m-Y", "minDate": "@Model.Filters.RangeCreatedAt.Min.ToString("dd-MM-yyyy")", "maxDate": "@Model.Filters.RangeCreatedAt.Max.ToString("dd-MM-yyyy")"}' id="end-date">
+            </div>*@
+            @Html.HiddenFor(model => model.Filters.RangeDoorsCount.Min)
+            @Html.HiddenFor(model => model.Filters.RangeDoorsCount.Max)
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.RangeDoorsCount)</h3>
+                <div class="range-slider range-slider-light" data-start-min="@Model.Filters.RangeDoorsCount.From" data-start-max="@Model.Filters.RangeDoorsCount.To" data-min="@Model.Filters.RangeDoorsCount.Min" data-max="@Model.Filters.RangeDoorsCount.Max" data-step="1">
+                    <div class="range-slider-ui"></div>
+                    <div class="d-flex align-items-center">
+                        <div class="w-50 pe-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-min" type="number" min="@Model.Filters.RangeDoorsCount.Min" max="@Model.Filters.RangeDoorsCount.Max" step="1" asp-for="@Model.Filters.RangeDoorsCount.From">
+                            </div>
+                        </div>
+                        <div class="text-muted">&mdash;</div>
+                        <div class="w-50 ps-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-max" type="number" min="@Model.Filters.RangeDoorsCount.Min" max="@Model.Filters.RangeDoorsCount.Max" step="1" asp-for="@Model.Filters.RangeDoorsCount.To">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.Filters.RangeOwnersNumber.Min)
+            @Html.HiddenFor(model => model.Filters.RangeOwnersNumber.Max)
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.RangeOwnersNumber)</h3>
+                <div class="range-slider range-slider-light" data-start-min="@Model.Filters.RangeOwnersNumber.From" data-start-max="@Model.Filters.RangeOwnersNumber.To" data-min="@Model.Filters.RangeOwnersNumber.Min" data-max="@Model.Filters.RangeOwnersNumber.Max" data-step="1">
+                    <div class="range-slider-ui"></div>
+                    <div class="d-flex align-items-center">
+                        <div class="w-50 pe-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-min" type="number" min="@Model.Filters.RangeOwnersNumber.Min" max="@Model.Filters.RangeOwnersNumber.Max" step="1" asp-for="@Model.Filters.RangeOwnersNumber.From">
+                            </div>
+                        </div>
+                        <div class="text-muted">&mdash;</div>
+                        <div class="w-50 ps-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-max" type="number" min="@Model.Filters.RangeOwnersNumber.Min" max="@Model.Filters.RangeOwnersNumber.Max" step="1" asp-for="@Model.Filters.RangeOwnersNumber.To">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.Filters.RangeAcceleration.Min)
+            @Html.HiddenFor(model => model.Filters.RangeAcceleration.Max)
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.RangeAcceleration)</h3>
+                <div class="range-slider range-slider-light" data-start-min="@Model.Filters.RangeAcceleration.From" data-start-max="@Model.Filters.RangeAcceleration.To" data-min="@Model.Filters.RangeAcceleration.Min" data-max="@Model.Filters.RangeAcceleration.Max" data-step="0.01">
+                    <div class="range-slider-ui"></div>
+                    <div class="d-flex align-items-center">
+                        <div class="w-50 pe-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-min" type="number" min="@Model.Filters.RangeAcceleration.Min" max="@Model.Filters.RangeAcceleration.Max" step="0.01" asp-for="@Model.Filters.RangeAcceleration.From">
+                            </div>
+                        </div>
+                        <div class="text-muted">&mdash;</div>
+                        <div class="w-50 ps-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-max" type="number" min="@Model.Filters.RangeAcceleration.Min" max="@Model.Filters.RangeAcceleration.Max" step="0.01" asp-for="@Model.Filters.RangeAcceleration.To">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.Filters.RangeDisplacement.Min)
+            @Html.HiddenFor(model => model.Filters.RangeDisplacement.Max)
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.RangeDisplacement)</h3>
+                <div class="range-slider range-slider-light" data-start-min="@Model.Filters.RangeDisplacement.From" data-start-max="@Model.Filters.RangeDisplacement.To" data-min="@Model.Filters.RangeDisplacement.Min" data-max="@Model.Filters.RangeDisplacement.Max" data-step="1">
+                    <div class="range-slider-ui"></div>
+                    <div class="d-flex align-items-center">
+                        <div class="w-50 pe-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-min" type="number" min="@Model.Filters.RangeDisplacement.Min" max="@Model.Filters.RangeDisplacement.Max" step="1" asp-for="@Model.Filters.RangeDisplacement.From">
+                            </div>
+                        </div>
+                        <div class="text-muted">&mdash;</div>
+                        <div class="w-50 ps-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-max" type="number" min="@Model.Filters.RangeDisplacement.Min" max="@Model.Filters.RangeDisplacement.Max" step="1" asp-for="@Model.Filters.RangeDisplacement.To">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.Filters.RangeClearanceMin.Min)
+            @Html.HiddenFor(model => model.Filters.RangeClearanceMin.Max)
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.RangeClearanceMin)</h3>
+                <div class="range-slider range-slider-light" data-start-min="@Model.Filters.RangeClearanceMin.From" data-start-max="@Model.Filters.RangeClearanceMin.To" data-min="@Model.Filters.RangeClearanceMin.Min" data-max="@Model.Filters.RangeClearanceMin.Max" data-step="1">
+                    <div class="range-slider-ui"></div>
+                    <div class="d-flex align-items-center">
+                        <div class="w-50 pe-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-min" type="number" min="@Model.Filters.RangeClearanceMin.Min" max="@Model.Filters.RangeClearanceMin.Max" step="1" asp-for="@Model.Filters.RangeClearanceMin.From">
+                            </div>
+                        </div>
+                        <div class="text-muted">&mdash;</div>
+                        <div class="w-50 ps-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-max" type="number" min="@Model.Filters.RangeClearanceMin.Min" max="@Model.Filters.RangeClearanceMin.Max" step="1" asp-for="@Model.Filters.RangeClearanceMin.To">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.Filters.RangeTrunkVolumeMin.Min)
+            @Html.HiddenFor(model => model.Filters.RangeTrunkVolumeMin.Max)
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.RangeTrunkVolumeMin)</h3>
+                <div class="range-slider range-slider-light" data-start-min="@Model.Filters.RangeTrunkVolumeMin.From" data-start-max="@Model.Filters.RangeTrunkVolumeMin.To" data-min="@Model.Filters.RangeTrunkVolumeMin.Min" data-max="@Model.Filters.RangeTrunkVolumeMin.Max" data-step="0.01">
+                    <div class="range-slider-ui"></div>
+                    <div class="d-flex align-items-center">
+                        <div class="w-50 pe-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-min" type="number" min="@Model.Filters.RangeTrunkVolumeMin.Min" max="@Model.Filters.RangeTrunkVolumeMin.Max" step="0.01" asp-for="@Model.Filters.RangeTrunkVolumeMin.From">
+                            </div>
+                        </div>
+                        <div class="text-muted">&mdash;</div>
+                        <div class="w-50 ps-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-max" type="number" min="@Model.Filters.RangeTrunkVolumeMin.Min" max="@Model.Filters.RangeTrunkVolumeMin.Max" step="0.01" asp-for="@Model.Filters.RangeTrunkVolumeMin.To">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.Filters.RangeTrunkVolumeMax.Min)
+            @Html.HiddenFor(model => model.Filters.RangeTrunkVolumeMax.Max)
+            <div class="pb-4 mb-2">
+                <h3 class="h6 text-light">@Html.DisplayNameFor(model => model.Filters.RangeTrunkVolumeMax)</h3>
+                <div class="range-slider range-slider-light" data-start-min="@Model.Filters.RangeTrunkVolumeMax.From" data-start-max="@Model.Filters.RangeTrunkVolumeMax.To" data-min="@Model.Filters.RangeTrunkVolumeMax.Min" data-max="@Model.Filters.RangeTrunkVolumeMax.Max" data-step="0.01">
+                    <div class="range-slider-ui"></div>
+                    <div class="d-flex align-items-center">
+                        <div class="w-50 pe-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-min" type="number" min="@Model.Filters.RangeTrunkVolumeMax.Min" max="@Model.Filters.RangeTrunkVolumeMax.Max" step="0.01" asp-for="@Model.Filters.RangeTrunkVolumeMax.From">
+                            </div>
+                        </div>
+                        <div class="text-muted">&mdash;</div>
+                        <div class="w-50 ps-2">
+                            <div class="input-group">
+                                <input class="form-control range-slider-value-max" type="number" min="@Model.Filters.RangeTrunkVolumeMax.Min" max="@Model.Filters.RangeTrunkVolumeMax.Max" step="0.01" asp-for="@Model.Filters.RangeTrunkVolumeMax.To">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pb-4 mb-2">
+                <a asp-area="" asp-controller="Catalog" asp-action="Index">
+                    <button type="button" class="btn btn-primary d-block w-100" value="Сбросить">
+                        Сбросить
+                    </button>
+                </a>
+            </div>
+            <div class="pb-4 mb-2">
+                <button type="button" class="btn btn-primary d-block w-100" value="Найти">
+                    Найти
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

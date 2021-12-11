@@ -1,6 +1,7 @@
 ﻿using CatalogCars.Model.Database.AuxiliaryTypes;
 using CatalogCars.Model.Database.Entities;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CatalogCars.Model.Database.Repositories.Default.Abstract
@@ -24,6 +25,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
         IQueryable<string> GetNamesGenerations(string searchString);
 
         IQueryable<Generation> GetGenerations(GenerationsFilters filters);
+
+        IQueryable<Generation> GetGenerationsOfModels(List<Guid> modelsIds);
 
         IQueryable<Generation> GetGenerationsOfModels(GenerationsFilters filters);
 

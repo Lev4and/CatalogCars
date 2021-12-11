@@ -74,6 +74,13 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .AsNoTracking();
         }
 
+        public IQueryable<Tag> GetTags()
+        {
+            return _context.Tags
+                .OrderBy(tag => tag.RuName)
+                .AsNoTracking();
+        }
+
         public bool SaveTag(Tag tag)
         {
             if (tag.Id == default)

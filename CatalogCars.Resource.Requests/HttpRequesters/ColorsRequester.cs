@@ -47,6 +47,21 @@ namespace CatalogCars.Resource.Requests.HttpRequesters
             return new string[0];
         }
 
+        public async Task<Color[]> GetColorsAsync()
+        {
+            var resultStream = await _responseLoader.GetStreamFromGetColorsResponseAsync();
+
+            if (resultStream != null)
+            {
+                using (var stream = new StreamReader(resultStream))
+                {
+                    return JsonConvert.DeserializeObject<Color[]>(await stream.ReadToEndAsync());
+                }
+            }
+
+            return new Color[0];
+        }
+
         public async Task<Color[]> GetColorsAsync(ColorsFilters filters)
         {
             var resultStream = await _responseLoader.GetStreamFromGetColorsResponseAsync(filters);

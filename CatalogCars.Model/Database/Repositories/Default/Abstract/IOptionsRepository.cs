@@ -17,6 +17,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
 
         IQueryable<string> GetNamesOptions(string searchString);
 
+        IQueryable<Option> GetOptions();
+
         IQueryable<Option> GetOptions(OptionsFilters filters);
 
         void DeleteOption(Guid id);

@@ -1,6 +1,7 @@
 ﻿using CatalogCars.Model.Database.AuxiliaryTypes;
 using CatalogCars.Model.Database.Entities;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CatalogCars.Model.Database.Repositories.Default.Abstract
@@ -20,6 +21,8 @@ namespace CatalogCars.Model.Database.Repositories.Default.Abstract
         BodyType GetBodyType(Guid id);
 
         IQueryable<BodyType> GetBodyTypes(BodyTypesFilters filters);
+
+        IQueryable<BodyType> GetBodyTypesOfBodyTypeGroups(List<Guid> bodyTypeGroupsIds);
 
         IQueryable<BodyType> GetBodyTypesOfBodyTypeGroups(BodyTypesFilters filters);
 

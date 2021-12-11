@@ -3,7 +3,7 @@
 }
 @section StylePage
 {
-    <link rel="stylesheet" media="screen" href="~/vendor/nouislider/dist/nouislider.min.css" asp-append-version="true" />
+
 }
 <!-- Page content -->
 @await Html.PartialAsync("_SearchForm")
@@ -17,7 +17,6 @@
 @await Html.PartialAsync("_LatestNews")
 @section ScriptPage
 {
-    <script src="~/vendor/nouislider/dist/nouislider.min.js" asp-append-version="true"></script>
     <script type="text/javascript" asp-append-version="true">
         $('input[type="search"][name="Generations"]').on('input', function (e) {
             $.ajax({

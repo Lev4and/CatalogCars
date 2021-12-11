@@ -34,6 +34,13 @@ namespace CatalogCars.Resource.Api.Controllers
             return Ok(_dataManager.Colors.GetNamesColors(searchString).ToArray());
         }
 
+        [HttpGet]
+        [ProducesResponseType(typeof(Color[]), 200)]
+        public IActionResult Index()
+        {
+            return Ok(_dataManager.Colors.GetColors().ToArray());
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(Color[]), 200)]
         public IActionResult Index([FromBody] ColorsFilters filters)

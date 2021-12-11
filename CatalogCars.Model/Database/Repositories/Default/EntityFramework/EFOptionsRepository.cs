@@ -74,6 +74,13 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .AsNoTracking();
         }
 
+        public IQueryable<Option> GetOptions()
+        {
+            return _context.Options
+                .OrderBy(option => option.RuName)
+                .AsNoTracking();
+        }
+
         public bool SaveOption(Option option)
         {
             if(option.Id == default)

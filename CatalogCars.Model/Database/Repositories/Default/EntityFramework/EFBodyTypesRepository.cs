@@ -82,6 +82,17 @@ namespace CatalogCars.Model.Database.Repositories.Default.EntityFramework
                 .AsNoTracking();
         }
 
+        public IQueryable<BodyType> GetBodyTypesOfBodyTypeGroups(List<Guid> bodyTypeGroupsIds)
+        {
+            return _context.BodyTypes
+                .Include(bodyType => bodyType.BodyTypeGroup)
+                .Where(bodyType => (bodyTypeGroupsIds.Count > 0 ? bodyTypeGroupsIds.Contains(bodyType.BodyTypeGroupId) : false))
+                .OrderBy(bodyType => bodyType.BodyTypeGroup.AutoClass)
+                    .ThenBy(bodyType => bodyType.BodyTypeGroup.RuName)
+                        .ThenBy(bodyType => bodyType.RuName)
+                .AsNoTracking();
+        }
+
         public int GetCountBodyTypes(BodyTypesFilters filters)
         {
             return _context.BodyTypes

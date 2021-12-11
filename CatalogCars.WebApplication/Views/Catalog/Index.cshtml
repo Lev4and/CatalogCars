@@ -1,0 +1,100 @@
+﻿@model CatalogViewModel
+@{
+    ViewData["Title"] = "Каталог";
+}
+@section StylePage
+{
+    <link rel="stylesheet" media="screen" href="~/vendor/nouislider/dist/nouislider.min.css" asp-append-version="true" />
+    <link rel="stylesheet" media="screen" href="~/vendor/flatpickr/dist/flatpickr.min.css" asp-append-version="true" />
+}
+<!-- Page content -->
+<!-- Page container -->
+<div class="container mt-5 mb-md-4 py-5">
+    <div class="row py-md-1">
+        <!-- Filers sidebar (Offcanvas on mobile) -->
+        <div id="filersSidebarContainer" class="col-lg-3 pe-xl-4">
+            @await Html.PartialAsync("_FilersSidebar", Model)
+        </div>
+        <!-- Catalog list view -->
+        <div id="listViewContainer" class="col-lg-9">
+            @await Html.PartialAsync("_ListView", Model)
+        </div>
+    </div>
+</div>
+@section SidebarToggleButton
+{
+    <!-- Filters sidebar toggle button (mobile) -->
+    <button class="btn btn-primary btn-sm w-100 rounded-0 fixed-bottom d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#filters-sidebar">
+        <i class="fi-filter me-2"></i>Filters
+    </button>
+}
+@section ScriptPage
+{
+    <script src="~/vendor/nouislider/dist/nouislider.min.js" asp-append-version="true"></script>
+    <script src="~/vendor/flatpickr/dist/flatpickr.min.js" asp-append-version="true"></script>
+    <script src="~/vendor/flatpickr/dist/plugins/rangePlugin.js" asp-append-version="true"></script>
+    <script type="text/javascript" asp-append-version="true">
+        setEventListenerForRegionsFilter();
+        setEventListenerForSearchButton();
+        setEventListenerForPageItems();
+
+        function sendFiltersData() {
+            $.ajax({
+                method: 'POST',
+                url: '/Catalog',
+                data: $('#form').serialize(),
+                success: function (data) {
+                    $('div#listViewContainer').html();
+                    $('div#listViewContainer').html(data);
+
+                    setEventListenerForPageItems();
+                }
+            })
+        }
+
+        function setPageNumber(pageNumber) {
+            $('input[type="hidden"][name="Filters.NumberPage"]').val(pageNumber);
+        }
+
+        function setEventListenerForRegionsFilter() {
+            $('input[type="search"][name="Regions"]').on('input', function (e) {
+                $.ajax({
+                    url: '/Regions',
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: JSON.stringify($(this).val()),
+                    success: function (data) {
+                        $('#dropdownMenuSearchRegions').html();
+                        $('#dropdownMenuSearchRegions').html(data.map(region => {
+                            return `<a class="dropdown-item">${region}</a>`;
+                        }).join(''));
+
+                        $('#dropdownMenuSearchRegions').children('a.dropdown-item').each(function () {
+                            $(this).on('click', function () {
+                                $('input[type="search"][name="Regions"]').val($(this).text());
+                            });
+                        });
+                    }
+                });
+            });
+        }
+
+        function setEventListenerForSearchButton() {
+            $('button[value="Найти"]').on('click', function () {
+                setPageNumber(1);
+                sendFiltersData();
+            });
+        }
+
+        function setEventListenerForPageItems() {
+            $('ul.pagination > li.page-item:not([aria-current])').each(function () {
+                $(this).on('click', function () {
+                    setPageNumber($(this).attr('data-page-number'));
+                    sendFiltersData();
+                });
+            });
+        }
+    </script>
+}

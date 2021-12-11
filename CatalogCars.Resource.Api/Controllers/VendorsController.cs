@@ -34,6 +34,13 @@ namespace CatalogCars.Resource.Api.Controllers
             return Ok(_dataManager.Vendors.GetNamesVendors(searchString).ToArray());
         }
 
+        [HttpGet]
+        [ProducesResponseType(typeof(Vendor[]), 200)]
+        public IActionResult Index()
+        {
+            return Ok(_dataManager.Vendors.GetVendors().ToArray());
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(Vendor[]), 200)]
         public IActionResult Index([FromBody] VendorsFilters filters)
